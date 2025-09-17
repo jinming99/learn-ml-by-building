@@ -192,88 +192,161 @@
     ]
   },
   {
-    "objectID": "lectures/03-linear.html",
-    "href": "lectures/03-linear.html",
-    "title": "Lecture 3: Linear Regression",
+    "objectID": "lectures/04-optimization.html",
+    "href": "lectures/04-optimization.html",
+    "title": "Lecture 4: Gradient Descent and Optimization",
     "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L3: Linear Regression"
+      "L4: Gradient Descent and Optimization"
     ]
   },
   {
-    "objectID": "lectures/03-linear.html#overview",
-    "href": "lectures/03-linear.html#overview",
-    "title": "Lecture 3: Linear Regression",
+    "objectID": "lectures/04-optimization.html#overview",
+    "href": "lectures/04-optimization.html#overview",
+    "title": "Lecture 4: Gradient Descent and Optimization",
     "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L3: Linear Regression"
+      "L4: Gradient Descent and Optimization"
     ]
   },
   {
-    "objectID": "lectures/03-linear.html#learning-objectives",
-    "href": "lectures/03-linear.html#learning-objectives",
-    "title": "Lecture 3: Linear Regression",
+    "objectID": "lectures/04-optimization.html#learning-objectives",
+    "href": "lectures/04-optimization.html#learning-objectives",
+    "title": "Lecture 4: Gradient Descent and Optimization",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFormulate optimization problems in machine learning\nImplement gradient descent from scratch with proper numerical stability\nMaster the critical importance of data standardization\nCompare batch, stochastic, and mini-batch gradient descent variants\nDiagnose and fix gradient explosion/vanishing problems\nApply modern optimizers (Adam, SGD with momentum) effectively",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L3: Linear Regression"
+      "L4: Gradient Descent and Optimization"
     ]
   },
   {
-    "objectID": "lectures/03-linear.html#materials",
-    "href": "lectures/03-linear.html#materials",
-    "title": "Lecture 3: Linear Regression",
+    "objectID": "lectures/04-optimization.html#materials",
+    "href": "lectures/04-optimization.html#materials",
+    "title": "Lecture 4: Gradient Descent and Optimization",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L3: Linear Regression"
+      "L4: Gradient Descent and Optimization"
     ]
   },
   {
-    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
-    "href": "lectures/03-linear.html#datasets-acknowledgments",
-    "title": "Lecture 3: Linear Regression",
+    "objectID": "lectures/04-optimization.html#key-concepts-highlights",
+    "href": "lectures/04-optimization.html#key-concepts-highlights",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Key Concepts & Highlights",
+    "text": "Key Concepts & Highlights\n\nInteractive Line Fitting Game Start by manually adjusting weights and biases to minimize loss. This hands-on experience builds intuition for what gradient descent automates—finding the lowest point in the loss landscape.\nThe #1 Pitfall: Data Standardization Learn why unstandardized data causes gradient explosion and how proper preprocessing prevents this. We’ll demonstrate why gradients scale with data magnitude and provide diagnostic tools to catch this early.\nThree Flavors of SGD Compare batch, stochastic, and mini-batch gradient descent side-by-side. Understand the speed vs. accuracy trade-offs and why mini-batch has become the industry standard.\nDebugging Toolkit Master systematic debugging with our gradient diagnostic dashboard that detects vanishing/exploding gradients, loss plateaus, and oscillations—complete with suggested fixes for each problem.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#datasets-acknowledgments",
+    "href": "lectures/04-optimization.html#datasets-acknowledgments",
+    "title": "Lecture 4: Gradient Descent and Optimization",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
+    "text": "Datasets & Acknowledgments\n\nCalifornia Housing Dataset\n\nSource: Scikit-learn California housing dataset- Why This Dataset: Strong income–price correlation makes it perfect for demonstrating optimization concepts while being complex enough to show real challenges\n\n\nPrevious: ← Lecture 3: Linear Regression | Next: Lecture 5: Probabilistic Classification",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L3: Linear Regression"
+      "L4: Gradient Descent and Optimization"
     ]
   },
   {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Course Schedule",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Machine Learning: Learn by Building",
     "section": "",
-    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
+    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
+  },
+  {
+    "objectID": "index.html#course-philosophy",
+    "href": "index.html#course-philosophy",
+    "title": "Machine Learning: Learn by Building",
+    "section": "",
+    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "Machine Learning: Learn by Building",
+    "section": "Getting Started",
+    "text": "Getting Started\n\nSet up your environment → Setup Guide\nJoin Piazza for discussions and announcements\nReview the syllabus → Course Policies\nCheck the schedule → Week-by-Week"
+  },
+  {
+    "objectID": "index.html#course-team",
+    "href": "index.html#course-team",
+    "title": "Machine Learning: Learn by Building",
+    "section": "Course Team",
+    "text": "Course Team\nInstructor: Ming Jin\nEmail: jinming@vt.edu\n\n\n\n\n\n\n\n\n\nTeaching Assistant\nLocation\nOffice Hours\nEmail\n\n\n\n\nSherawat, Kamal\nWhittemore 256\nTue/Thu 11:00 AM–12:00 Noon\nkamals@vt.edu\n\n\nNere, Darshan\nWhittemore 256\nTue/Thu 3:00–4:00 PM\ndarshannere@vt.edu"
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Course Syllabus",
+    "section": "",
+    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
     "crumbs": [
       "Home",
       "Course Info",
-      "Schedule"
+      "Syllabus"
     ]
   },
   {
-    "objectID": "schedule.html#week-by-week-schedule",
-    "href": "schedule.html#week-by-week-schedule",
-    "title": "Course Schedule",
+    "objectID": "syllabus.html#official-syllabus",
+    "href": "syllabus.html#official-syllabus",
+    "title": "Course Syllabus",
     "section": "",
-    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
+    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
     "crumbs": [
       "Home",
       "Course Info",
-      "Schedule"
+      "Syllabus"
     ]
+  },
+  {
+    "objectID": "syllabus.html#capstone-project-rubrics",
+    "href": "syllabus.html#capstone-project-rubrics",
+    "title": "Course Syllabus",
+    "section": "Capstone Project Rubrics",
+    "text": "Capstone Project Rubrics\nRubrics for the capstone project are available here:\n\nCapstone Rubrics (Google Doc): https://docs.google.com/document/d/19t7HrBbnLVrmRtOs5qiSXxERDdMcxxKG-LZQqSTZmJs/edit?usp=sharing\n\nIf you need a printable or offline copy, use File → Download in Google Docs.",
+    "crumbs": [
+      "Home",
+      "Course Info",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
+  },
+  {
+    "objectID": "resources.html#software-tools",
+    "href": "resources.html#software-tools",
+    "title": "Resources",
+    "section": "",
+    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
+  },
+  {
+    "objectID": "resources.html#documentation",
+    "href": "resources.html#documentation",
+    "title": "Resources",
+    "section": "Documentation",
+    "text": "Documentation\n\nNumPy Documentation\nPyTorch Tutorials\nfast.ai — inspiration for our practical, project-first teaching approach\nScikit-learn User Guide"
   },
   {
     "objectID": "projects/project1.html",
@@ -420,160 +493,147 @@
     ]
   },
   {
-    "objectID": "resources.html",
-    "href": "resources.html",
-    "title": "Resources",
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Course Schedule",
     "section": "",
-    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
-  },
-  {
-    "objectID": "resources.html#software-tools",
-    "href": "resources.html#software-tools",
-    "title": "Resources",
-    "section": "",
-    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
-  },
-  {
-    "objectID": "resources.html#documentation",
-    "href": "resources.html#documentation",
-    "title": "Resources",
-    "section": "Documentation",
-    "text": "Documentation\n\nNumPy Documentation\nPyTorch Tutorials\nfast.ai — inspiration for our practical, project-first teaching approach\nScikit-learn User Guide"
-  },
-  {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Course Syllabus",
-    "section": "",
-    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
+    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
     "crumbs": [
       "Home",
       "Course Info",
-      "Syllabus"
+      "Schedule"
     ]
   },
   {
-    "objectID": "syllabus.html#official-syllabus",
-    "href": "syllabus.html#official-syllabus",
-    "title": "Course Syllabus",
+    "objectID": "schedule.html#week-by-week-schedule",
+    "href": "schedule.html#week-by-week-schedule",
+    "title": "Course Schedule",
     "section": "",
-    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
+    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
     "crumbs": [
       "Home",
       "Course Info",
-      "Syllabus"
+      "Schedule"
     ]
   },
   {
-    "objectID": "syllabus.html#capstone-project-rubrics",
-    "href": "syllabus.html#capstone-project-rubrics",
-    "title": "Course Syllabus",
-    "section": "Capstone Project Rubrics",
-    "text": "Capstone Project Rubrics\nRubrics for the capstone project are available here:\n\nCapstone Rubrics (Google Doc): https://docs.google.com/document/d/19t7HrBbnLVrmRtOs5qiSXxERDdMcxxKG-LZQqSTZmJs/edit?usp=sharing\n\nIf you need a printable or offline copy, use File → Download in Google Docs.",
-    "crumbs": [
-      "Home",
-      "Course Info",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Machine Learning: Learn by Building",
+    "objectID": "lectures/03-linear.html",
+    "href": "lectures/03-linear.html",
+    "title": "Lecture 3: Linear Regression",
     "section": "",
-    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
-  },
-  {
-    "objectID": "index.html#course-philosophy",
-    "href": "index.html#course-philosophy",
-    "title": "Machine Learning: Learn by Building",
-    "section": "",
-    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
-  },
-  {
-    "objectID": "index.html#getting-started",
-    "href": "index.html#getting-started",
-    "title": "Machine Learning: Learn by Building",
-    "section": "Getting Started",
-    "text": "Getting Started\n\nSet up your environment → Setup Guide\nJoin Piazza for discussions and announcements\nReview the syllabus → Course Policies\nCheck the schedule → Week-by-Week"
-  },
-  {
-    "objectID": "index.html#course-team",
-    "href": "index.html#course-team",
-    "title": "Machine Learning: Learn by Building",
-    "section": "Course Team",
-    "text": "Course Team\nInstructor: Ming Jin\nEmail: jinming@vt.edu\n\n\n\n\n\n\n\n\n\nTeaching Assistant\nLocation\nOffice Hours\nEmail\n\n\n\n\nSherawat, Kamal\nWhittemore 256\nTue/Thu 11:00 AM–12:00 Noon\nkamals@vt.edu\n\n\nNere, Darshan\nWhittemore 256\nTue/Thu 3:00–4:00 PM\ndarshannere@vt.edu"
-  },
-  {
-    "objectID": "lectures/04-optimization.html",
-    "href": "lectures/04-optimization.html",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "",
-    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#overview",
-    "href": "lectures/04-optimization.html#overview",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/03-linear.html#overview",
+    "href": "lectures/03-linear.html#overview",
+    "title": "Lecture 3: Linear Regression",
     "section": "",
-    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#learning-objectives",
-    "href": "lectures/04-optimization.html#learning-objectives",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/03-linear.html#learning-objectives",
+    "href": "lectures/03-linear.html#learning-objectives",
+    "title": "Lecture 3: Linear Regression",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFormulate optimization problems in machine learning\nImplement gradient descent from scratch with proper numerical stability\nMaster the critical importance of data standardization\nCompare batch, stochastic, and mini-batch gradient descent variants\nDiagnose and fix gradient explosion/vanishing problems\nApply modern optimizers (Adam, SGD with momentum) effectively",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#materials",
-    "href": "lectures/04-optimization.html#materials",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/03-linear.html#materials",
+    "href": "lectures/03-linear.html#materials",
+    "title": "Lecture 3: Linear Regression",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#key-concepts-highlights",
-    "href": "lectures/04-optimization.html#key-concepts-highlights",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "Key Concepts & Highlights",
-    "text": "Key Concepts & Highlights\n\nInteractive Line Fitting Game Start by manually adjusting weights and biases to minimize loss. This hands-on experience builds intuition for what gradient descent automates—finding the lowest point in the loss landscape.\nThe #1 Pitfall: Data Standardization Learn why unstandardized data causes gradient explosion and how proper preprocessing prevents this. We’ll demonstrate why gradients scale with data magnitude and provide diagnostic tools to catch this early.\nThree Flavors of SGD Compare batch, stochastic, and mini-batch gradient descent side-by-side. Understand the speed vs. accuracy trade-offs and why mini-batch has become the industry standard.\nDebugging Toolkit Master systematic debugging with our gradient diagnostic dashboard that detects vanishing/exploding gradients, loss plateaus, and oscillations—complete with suggested fixes for each problem.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html#datasets-acknowledgments",
-    "href": "lectures/04-optimization.html#datasets-acknowledgments",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
+    "href": "lectures/03-linear.html#datasets-acknowledgments",
+    "title": "Lecture 3: Linear Regression",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nCalifornia Housing Dataset\n\nSource: Scikit-learn California housing dataset- Why This Dataset: Strong income–price correlation makes it perfect for demonstrating optimization concepts while being complex enough to show real challenges\n\n\nPrevious: ← Lecture 3: Linear Regression | Next: Lecture 5: Probabilistic Classification",
+    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html",
+    "href": "lectures/07-regularization.html",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "",
+    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#overview",
+    "href": "lectures/07-regularization.html#overview",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "",
+    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#learning-objectives",
+    "href": "lectures/07-regularization.html#learning-objectives",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect overfitting early using validation sets and learning curves\nUnderstand the bias-variance tradeoff through interactive visualizations\nMaster classical regularization techniques (L1/L2, dropout, early stopping)\nApply modern approaches (label smoothing, mixup augmentation)\nExplore data-centric solutions through quantity and diversity experiments",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#materials",
+    "href": "lectures/07-regularization.html#materials",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\n\nOverfitting & Regularization Notebook\n\n\n\n\n\n\n\n\n\nNoteThree Fundamental Curves You’ll Generate\n\n\n\n\nModel Complexity Curve: The classic U-shaped validation error showing underfitting → optimal → overfitting zones\nData Quantity Curve: Diminishing returns as training samples increase\nData Diversity Effect: Diverse samples can outperform larger homogeneous sets for out-of-distribution generalization",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#datasets-acknowledgments",
+    "href": "lectures/07-regularization.html#datasets-acknowledgments",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nFashion-MNIST Dataset (Kaggle)\nSource: Zalando Research\nSize: 70,000 grayscale images (28×28) of 10 clothing categories\nWhy This Dataset: Complex enough to demonstrate overfitting, simple enough to train quickly, real-world relevance\n\n\nPrevious: ← Lecture 6: Model Evaluation and Data Deception | Next: TBD",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
     ]
   },
   {

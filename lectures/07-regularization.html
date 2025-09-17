@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Resources – ECE4424/CS4824: Machine Learning</title>
+<title>Lecture 7: Overfitting and Regularization – ECE4424/CS4824: Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5492cd040ff96777ae41410b5d5806f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5492cd040ff96777ae41410b5d5806f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">ECE4424/CS4824: Machine Learning</span>
     </a>
   </div>
@@ -92,23 +92,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects/project1.html"> 
+    <a class="nav-link" href="../projects/project1.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resources.html"> 
+    <a class="nav-link" href="../resources.html"> 
 <span class="menu-text">Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./project-matchmaker/"> 
+    <a class="nav-link" href="../project-matchmaker/"> 
 <span class="menu-text">Project Matchmaker</span></a>
   </li>  
 </ul>
@@ -137,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Resources</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/07-regularization.html">L7: Overfitting and Regularization</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
+      <a href="../index.html" class="sidebar-logo-link">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
@@ -164,13 +164,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syllabus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
@@ -187,37 +187,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/00-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/00-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L0: Environment Setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/01-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L1: Welcome to ML</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/02-knn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/02-knn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L2: k-NN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/03-linear.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/03-linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L3: Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L4: Gradient Descent and Optimization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L5: Probabilistic Classification</span></a>
   </div>
 </li>
@@ -234,19 +234,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L6: Model Evaluation and Data Deception</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/07-regularization.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">L7: Overfitting and Regularization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L8-11: Coming Soon</span></a>
   </div>
 </li>
@@ -263,7 +263,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L12-13: Coming Soon</span></a>
   </div>
 </li>
@@ -280,7 +280,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L14-20: Coming Soon</span></a>
   </div>
 </li>
@@ -297,7 +297,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L21-23: Coming Soon</span></a>
   </div>
 </li>
@@ -314,7 +314,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L24-25: Coming Soon</span></a>
   </div>
 </li>
@@ -331,13 +331,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/project1.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/project1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 1: KNN Music Recommender</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 2-3: Coming Soon</span></a>
   </div>
 </li>
@@ -353,17 +353,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#software-tools" id="toc-software-tools" class="nav-link active" data-scroll-target="#software-tools">Software &amp; Tools</a></li>
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
+  <li><a href="#datasets-acknowledgments" id="toc-datasets-acknowledgments" class="nav-link" data-scroll-target="#datasets-acknowledgments">Datasets &amp; Acknowledgments</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/07-regularization.html">L7: Overfitting and Regularization</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Resources</h1>
+<h1 class="title">Lecture 7: Overfitting and Regularization</h1>
+<p class="subtitle lead">From Memorization to Generalization</p>
 </div>
 
 
@@ -380,22 +383,66 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="software-tools" class="level2">
-<h2 class="anchored" data-anchor-id="software-tools">Software &amp; Tools</h2>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.</p>
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this lecture, you will:</p>
 <ul>
-<li><a href="https://www.python.org/">Python Installation</a></li>
-<li><a href="https://colab.research.google.com/">Google Colab</a></li>
-<li><a href="https://education.github.com/pack">GitHub Student Pack</a></li>
+<li>Detect overfitting early using validation sets and learning curves</li>
+<li>Understand the bias-variance tradeoff through interactive visualizations</li>
+<li>Master classical regularization techniques (L1/L2, dropout, early stopping)</li>
+<li>Apply modern approaches (label smoothing, mixup augmentation)</li>
+<li>Explore data-centric solutions through quantity and diversity experiments</li>
 </ul>
 </section>
-<section id="documentation" class="level2">
-<h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
+<section id="materials" class="level2">
+<h2 class="anchored" data-anchor-id="materials">Materials</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Quick Access
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><a href="https://numpy.org/doc/">NumPy Documentation</a></li>
-<li><a href="https://pytorch.org/tutorials/">PyTorch Tutorials</a></li>
-<li><a href="https://www.fast.ai/">fast.ai</a> — inspiration for our practical, project-first teaching approach</li>
-<li><a href="https://scikit-learn.org/stable/user_guide.html">Scikit-learn User Guide</a></li>
+<li><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%207%20Regularization%20and%20Generalization/07-Overfitting-Regularization.ipynb">Overfitting &amp; Regularization Notebook</a></li>
 </ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Three Fundamental Curves You’ll Generate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Model Complexity Curve: The classic U-shaped validation error showing underfitting → optimal → overfitting zones</li>
+<li>Data Quantity Curve: Diminishing returns as training samples increase</li>
+<li>Data Diversity Effect: Diverse samples can outperform larger homogeneous sets for out-of-distribution generalization</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="datasets-acknowledgments" class="level2">
+<h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
+<ul>
+<li><a href="https://www.kaggle.com/datasets/zalando-research/fashionmnist">Fashion-MNIST Dataset (Kaggle)</a><br>
+Source: Zalando Research<br>
+Size: 70,000 grayscale images (28×28) of 10 clothing categories<br>
+Why This Dataset: Complex enough to demonstrate overfitting, simple enough to train quickly, real-world relevance</li>
+</ul>
+<hr>
+<p><strong>Previous</strong>: <a href="../lectures/06-model-eval.html">← Lecture 6: Model Evaluation and Data Deception</a> | <strong>Next</strong>: TBD</p>
 
 
 </section>
