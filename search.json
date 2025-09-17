@@ -605,7 +605,7 @@
     "href": "lectures/07-regularization.html#learning-objectives",
     "title": "Lecture 7: Overfitting and Regularization",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect overfitting early using validation sets and learning curves\nUnderstand the bias-variance tradeoff through interactive visualizations\nMaster classical regularization techniques (L1/L2, dropout, early stopping)\nApply modern approaches (label smoothing, mixup augmentation)\nExplore data-centric solutions through quantity and diversity experiments",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect overfitting early using validation sets and learning curves\nUnderstand the bias-variance tradeoff through interactive visualizations\nMaster classical regularization techniques (L1/L2, early stopping)\nApply modern approaches (label smoothing, mixup augmentation)\nExplore data-centric solutions through quantity and diversity experiments",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
