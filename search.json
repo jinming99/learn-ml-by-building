@@ -124,7 +124,7 @@
     "href": "lectures/08-decision-trees.html",
     "title": "Lecture 8: Modern Decision Trees",
     "section": "",
-    "text": "In this lecture, we move from classical decision trees to modern perspectives: - Why axis-aligned splits can be limiting, and how depth affects overfitting - Practical strategies for class imbalance (resampling vs class-weighting) - Differentiable (soft) decision trees that enable gradient-based learning - How to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
@@ -136,7 +136,7 @@
     "href": "lectures/08-decision-trees.html#overview",
     "title": "Lecture 8: Modern Decision Trees",
     "section": "",
-    "text": "In this lecture, we move from classical decision trees to modern perspectives: - Why axis-aligned splits can be limiting, and how depth affects overfitting - Practical strategies for class imbalance (resampling vs class-weighting) - Differentiable (soft) decision trees that enable gradient-based learning - How to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
@@ -629,7 +629,7 @@
     "href": "lectures/09-ensemble.html",
     "title": "Lecture 9: Ensemble Methods",
     "section": "",
-    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models: - Bagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction - Boosting (AdaBoost/Gradient Boosting): sequentially reducing bias - Diversity and agreement: why uncorrelated errors matter; majority vs soft voting - Deep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection - Practical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
+    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models:\n\nBagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction\nBoosting (AdaBoost/Gradient Boosting): sequentially reducing bias\nDiversity and agreement: why uncorrelated errors matter; majority vs soft voting\nDeep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection\nPractical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
@@ -641,7 +641,7 @@
     "href": "lectures/09-ensemble.html#overview",
     "title": "Lecture 9: Ensemble Methods",
     "section": "",
-    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models: - Bagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction - Boosting (AdaBoost/Gradient Boosting): sequentially reducing bias - Diversity and agreement: why uncorrelated errors matter; majority vs soft voting - Deep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection - Practical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
+    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models:\n\nBagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction\nBoosting (AdaBoost/Gradient Boosting): sequentially reducing bias\nDiversity and agreement: why uncorrelated errors matter; majority vs soft voting\nDeep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection\nPractical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
