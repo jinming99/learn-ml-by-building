@@ -120,76 +120,365 @@
     ]
   },
   {
-    "objectID": "lectures/06-model-eval.html",
-    "href": "lectures/06-model-eval.html",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "objectID": "lectures/08-decision-trees.html",
+    "href": "lectures/08-decision-trees.html",
+    "title": "Lecture 8: Modern Decision Trees",
     "section": "",
-    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives: - Why axis-aligned splits can be limiting, and how depth affects overfitting - Practical strategies for class imbalance (resampling vs class-weighting) - Differentiable (soft) decision trees that enable gradient-based learning - How to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
+      "L8: Modern Decision Trees"
     ]
   },
   {
-    "objectID": "lectures/06-model-eval.html#overview",
-    "href": "lectures/06-model-eval.html#overview",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "objectID": "lectures/08-decision-trees.html#overview",
+    "href": "lectures/08-decision-trees.html#overview",
+    "title": "Lecture 8: Modern Decision Trees",
     "section": "",
-    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives: - Why axis-aligned splits can be limiting, and how depth affects overfitting - Practical strategies for class imbalance (resampling vs class-weighting) - Differentiable (soft) decision trees that enable gradient-based learning - How to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
+      "L8: Modern Decision Trees"
     ]
   },
   {
-    "objectID": "lectures/06-model-eval.html#learning-objectives",
-    "href": "lectures/06-model-eval.html#learning-objectives",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "objectID": "lectures/08-decision-trees.html#learning-objectives",
+    "href": "lectures/08-decision-trees.html#learning-objectives",
+    "title": "Lecture 8: Modern Decision Trees",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect when summary statistics hide critical patterns using visualization techniques\nRecognize and resolve Simpson’s Paradox in aggregated data\nChoose appropriate metrics beyond accuracy for imbalanced problems\nIdentify and prevent data leakage in time series and customer data\nInterpret ML visualizations (ROC curves, confusion matrices) correctly\nBuild a systematic evaluation framework for production models",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand tree impurity criteria and how splits are chosen\nDiagnose overfitting and complexity growth as depth increases\nAddress class imbalance with data rebalancing and class weighting (and know the math behind it)\nBuild intuition for soft trees and temperature-controlled routing\nCompare hard vs soft boundaries and assess probability calibration",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
+      "L8: Modern Decision Trees"
     ]
   },
   {
-    "objectID": "lectures/06-model-eval.html#materials",
-    "href": "lectures/06-model-eval.html#materials",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "objectID": "lectures/08-decision-trees.html#materials",
+    "href": "lectures/08-decision-trees.html#materials",
+    "title": "Lecture 8: Modern Decision Trees",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModel Evaluation and Data Deception Notebook",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModern Decision Trees Notebook",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
+      "L8: Modern Decision Trees"
     ]
   },
   {
-    "objectID": "lectures/06-model-eval.html#datasets-acknowledgments",
-    "href": "lectures/06-model-eval.html#datasets-acknowledgments",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "objectID": "lectures/08-decision-trees.html#datasets-acknowledgments",
+    "href": "lectures/08-decision-trees.html#datasets-acknowledgments",
+    "title": "Lecture 8: Modern Decision Trees",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal Datasets Used\n\nDatasaurus Dozen: Created by Autodesk Research — 13 datasets with identical statistics but widely differing spatial patterns\nUC Berkeley Admissions (1973): Historical admissions data illustrating Simpson’s Paradox\nCredit Card Fraud (Kaggle): Transactions from European cardholders over two days; 492 frauds out of 284,807 transactions (0.172%), resulting in a highly imbalanced dataset\nTelco Customer Churn (IBM, Kaggle): Customer account data used to demonstrate evaluation pitfalls and potential data leakage",
+    "text": "Datasets & Acknowledgments\n\nHome Credit Default Risk (Kaggle): real-world credit risk dataset used throughout the lecture.\n\nSource: https://www.kaggle.com/competitions/home-credit-default-risk\nPlease review the dataset license and Kaggle terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch (soft trees), NumPy, pandas, seaborn, matplotlib\nSoft Decision Trees (prior work):\n\nFrosst, N., & Hinton, G. (2017). Distilling a Neural Network Into a Soft Decision Tree\nKontschieder, P., Fiterau, M., Criminisi, A., & Bulo, S. R. (2015). Deep Neural Decision Forests (ICCV)\n\n\n\nPrevious: ← Lecture 7: Overfitting and Regularization | Next: TBD",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
+      "L8: Modern Decision Trees"
     ]
   },
   {
-    "objectID": "lectures/06-model-eval.html#key-takeaways",
-    "href": "lectures/06-model-eval.html#key-takeaways",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Evaluation Principles\n\n\n\n\nAlways visualize your data — Summary statistics alone can hide dinosaurs (literally!)\nAccuracy lies for imbalanced data — A 99.8% accurate model can be completely useless\nData leakage is subtle and devastating — Always ask: “Would I have this information at prediction time?”\nContext matters — What looks like discrimination at one level may be the opposite at another (Simpson’s Paradox)\n\n\n\n\nPrevious: ← Lecture 5: Probabilistic Classification | Next: Lecture 7: Overfitting and Regularization →",
+    "objectID": "lectures/07-regularization.html",
+    "href": "lectures/07-regularization.html",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "",
+    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
+      "L7: Overfitting and Regularization"
     ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#overview",
+    "href": "lectures/07-regularization.html#overview",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "",
+    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#learning-objectives",
+    "href": "lectures/07-regularization.html#learning-objectives",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect overfitting early using validation sets and learning curves\nMaster classical regularization techniques (L1/L2, early stopping)\nApply modern approaches (label smoothing, mixup augmentation)\nExplore data-centric solutions through quantity and diversity experiments",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#materials",
+    "href": "lectures/07-regularization.html#materials",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\n\nOverfitting & Regularization Notebook\n\n\n\n\n\n\n\n\n\nNoteThree Fundamental Curves You’ll Generate\n\n\n\n\nModel Complexity Curve: The classic U-shaped validation error showing underfitting → optimal → overfitting zones\nData Quantity Curve: Diminishing returns as training samples increase\nData Diversity Effect: Diverse samples can outperform larger homogeneous sets for out-of-distribution generalization",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#datasets-acknowledgments",
+    "href": "lectures/07-regularization.html#datasets-acknowledgments",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nFashion-MNIST Dataset (Kaggle)\nSource: Zalando Research\nSize: 70,000 grayscale images (28×28) of 10 clothing categories\nWhy This Dataset: Complex enough to demonstrate overfitting, simple enough to train quickly, real-world relevance\n\n\nPrevious: ← Lecture 6: Model Evaluation and Data Deception | Next: TBD",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html",
+    "href": "lectures/03-linear.html",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#overview",
+    "href": "lectures/03-linear.html#overview",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#learning-objectives",
+    "href": "lectures/03-linear.html#learning-objectives",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#materials",
+    "href": "lectures/03-linear.html#materials",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
+    "href": "lectures/03-linear.html#datasets-acknowledgments",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Course Schedule",
+    "section": "",
+    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
+    "crumbs": [
+      "Home",
+      "Course Info",
+      "Schedule"
+    ]
+  },
+  {
+    "objectID": "schedule.html#week-by-week-schedule",
+    "href": "schedule.html#week-by-week-schedule",
+    "title": "Course Schedule",
+    "section": "",
+    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
+    "crumbs": [
+      "Home",
+      "Course Info",
+      "Schedule"
+    ]
+  },
+  {
+    "objectID": "projects/project1.html",
+    "href": "projects/project1.html",
+    "title": "Project 1: Music Recommendation System with k-NN",
+    "section": "",
+    "text": "Build a Spotify-inspired music recommendation engine from scratch, implementing the k-Nearest Neighbors algorithm and deploying it as an interactive web application. This project bridges the gap between academic ML and real-world applications, taking you through the complete pipeline from data exploration to production deployment. You’ll work with actual Spotify audio features to recommend songs based on musical similarity.",
+    "crumbs": [
+      "Home",
+      "Projects",
+      "Project 1: KNN Music Recommender"
+    ]
+  },
+  {
+    "objectID": "projects/project1.html#overview",
+    "href": "projects/project1.html#overview",
+    "title": "Project 1: Music Recommendation System with k-NN",
+    "section": "",
+    "text": "Build a Spotify-inspired music recommendation engine from scratch, implementing the k-Nearest Neighbors algorithm and deploying it as an interactive web application. This project bridges the gap between academic ML and real-world applications, taking you through the complete pipeline from data exploration to production deployment. You’ll work with actual Spotify audio features to recommend songs based on musical similarity.",
+    "crumbs": [
+      "Home",
+      "Projects",
+      "Project 1: KNN Music Recommender"
+    ]
+  },
+  {
+    "objectID": "projects/project1.html#learning-objectives",
+    "href": "projects/project1.html#learning-objectives",
+    "title": "Project 1: Music Recommendation System with k-NN",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy completing this project, you will:\n\nImplement k-NN from scratch with multiple distance metrics (Euclidean, Cosine)\nAnalyze Spotify’s audio features (energy, valence, danceability) through exploratory data analysis\nEngineer features and apply scaling techniques to handle multi-scale data\nDesign hybrid distance functions that combine audio features with metadata\nEvaluate computational complexity and scalability challenges\nDeploy your ML model as a REST API with a responsive web interface\nOptimize with caching strategies for production performance",
+    "crumbs": [
+      "Home",
+      "Projects",
+      "Project 1: KNN Music Recommender"
+    ]
+  },
+  {
+    "objectID": "projects/project1.html#materials",
+    "href": "projects/project1.html#materials",
+    "title": "Project 1: Music Recommendation System with k-NN",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nProject Notebook (GitHub) — Complete implementation guide and assignment\nRepository — Full codebase with web application\nLive Demo (Static UI) — UI preview only (no backend)\n\n\n\n\n\n\n\n\nImportantSubmission Requirements\n\n\n\n\n\n\nCompleted Jupyter notebook exported as PDF\nutils/student_adapter.py with your implementations\nWorking web application demonstration",
+    "crumbs": [
+      "Home",
+      "Projects",
+      "Project 1: KNN Music Recommender"
+    ]
+  },
+  {
+    "objectID": "projects/project1.html#what-youll-build",
+    "href": "projects/project1.html#what-youll-build",
+    "title": "Project 1: Music Recommendation System with k-NN",
+    "section": "What You’ll Build",
+    "text": "What You’ll Build\n\nCore Algorithm\nYou’ll implement k-NN from the ground up, including: - Distance metric calculations (Euclidean and Cosine) - Efficient neighbor search - Feature scaling for fair comparisons - Hybrid distance functions combining multiple signals\n\n\nWeb Application\nYour algorithm will power a full-stack music discovery application featuring: - Search for any track in a 600k+ song database - Real-time recommendations based on audio similarity - YouTube integration for music previews - Interactive controls for algorithm parameters - Mobile-responsive design\n\n\nData Analysis\nWorking with real Spotify data, you’ll explore: - 9 audio features extracted by Spotify’s ML models - Feature distributions, correlations, and outliers - The impact of scaling on distance-based algorithms - Trade-offs between different similarity measures",
+    "crumbs": [
+      "Home",
+      "Projects",
+      "Project 1: KNN Music Recommender"
+    ]
+  },
+  {
+    "objectID": "projects/project1.html#additional-resources",
+    "href": "projects/project1.html#additional-resources",
+    "title": "Project 1: Music Recommendation System with k-NN",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nSpotify Web API - Audio Features Documentation\nk-NN Algorithm Explained\nFlask Quick Start Guide\nCurse of Dimensionality in ML\nRUMusic - Conceptual inspiration for this project (our implementation has significantly diverged)\n\n\nPrevious: [← Previous Assignment] | Next: [Next Assignment →]",
+    "crumbs": [
+      "Home",
+      "Projects",
+      "Project 1: KNN Music Recommender"
+    ]
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
+  },
+  {
+    "objectID": "resources.html#software-tools",
+    "href": "resources.html#software-tools",
+    "title": "Resources",
+    "section": "",
+    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
+  },
+  {
+    "objectID": "resources.html#documentation",
+    "href": "resources.html#documentation",
+    "title": "Resources",
+    "section": "Documentation",
+    "text": "Documentation\n\nNumPy Documentation\nPyTorch Tutorials\nfast.ai — inspiration for our practical, project-first teaching approach\nScikit-learn User Guide"
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Course Syllabus",
+    "section": "",
+    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
+    "crumbs": [
+      "Home",
+      "Course Info",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#official-syllabus",
+    "href": "syllabus.html#official-syllabus",
+    "title": "Course Syllabus",
+    "section": "",
+    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
+    "crumbs": [
+      "Home",
+      "Course Info",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#capstone-project-rubrics",
+    "href": "syllabus.html#capstone-project-rubrics",
+    "title": "Course Syllabus",
+    "section": "Capstone Project Rubrics",
+    "text": "Capstone Project Rubrics\nRubrics for the capstone project are available here:\n\nCapstone Rubrics (Google Doc): https://docs.google.com/document/d/19t7HrBbnLVrmRtOs5qiSXxERDdMcxxKG-LZQqSTZmJs/edit?usp=sharing\n\nIf you need a printable or offline copy, use File → Download in Google Docs.",
+    "crumbs": [
+      "Home",
+      "Course Info",
+      "Syllabus"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Machine Learning: Learn by Building",
+    "section": "",
+    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
+  },
+  {
+    "objectID": "index.html#course-philosophy",
+    "href": "index.html#course-philosophy",
+    "title": "Machine Learning: Learn by Building",
+    "section": "",
+    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "Machine Learning: Learn by Building",
+    "section": "Getting Started",
+    "text": "Getting Started\n\nSet up your environment → Setup Guide\nJoin Piazza for discussions and announcements\nReview the syllabus → Course Policies\nCheck the schedule → Week-by-Week"
+  },
+  {
+    "objectID": "index.html#course-team",
+    "href": "index.html#course-team",
+    "title": "Machine Learning: Learn by Building",
+    "section": "Course Team",
+    "text": "Course Team\nInstructor: Ming Jin\nEmail: jinming@vt.edu\n\n\n\n\n\n\n\n\n\nTeaching Assistant\nLocation\nOffice Hours\nEmail\n\n\n\n\nSherawat, Kamal\nWhittemore 256\nTue/Thu 11:00 AM–12:00 Noon\nkamals@vt.edu\n\n\nNere, Darshan\nWhittemore 256\nTue/Thu 3:00–4:00 PM\ndarshannere@vt.edu"
   },
   {
     "objectID": "lectures/04-optimization.html",
@@ -264,376 +553,75 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Machine Learning: Learn by Building",
+    "objectID": "lectures/06-model-eval.html",
+    "href": "lectures/06-model-eval.html",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
     "section": "",
-    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
-  },
-  {
-    "objectID": "index.html#course-philosophy",
-    "href": "index.html#course-philosophy",
-    "title": "Machine Learning: Learn by Building",
-    "section": "",
-    "text": "This course takes a hands-on approach to machine learning. You’ll:\n\nBuild real ML systems, not just study theory\nCreate an AI portfolio of mini research papers\nExplain complex concepts simply (teaching = understanding)\nWork with cutting-edge tools while mastering fundamentals\n\nWe believe the best way to understand machine learning is to build it, break it, and rebuild it better.\nOur practical, project-first ethos is inspired by the excellent work from fast.ai.\nCourse Philosophy: Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.\nA Note on AI in Course Development: In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental process yourself. Our course policies will reflect this important distinction."
-  },
-  {
-    "objectID": "index.html#getting-started",
-    "href": "index.html#getting-started",
-    "title": "Machine Learning: Learn by Building",
-    "section": "Getting Started",
-    "text": "Getting Started\n\nSet up your environment → Setup Guide\nJoin Piazza for discussions and announcements\nReview the syllabus → Course Policies\nCheck the schedule → Week-by-Week"
-  },
-  {
-    "objectID": "index.html#course-team",
-    "href": "index.html#course-team",
-    "title": "Machine Learning: Learn by Building",
-    "section": "Course Team",
-    "text": "Course Team\nInstructor: Ming Jin\nEmail: jinming@vt.edu\n\n\n\n\n\n\n\n\n\nTeaching Assistant\nLocation\nOffice Hours\nEmail\n\n\n\n\nSherawat, Kamal\nWhittemore 256\nTue/Thu 11:00 AM–12:00 Noon\nkamals@vt.edu\n\n\nNere, Darshan\nWhittemore 256\nTue/Thu 3:00–4:00 PM\ndarshannere@vt.edu"
-  },
-  {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Course Syllabus",
-    "section": "",
-    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
+    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
     "crumbs": [
       "Home",
-      "Course Info",
-      "Syllabus"
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
     ]
   },
   {
-    "objectID": "syllabus.html#official-syllabus",
-    "href": "syllabus.html#official-syllabus",
-    "title": "Course Syllabus",
+    "objectID": "lectures/06-model-eval.html#overview",
+    "href": "lectures/06-model-eval.html#overview",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
     "section": "",
-    "text": "For the most up-to-date and complete syllabus, please refer to the official Google Doc:\n\nSyllabus (published): https://docs.google.com/document/d/e/2PACX-1vRawfzMzEKCan7nd1jOMbaCGrcMYo-DGU1XgfIBKJSRBiuF_Fj0E4KCeslTIGzRs5R60XAsYvURItxv/pub\n\nAny updates will appear in the Google Doc.",
+    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
     "crumbs": [
       "Home",
-      "Course Info",
-      "Syllabus"
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
     ]
   },
   {
-    "objectID": "syllabus.html#capstone-project-rubrics",
-    "href": "syllabus.html#capstone-project-rubrics",
-    "title": "Course Syllabus",
-    "section": "Capstone Project Rubrics",
-    "text": "Capstone Project Rubrics\nRubrics for the capstone project are available here:\n\nCapstone Rubrics (Google Doc): https://docs.google.com/document/d/19t7HrBbnLVrmRtOs5qiSXxERDdMcxxKG-LZQqSTZmJs/edit?usp=sharing\n\nIf you need a printable or offline copy, use File → Download in Google Docs.",
-    "crumbs": [
-      "Home",
-      "Course Info",
-      "Syllabus"
-    ]
-  },
-  {
-    "objectID": "resources.html",
-    "href": "resources.html",
-    "title": "Resources",
-    "section": "",
-    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
-  },
-  {
-    "objectID": "resources.html#software-tools",
-    "href": "resources.html#software-tools",
-    "title": "Resources",
-    "section": "",
-    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
-  },
-  {
-    "objectID": "resources.html#documentation",
-    "href": "resources.html#documentation",
-    "title": "Resources",
-    "section": "Documentation",
-    "text": "Documentation\n\nNumPy Documentation\nPyTorch Tutorials\nfast.ai — inspiration for our practical, project-first teaching approach\nScikit-learn User Guide"
-  },
-  {
-    "objectID": "projects/project1.html",
-    "href": "projects/project1.html",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "",
-    "text": "Build a Spotify-inspired music recommendation engine from scratch, implementing the k-Nearest Neighbors algorithm and deploying it as an interactive web application. This project bridges the gap between academic ML and real-world applications, taking you through the complete pipeline from data exploration to production deployment. You’ll work with actual Spotify audio features to recommend songs based on musical similarity.",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#overview",
-    "href": "projects/project1.html#overview",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "",
-    "text": "Build a Spotify-inspired music recommendation engine from scratch, implementing the k-Nearest Neighbors algorithm and deploying it as an interactive web application. This project bridges the gap between academic ML and real-world applications, taking you through the complete pipeline from data exploration to production deployment. You’ll work with actual Spotify audio features to recommend songs based on musical similarity.",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#learning-objectives",
-    "href": "projects/project1.html#learning-objectives",
-    "title": "Project 1: Music Recommendation System with k-NN",
+    "objectID": "lectures/06-model-eval.html#learning-objectives",
+    "href": "lectures/06-model-eval.html#learning-objectives",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy completing this project, you will:\n\nImplement k-NN from scratch with multiple distance metrics (Euclidean, Cosine)\nAnalyze Spotify’s audio features (energy, valence, danceability) through exploratory data analysis\nEngineer features and apply scaling techniques to handle multi-scale data\nDesign hybrid distance functions that combine audio features with metadata\nEvaluate computational complexity and scalability challenges\nDeploy your ML model as a REST API with a responsive web interface\nOptimize with caching strategies for production performance",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect when summary statistics hide critical patterns using visualization techniques\nRecognize and resolve Simpson’s Paradox in aggregated data\nChoose appropriate metrics beyond accuracy for imbalanced problems\nIdentify and prevent data leakage in time series and customer data\nInterpret ML visualizations (ROC curves, confusion matrices) correctly\nBuild a systematic evaluation framework for production models",
     "crumbs": [
       "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
     ]
   },
   {
-    "objectID": "projects/project1.html#materials",
-    "href": "projects/project1.html#materials",
-    "title": "Project 1: Music Recommendation System with k-NN",
+    "objectID": "lectures/06-model-eval.html#materials",
+    "href": "lectures/06-model-eval.html#materials",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nProject Notebook (GitHub) — Complete implementation guide and assignment\nRepository — Full codebase with web application\nLive Demo (Static UI) — UI preview only (no backend)\nLive Demo — after running python app.py\n\n\n\n\n\n\n\n\nImportantSubmission Requirements\n\n\n\n\n\n\nCompleted Jupyter notebook exported as PDF\nutils/student_adapter.py with your implementations\nWorking web application demonstration",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModel Evaluation and Data Deception Notebook",
     "crumbs": [
       "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
     ]
   },
   {
-    "objectID": "projects/project1.html#what-youll-build",
-    "href": "projects/project1.html#what-youll-build",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "What You’ll Build",
-    "text": "What You’ll Build\n\nCore Algorithm\nYou’ll implement k-NN from the ground up, including: - Distance metric calculations (Euclidean and Cosine) - Efficient neighbor search - Feature scaling for fair comparisons - Hybrid distance functions combining multiple signals\n\n\nWeb Application\nYour algorithm will power a full-stack music discovery application featuring: - Search for any track in a 600k+ song database - Real-time recommendations based on audio similarity - YouTube integration for music previews - Interactive controls for algorithm parameters - Mobile-responsive design\n\n\nData Analysis\nWorking with real Spotify data, you’ll explore: - 9 audio features extracted by Spotify’s ML models - Feature distributions, correlations, and outliers - The impact of scaling on distance-based algorithms - Trade-offs between different similarity measures",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#key-technologies",
-    "href": "projects/project1.html#key-technologies",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "Key Technologies",
-    "text": "Key Technologies\n\nBackend: Flask, NumPy, Pandas, Scikit-learn\nFrontend: Vanilla JavaScript, HTML5, CSS3\nAPIs: YouTube Data API for music previews\nData: 600k+ tracks with Spotify audio analysis",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#interactive-features",
-    "href": "projects/project1.html#interactive-features",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "Interactive Features",
-    "text": "Interactive Features\n\n\n\n\n\n\nNote🎵 Try It Yourself\n\n\n\nOnce deployed, your system will let users:\n\nSearch and discover music from over half a million tracks\nGet personalized recommendations based on any song\nAdjust algorithm parameters (k, distance metrics) in real-time\nListen to preview clips before adding to playlists\nUnderstand why songs were recommended through feature visualization",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#setup-guide",
-    "href": "projects/project1.html#setup-guide",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "Setup Guide",
-    "text": "Setup Guide\n# Quick setup\npython3.11 -m venv .venv-music\nsource .venv-music/bin/activate\npip install -r requirements.txt\n\n# Configure YouTube API (see notebook for detailed instructions)\necho \"YOUTUBE_API_KEY=your_key_here\" &gt; .env\n\n# Run the application\npython app.py\n# Navigate to http://localhost:5002",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#data-setup",
-    "href": "projects/project1.html#data-setup",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "Data Setup",
-    "text": "Data Setup\nPlace the dataset CSV(s) in the project’s data/ folder:\n\nRequired: data/mergedFile.csv — main catalog with track metadata and audio features\nOptional: data/item_profile.csv — alternative profile file if you choose to separate it\n\nNotes:\n\nColumn expectations include song/artist identifiers and audio features (e.g., energy, danceability, etc.).\nThe application won’t function without mergedFile.csv. See repository README for more details and dataset link.",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#real-world-challenges-youll-tackle",
-    "href": "projects/project1.html#real-world-challenges-youll-tackle",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "Real-World Challenges You’ll Tackle",
-    "text": "Real-World Challenges You’ll Tackle\n\nThe Curse of Dimensionality: Understand why distance metrics behave unexpectedly in high dimensions\nFeature Scale Bias: See how tempo (0-200 BPM) can dominate valence (0-1) without proper scaling\nComputational Complexity: Analyze why brute-force k-NN doesn’t scale to millions of songs\nProduction Engineering: Implement caching and API design for responsive user experience\nHybrid Metrics: Balance audio similarity with artist diversity for better recommendations",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#project-insights",
-    "href": "projects/project1.html#project-insights",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "Project Insights",
-    "text": "Project Insights\nThis project demonstrates several key ML concepts:\n\nInstance-based learning requires no training phase but trades computation at query time\nFeature engineering can be more important than algorithm choice\nDistance metrics encode our notion of similarity - choosing the right one is crucial\nProduction ML involves much more than just the algorithm - APIs, caching, and UX matter",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "projects/project1.html#additional-resources",
-    "href": "projects/project1.html#additional-resources",
-    "title": "Project 1: Music Recommendation System with k-NN",
-    "section": "Additional Resources",
-    "text": "Additional Resources\n\nSpotify Web API - Audio Features Documentation\nk-NN Algorithm Explained\nFlask Quick Start Guide\nCurse of Dimensionality in ML\nRUMusic - Conceptual inspiration for this project (our implementation has significantly diverged)\n\n\nPrevious: [← Previous Assignment] | Next: [Next Assignment →]",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 1: KNN Music Recommender"
-    ]
-  },
-  {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Course Schedule",
-    "section": "",
-    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
-    "crumbs": [
-      "Home",
-      "Course Info",
-      "Schedule"
-    ]
-  },
-  {
-    "objectID": "schedule.html#week-by-week-schedule",
-    "href": "schedule.html#week-by-week-schedule",
-    "title": "Course Schedule",
-    "section": "",
-    "text": "TipLive Schedule\n\n\n\nThe schedule below is embedded from Google Sheets and updates automatically. Open in Google Sheets →",
-    "crumbs": [
-      "Home",
-      "Course Info",
-      "Schedule"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html",
-    "href": "lectures/03-linear.html",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#overview",
-    "href": "lectures/03-linear.html#overview",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#learning-objectives",
-    "href": "lectures/03-linear.html#learning-objectives",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#materials",
-    "href": "lectures/03-linear.html#materials",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
-    "href": "lectures/03-linear.html#datasets-acknowledgments",
-    "title": "Lecture 3: Linear Regression",
+    "objectID": "lectures/06-model-eval.html#datasets-acknowledgments",
+    "href": "lectures/06-model-eval.html#datasets-acknowledgments",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html",
-    "href": "lectures/07-regularization.html",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "",
-    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
+    "text": "Datasets & Acknowledgments\n\nReal Datasets Used\n\nDatasaurus Dozen: Created by Autodesk Research — 13 datasets with identical statistics but widely differing spatial patterns\nUC Berkeley Admissions (1973): Historical admissions data illustrating Simpson’s Paradox\nCredit Card Fraud (Kaggle): Transactions from European cardholders over two days; 492 frauds out of 284,807 transactions (0.172%), resulting in a highly imbalanced dataset\nTelco Customer Churn (IBM, Kaggle): Customer account data used to demonstrate evaluation pitfalls and potential data leakage",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
+      "L6: Model Evaluation and Data Deception"
     ]
   },
   {
-    "objectID": "lectures/07-regularization.html#overview",
-    "href": "lectures/07-regularization.html#overview",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "",
-    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
+    "objectID": "lectures/06-model-eval.html#key-takeaways",
+    "href": "lectures/06-model-eval.html#key-takeaways",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Evaluation Principles\n\n\n\n\nAlways visualize your data — Summary statistics alone can hide dinosaurs (literally!)\nAccuracy lies for imbalanced data — A 99.8% accurate model can be completely useless\nData leakage is subtle and devastating — Always ask: “Would I have this information at prediction time?”\nContext matters — What looks like discrimination at one level may be the opposite at another (Simpson’s Paradox)\n\n\n\n\nPrevious: ← Lecture 5: Probabilistic Classification | Next: Lecture 7: Overfitting and Regularization →",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html#learning-objectives",
-    "href": "lectures/07-regularization.html#learning-objectives",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect overfitting early using validation sets and learning curves\nMaster classical regularization techniques (L1/L2, early stopping)\nApply modern approaches (label smoothing, mixup augmentation)\nExplore data-centric solutions through quantity and diversity experiments",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html#materials",
-    "href": "lectures/07-regularization.html#materials",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\n\nOverfitting & Regularization Notebook\n\n\n\n\n\n\n\n\n\nNoteThree Fundamental Curves You’ll Generate\n\n\n\n\nModel Complexity Curve: The classic U-shaped validation error showing underfitting → optimal → overfitting zones\nData Quantity Curve: Diminishing returns as training samples increase\nData Diversity Effect: Diverse samples can outperform larger homogeneous sets for out-of-distribution generalization",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html#datasets-acknowledgments",
-    "href": "lectures/07-regularization.html#datasets-acknowledgments",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nFashion-MNIST Dataset (Kaggle)\nSource: Zalando Research\nSize: 70,000 grayscale images (28×28) of 10 clothing categories\nWhy This Dataset: Complex enough to demonstrate overfitting, simple enough to train quickly, real-world relevance\n\n\nPrevious: ← Lecture 6: Model Evaluation and Data Deception | Next: TBD",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
+      "L6: Model Evaluation and Data Deception"
     ]
   },
   {

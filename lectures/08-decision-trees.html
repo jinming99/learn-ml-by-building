@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Machine Learning: Learn by Building – ECE4424/CS4824: Machine Learning</title>
+<title>Lecture 8: Modern Decision Trees – ECE4424/CS4824: Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5492cd040ff96777ae41410b5d5806f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5492cd040ff96777ae41410b5d5806f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">ECE4424/CS4824: Machine Learning</span>
     </a>
   </div>
@@ -92,23 +92,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects/project1.html"> 
+    <a class="nav-link" href="../projects/project1.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resources.html"> 
+    <a class="nav-link" href="../resources.html"> 
 <span class="menu-text">Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./project-matchmaker/"> 
+    <a class="nav-link" href="../project-matchmaker/"> 
 <span class="menu-text">Project Matchmaker</span></a>
   </li>  
 </ul>
@@ -137,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Machine Learning: Learn by Building</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/08-decision-trees.html">L8: Modern Decision Trees</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
+      <a href="../index.html" class="sidebar-logo-link">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
@@ -164,13 +164,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syllabus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
@@ -187,37 +187,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/00-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/00-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L0: Environment Setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/01-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L1: Welcome to ML</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/02-knn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/02-knn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L2: k-NN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/03-linear.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/03-linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L3: Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L4: Gradient Descent and Optimization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L5: Probabilistic Classification</span></a>
   </div>
 </li>
@@ -234,25 +234,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L6: Model Evaluation and Data Deception</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L7: Overfitting and Regularization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">L8: Modern Decision Trees</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L9-L11: Coming Soon</span></a>
   </div>
 </li>
@@ -269,7 +269,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L12-13: Coming Soon</span></a>
   </div>
 </li>
@@ -286,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L14-20: Coming Soon</span></a>
   </div>
 </li>
@@ -303,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L21-23: Coming Soon</span></a>
   </div>
 </li>
@@ -320,7 +320,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L24-25: Coming Soon</span></a>
   </div>
 </li>
@@ -337,13 +337,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/project1.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/project1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 1: KNN Music Recommender</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 2-3: Coming Soon</span></a>
   </div>
 </li>
@@ -359,19 +359,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#course-philosophy" id="toc-course-philosophy" class="nav-link active" data-scroll-target="#course-philosophy">Course Philosophy</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
-  <li><a href="#course-team" id="toc-course-team" class="nav-link" data-scroll-target="#course-team">Course Team</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
+  <li><a href="#datasets-acknowledgments" id="toc-datasets-acknowledgments" class="nav-link" data-scroll-target="#datasets-acknowledgments">Datasets &amp; Acknowledgments</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/08-decision-trees.html">L8: Modern Decision Trees</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Machine Learning: Learn by Building</h1>
-<p class="subtitle lead">ECE4424/CS4824 - Fall 2025</p>
+<h1 class="title">Lecture 8: Modern Decision Trees</h1>
+<p class="subtitle lead">From Hard Splits to Differentiable Soft Trees</p>
 </div>
 
 
@@ -388,63 +389,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="course-philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="course-philosophy">Course Philosophy</h2>
-<p>This course takes a <strong>hands-on approach</strong> to machine learning. You’ll:</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In this lecture, we move from classical decision trees to modern perspectives: - Why axis-aligned splits can be limiting, and how depth affects overfitting - Practical strategies for class imbalance (resampling vs class-weighting) - Differentiable (soft) decision trees that enable gradient-based learning - How to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices</p>
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this lecture, you will:</p>
 <ul>
-<li><strong>Build real ML systems</strong>, not just study theory</li>
-<li><strong>Create an AI portfolio</strong> of mini research papers</li>
-<li><strong>Explain complex concepts simply</strong> (teaching = understanding)</li>
-<li><strong>Work with cutting-edge tools</strong> while mastering fundamentals</li>
+<li>Understand tree impurity criteria and how splits are chosen</li>
+<li>Diagnose overfitting and complexity growth as depth increases</li>
+<li>Address class imbalance with data rebalancing and class weighting (and know the math behind it)</li>
+<li>Build intuition for soft trees and temperature-controlled routing</li>
+<li>Compare hard vs soft boundaries and assess probability calibration</li>
 </ul>
-<p>We believe the best way to understand machine learning is to build it, break it, and rebuild it better.</p>
-<p>Our practical, project-first ethos is inspired by the excellent work from <a href="https://www.fast.ai/">fast.ai</a>.</p>
-<p><strong>Course Philosophy:</strong> Inspired by fast.ai, our motto is “build first, understand later.” You’ll start by building and fine-tuning powerful models, and then we’ll dive deep into the theory to understand why they work.</p>
-<p><strong>A Note on AI in Course Development:</strong> In the spirit of transparency, I want to acknowledge that AI-powered tools were used to help develop these course materials, from refining explanations to generating boilerplate code. This is to model the professional practice of using the best tools available to produce a high-quality result. Your goal in this course is different: it’s to learn the fundamental <em>process</em> yourself. Our course policies will reflect this important distinction.</p>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
-<ol type="1">
-<li><strong>Set up your environment</strong> → <a href="./lectures/00-setup.html">Setup Guide</a></li>
-<li><strong>Join Piazza</strong> for discussions and announcements</li>
-<li><strong>Review the syllabus</strong> → <a href="./syllabus.html">Course Policies</a></li>
-<li><strong>Check the schedule</strong> → <a href="./schedule.html">Week-by-Week</a></li>
-</ol>
+<section id="materials" class="level2">
+<h2 class="anchored" data-anchor-id="materials">Materials</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Quick Access
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%208%20Modern%20Decision%20Trees/08-DecisionTrees-ModernView.ipynb">Modern Decision Trees Notebook</a></strong></p>
+</div>
+</div>
 </section>
-<section id="course-team" class="level2">
-<h2 class="anchored" data-anchor-id="course-team">Course Team</h2>
-<p><strong>Instructor</strong>: Ming Jin<br>
-Email: jinming@vt.edu</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Teaching Assistant</strong></th>
-<th>Location</th>
-<th>Office Hours</th>
-<th>Email</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Sherawat, Kamal</td>
-<td>Whittemore 256</td>
-<td>Tue/Thu 11:00 AM–12:00 Noon</td>
-<td>kamals@vt.edu</td>
-</tr>
-<tr class="even">
-<td>Nere, Darshan</td>
-<td>Whittemore 256</td>
-<td>Tue/Thu 3:00–4:00 PM</td>
-<td>darshannere@vt.edu</td>
-</tr>
-</tbody>
-</table>
+<section id="datasets-acknowledgments" class="level2">
+<h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
+<ul>
+<li>Home Credit Default Risk (Kaggle): real-world credit risk dataset used throughout the lecture.
+<ul>
+<li>Source: https://www.kaggle.com/competitions/home-credit-default-risk</li>
+<li>Please review the dataset license and Kaggle terms of use before redistribution</li>
+</ul></li>
+<li>Libraries: scikit-learn (trees/metrics/visualization), PyTorch (soft trees), NumPy, pandas, seaborn, matplotlib</li>
+<li>Soft Decision Trees (prior work):
+<ul>
+<li>Frosst, N., &amp; Hinton, G. (2017). Distilling a Neural Network Into a Soft Decision Tree</li>
+<li>Kontschieder, P., Fiterau, M., Criminisi, A., &amp; Bulo, S. R. (2015). Deep Neural Decision Forests (ICCV)</li>
+</ul></li>
+</ul>
+<hr>
+<p><strong>Previous</strong>: <a href="../lectures/07-regularization.html">← Lecture 7: Overfitting and Regularization</a> | <strong>Next</strong>: TBD</p>
 
 
 </section>
