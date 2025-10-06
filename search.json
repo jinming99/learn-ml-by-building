@@ -237,195 +237,135 @@
     ]
   },
   {
-    "objectID": "lectures/08-decision-trees.html",
-    "href": "lectures/08-decision-trees.html",
-    "title": "Lecture 8: Modern Decision Trees",
+    "objectID": "lectures/10-kernel-gp.html",
+    "href": "lectures/10-kernel-gp.html",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
     "section": "",
-    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "text": "In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.\n\nGaussian Processes as distributions over functions: priors, posteriors, and the role of kernels\nKernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge\nSmall data advantage: why GPs outperform neural networks with sparse training data\nDeep kernel learning: combining neural network feature extractors with GP inference\nReal-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
+      "L10: Kernel Methods & Gaussian Processes"
     ]
   },
   {
-    "objectID": "lectures/08-decision-trees.html#overview",
-    "href": "lectures/08-decision-trees.html#overview",
-    "title": "Lecture 8: Modern Decision Trees",
+    "objectID": "lectures/10-kernel-gp.html#overview",
+    "href": "lectures/10-kernel-gp.html#overview",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
     "section": "",
-    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "text": "In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.\n\nGaussian Processes as distributions over functions: priors, posteriors, and the role of kernels\nKernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge\nSmall data advantage: why GPs outperform neural networks with sparse training data\nDeep kernel learning: combining neural network feature extractors with GP inference\nReal-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
+      "L10: Kernel Methods & Gaussian Processes"
     ]
   },
   {
-    "objectID": "lectures/08-decision-trees.html#learning-objectives",
-    "href": "lectures/08-decision-trees.html#learning-objectives",
-    "title": "Lecture 8: Modern Decision Trees",
+    "objectID": "lectures/10-kernel-gp.html#learning-objectives",
+    "href": "lectures/10-kernel-gp.html#learning-objectives",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand tree impurity criteria and how splits are chosen\nDiagnose overfitting and complexity growth as depth increases\nAddress class imbalance with data rebalancing and class weighting (and know the math behind it)\nBuild intuition for soft trees and temperature-controlled routing\nCompare hard vs soft boundaries and assess probability calibration",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand the paradigm shift from learning single predictions to learning probability distributions over functions\nDesign and combine kernels to encode domain knowledge about patterns in data (trends, seasonality, smoothness)\nApply GPs effectively when neural networks fail due to limited training data\nObtain calibrated confidence intervals and quantify prediction uncertainty\nImplement deep kernel learning by using neural networks as feature extractors for GPs\nMake informed model choices between GPs and neural networks for real-world problems",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
+      "L10: Kernel Methods & Gaussian Processes"
     ]
   },
   {
-    "objectID": "lectures/08-decision-trees.html#materials",
-    "href": "lectures/08-decision-trees.html#materials",
-    "title": "Lecture 8: Modern Decision Trees",
+    "objectID": "lectures/10-kernel-gp.html#materials",
+    "href": "lectures/10-kernel-gp.html#materials",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModern Decision Trees Notebook",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nKernel Methods & GP Notebook",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
+      "L10: Kernel Methods & Gaussian Processes"
     ]
   },
   {
-    "objectID": "lectures/08-decision-trees.html#datasets-acknowledgments",
-    "href": "lectures/08-decision-trees.html#datasets-acknowledgments",
-    "title": "Lecture 8: Modern Decision Trees",
+    "objectID": "lectures/10-kernel-gp.html#datasets-acknowledgments",
+    "href": "lectures/10-kernel-gp.html#datasets-acknowledgments",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nHome Credit Default Risk (Kaggle): real-world credit risk dataset used throughout the lecture.\n\nSource: https://www.kaggle.com/competitions/home-credit-default-risk\nPlease review the dataset license and Kaggle terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch (soft trees)\nSoft Decision Trees (prior work):\n\nFrosst, N., & Hinton, G. (2017). Distilling a Neural Network Into a Soft Decision Tree\nKontschieder, P., Fiterau, M., Criminisi, A., & Bulo, S. R. (2015). Deep Neural Decision Forests (ICCV)\n\n\n\nPrevious: ← Lecture 7: Overfitting and Regularization | Next: Lecture 9: Ensemble Methods →",
+    "text": "Datasets & Acknowledgments\n\nMauna Loa CO₂ Data: Monthly atmospheric CO₂ measurements from 1958-2017 used to demonstrate GP forecasting with uncertainty\n\nSource: NOAA Global Monitoring Laboratory\nDownload: Available on Kaggle\nNote: Dataset is included in the repository at Lecture 10 Kernel Methods/data/archive.csv\n\nCIFAR-10 (Krizhevsky et al.): Natural images used for deep kernel learning demonstration\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nDownloaded automatically by PyTorch when running the notebook\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (GP implementation, kernels), PyTorch/torchvision (ResNet features for deep kernels)\n\n\nPrevious: ← Lecture 9: Ensemble Methods | Next: TBD",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
+      "L10: Kernel Methods & Gaussian Processes"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html",
-    "href": "lectures/04-optimization.html",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/05-probclass.html",
+    "href": "lectures/05-probclass.html",
+    "title": "Lecture 5: Probabilistic Classification",
     "section": "",
-    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
+    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L5: Probabilistic Classification"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#overview",
-    "href": "lectures/04-optimization.html#overview",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/05-probclass.html#overview",
+    "href": "lectures/05-probclass.html#overview",
+    "title": "Lecture 5: Probabilistic Classification",
     "section": "",
-    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
+    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L5: Probabilistic Classification"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#learning-objectives",
-    "href": "lectures/04-optimization.html#learning-objectives",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/05-probclass.html#learning-objectives",
+    "href": "lectures/05-probclass.html#learning-objectives",
+    "title": "Lecture 5: Probabilistic Classification",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFormulate optimization problems in machine learning\nImplement gradient descent from scratch with proper numerical stability\nMaster the critical importance of data standardization\nCompare batch, stochastic, and mini-batch gradient descent variants\nDiagnose and fix gradient explosion/vanishing problems\nApply modern optimizers (Adam, SGD with momentum) effectively",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand why probabilistic outputs are essential for risk-aware decisions\nImplement logistic regression as a “soft” decision maker that expresses confidence\nMaster Naive Bayes as a probabilistic detective gathering and combining evidence\nCalibrate models and tune decision thresholds for safety-critical applications\nDiagnose model disagreements and understand edge cases\nBuild production-ready classifiers that prioritize safety over accuracy",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L5: Probabilistic Classification"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#materials",
-    "href": "lectures/04-optimization.html#materials",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/05-probclass.html#materials",
+    "href": "lectures/05-probclass.html#materials",
+    "title": "Lecture 5: Probabilistic Classification",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nProbabilistic Classification Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with scikit-learn, pandas, matplotlib, and seaborn\nUnderstanding of linear regression from Lecture 3\nBasic probability theory (Bayes’ theorem helpful but not required)\nCompleted Lecture 4 on optimization",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L5: Probabilistic Classification"
     ]
   },
   {
-    "objectID": "lectures/04-optimization.html#key-concepts-highlights",
-    "href": "lectures/04-optimization.html#key-concepts-highlights",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "Key Concepts & Highlights",
-    "text": "Key Concepts & Highlights\n\nInteractive Line Fitting Game Start by manually adjusting weights and biases to minimize loss. This hands-on experience builds intuition for what gradient descent automates—finding the lowest point in the loss landscape.\nThe #1 Pitfall: Data Standardization Learn why unstandardized data causes gradient explosion and how proper preprocessing prevents this. We’ll demonstrate why gradients scale with data magnitude and provide diagnostic tools to catch this early.\nThree Flavors of SGD Compare batch, stochastic, and mini-batch gradient descent side-by-side. Understand the speed vs. accuracy trade-offs and why mini-batch has become the industry standard.\nDebugging Toolkit Master systematic debugging with our gradient diagnostic dashboard that detects vanishing/exploding gradients, loss plateaus, and oscillations—complete with suggested fixes for each problem.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html#datasets-acknowledgments",
-    "href": "lectures/04-optimization.html#datasets-acknowledgments",
-    "title": "Lecture 4: Gradient Descent and Optimization",
+    "objectID": "lectures/05-probclass.html#datasets-acknowledgments",
+    "href": "lectures/05-probclass.html#datasets-acknowledgments",
+    "title": "Lecture 5: Probabilistic Classification",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nCalifornia Housing Dataset\n\nSource: Scikit-learn California housing dataset- Why This Dataset: Strong income–price correlation makes it perfect for demonstrating optimization concepts while being complex enough to show real challenges\n\n\nPrevious: ← Lecture 3: Linear Regression | Next: Lecture 5: Probabilistic Classification",
+    "text": "Datasets & Acknowledgments\n\nUCI Mushroom Dataset\n\nSource: UCI Machine Learning Repository\nSize: 8,124 mushrooms with 22 categorical features\nWhy This Dataset: Perfect 52/48 class balance, real mushroom characteristics from field guides, and life-or-death stakes make it ideal for teaching safety-critical classification",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
+      "L5: Probabilistic Classification"
     ]
   },
   {
-    "objectID": "lectures/03-linear.html",
-    "href": "lectures/03-linear.html",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "objectID": "lectures/05-probclass.html#key-takeaways",
+    "href": "lectures/05-probclass.html#key-takeaways",
+    "title": "Lecture 5: Probabilistic Classification",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Safety Principle\n\n\n\nIn mushroom classification, it’s better to skip a meal than risk your life! This principle extends to all safety-critical applications where false negatives have catastrophic consequences.\n\n\n\nPrevious: ← Lecture 4: Gradient Descent and Optimization | Next: Lecture 6: Decision Trees (Coming Soon)",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#overview",
-    "href": "lectures/03-linear.html#overview",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#learning-objectives",
-    "href": "lectures/03-linear.html#learning-objectives",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#materials",
-    "href": "lectures/03-linear.html#materials",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
-    "href": "lectures/03-linear.html#datasets-acknowledgments",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
+      "L5: Probabilistic Classification"
     ]
   },
   {
@@ -501,75 +441,195 @@
     ]
   },
   {
-    "objectID": "lectures/05-probclass.html",
-    "href": "lectures/05-probclass.html",
-    "title": "Lecture 5: Probabilistic Classification",
+    "objectID": "lectures/03-linear.html",
+    "href": "lectures/03-linear.html",
+    "title": "Lecture 3: Linear Regression",
     "section": "",
-    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/05-probclass.html#overview",
-    "href": "lectures/05-probclass.html#overview",
-    "title": "Lecture 5: Probabilistic Classification",
+    "objectID": "lectures/03-linear.html#overview",
+    "href": "lectures/03-linear.html#overview",
+    "title": "Lecture 3: Linear Regression",
     "section": "",
-    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/05-probclass.html#learning-objectives",
-    "href": "lectures/05-probclass.html#learning-objectives",
-    "title": "Lecture 5: Probabilistic Classification",
+    "objectID": "lectures/03-linear.html#learning-objectives",
+    "href": "lectures/03-linear.html#learning-objectives",
+    "title": "Lecture 3: Linear Regression",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand why probabilistic outputs are essential for risk-aware decisions\nImplement logistic regression as a “soft” decision maker that expresses confidence\nMaster Naive Bayes as a probabilistic detective gathering and combining evidence\nCalibrate models and tune decision thresholds for safety-critical applications\nDiagnose model disagreements and understand edge cases\nBuild production-ready classifiers that prioritize safety over accuracy",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/05-probclass.html#materials",
-    "href": "lectures/05-probclass.html#materials",
-    "title": "Lecture 5: Probabilistic Classification",
+    "objectID": "lectures/03-linear.html#materials",
+    "href": "lectures/03-linear.html#materials",
+    "title": "Lecture 3: Linear Regression",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nProbabilistic Classification Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with scikit-learn, pandas, matplotlib, and seaborn\nUnderstanding of linear regression from Lecture 3\nBasic probability theory (Bayes’ theorem helpful but not required)\nCompleted Lecture 4 on optimization",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/05-probclass.html#datasets-acknowledgments",
-    "href": "lectures/05-probclass.html#datasets-acknowledgments",
-    "title": "Lecture 5: Probabilistic Classification",
+    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
+    "href": "lectures/03-linear.html#datasets-acknowledgments",
+    "title": "Lecture 3: Linear Regression",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nUCI Mushroom Dataset\n\nSource: UCI Machine Learning Repository\nSize: 8,124 mushrooms with 22 categorical features\nWhy This Dataset: Perfect 52/48 class balance, real mushroom characteristics from field guides, and life-or-death stakes make it ideal for teaching safety-critical classification",
+    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
+      "L3: Linear Regression"
     ]
   },
   {
-    "objectID": "lectures/05-probclass.html#key-takeaways",
-    "href": "lectures/05-probclass.html#key-takeaways",
-    "title": "Lecture 5: Probabilistic Classification",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Safety Principle\n\n\n\nIn mushroom classification, it’s better to skip a meal than risk your life! This principle extends to all safety-critical applications where false negatives have catastrophic consequences.\n\n\n\nPrevious: ← Lecture 4: Gradient Descent and Optimization | Next: Lecture 6: Decision Trees (Coming Soon)",
+    "objectID": "lectures/04-optimization.html",
+    "href": "lectures/04-optimization.html",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "",
+    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#overview",
+    "href": "lectures/04-optimization.html#overview",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "",
+    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#learning-objectives",
+    "href": "lectures/04-optimization.html#learning-objectives",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFormulate optimization problems in machine learning\nImplement gradient descent from scratch with proper numerical stability\nMaster the critical importance of data standardization\nCompare batch, stochastic, and mini-batch gradient descent variants\nDiagnose and fix gradient explosion/vanishing problems\nApply modern optimizers (Adam, SGD with momentum) effectively",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#materials",
+    "href": "lectures/04-optimization.html#materials",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#key-concepts-highlights",
+    "href": "lectures/04-optimization.html#key-concepts-highlights",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Key Concepts & Highlights",
+    "text": "Key Concepts & Highlights\n\nInteractive Line Fitting Game Start by manually adjusting weights and biases to minimize loss. This hands-on experience builds intuition for what gradient descent automates—finding the lowest point in the loss landscape.\nThe #1 Pitfall: Data Standardization Learn why unstandardized data causes gradient explosion and how proper preprocessing prevents this. We’ll demonstrate why gradients scale with data magnitude and provide diagnostic tools to catch this early.\nThree Flavors of SGD Compare batch, stochastic, and mini-batch gradient descent side-by-side. Understand the speed vs. accuracy trade-offs and why mini-batch has become the industry standard.\nDebugging Toolkit Master systematic debugging with our gradient diagnostic dashboard that detects vanishing/exploding gradients, loss plateaus, and oscillations—complete with suggested fixes for each problem.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#datasets-acknowledgments",
+    "href": "lectures/04-optimization.html#datasets-acknowledgments",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nCalifornia Housing Dataset\n\nSource: Scikit-learn California housing dataset- Why This Dataset: Strong income–price correlation makes it perfect for demonstrating optimization concepts while being complex enough to show real challenges\n\n\nPrevious: ← Lecture 3: Linear Regression | Next: Lecture 5: Probabilistic Classification",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html",
+    "href": "lectures/08-decision-trees.html",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#overview",
+    "href": "lectures/08-decision-trees.html#overview",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#learning-objectives",
+    "href": "lectures/08-decision-trees.html#learning-objectives",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand tree impurity criteria and how splits are chosen\nDiagnose overfitting and complexity growth as depth increases\nAddress class imbalance with data rebalancing and class weighting (and know the math behind it)\nBuild intuition for soft trees and temperature-controlled routing\nCompare hard vs soft boundaries and assess probability calibration",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#materials",
+    "href": "lectures/08-decision-trees.html#materials",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModern Decision Trees Notebook",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#datasets-acknowledgments",
+    "href": "lectures/08-decision-trees.html#datasets-acknowledgments",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nHome Credit Default Risk (Kaggle): real-world credit risk dataset used throughout the lecture.\n\nSource: https://www.kaggle.com/competitions/home-credit-default-risk\nPlease review the dataset license and Kaggle terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch (soft trees)\nSoft Decision Trees (prior work):\n\nFrosst, N., & Hinton, G. (2017). Distilling a Neural Network Into a Soft Decision Tree\nKontschieder, P., Fiterau, M., Criminisi, A., & Bulo, S. R. (2015). Deep Neural Decision Forests (ICCV)\n\n\n\nPrevious: ← Lecture 7: Overfitting and Regularization | Next: Lecture 9: Ensemble Methods →",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
     ]
   },
   {
@@ -781,7 +841,7 @@
     "href": "lectures/09-ensemble.html#datasets-acknowledgments",
     "title": "Lecture 9: Ensemble Methods",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): small natural images used to illustrate ensembles with classical features and with pretrained embeddings\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch/torchvision (deep models, ResNet features), scikit-image (HOG)\n\n\nPrevious: ← Lecture 8: Modern Decision Trees | Next: TBD",
+    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): small natural images used to illustrate ensembles with classical features and with pretrained embeddings\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch/torchvision (deep models, ResNet features), scikit-image (HOG)\n\n\nPrevious: ← Lecture 8: Modern Decision Trees | Next: Lecture 10: Kernel Methods & Gaussian Processes →",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",

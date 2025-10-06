@@ -2,62 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/resources.html</loc>
-    <lastmod>2025-09-24T21:11:02.524Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.463Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/syllabus.html</loc>
-    <lastmod>2025-09-24T21:11:02.524Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.463Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/projects/project1.html</loc>
-    <lastmod>2025-09-24T21:11:02.524Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.463Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/lectures/00-setup.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/lectures/07-regularization.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
-    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/08-decision-trees.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/04-optimization.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/03-linear.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/06-model-eval.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/10-kernel-gp.html</loc>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/lectures/05-probclass.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/06-model-eval.html</loc>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/03-linear.html</loc>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/04-optimization.html</loc>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jinming99.github.io/learn-ml-by-building/lectures/08-decision-trees.html</loc>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/lectures/01-overview.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/lectures/02-knn.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/lectures/09-ensemble.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/index.html</loc>
-    <lastmod>2025-09-24T21:11:02.523Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.462Z</lastmod>
   </url>
   <url>
     <loc>https://jinming99.github.io/learn-ml-by-building/schedule.html</loc>
-    <lastmod>2025-09-24T21:11:02.524Z</lastmod>
+    <lastmod>2025-10-06T19:36:59.463Z</lastmod>
   </url>
 </urlset>
