@@ -373,7 +373,7 @@
     "href": "lectures/11-kmeans.html",
     "title": "Lecture 11: K-Means Clustering",
     "section": "",
-    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns.\n\nK-Means algorithm: mathematical foundations, objective function (WCSS), and iterative optimization\nFrom-scratch implementation: understanding the assignment and update steps\nReal-world application: document clustering with TF-IDF on 20 Newsgroups dataset\nEvaluation metrics: silhouette score, Davies-Bouldin index, and Calinski-Harabasz score\nChoosing K: elbow method and silhouette analysis\nK-Means variants: MiniBatch K-Means for large-scale data and K-Means++ initialization\nUnderstanding limitations: non-spherical clusters and the importance of knowing K",
+    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.",
     "crumbs": [
       "Home",
       "Module 3: Let's Discover",
@@ -385,7 +385,7 @@
     "href": "lectures/11-kmeans.html#overview",
     "title": "Lecture 11: K-Means Clustering",
     "section": "",
-    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns.\n\nK-Means algorithm: mathematical foundations, objective function (WCSS), and iterative optimization\nFrom-scratch implementation: understanding the assignment and update steps\nReal-world application: document clustering with TF-IDF on 20 Newsgroups dataset\nEvaluation metrics: silhouette score, Davies-Bouldin index, and Calinski-Harabasz score\nChoosing K: elbow method and silhouette analysis\nK-Means variants: MiniBatch K-Means for large-scale data and K-Means++ initialization\nUnderstanding limitations: non-spherical clusters and the importance of knowing K",
+    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.",
     "crumbs": [
       "Home",
       "Module 3: Let's Discover",
