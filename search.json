@@ -289,7 +289,7 @@
     "href": "lectures/10-kernel-gp.html#datasets-acknowledgments",
     "title": "Lecture 10: Kernel Methods & Gaussian Processes",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nMauna Loa CO₂ Data: Monthly atmospheric CO₂ measurements from 1958-2017 used to demonstrate GP forecasting with uncertainty\n\nSource: NOAA Global Monitoring Laboratory\nDownload: Available on Kaggle\nNote: Dataset is included in the repository at Lecture 10 Kernel Methods/data/archive.csv\n\nCIFAR-10 (Krizhevsky et al.): Natural images used for deep kernel learning demonstration\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nDownloaded automatically by PyTorch when running the notebook\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (GP implementation, kernels), PyTorch/torchvision (ResNet features for deep kernels)\n\n\nPrevious: ← Lecture 9: Ensemble Methods | Next: TBD",
+    "text": "Datasets & Acknowledgments\n\nMauna Loa CO₂ Data: Monthly atmospheric CO₂ measurements from 1958-2017 used to demonstrate GP forecasting with uncertainty\n\nSource: NOAA Global Monitoring Laboratory\nDownload: Available on Kaggle\nNote: Dataset is included in the repository at Lecture 10 Kernel Methods/data/archive.csv\n\nCIFAR-10 (Krizhevsky et al.): Natural images used for deep kernel learning demonstration\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nDownloaded automatically by PyTorch when running the notebook\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (GP implementation, kernels), PyTorch/torchvision (ResNet features for deep kernels)\n\n\nPrevious: ← Lecture 9: Ensemble Methods | Next: Lecture 11: K-Means Clustering →",
     "crumbs": [
       "Home",
       "Module 2: Let's Understand",
@@ -369,6 +369,126 @@
     ]
   },
   {
+    "objectID": "lectures/11-kmeans.html",
+    "href": "lectures/11-kmeans.html",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "",
+    "text": "In this lecture, we explore unsupervised learning through K-Means clustering - one of the most fundamental algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where we have labels to guide us, clustering reveals natural groupings in data without any prior knowledge. We begin with an introduction to the clustering paradigm, then dive into the K-Means algorithm’s mathematical foundations, including its objective function (WCSS) and iterative optimization process. Through a from-scratch implementation, we’ll understand the assignment and update steps that drive the algorithm. We’ll apply K-Means to real-world applications like document clustering with TF-IDF, customer segmentation, and image compression. You’ll learn to evaluate clustering quality using metrics like silhouette score, Davies-Bouldin index, and Calinski-Harabasz score, and master techniques for choosing the optimal number of clusters K through the elbow method, silhouette analysis, and gap statistics. Finally, we’ll explore K-Means variants including MiniBatch K-Means for large-scale data and K-Means++ initialization for improved convergence.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#overview",
+    "href": "lectures/11-kmeans.html#overview",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "",
+    "text": "In this lecture, we explore unsupervised learning through K-Means clustering - one of the most fundamental algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where we have labels to guide us, clustering reveals natural groupings in data without any prior knowledge. We begin with an introduction to the clustering paradigm, then dive into the K-Means algorithm’s mathematical foundations, including its objective function (WCSS) and iterative optimization process. Through a from-scratch implementation, we’ll understand the assignment and update steps that drive the algorithm. We’ll apply K-Means to real-world applications like document clustering with TF-IDF, customer segmentation, and image compression. You’ll learn to evaluate clustering quality using metrics like silhouette score, Davies-Bouldin index, and Calinski-Harabasz score, and master techniques for choosing the optimal number of clusters K through the elbow method, silhouette analysis, and gap statistics. Finally, we’ll explore K-Means variants including MiniBatch K-Means for large-scale data and K-Means++ initialization for improved convergence.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#learning-objectives",
+    "href": "lectures/11-kmeans.html#learning-objectives",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand the fundamental concepts of clustering and unsupervised learning\nMaster the K-Means algorithm, including its mathematical foundations and convergence properties\nApply K-Means to real-world data including text documents and images\nEvaluate clustering quality using multiple metrics (silhouette, Davies-Bouldin, Calinski-Harabasz)\nChoose optimal parameters (K) using data-driven approaches like the elbow method\nRecognize the strengths and limitations of K-Means (spherical clusters, sensitivity to initialization)\nCompare K-Means with its variants (MiniBatch K-Means, K-Means++) for different scenarios",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#materials",
+    "href": "lectures/11-kmeans.html#materials",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nK-Means Clustering Notebook",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#datasets-acknowledgments",
+    "href": "lectures/11-kmeans.html#datasets-acknowledgments",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\n20 Newsgroups (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering\n\nSource: http://qwone.com/~jason/20Newsgroups/\nDownloaded automatically by scikit-learn when running the notebook\nSubset used: 4 categories (comp.graphics, rec.sport.baseball, sci.med, talk.politics.mideast)\n\nSynthetic Datasets: Generated using scikit-learn’s make_blobs for visualization and pedagogical purposes\nLibraries: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)\n\n\nPrevious: ← Lecture 10: Kernel Methods & Gaussian Processes | Next: TBD",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html",
+    "href": "lectures/03-linear.html",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#overview",
+    "href": "lectures/03-linear.html#overview",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#learning-objectives",
+    "href": "lectures/03-linear.html#learning-objectives",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#materials",
+    "href": "lectures/03-linear.html#materials",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
+    "href": "lectures/03-linear.html#datasets-acknowledgments",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
     "objectID": "lectures/06-model-eval.html",
     "href": "lectures/06-model-eval.html",
     "title": "Lecture 6: Model Evaluation and Data Deception",
@@ -438,66 +558,6 @@
       "Home",
       "Module 2: Let's Understand",
       "L6: Model Evaluation and Data Deception"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html",
-    "href": "lectures/03-linear.html",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#overview",
-    "href": "lectures/03-linear.html#overview",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#learning-objectives",
-    "href": "lectures/03-linear.html#learning-objectives",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#materials",
-    "href": "lectures/03-linear.html#materials",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
-    "href": "lectures/03-linear.html#datasets-acknowledgments",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
     ]
   },
   {
