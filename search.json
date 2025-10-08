@@ -421,7 +421,7 @@
     "href": "lectures/11-kmeans.html#datasets-acknowledgments",
     "title": "Lecture 11: K-Means Clustering",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\n20 Newsgroups (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering\n\nSource: http://qwone.com/~jason/20Newsgroups/\nDownloaded automatically by scikit-learn when running the notebook\nSubset used: 4 categories (comp.graphics, rec.sport.baseball, sci.med, talk.politics.mideast)\n\nSynthetic Datasets: Generated using scikit-learn’s make_blobs for visualization and pedagogical purposes\nLibraries: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)\n\n\nPrevious: ← Lecture 10: Kernel Methods & Gaussian Processes | Next: TBD",
+    "text": "Datasets & Acknowledgments\n\n20 Newsgroups (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering\nLibraries: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)\n\n\nPrevious: ← Lecture 10: Kernel Methods & Gaussian Processes | Next: TBD",
     "crumbs": [
       "Home",
       "Module 3: Let's Discover",
