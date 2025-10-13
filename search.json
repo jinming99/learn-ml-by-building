@@ -421,71 +421,11 @@
     "href": "lectures/11-kmeans.html#datasets-acknowledgments",
     "title": "Lecture 11: K-Means Clustering",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\n20 Newsgroups (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering\nLibraries: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)\n\n\nPrevious: ← Lecture 10: Kernel Methods & Gaussian Processes | Next: TBD",
+    "text": "Datasets & Acknowledgments\n\n20 Newsgroups (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering\nLibraries: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)\n\n\nPrevious: ← Lecture 10: Kernel Methods & Gaussian Processes | Next: Lecture 12: PCA and Dimensionality Reduction →",
     "crumbs": [
       "Home",
       "Module 3: Let's Discover",
       "L11: K-Means Clustering"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html",
-    "href": "lectures/03-linear.html",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#overview",
-    "href": "lectures/03-linear.html#overview",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#learning-objectives",
-    "href": "lectures/03-linear.html#learning-objectives",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#materials",
-    "href": "lectures/03-linear.html#materials",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
-    "href": "lectures/03-linear.html#datasets-acknowledgments",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
     ]
   },
   {
@@ -558,6 +498,126 @@
       "Home",
       "Module 2: Let's Understand",
       "L6: Model Evaluation and Data Deception"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html",
+    "href": "lectures/03-linear.html",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#overview",
+    "href": "lectures/03-linear.html#overview",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#learning-objectives",
+    "href": "lectures/03-linear.html#learning-objectives",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#materials",
+    "href": "lectures/03-linear.html#materials",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
+    "href": "lectures/03-linear.html#datasets-acknowledgments",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html",
+    "href": "lectures/12-pca.html",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "",
+    "text": "High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore modern nonlinear techniques like t-SNE, UMAP, and PaCMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#overview",
+    "href": "lectures/12-pca.html#overview",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "",
+    "text": "High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore modern nonlinear techniques like t-SNE, UMAP, and PaCMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#learning-objectives",
+    "href": "lectures/12-pca.html#learning-objectives",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nExplain PCA geometrically and understand how it finds directions of maximum variance for data compression\nRecognize PCA’s limitations and know when it works well (linear structure, global relationships) versus when it fails (nonlinear manifolds, local clusters)\nChoose appropriate DR methods by selecting between PCA, t-SNE, UMAP, and PaCMAP based on whether you need local structure, global structure, or both\nInterpret DR visualizations critically, understanding what relationships are preserved and what might be artifacts\nApply DR to real data using the full pipeline (embedding → PCA → nonlinear DR → clustering) on text data while avoiding common pitfalls like text length leakage\nOptimize DR workflows by using PCA preprocessing to speed up nonlinear methods and choosing appropriate hyperparameters",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#materials",
+    "href": "lectures/12-pca.html#materials",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nPCA and Dimensionality Reduction Notebook",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#datasets-acknowledgments",
+    "href": "lectures/12-pca.html#datasets-acknowledgments",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nDAIGT V3 (thedrcat, Kaggle): Detecting AI Generated Text dataset with 130k texts, used to demonstrate real-world DR applications for distinguishing AI vs. human writing\nMammoth 3D (PaCMAP repository): 10k-point digitization of mammoth skeleton for testing global structure preservation\nSynthetic datasets: Circles, moons, and swiss roll for demonstrating nonlinear structure\nLibraries: scikit-learn (PCA, t-SNE), UMAP-learn, PaCMAP, sentence-transformers (text embeddings)\nInspiration: Medium articles by Yang Lu on visualizing AI vs. human writing embeddings\n\n\nPrevious: ← Lecture 11: K-Means Clustering | Next: Lecture 13: Neural Network Architecture →",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
     ]
   },
   {
