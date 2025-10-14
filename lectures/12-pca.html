@@ -409,7 +409,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore modern nonlinear techniques like t-SNE, UMAP, and PaCMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.</p>
+<p>High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore advanced nonlinear visualization tools like t-SNE and UMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
@@ -417,7 +417,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Explain PCA geometrically and understand how it finds directions of maximum variance for data compression</li>
 <li>Recognize PCA’s limitations and know when it works well (linear structure, global relationships) versus when it fails (nonlinear manifolds, local clusters)</li>
-<li>Choose appropriate DR methods by selecting between PCA, t-SNE, UMAP, and PaCMAP based on whether you need local structure, global structure, or both</li>
+<li>Choose appropriate DR methods by selecting between PCA and advanced nonlinear tools (t-SNE, UMAP) based on whether you need global structure or local cluster visualization</li>
 <li>Interpret DR visualizations critically, understanding what relationships are preserved and what might be artifacts</li>
 <li>Apply DR to real data using the full pipeline (embedding → PCA → nonlinear DR → clustering) on text data while avoiding common pitfalls like text length leakage</li>
 <li>Optimize DR workflows by using PCA preprocessing to speed up nonlinear methods and choosing appropriate hyperparameters</li>
@@ -445,8 +445,9 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>DAIGT V3</strong> (thedrcat, Kaggle): Detecting AI Generated Text dataset with 130k texts, used to demonstrate real-world DR applications for distinguishing AI vs.&nbsp;human writing</li>
 <li><strong>Mammoth 3D</strong> (PaCMAP repository): 10k-point digitization of mammoth skeleton for testing global structure preservation</li>
 <li><strong>Synthetic datasets</strong>: Circles, moons, and swiss roll for demonstrating nonlinear structure</li>
-<li><strong>Libraries</strong>: scikit-learn (PCA, t-SNE), UMAP-learn, PaCMAP, sentence-transformers (text embeddings)</li>
-<li><strong>Inspiration</strong>: Medium articles by Yang Lu on visualizing AI vs.&nbsp;human writing embeddings</li>
+<li><strong>Libraries</strong>: scikit-learn (PCA, t-SNE), UMAP-learn, sentence-transformers (text embeddings)</li>
+<li><strong>Methodology inspiration</strong>: Yang Lu (uwyang), <a href="https://medium.com/@uwyang/visualizing-ai-v-s-human-writing-embeddings-using-tsne-for-ai-detection-part-1-n-5df14ef9e6ef">“Visualizing AI v.s. Human writing embeddings using TSNE for AI detection (Part 1/n)”</a> — our analysis follows similar preprocessing and visualization techniques</li>
+<li><strong>Key papers</strong>: <a href="https://jmlr.org/papers/v9/vandermaaten08a.html">van der Maaten &amp; Hinton (2008)</a> for t-SNE, <a href="https://arxiv.org/abs/1802.03426">McInnes et al.&nbsp;(2018)</a> for UMAP</li>
 </ul>
 <hr>
 <p><strong>Previous</strong>: <a href="../lectures/11-kmeans.html">← Lecture 11: K-Means Clustering</a> | <strong>Next</strong>: <a href="13-nn-architecture.qmd">Lecture 13: Neural Network Architecture →</a></p>
