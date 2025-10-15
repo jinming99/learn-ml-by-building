@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 8: Modern Decision Trees – ECE4424/CS4824: Machine Learning</title>
+<title>Lecture 13: Fully Connected Neural Networks — Architectures &amp; Learning – ECE4424/CS4824: Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/08-decision-trees.html">L8: Modern Decision Trees</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/13-nn-architecture.html">L13: Neural Network Architecture</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -246,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L8: Modern Decision Trees</span></a>
   </div>
 </li>
@@ -287,7 +287,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">L13: Neural Network Architecture</span></a>
   </div>
 </li>
@@ -387,10 +387,10 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/08-decision-trees.html">L8: Modern Decision Trees</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/13-nn-architecture.html">L13: Neural Network Architecture</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Lecture 8: Modern Decision Trees</h1>
-<p class="subtitle lead">From Hard Splits to Differentiable Soft Trees</p>
+<h1 class="title">Lecture 13: Fully Connected Neural Networks — Architectures &amp; Learning</h1>
+<p class="subtitle lead">From perceptron to MLPs, activations, forward/backprop, and CIFAR-10</p>
 </div>
 
 
@@ -409,23 +409,18 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this lecture, we move from classical decision trees to modern perspectives:</p>
-<ul>
-<li>Why axis-aligned splits can be limiting, and how depth affects overfitting</li>
-<li>Practical strategies for class imbalance (resampling vs class-weighting)</li>
-<li>Differentiable (soft) decision trees that enable gradient-based learning</li>
-<li>How to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices</li>
-</ul>
+<p>Linear models struggle with non-linear patterns, as seen in classic datasets like two moons. This lecture introduces fully connected neural networks (multi-layer perceptrons) and the crucial role of non-linear activation functions in enabling complex decision boundaries. We build MLPs in PyTorch, trace forward propagation step-by-step, discuss backpropagation intuition and gradient checking, visualize capacity vs.&nbsp;complexity through decision boundaries, and finish by training on the CIFAR-10 dataset.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>By the end of this lecture, you will:</p>
+<p>By the end of this lecture, you will be able to:</p>
 <ul>
-<li>Understand tree impurity criteria and how splits are chosen</li>
-<li>Diagnose overfitting and complexity growth as depth increases</li>
-<li>Address class imbalance with data rebalancing and class weighting (and know the math behind it)</li>
-<li>Build intuition for soft trees and temperature-controlled routing</li>
-<li>Compare hard vs soft boundaries and assess probability calibration</li>
+<li>Understand why non-linear activation functions are essential for neural networks</li>
+<li>Build multi-layer perceptrons (MLPs) from scratch using PyTorch</li>
+<li>Trace forward propagation through a network step-by-step</li>
+<li>Explain backpropagation intuitively and implement gradient checking</li>
+<li>Train neural networks on real-world datasets (CIFAR-10)</li>
+<li>Apply modern practices like proper initialization and optimization</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -440,27 +435,20 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%208%20Modern%20Decision%20Trees/08-DecisionTrees-ModernView.ipynb">Modern Decision Trees Notebook</a></strong></p>
+<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2013%20NN%20Architecture/13-FCNeuralNet.ipynb">Neural Network Architecture Notebook</a></strong></p>
 </div>
 </div>
 </section>
 <section id="datasets-acknowledgments" class="level2">
 <h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
 <ul>
-<li>Home Credit Default Risk (Kaggle): real-world credit risk dataset used throughout the lecture.
-<ul>
-<li>Source: https://www.kaggle.com/competitions/home-credit-default-risk</li>
-<li>Please review the dataset license and Kaggle terms of use before redistribution</li>
-</ul></li>
-<li>Libraries: scikit-learn (trees/metrics/visualization), PyTorch (soft trees)</li>
-<li>Soft Decision Trees (prior work):
-<ul>
-<li>Frosst, N., &amp; Hinton, G. (2017). Distilling a Neural Network Into a Soft Decision Tree</li>
-<li>Kontschieder, P., Fiterau, M., Criminisi, A., &amp; Bulo, S. R. (2015). Deep Neural Decision Forests (ICCV)</li>
-</ul></li>
+<li><strong>CIFAR-10</strong> (Krizhevsky et al.): 60k 32×32 color images across 10 classes, accessed via <code>torchvision.datasets.CIFAR10</code></li>
+<li><strong>Synthetic datasets</strong>: Two moons, circles for illustrating non-linear decision boundaries (<code>sklearn.datasets.make_moons</code>, <code>make_circles</code>)</li>
+<li><strong>Libraries</strong>: PyTorch/torchvision, scikit-learn, matplotlib, seaborn, ipywidgets</li>
+<li><strong>Figures/visualizations</strong>: Decision boundaries, activation functions, and architecture diagrams generated programmatically in the notebook</li>
 </ul>
 <hr>
-<p><strong>Previous</strong>: <a href="../lectures/07-regularization.html">← Lecture 7: Overfitting and Regularization</a> | <strong>Next</strong>: <a href="../lectures/09-ensemble.html">Lecture 9: Ensemble Methods →</a></p>
+<p><strong>Previous</strong>: <a href="../lectures/12-pca.html">← Lecture 12: PCA and Dimensionality Reduction</a> | <strong>Next</strong>: <a href="#">Coming Soon →</a></p>
 
 
 </section>
