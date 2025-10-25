@@ -1101,18 +1101,6 @@
     ]
   },
   {
-    "objectID": "projects/project2.html#project-questions",
-    "href": "projects/project2.html#project-questions",
-    "title": "Project 2: Neural Archaeology",
-    "section": "Project Questions",
-    "text": "Project Questions\nThe notebook guides you through 6 main questions:\n\nPooling Strategies (15 pts) — Compare methods for aggregating token representations\nPCA Implementation (20 pts) — Build dimensionality reduction from scratch\nK-Means Clustering (20 pts) — Discover emotion clusters unsupervised\nNatural Emotional Dimensions (15 pts) — Analyze PCA results for emotions\nSupervised Safety Detection (15 pts) — Train classifiers on neural activations\nData Efficiency Curve (15 pts) — Understand learning with limited labels\n\nTotal: 100 points",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 2: Neural Archaeology"
-    ]
-  },
-  {
     "objectID": "projects/project2.html#research-context",
     "href": "projects/project2.html#research-context",
     "title": "Project 2: Neural Archaeology",
@@ -1129,19 +1117,7 @@
     "href": "projects/project2.html#additional-resources",
     "title": "Project 2: Neural Archaeology",
     "section": "Additional Resources",
-    "text": "Additional Resources\n\nThe Illustrated Transformer — Visual guide to transformer architecture\nOpenAI Tokenizer Tool — Understand how text becomes tokens\nAnthropic’s Interpretability Research — State-of-the-art in neural interpretability\nPCA Explained Visually — Interactive PCA tutorial\nHuggingFace Transformers Docs — Model library documentation",
-    "crumbs": [
-      "Home",
-      "Projects",
-      "Project 2: Neural Archaeology"
-    ]
-  },
-  {
-    "objectID": "projects/project2.html#setup-options",
-    "href": "projects/project2.html#setup-options",
-    "title": "Project 2: Neural Archaeology",
-    "section": "Setup Options",
-    "text": "Setup Options\n\nGoogle Colab (Recommended for Beginners)\n\nFree GPU access (T4)\nNo local installation required\n~10 minute setup time\nSee README.md for detailed instructions\n\n\n\nLocal Setup (Recommended if You Have GPU)\n\nFaster iteration\nMore control over environment\nRequires: Python 3.8+, 8GB+ RAM, GPU recommended\nInstall: pip install -r requirements.txt\n\n\nPrevious: ← Project 1: Music Recommender | Next: Capstone Project →",
+    "text": "Additional Resources\n\nThe Illustrated Transformer — Visual guide to transformer architecture\nOpenAI Tokenizer Tool — Understand how text becomes tokens\nAnthropic’s Interpretability Research — State-of-the-art in neural interpretability\nPCA Explained Visually — Interactive PCA tutorial\n\n\nPrevious: ← Project 1: Music Recommender | Next: Capstone Project →",
     "crumbs": [
       "Home",
       "Projects",
