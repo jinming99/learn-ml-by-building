@@ -669,6 +669,78 @@
     ]
   },
   {
+    "objectID": "lectures/14-transformers.html",
+    "href": "lectures/14-transformers.html",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "",
+    "text": "Transformers have revolutionized natural language processing since their introduction in “Attention is All You Need” (Vaswani et al., 2017). This lecture explores pre-trained transformer models through visualization and analysis, specifically examining GPT-2. Rather than building transformers from scratch, we perform an “MRI scan” on a transformer’s brain while it processes text—extracting attention patterns, watching hidden representations evolve, and discovering how different components specialize in different tasks. You’ll gain an intuitive understanding of how transformers work by examining them in action.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#overview",
+    "href": "lectures/14-transformers.html#overview",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "",
+    "text": "Transformers have revolutionized natural language processing since their introduction in “Attention is All You Need” (Vaswani et al., 2017). This lecture explores pre-trained transformer models through visualization and analysis, specifically examining GPT-2. Rather than building transformers from scratch, we perform an “MRI scan” on a transformer’s brain while it processes text—extracting attention patterns, watching hidden representations evolve, and discovering how different components specialize in different tasks. You’ll gain an intuitive understanding of how transformers work by examining them in action.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#learning-objectives",
+    "href": "lectures/14-transformers.html#learning-objectives",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nExtract and visualize attention weights from any pre-trained transformer model\nIdentify attention head specialization and understand how different heads focus on different linguistic patterns\nTrack hidden state evolution and see how word representations change through transformer layers\nUnderstand causal masking in autoregressive models like GPT-2\nInterpret attention patterns to understand model predictions\nUse visualization tools like BertViz and custom heatmaps for model analysis\nRecognize common attention patterns (positional, syntactic, semantic)",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#materials",
+    "href": "lectures/14-transformers.html#materials",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nTransformers Notebook",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#connection-to-project-2",
+    "href": "lectures/14-transformers.html#connection-to-project-2",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Connection to Project 2",
+    "text": "Connection to Project 2\nThis lecture provides the foundation for Project 2: Neural Archaeology, where you’ll go deeper into the hidden layers of language models to decode how they represent concepts like safety, emotion, and truthfulness. You’ll apply cutting-edge interpretability techniques from AI safety research to understand what models actually learn beyond just attention patterns.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#resources",
+    "href": "lectures/14-transformers.html#resources",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Resources",
+    "text": "Resources\n\nPapers:\n\n“Attention is All You Need” (Vaswani et al., 2017)\n“What Does BERT Look At?” (Clark et al., 2019)\n\nTutorials:\n\nJay Alammar’s “The Illustrated Transformer”\nAndrej Karpathy’s “minGPT”\n\n\n\nPrevious: ← Lecture 13: Neural Network Architecture | Next: Lecture 15: Advanced NN and CNN →",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
     "objectID": "lectures/12-pca.html",
     "href": "lectures/12-pca.html",
     "title": "Lecture 12: Simplifying Data — PCA and Friends",
@@ -781,7 +853,7 @@
     "href": "lectures/13-nn-architecture.html#datasets-acknowledgments",
     "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
     "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): 60k 32×32 color images across 10 classes, accessed via torchvision.datasets.CIFAR10\nSynthetic datasets: Two moons, circles for illustrating non-linear decision boundaries (sklearn.datasets.make_moons, make_circles)\nLibraries: PyTorch/torchvision, scikit-learn, matplotlib, seaborn, ipywidgets\nFigures/visualizations: Decision boundaries, activation functions, and architecture diagrams generated programmatically in the notebook\n\n\nPrevious: ← Lecture 12: PCA and Dimensionality Reduction | Next: Coming Soon →",
+    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): 60k 32×32 color images across 10 classes, accessed via torchvision.datasets.CIFAR10\nSynthetic datasets: Two moons, circles for illustrating non-linear decision boundaries (sklearn.datasets.make_moons, make_circles)\nLibraries: PyTorch/torchvision, scikit-learn, matplotlib, seaborn, ipywidgets\nFigures/visualizations: Decision boundaries, activation functions, and architecture diagrams generated programmatically in the notebook\n\n\nPrevious: ← Lecture 12: PCA and Dimensionality Reduction | Next: Lecture 14: Understanding Transformers →",
     "crumbs": [
       "Home",
       "Module 3: Let's Discover",
