@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 6: Model Evaluation and Data Deception – ECE4424/CS4824: Machine Learning</title>
+<title>Lecture 17: LLM Agents &amp; Tool Use – ECE4424/CS4824: Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">L6: Model Evaluation and Data Deception</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/15-cnn.html">Module 4: Let's See &amp; Chat</a></li><li class="breadcrumb-item"><a href="../lectures/17-llm-agents.html">L17: LLM Agents &amp; Tool Use</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -239,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L6: Model Evaluation and Data Deception</span></a>
   </div>
 </li>
@@ -327,7 +327,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">L17: LLM Agents &amp; Tool Use</span></a>
   </div>
 </li>
@@ -415,18 +415,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
-  <li><a href="#datasets-acknowledgments" id="toc-datasets-acknowledgments" class="nav-link" data-scroll-target="#datasets-acknowledgments">Datasets &amp; Acknowledgments</a></li>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">L6: Model Evaluation and Data Deception</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/15-cnn.html">Module 4: Let's See &amp; Chat</a></li><li class="breadcrumb-item"><a href="../lectures/17-llm-agents.html">L17: LLM Agents &amp; Tool Use</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Lecture 6: Model Evaluation and Data Deception</h1>
-<p class="subtitle lead">When Data Lies - Real-World Deception in Data Science</p>
+<h1 class="title">Lecture 17: LLM Agents &amp; Tool Use</h1>
+<p class="subtitle lead">From prompting to acting: reasoning, tools, and multi-agent systems</p>
 </div>
 
 
@@ -445,18 +444,16 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.</p>
+<p>Large Language Models are more than chatbots—they can plan, call tools, and take actions. This lecture shows how to turn an LLM into an agent: structuring outputs, invoking external functions/APIs, and iterating with reasoning-and-action loops (ReAct). We contrast naive prompting with constrained and schema-validated approaches, calibrate model decisions via log-prob scoring, and discuss evaluation, safety, and failure modes when models act in the real world.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>By the end of this lecture, you will:</p>
+<p>By the end of this lecture, you will be able to:</p>
 <ul>
-<li>Detect when summary statistics hide critical patterns using visualization techniques</li>
-<li>Recognize and resolve Simpson’s Paradox in aggregated data</li>
-<li>Choose appropriate metrics beyond accuracy for imbalanced problems</li>
-<li>Identify and prevent data leakage in time series and customer data</li>
-<li>Interpret ML visualizations (ROC curves, confusion matrices) correctly</li>
-<li>Build a systematic evaluation framework for production models</li>
+<li><strong>Understand LLM versatility</strong> - Recognize that LLMs are general-purpose text processors capable of classification, extraction, reasoning, and generation tasks</li>
+<li><strong>Implement tool use</strong> - Build systems that enable LLMs to interact with external functions and APIs through structured tool calling</li>
+<li><strong>Create ReAct agents</strong> - Develop agents that combine reasoning and acting in an iterative loop to solve multi-step problems</li>
+<li><strong>Fine-tune models</strong> - Customize language models for specific domains through efficient fine-tuning techniques</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -471,44 +468,20 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%206%20Evaluation%20Pitfalls%20and%20Data%20Visualization/06-ModelEval.ipynb">Model Evaluation and Data Deception Notebook</a></strong></p>
+<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2017%20LLM%20Agents/17_llm_agents.ipynb">LLM Agents &amp; Tool Use Notebook</a></strong></p>
 </div>
 </div>
 </section>
-<section id="datasets-acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
-<section id="real-datasets-used" class="level3">
-<h3 class="anchored" data-anchor-id="real-datasets-used">Real Datasets Used</h3>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <ul>
-<li><a href="https://jumpingrivers.github.io/datasauRus/">Datasaurus Dozen</a>: Created by Autodesk Research — 13 datasets with identical statistics but widely differing spatial patterns</li>
-<li><a href="https://discovery.cs.illinois.edu/dataset/berkeley/">UC Berkeley Admissions (1973)</a>: Historical admissions data illustrating Simpson’s Paradox</li>
-<li><a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud">Credit Card Fraud (Kaggle)</a>: Transactions from European cardholders over two days; 492 frauds out of 284,807 transactions (0.172%), resulting in a highly imbalanced dataset</li>
-<li><a href="https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset">Telco Customer Churn (IBM, Kaggle)</a>: Customer account data used to demonstrate evaluation pitfalls and potential data leakage</li>
+<li><strong>Classic Blog Posts</strong>:
+<ul>
+<li><a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-llm-agents">A Visual Guide to LLM Agents</a> — Architectures for reasoning, planning, and tool use</li>
+<li><h2 id="llm-powered-autonomous-agents" class="anchored"><a href="https://lilianweng.github.io/posts/2023-06-23-agent/">LLM Powered Autonomous Agents</a></h2></li>
+</ul></li>
 </ul>
-</section>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Critical Evaluation Principles
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Always visualize your data — Summary statistics alone can hide dinosaurs (literally!)</li>
-<li>Accuracy lies for imbalanced data — A 99.8% accurate model can be completely useless</li>
-<li>Data leakage is subtle and devastating — Always ask: “Would I have this information at prediction time?”</li>
-<li>Context matters — What looks like discrimination at one level may be the opposite at another (Simpson’s Paradox)</li>
-</ol>
-</div>
-</div>
-<hr>
-<p><strong>Previous</strong>: <a href="../lectures/05-probclass.html">← Lecture 5: Probabilistic Classification</a> | <strong>Next</strong>: <a href="../lectures/07-regularization.html">Lecture 7: Overfitting and Regularization →</a></p>
+<p><strong>Previous</strong>: <a href="../lectures/16-rnn.html">← Lecture 16: Recurrent Neural Networks</a> | <strong>Next</strong>: <a href="#">Lecture 18: Coming Soon →</a></p>
 
 
 </section>
