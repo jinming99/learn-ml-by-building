@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 11: K-Means Clustering – ECE4424/CS4824: Machine Learning</title>
+<title>Lecture 18: Vision-Language Models – ECE4424/CS4824: Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">L11: K-Means Clustering</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/15-cnn.html">Module 4: Let's See &amp; Chat</a></li><li class="breadcrumb-item"><a href="../lectures/18-vlms.html">L18: Vision-Language Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -280,7 +280,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L11: K-Means Clustering</span></a>
   </div>
 </li>
@@ -333,7 +333,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/18-vlms.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/18-vlms.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">L18: Vision-Language Models</span></a>
   </div>
 </li>
@@ -421,17 +421,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
-  <li><a href="#datasets-acknowledgments" id="toc-datasets-acknowledgments" class="nav-link" data-scroll-target="#datasets-acknowledgments">Datasets &amp; Acknowledgments</a></li>
+  <li><a href="#resources-acknowledgements" id="toc-resources-acknowledgements" class="nav-link" data-scroll-target="#resources-acknowledgements">Resources &amp; Acknowledgements</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">L11: K-Means Clustering</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/15-cnn.html">Module 4: Let's See &amp; Chat</a></li><li class="breadcrumb-item"><a href="../lectures/18-vlms.html">L18: Vision-Language Models</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Lecture 11: K-Means Clustering</h1>
-<p class="subtitle lead">Finding Groups in Unsupervised Learning</p>
+<h1 class="title">Lecture 18: Vision-Language Models</h1>
+<p class="subtitle lead">How AI sees, aligns, and reasons across images and text</p>
 </div>
 
 
@@ -450,20 +450,18 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.</p>
+<p>Vision-Language Models (VLMs) connect images and text in a shared embedding space so a model can “look” at a picture and understand it using language. In this lecture we use CLIP and a modern efficient VLM (SmolVLM) to see how contrastive learning aligns visual and textual representations, how attention in vision transformers highlights important regions, and how simple projection layers and instruction tuning turn these models into practical multimodal assistants. We finish with a small image analysis app that performs zero-shot classification and multi-aspect tagging.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>By the end of this lecture, you will:</p>
+<p>By the end of this lecture, you will be able to:</p>
 <ul>
-<li>Understand the fundamental concepts of clustering and unsupervised learning</li>
-<li>Master the K-Means algorithm, including its objective function (WCSS) and iterative optimization</li>
-<li>Implement K-Means from scratch to understand the assignment and update steps</li>
-<li>Apply K-Means to text data using TF-IDF transformation</li>
-<li>Evaluate clustering quality using silhouette score, Davies-Bouldin index, and Calinski-Harabasz score</li>
-<li>Choose optimal K using the elbow method and silhouette analysis</li>
-<li>Use K-Means variants (MiniBatch K-Means, K-Means++) for improved performance</li>
-<li>Recognize K-Means limitations (spherical clusters, fixed K) and when to use alternative methods</li>
+<li><strong>Explain</strong> how contrastive learning creates shared embedding spaces between vision and text</li>
+<li><strong>Demonstrate</strong> the dual-encoder architecture of CLIP and how it enables zero-shot transfer</li>
+<li><strong>Analyze</strong> attention mechanisms in vision transformers and their role in visual understanding</li>
+<li><strong>Compare</strong> different vision-language architectures (CLIP vs SmolVLM) and their trade-offs</li>
+<li><strong>Implement</strong> practical applications using vision-language models</li>
+<li><strong>Evaluate</strong> the impact of instruction tuning on model capabilities</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -478,18 +476,31 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2011%20K-Means/11-KMeans.ipynb">K-Means Clustering Notebook</a></strong></p>
+<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2018%20VLMs/18_vlms.ipynb">Vision-Language Models Notebook</a></strong></p>
 </div>
 </div>
 </section>
-<section id="datasets-acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
+<section id="resources-acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="resources-acknowledgements">Resources &amp; Acknowledgements</h2>
 <ul>
-<li><strong>20 Newsgroups</strong> (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering</li>
-<li><strong>Libraries</strong>: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)</li>
+<li><strong>Models and code used in this lecture</strong>:
+<ul>
+<li>CLIP: Radford et al., “Learning Transferable Visual Models From Natural Language Supervision” (2021)</li>
+<li>SmolVLM-Instruct: Hugging Face <code>HuggingFaceTB/SmolVLM-Instruct</code> vision-language model</li>
+<li>Vision Transformers: Dosovitskiy et al., “An Image is Worth 16x16 Words” (2020)</li>
+</ul></li>
+<li><strong>Training and tuning techniques</strong>:
+<ul>
+<li>Visual Instruction Tuning / LLaVA: Liu et al., “Visual Instruction Tuning” (2023)</li>
+</ul></li>
+<li><strong>Libraries and tooling</strong>:
+<ul>
+<li>PyTorch and TorchVision for model execution and visualization</li>
+<li>Hugging Face Transformers and AutoProcessor for loading CLIP and SmolVLM</li>
+</ul></li>
 </ul>
 <hr>
-<p><strong>Previous</strong>: <a href="../lectures/10-kernel-gp.html">← Lecture 10: Kernel Methods &amp; Gaussian Processes</a> | <strong>Next</strong>: <a href="../lectures/12-pca.html">Lecture 12: PCA and Dimensionality Reduction →</a></p>
+<p><strong>Previous</strong>: <a href="../lectures/17-llm-agents.html">← Lecture 17: LLM Agents &amp; Tool Use</a> | <strong>Next</strong>: <a href="#">Lecture 19: Coming Soon →</a></p>
 
 
 </section>
