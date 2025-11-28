@@ -129,1215 +129,87 @@
     ]
   },
   {
-    "objectID": "lectures/09-ensemble.html",
-    "href": "lectures/09-ensemble.html",
-    "title": "Lecture 9: Ensemble Methods",
+    "objectID": "projects/thought_cascade.html",
+    "href": "projects/thought_cascade.html",
+    "title": "Project 3: Thought Cascade",
     "section": "",
-    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models:\n\nBagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction\nBoosting (AdaBoost/Gradient Boosting): sequentially reducing bias\nDiversity and agreement: why uncorrelated errors matter; majority vs soft voting\nDeep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection\nPractical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
+    "text": "In this assignment, you will explore the transition from traditional “single-shot” prompting to Agentic AI. You will build a system that uses the ReAct (Reasoning + Acting) pattern to solve complex debugging problems by iterating, testing, and self-correcting.",
     "crumbs": [
       "Home",
-      "Module 2: Let's Understand",
-      "L9: Ensemble Methods"
+      "Projects",
+      "Project 3: Thought Cascade"
     ]
   },
   {
-    "objectID": "lectures/09-ensemble.html#overview",
-    "href": "lectures/09-ensemble.html#overview",
-    "title": "Lecture 9: Ensemble Methods",
+    "objectID": "projects/thought_cascade.html#overview",
+    "href": "projects/thought_cascade.html#overview",
+    "title": "Project 3: Thought Cascade",
     "section": "",
-    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models:\n\nBagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction\nBoosting (AdaBoost/Gradient Boosting): sequentially reducing bias\nDiversity and agreement: why uncorrelated errors matter; majority vs soft voting\nDeep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection\nPractical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
+    "text": "In this assignment, you will explore the transition from traditional “single-shot” prompting to Agentic AI. You will build a system that uses the ReAct (Reasoning + Acting) pattern to solve complex debugging problems by iterating, testing, and self-correcting.",
     "crumbs": [
       "Home",
-      "Module 2: Let's Understand",
-      "L9: Ensemble Methods"
+      "Projects",
+      "Project 3: Thought Cascade"
     ]
   },
   {
-    "objectID": "lectures/09-ensemble.html#learning-objectives",
-    "href": "lectures/09-ensemble.html#learning-objectives",
-    "title": "Lecture 9: Ensemble Methods",
+    "objectID": "projects/thought_cascade.html#learning-objectives",
+    "href": "projects/thought_cascade.html#learning-objectives",
+    "title": "Project 3: Thought Cascade",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nExplain bootstrap sampling, out-of-bag (OOB) evaluation, and feature randomness in Random Forests\nBuild and compare bagged trees/Extra Trees vs boosting, and interpret bias–variance effects\nQuantify diversity using pairwise agreement and visualize error distributions across models\nForm ensemble predictions via hard (majority) and soft (probability) voting and compare outcomes\nDecompose predictive uncertainty into epistemic and aleatoric components and use them for OOD detection",
+    "text": "Learning Objectives\nBy completing this project, you will:\n\nUnderstand the theoretical foundations of agentic AI and why iteration beats size\nBuild complete agentic systems using the ReAct pattern\nMeasure system performance at the component level, not just end-to-end\nDesign tools that enable effective agent-environment interaction\nDiagnose failure modes and implement recovery strategies\nApply agentic patterns to diverse problem domains",
     "crumbs": [
       "Home",
-      "Module 2: Let's Understand",
-      "L9: Ensemble Methods"
+      "Projects",
+      "Project 3: Thought Cascade"
     ]
   },
   {
-    "objectID": "lectures/09-ensemble.html#materials",
-    "href": "lectures/09-ensemble.html#materials",
-    "title": "Lecture 9: Ensemble Methods",
+    "objectID": "projects/thought_cascade.html#materials",
+    "href": "projects/thought_cascade.html#materials",
+    "title": "Project 3: Thought Cascade",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nEnsemble Methods Notebook",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nProject Notebook (GitHub) — Complete implementation guide and assignment\nSetup Guide — Local setup instructions\n\n\n\n\n\n\n\n\nImportantSubmission Requirements\n\n\n\n\n\n\nComplete all coding implementations marked with TODO in the notebook.\nComplete all analysis sections explicitly labeled “Required Analysis”.\nRun all cells so that key tables and plots are visible in your saved notebook.\nFollow course submission instructions for exporting your answers.",
     "crumbs": [
       "Home",
-      "Module 2: Let's Understand",
-      "L9: Ensemble Methods"
+      "Projects",
+      "Project 3: Thought Cascade"
     ]
   },
   {
-    "objectID": "lectures/09-ensemble.html#datasets-acknowledgments",
-    "href": "lectures/09-ensemble.html#datasets-acknowledgments",
-    "title": "Lecture 9: Ensemble Methods",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): small natural images used to illustrate ensembles with classical features and with pretrained embeddings\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch/torchvision (deep models, ResNet features), scikit-image (HOG)\n\n\nPrevious: ← Lecture 8: Modern Decision Trees | Next: Lecture 10: Kernel Methods & Gaussian Processes →",
+    "objectID": "projects/thought_cascade.html#what-youll-build",
+    "href": "projects/thought_cascade.html#what-youll-build",
+    "title": "Project 3: Thought Cascade",
+    "section": "What You’ll Build",
+    "text": "What You’ll Build\n\nCore Agentic Components\nYou’ll implement the building blocks of an autonomous agent: - Code Execution Environment: A safe sandbox for the agent to run and test code. - ReAct Loop: The main control loop that interleaves Reasoning, Acting, and Observing. - Tool Use: Mechanisms for the model to invoke external functions.\n\n\nEvaluation Frameworks\nYou’ll build rigorous ways to measure performance: - Pass@k Metrics: Measuring reliability across multiple attempts. - Strict Testing: Creating adversarial test cases to catch subtle bugs. - Trajectory Analysis: Evaluating the quality of the agent’s reasoning process.",
     "crumbs": [
       "Home",
-      "Module 2: Let's Understand",
-      "L9: Ensemble Methods"
+      "Projects",
+      "Project 3: Thought Cascade"
     ]
   },
   {
-    "objectID": "lectures/18-vlms.html",
-    "href": "lectures/18-vlms.html",
-    "title": "Lecture 18: Vision-Language Models",
-    "section": "",
-    "text": "Vision-Language Models (VLMs) connect images and text in a shared embedding space so a model can “look” at a picture and understand it using language. In this lecture we use CLIP and a modern efficient VLM (SmolVLM) to see how contrastive learning aligns visual and textual representations, how attention in vision transformers highlights important regions, and how simple projection layers and instruction tuning turn these models into practical multimodal assistants. We finish with a small image analysis app that performs zero-shot classification and multi-aspect tagging.",
+    "objectID": "projects/thought_cascade.html#technical-stack",
+    "href": "projects/thought_cascade.html#technical-stack",
+    "title": "Project 3: Thought Cascade",
+    "section": "Technical Stack",
+    "text": "Technical Stack\n\nModels: Gemma-2-2b-it (Google) or SmolLM-360M (HuggingFaceTB)\nFrameworks: PyTorch, Hugging Face Transformers\nDataset: QuixBugs (classic algorithmic bugs)\nCompute: CPU (optimized for Apple Silicon/standard CPU) or GPU",
     "crumbs": [
       "Home",
-      "Module 4: Let's See & Chat",
-      "L18: Vision-Language Models"
+      "Projects",
+      "Project 3: Thought Cascade"
     ]
   },
   {
-    "objectID": "lectures/18-vlms.html#overview",
-    "href": "lectures/18-vlms.html#overview",
-    "title": "Lecture 18: Vision-Language Models",
-    "section": "",
-    "text": "Vision-Language Models (VLMs) connect images and text in a shared embedding space so a model can “look” at a picture and understand it using language. In this lecture we use CLIP and a modern efficient VLM (SmolVLM) to see how contrastive learning aligns visual and textual representations, how attention in vision transformers highlights important regions, and how simple projection layers and instruction tuning turn these models into practical multimodal assistants. We finish with a small image analysis app that performs zero-shot classification and multi-aspect tagging.",
+    "objectID": "projects/thought_cascade.html#research-context",
+    "href": "projects/thought_cascade.html#research-context",
+    "title": "Project 3: Thought Cascade",
+    "section": "Research Context",
+    "text": "Research Context\nThis project connects to the forefront of AI research:\n\nReAct (Yao et al., 2022) — Synergizing reasoning and acting in language models.\nAgentic Workflows — Moving beyond simple QA to autonomous problem solving.\nSmall Language Models — Showing how agentic patterns allow smaller models to outperform larger ones on complex tasks.\n\n\nPrevious: ← Project 2: Neural Archaeology | Next: Capstone Project →",
     "crumbs": [
       "Home",
-      "Module 4: Let's See & Chat",
-      "L18: Vision-Language Models"
-    ]
-  },
-  {
-    "objectID": "lectures/18-vlms.html#learning-objectives",
-    "href": "lectures/18-vlms.html#learning-objectives",
-    "title": "Lecture 18: Vision-Language Models",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nExplain how contrastive learning creates shared embedding spaces between vision and text\nDemonstrate the dual-encoder architecture of CLIP and how it enables zero-shot transfer\nAnalyze attention mechanisms in vision transformers and their role in visual understanding\nCompare different vision-language architectures (CLIP vs SmolVLM) and their trade-offs\nImplement practical applications using vision-language models\nEvaluate the impact of instruction tuning on model capabilities",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L18: Vision-Language Models"
-    ]
-  },
-  {
-    "objectID": "lectures/18-vlms.html#materials",
-    "href": "lectures/18-vlms.html#materials",
-    "title": "Lecture 18: Vision-Language Models",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nVision-Language Models Notebook",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L18: Vision-Language Models"
-    ]
-  },
-  {
-    "objectID": "lectures/18-vlms.html#resources-acknowledgements",
-    "href": "lectures/18-vlms.html#resources-acknowledgements",
-    "title": "Lecture 18: Vision-Language Models",
-    "section": "Resources & Acknowledgements",
-    "text": "Resources & Acknowledgements\n\nModels and code used in this lecture:\n\nCLIP: Radford et al., “Learning Transferable Visual Models From Natural Language Supervision” (2021)\nSmolVLM-Instruct: Hugging Face HuggingFaceTB/SmolVLM-Instruct vision-language model\nVision Transformers: Dosovitskiy et al., “An Image is Worth 16x16 Words” (2020)\n\nTraining and tuning techniques:\n\nVisual Instruction Tuning / LLaVA: Liu et al., “Visual Instruction Tuning” (2023)\n\nLibraries and tooling:\n\nPyTorch and TorchVision for model execution and visualization\nHugging Face Transformers and AutoProcessor for loading CLIP and SmolVLM\n\n\n\nPrevious: ← Lecture 17: LLM Agents & Tool Use | Next: Lecture 19: Coming Soon →",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L18: Vision-Language Models"
-    ]
-  },
-  {
-    "objectID": "lectures/16-rnn.html",
-    "href": "lectures/16-rnn.html",
-    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
-    "section": "",
-    "text": "Sequential data is everywhere: time series, text, audio, video. This lecture explores how neural networks process sequences of arbitrary length while maintaining memory of past inputs. We start with vanilla RNNs and discover their fundamental limitation—the vanishing gradient problem. Then we see how LSTMs solve this through gating mechanisms, making them highly effective for time series and moderate-length sequences. Finally, we examine why LSTMs struggle with modern language modeling tasks and explore how newer architectures like Mamba bring back recursion with linear complexity. Through hands-on experiments with Sequential MNIST and architecture comparisons, the lecture reveals when to use each approach based on computational trade-offs.",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L16: Recurrent Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/16-rnn.html#overview",
-    "href": "lectures/16-rnn.html#overview",
-    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
-    "section": "",
-    "text": "Sequential data is everywhere: time series, text, audio, video. This lecture explores how neural networks process sequences of arbitrary length while maintaining memory of past inputs. We start with vanilla RNNs and discover their fundamental limitation—the vanishing gradient problem. Then we see how LSTMs solve this through gating mechanisms, making them highly effective for time series and moderate-length sequences. Finally, we examine why LSTMs struggle with modern language modeling tasks and explore how newer architectures like Mamba bring back recursion with linear complexity. Through hands-on experiments with Sequential MNIST and architecture comparisons, the lecture reveals when to use each approach based on computational trade-offs.",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L16: Recurrent Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/16-rnn.html#learning-objectives",
-    "href": "lectures/16-rnn.html#learning-objectives",
-    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nImplement vanilla RNN and LSTM architectures and understand their core computational mechanisms\nDiagnose the vanishing gradient problem in RNNs through visualization and empirical analysis\nExplain LSTM’s gating mechanisms (forget, input, output gates) and how they enable long-term memory\nTrain and compare RNN vs LSTM on Sequential MNIST to observe performance differences with sequence length\nAnalyze computational bottlenecks in Transformers (quadratic attention) vs recursive models (linear complexity)\nSelect appropriate architectures for different tasks based on sequence length, memory constraints, and computational requirements",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L16: Recurrent Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/16-rnn.html#materials",
-    "href": "lectures/16-rnn.html#materials",
-    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nRNN & Language Models Notebook",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L16: Recurrent Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/16-rnn.html#resources",
-    "href": "lectures/16-rnn.html#resources",
-    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
-    "section": "Resources",
-    "text": "Resources\n\nClassic Blog Posts:\n\nUnderstanding LSTM Networks by Christopher Olah - The definitive visual guide to LSTMs\nA Visual Guide to Mamba and State Space Models - Modern recursive architectures explained\n\nFoundational Papers:\n\n“Long Short-Term Memory” (Hochreiter & Schmidhuber, 1997) - The original LSTM paper\n“Attention Is All You Need” (Vaswani et al., 2017) - The Transformer architecture\n“Mamba: Linear-Time Sequence Modeling with Selective State Spaces” (Gu & Dao, 2023) - Modern efficient recursion\n\n\n\nPrevious: ← Lecture 15: Convolutional Neural Networks | Next: Lecture 17: LLM Agents & Tool Use →",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L16: Recurrent Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html",
-    "href": "lectures/07-regularization.html",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "",
-    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html#overview",
-    "href": "lectures/07-regularization.html#overview",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "",
-    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html#learning-objectives",
-    "href": "lectures/07-regularization.html#learning-objectives",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect overfitting early using validation sets and learning curves\nMaster classical regularization techniques (L1/L2, early stopping)\nApply modern approaches (label smoothing, mixup augmentation)\nExplore data-centric solutions through quantity and diversity experiments",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html#materials",
-    "href": "lectures/07-regularization.html#materials",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\n\nOverfitting & Regularization Notebook\n\n\n\n\n\n\n\n\n\nNoteThree Fundamental Curves You’ll Generate\n\n\n\n\nModel Complexity Curve: The classic U-shaped validation error showing underfitting → optimal → overfitting zones\nData Quantity Curve: Diminishing returns as training samples increase\nData Diversity Effect: Diverse samples can outperform larger homogeneous sets for out-of-distribution generalization",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/07-regularization.html#datasets-acknowledgments",
-    "href": "lectures/07-regularization.html#datasets-acknowledgments",
-    "title": "Lecture 7: Overfitting and Regularization",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nFashion-MNIST Dataset (Kaggle)\nSource: Zalando Research\nSize: 70,000 grayscale images (28×28) of 10 clothing categories\nWhy This Dataset: Complex enough to demonstrate overfitting, simple enough to train quickly, real-world relevance\n\n\nPrevious: ← Lecture 6: Model Evaluation and Data Deception | Next: TBD",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L7: Overfitting and Regularization"
-    ]
-  },
-  {
-    "objectID": "lectures/10-kernel-gp.html",
-    "href": "lectures/10-kernel-gp.html",
-    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
-    "section": "",
-    "text": "In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.\n\nGaussian Processes as distributions over functions: priors, posteriors, and the role of kernels\nKernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge\nSmall data advantage: why GPs outperform neural networks with sparse training data\nDeep kernel learning: combining neural network feature extractors with GP inference\nReal-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L10: Kernel Methods & Gaussian Processes"
-    ]
-  },
-  {
-    "objectID": "lectures/10-kernel-gp.html#overview",
-    "href": "lectures/10-kernel-gp.html#overview",
-    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
-    "section": "",
-    "text": "In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.\n\nGaussian Processes as distributions over functions: priors, posteriors, and the role of kernels\nKernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge\nSmall data advantage: why GPs outperform neural networks with sparse training data\nDeep kernel learning: combining neural network feature extractors with GP inference\nReal-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L10: Kernel Methods & Gaussian Processes"
-    ]
-  },
-  {
-    "objectID": "lectures/10-kernel-gp.html#learning-objectives",
-    "href": "lectures/10-kernel-gp.html#learning-objectives",
-    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand the paradigm shift from learning single predictions to learning probability distributions over functions\nDesign and combine kernels to encode domain knowledge about patterns in data (trends, seasonality, smoothness)\nApply GPs effectively when neural networks fail due to limited training data\nObtain calibrated confidence intervals and quantify prediction uncertainty\nImplement deep kernel learning by using neural networks as feature extractors for GPs\nMake informed model choices between GPs and neural networks for real-world problems",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L10: Kernel Methods & Gaussian Processes"
-    ]
-  },
-  {
-    "objectID": "lectures/10-kernel-gp.html#materials",
-    "href": "lectures/10-kernel-gp.html#materials",
-    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nKernel Methods & GP Notebook",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L10: Kernel Methods & Gaussian Processes"
-    ]
-  },
-  {
-    "objectID": "lectures/10-kernel-gp.html#datasets-acknowledgments",
-    "href": "lectures/10-kernel-gp.html#datasets-acknowledgments",
-    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nMauna Loa CO₂ Data: Monthly atmospheric CO₂ measurements from 1958-2017 used to demonstrate GP forecasting with uncertainty\n\nSource: NOAA Global Monitoring Laboratory\nDownload: Available on Kaggle\nNote: Dataset is included in the repository at Lecture 10 Kernel Methods/data/archive.csv\n\nCIFAR-10 (Krizhevsky et al.): Natural images used for deep kernel learning demonstration\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nDownloaded automatically by PyTorch when running the notebook\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (GP implementation, kernels), PyTorch/torchvision (ResNet features for deep kernels)\n\n\nPrevious: ← Lecture 9: Ensemble Methods | Next: Lecture 11: K-Means Clustering →",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L10: Kernel Methods & Gaussian Processes"
-    ]
-  },
-  {
-    "objectID": "lectures/17-llm-agents.html",
-    "href": "lectures/17-llm-agents.html",
-    "title": "Lecture 17: LLM Agents & Tool Use",
-    "section": "",
-    "text": "Large Language Models are more than chatbots—they can plan, call tools, and take actions. This lecture shows how to turn an LLM into an agent: structuring outputs, invoking external functions/APIs, and iterating with reasoning-and-action loops (ReAct). We contrast naive prompting with constrained and schema-validated approaches, calibrate model decisions via log-prob scoring, and discuss evaluation, safety, and failure modes when models act in the real world.",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L17: LLM Agents & Tool Use"
-    ]
-  },
-  {
-    "objectID": "lectures/17-llm-agents.html#overview",
-    "href": "lectures/17-llm-agents.html#overview",
-    "title": "Lecture 17: LLM Agents & Tool Use",
-    "section": "",
-    "text": "Large Language Models are more than chatbots—they can plan, call tools, and take actions. This lecture shows how to turn an LLM into an agent: structuring outputs, invoking external functions/APIs, and iterating with reasoning-and-action loops (ReAct). We contrast naive prompting with constrained and schema-validated approaches, calibrate model decisions via log-prob scoring, and discuss evaluation, safety, and failure modes when models act in the real world.",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L17: LLM Agents & Tool Use"
-    ]
-  },
-  {
-    "objectID": "lectures/17-llm-agents.html#learning-objectives",
-    "href": "lectures/17-llm-agents.html#learning-objectives",
-    "title": "Lecture 17: LLM Agents & Tool Use",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nUnderstand LLM versatility - Recognize that LLMs are general-purpose text processors capable of classification, extraction, reasoning, and generation tasks\nImplement tool use - Build systems that enable LLMs to interact with external functions and APIs through structured tool calling\nCreate ReAct agents - Develop agents that combine reasoning and acting in an iterative loop to solve multi-step problems\nFine-tune models - Customize language models for specific domains through efficient fine-tuning techniques",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L17: LLM Agents & Tool Use"
-    ]
-  },
-  {
-    "objectID": "lectures/17-llm-agents.html#materials",
-    "href": "lectures/17-llm-agents.html#materials",
-    "title": "Lecture 17: LLM Agents & Tool Use",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLLM Agents & Tool Use Notebook",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L17: LLM Agents & Tool Use"
-    ]
-  },
-  {
-    "objectID": "lectures/17-llm-agents.html#resources",
-    "href": "lectures/17-llm-agents.html#resources",
-    "title": "Lecture 17: LLM Agents & Tool Use",
-    "section": "Resources",
-    "text": "Resources\n\nClassic Blog Posts:\n\nA Visual Guide to LLM Agents — Architectures for reasoning, planning, and tool use\nLLM Powered Autonomous Agents\n\n\nPrevious: ← Lecture 16: Recurrent Neural Networks | Next: Lecture 18: Coming Soon →",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L17: LLM Agents & Tool Use"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html",
-    "href": "lectures/04-optimization.html",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "",
-    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html#overview",
-    "href": "lectures/04-optimization.html#overview",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "",
-    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html#learning-objectives",
-    "href": "lectures/04-optimization.html#learning-objectives",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFormulate optimization problems in machine learning\nImplement gradient descent from scratch with proper numerical stability\nMaster the critical importance of data standardization\nCompare batch, stochastic, and mini-batch gradient descent variants\nDiagnose and fix gradient explosion/vanishing problems\nApply modern optimizers (Adam, SGD with momentum) effectively",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html#materials",
-    "href": "lectures/04-optimization.html#materials",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html#key-concepts-highlights",
-    "href": "lectures/04-optimization.html#key-concepts-highlights",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "Key Concepts & Highlights",
-    "text": "Key Concepts & Highlights\n\nInteractive Line Fitting Game Start by manually adjusting weights and biases to minimize loss. This hands-on experience builds intuition for what gradient descent automates—finding the lowest point in the loss landscape.\nThe #1 Pitfall: Data Standardization Learn why unstandardized data causes gradient explosion and how proper preprocessing prevents this. We’ll demonstrate why gradients scale with data magnitude and provide diagnostic tools to catch this early.\nThree Flavors of SGD Compare batch, stochastic, and mini-batch gradient descent side-by-side. Understand the speed vs. accuracy trade-offs and why mini-batch has become the industry standard.\nDebugging Toolkit Master systematic debugging with our gradient diagnostic dashboard that detects vanishing/exploding gradients, loss plateaus, and oscillations—complete with suggested fixes for each problem.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/04-optimization.html#datasets-acknowledgments",
-    "href": "lectures/04-optimization.html#datasets-acknowledgments",
-    "title": "Lecture 4: Gradient Descent and Optimization",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nCalifornia Housing Dataset\n\nSource: Scikit-learn California housing dataset- Why This Dataset: Strong income–price correlation makes it perfect for demonstrating optimization concepts while being complex enough to show real challenges\n\n\nPrevious: ← Lecture 3: Linear Regression | Next: Lecture 5: Probabilistic Classification",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L4: Gradient Descent and Optimization"
-    ]
-  },
-  {
-    "objectID": "lectures/11-kmeans.html",
-    "href": "lectures/11-kmeans.html",
-    "title": "Lecture 11: K-Means Clustering",
-    "section": "",
-    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L11: K-Means Clustering"
-    ]
-  },
-  {
-    "objectID": "lectures/11-kmeans.html#overview",
-    "href": "lectures/11-kmeans.html#overview",
-    "title": "Lecture 11: K-Means Clustering",
-    "section": "",
-    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L11: K-Means Clustering"
-    ]
-  },
-  {
-    "objectID": "lectures/11-kmeans.html#learning-objectives",
-    "href": "lectures/11-kmeans.html#learning-objectives",
-    "title": "Lecture 11: K-Means Clustering",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand the fundamental concepts of clustering and unsupervised learning\nMaster the K-Means algorithm, including its objective function (WCSS) and iterative optimization\nImplement K-Means from scratch to understand the assignment and update steps\nApply K-Means to text data using TF-IDF transformation\nEvaluate clustering quality using silhouette score, Davies-Bouldin index, and Calinski-Harabasz score\nChoose optimal K using the elbow method and silhouette analysis\nUse K-Means variants (MiniBatch K-Means, K-Means++) for improved performance\nRecognize K-Means limitations (spherical clusters, fixed K) and when to use alternative methods",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L11: K-Means Clustering"
-    ]
-  },
-  {
-    "objectID": "lectures/11-kmeans.html#materials",
-    "href": "lectures/11-kmeans.html#materials",
-    "title": "Lecture 11: K-Means Clustering",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nK-Means Clustering Notebook",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L11: K-Means Clustering"
-    ]
-  },
-  {
-    "objectID": "lectures/11-kmeans.html#datasets-acknowledgments",
-    "href": "lectures/11-kmeans.html#datasets-acknowledgments",
-    "title": "Lecture 11: K-Means Clustering",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\n20 Newsgroups (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering\nLibraries: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)\n\n\nPrevious: ← Lecture 10: Kernel Methods & Gaussian Processes | Next: Lecture 12: PCA and Dimensionality Reduction →",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L11: K-Means Clustering"
-    ]
-  },
-  {
-    "objectID": "lectures/06-model-eval.html",
-    "href": "lectures/06-model-eval.html",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
-    "section": "",
-    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
-    ]
-  },
-  {
-    "objectID": "lectures/06-model-eval.html#overview",
-    "href": "lectures/06-model-eval.html#overview",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
-    "section": "",
-    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
-    ]
-  },
-  {
-    "objectID": "lectures/06-model-eval.html#learning-objectives",
-    "href": "lectures/06-model-eval.html#learning-objectives",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect when summary statistics hide critical patterns using visualization techniques\nRecognize and resolve Simpson’s Paradox in aggregated data\nChoose appropriate metrics beyond accuracy for imbalanced problems\nIdentify and prevent data leakage in time series and customer data\nInterpret ML visualizations (ROC curves, confusion matrices) correctly\nBuild a systematic evaluation framework for production models",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
-    ]
-  },
-  {
-    "objectID": "lectures/06-model-eval.html#materials",
-    "href": "lectures/06-model-eval.html#materials",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModel Evaluation and Data Deception Notebook",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
-    ]
-  },
-  {
-    "objectID": "lectures/06-model-eval.html#datasets-acknowledgments",
-    "href": "lectures/06-model-eval.html#datasets-acknowledgments",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal Datasets Used\n\nDatasaurus Dozen: Created by Autodesk Research — 13 datasets with identical statistics but widely differing spatial patterns\nUC Berkeley Admissions (1973): Historical admissions data illustrating Simpson’s Paradox\nCredit Card Fraud (Kaggle): Transactions from European cardholders over two days; 492 frauds out of 284,807 transactions (0.172%), resulting in a highly imbalanced dataset\nTelco Customer Churn (IBM, Kaggle): Customer account data used to demonstrate evaluation pitfalls and potential data leakage",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
-    ]
-  },
-  {
-    "objectID": "lectures/06-model-eval.html#key-takeaways",
-    "href": "lectures/06-model-eval.html#key-takeaways",
-    "title": "Lecture 6: Model Evaluation and Data Deception",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Evaluation Principles\n\n\n\n\nAlways visualize your data — Summary statistics alone can hide dinosaurs (literally!)\nAccuracy lies for imbalanced data — A 99.8% accurate model can be completely useless\nData leakage is subtle and devastating — Always ask: “Would I have this information at prediction time?”\nContext matters — What looks like discrimination at one level may be the opposite at another (Simpson’s Paradox)\n\n\n\n\nPrevious: ← Lecture 5: Probabilistic Classification | Next: Lecture 7: Overfitting and Regularization →",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L6: Model Evaluation and Data Deception"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html",
-    "href": "lectures/03-linear.html",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#overview",
-    "href": "lectures/03-linear.html#overview",
-    "title": "Lecture 3: Linear Regression",
-    "section": "",
-    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#learning-objectives",
-    "href": "lectures/03-linear.html#learning-objectives",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#materials",
-    "href": "lectures/03-linear.html#materials",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
-    "href": "lectures/03-linear.html#datasets-acknowledgments",
-    "title": "Lecture 3: Linear Regression",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L3: Linear Regression"
-    ]
-  },
-  {
-    "objectID": "lectures/14-transformers.html",
-    "href": "lectures/14-transformers.html",
-    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
-    "section": "",
-    "text": "Transformers have revolutionized natural language processing since their introduction in “Attention is All You Need” (Vaswani et al., 2017). This lecture explores pre-trained transformer models through visualization and analysis, specifically examining GPT-2. Rather than building transformers from scratch, we perform an “MRI scan” on a transformer’s brain while it processes text—extracting attention patterns, watching hidden representations evolve, and discovering how different components specialize in different tasks. You’ll gain an intuitive understanding of how transformers work by examining them in action.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L14: Understanding Transformers"
-    ]
-  },
-  {
-    "objectID": "lectures/14-transformers.html#overview",
-    "href": "lectures/14-transformers.html#overview",
-    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
-    "section": "",
-    "text": "Transformers have revolutionized natural language processing since their introduction in “Attention is All You Need” (Vaswani et al., 2017). This lecture explores pre-trained transformer models through visualization and analysis, specifically examining GPT-2. Rather than building transformers from scratch, we perform an “MRI scan” on a transformer’s brain while it processes text—extracting attention patterns, watching hidden representations evolve, and discovering how different components specialize in different tasks. You’ll gain an intuitive understanding of how transformers work by examining them in action.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L14: Understanding Transformers"
-    ]
-  },
-  {
-    "objectID": "lectures/14-transformers.html#learning-objectives",
-    "href": "lectures/14-transformers.html#learning-objectives",
-    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nExtract and visualize attention weights from any pre-trained transformer model\nIdentify attention head specialization and understand how different heads focus on different linguistic patterns\nTrack hidden state evolution and see how word representations change through transformer layers\nUnderstand causal masking in autoregressive models like GPT-2\nInterpret attention patterns to understand model predictions\nUse visualization tools like BertViz and custom heatmaps for model analysis\nRecognize common attention patterns (positional, syntactic, semantic)",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L14: Understanding Transformers"
-    ]
-  },
-  {
-    "objectID": "lectures/14-transformers.html#materials",
-    "href": "lectures/14-transformers.html#materials",
-    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nTransformers Notebook",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L14: Understanding Transformers"
-    ]
-  },
-  {
-    "objectID": "lectures/14-transformers.html#connection-to-project-2",
-    "href": "lectures/14-transformers.html#connection-to-project-2",
-    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
-    "section": "Connection to Project 2",
-    "text": "Connection to Project 2\nThis lecture provides the foundation for Project 2: Neural Archaeology, where you’ll go deeper into the hidden layers of language models to decode how they represent concepts like safety, emotion, and truthfulness. You’ll apply cutting-edge interpretability techniques from AI safety research to understand what models actually learn beyond just attention patterns.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L14: Understanding Transformers"
-    ]
-  },
-  {
-    "objectID": "lectures/14-transformers.html#resources",
-    "href": "lectures/14-transformers.html#resources",
-    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
-    "section": "Resources",
-    "text": "Resources\n\nPapers:\n\n“Attention is All You Need” (Vaswani et al., 2017)\n“What Does BERT Look At?” (Clark et al., 2019)\n\nTutorials:\n\nJay Alammar’s “The Illustrated Transformer”\nAndrej Karpathy’s “minGPT”\n\n\n\nPrevious: ← Lecture 13: Neural Network Architecture | Next: Lecture 15: Convolutional Neural Networks →",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L14: Understanding Transformers"
-    ]
-  },
-  {
-    "objectID": "lectures/12-pca.html",
-    "href": "lectures/12-pca.html",
-    "title": "Lecture 12: Simplifying Data — PCA and Friends",
-    "section": "",
-    "text": "High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore advanced nonlinear visualization tools like t-SNE and UMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L12: PCA and Dimensionality Reduction"
-    ]
-  },
-  {
-    "objectID": "lectures/12-pca.html#overview",
-    "href": "lectures/12-pca.html#overview",
-    "title": "Lecture 12: Simplifying Data — PCA and Friends",
-    "section": "",
-    "text": "High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore advanced nonlinear visualization tools like t-SNE and UMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L12: PCA and Dimensionality Reduction"
-    ]
-  },
-  {
-    "objectID": "lectures/12-pca.html#learning-objectives",
-    "href": "lectures/12-pca.html#learning-objectives",
-    "title": "Lecture 12: Simplifying Data — PCA and Friends",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nExplain PCA geometrically and understand how it finds directions of maximum variance for data compression\nRecognize PCA’s limitations and know when it works well (linear structure, global relationships) versus when it fails (nonlinear manifolds, local clusters)\nChoose appropriate DR methods by selecting between PCA and advanced nonlinear tools (t-SNE, UMAP) based on whether you need global structure or local cluster visualization\nInterpret DR visualizations critically, understanding what relationships are preserved and what might be artifacts\nApply DR to real data using the full pipeline (embedding → PCA → nonlinear DR → clustering) on text data while avoiding common pitfalls like text length leakage\nOptimize DR workflows by using PCA preprocessing to speed up nonlinear methods and choosing appropriate hyperparameters",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L12: PCA and Dimensionality Reduction"
-    ]
-  },
-  {
-    "objectID": "lectures/12-pca.html#materials",
-    "href": "lectures/12-pca.html#materials",
-    "title": "Lecture 12: Simplifying Data — PCA and Friends",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nPCA and Dimensionality Reduction Notebook",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L12: PCA and Dimensionality Reduction"
-    ]
-  },
-  {
-    "objectID": "lectures/12-pca.html#datasets-acknowledgments",
-    "href": "lectures/12-pca.html#datasets-acknowledgments",
-    "title": "Lecture 12: Simplifying Data — PCA and Friends",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nDAIGT V3 (thedrcat, Kaggle): Detecting AI Generated Text dataset with 130k texts, used to demonstrate real-world DR applications for distinguishing AI vs. human writing\nMammoth 3D (PaCMAP repository): 10k-point digitization of mammoth skeleton for testing global structure preservation\nSynthetic datasets: Circles, moons, and swiss roll for demonstrating nonlinear structure\nLibraries: scikit-learn (PCA, t-SNE), UMAP-learn, sentence-transformers (text embeddings)\nMethodology inspiration: Yang Lu (uwyang), “Visualizing AI v.s. Human writing embeddings using TSNE for AI detection (Part 1/n)” — our analysis follows similar preprocessing and visualization techniques\nKey papers: van der Maaten & Hinton (2008) for t-SNE, McInnes et al. (2018) for UMAP\n\n\nPrevious: ← Lecture 11: K-Means Clustering | Next: Lecture 13: Neural Network Architecture →",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L12: PCA and Dimensionality Reduction"
-    ]
-  },
-  {
-    "objectID": "lectures/13-nn-architecture.html",
-    "href": "lectures/13-nn-architecture.html",
-    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
-    "section": "",
-    "text": "Linear models struggle with non-linear patterns, as seen in classic datasets like two moons. This lecture introduces fully connected neural networks (multi-layer perceptrons) and the crucial role of non-linear activation functions in enabling complex decision boundaries. We build MLPs in PyTorch, trace forward propagation step-by-step, discuss backpropagation intuition and gradient checking, visualize capacity vs. complexity through decision boundaries, and finish by training on the CIFAR-10 dataset.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L13: Neural Network Architecture"
-    ]
-  },
-  {
-    "objectID": "lectures/13-nn-architecture.html#overview",
-    "href": "lectures/13-nn-architecture.html#overview",
-    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
-    "section": "",
-    "text": "Linear models struggle with non-linear patterns, as seen in classic datasets like two moons. This lecture introduces fully connected neural networks (multi-layer perceptrons) and the crucial role of non-linear activation functions in enabling complex decision boundaries. We build MLPs in PyTorch, trace forward propagation step-by-step, discuss backpropagation intuition and gradient checking, visualize capacity vs. complexity through decision boundaries, and finish by training on the CIFAR-10 dataset.",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L13: Neural Network Architecture"
-    ]
-  },
-  {
-    "objectID": "lectures/13-nn-architecture.html#learning-objectives",
-    "href": "lectures/13-nn-architecture.html#learning-objectives",
-    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nUnderstand why non-linear activation functions are essential for neural networks\nBuild multi-layer perceptrons (MLPs) from scratch using PyTorch\nTrace forward propagation through a network step-by-step\nExplain backpropagation intuitively and implement gradient checking\nTrain neural networks on real-world datasets (CIFAR-10)\nApply modern practices like proper initialization and optimization",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L13: Neural Network Architecture"
-    ]
-  },
-  {
-    "objectID": "lectures/13-nn-architecture.html#materials",
-    "href": "lectures/13-nn-architecture.html#materials",
-    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nNeural Network Architecture Notebook",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L13: Neural Network Architecture"
-    ]
-  },
-  {
-    "objectID": "lectures/13-nn-architecture.html#datasets-acknowledgments",
-    "href": "lectures/13-nn-architecture.html#datasets-acknowledgments",
-    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): 60k 32×32 color images across 10 classes, accessed via torchvision.datasets.CIFAR10\nSynthetic datasets: Two moons, circles for illustrating non-linear decision boundaries (sklearn.datasets.make_moons, make_circles)\nLibraries: PyTorch/torchvision, scikit-learn, matplotlib, seaborn, ipywidgets\nFigures/visualizations: Decision boundaries, activation functions, and architecture diagrams generated programmatically in the notebook\n\n\nPrevious: ← Lecture 12: PCA and Dimensionality Reduction | Next: Lecture 14: Understanding Transformers →",
-    "crumbs": [
-      "Home",
-      "Module 3: Let's Discover",
-      "L13: Neural Network Architecture"
-    ]
-  },
-  {
-    "objectID": "lectures/05-probclass.html",
-    "href": "lectures/05-probclass.html",
-    "title": "Lecture 5: Probabilistic Classification",
-    "section": "",
-    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
-    ]
-  },
-  {
-    "objectID": "lectures/05-probclass.html#overview",
-    "href": "lectures/05-probclass.html#overview",
-    "title": "Lecture 5: Probabilistic Classification",
-    "section": "",
-    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
-    ]
-  },
-  {
-    "objectID": "lectures/05-probclass.html#learning-objectives",
-    "href": "lectures/05-probclass.html#learning-objectives",
-    "title": "Lecture 5: Probabilistic Classification",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand why probabilistic outputs are essential for risk-aware decisions\nImplement logistic regression as a “soft” decision maker that expresses confidence\nMaster Naive Bayes as a probabilistic detective gathering and combining evidence\nCalibrate models and tune decision thresholds for safety-critical applications\nDiagnose model disagreements and understand edge cases\nBuild production-ready classifiers that prioritize safety over accuracy",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
-    ]
-  },
-  {
-    "objectID": "lectures/05-probclass.html#materials",
-    "href": "lectures/05-probclass.html#materials",
-    "title": "Lecture 5: Probabilistic Classification",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nProbabilistic Classification Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with scikit-learn, pandas, matplotlib, and seaborn\nUnderstanding of linear regression from Lecture 3\nBasic probability theory (Bayes’ theorem helpful but not required)\nCompleted Lecture 4 on optimization",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
-    ]
-  },
-  {
-    "objectID": "lectures/05-probclass.html#datasets-acknowledgments",
-    "href": "lectures/05-probclass.html#datasets-acknowledgments",
-    "title": "Lecture 5: Probabilistic Classification",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nUCI Mushroom Dataset\n\nSource: UCI Machine Learning Repository\nSize: 8,124 mushrooms with 22 categorical features\nWhy This Dataset: Perfect 52/48 class balance, real mushroom characteristics from field guides, and life-or-death stakes make it ideal for teaching safety-critical classification",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
-    ]
-  },
-  {
-    "objectID": "lectures/05-probclass.html#key-takeaways",
-    "href": "lectures/05-probclass.html#key-takeaways",
-    "title": "Lecture 5: Probabilistic Classification",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Safety Principle\n\n\n\nIn mushroom classification, it’s better to skip a meal than risk your life! This principle extends to all safety-critical applications where false negatives have catastrophic consequences.\n\n\n\nPrevious: ← Lecture 4: Gradient Descent and Optimization | Next: Lecture 6: Decision Trees (Coming Soon)",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L5: Probabilistic Classification"
-    ]
-  },
-  {
-    "objectID": "lectures/08-decision-trees.html",
-    "href": "lectures/08-decision-trees.html",
-    "title": "Lecture 8: Modern Decision Trees",
-    "section": "",
-    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
-    ]
-  },
-  {
-    "objectID": "lectures/08-decision-trees.html#overview",
-    "href": "lectures/08-decision-trees.html#overview",
-    "title": "Lecture 8: Modern Decision Trees",
-    "section": "",
-    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
-    ]
-  },
-  {
-    "objectID": "lectures/08-decision-trees.html#learning-objectives",
-    "href": "lectures/08-decision-trees.html#learning-objectives",
-    "title": "Lecture 8: Modern Decision Trees",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand tree impurity criteria and how splits are chosen\nDiagnose overfitting and complexity growth as depth increases\nAddress class imbalance with data rebalancing and class weighting (and know the math behind it)\nBuild intuition for soft trees and temperature-controlled routing\nCompare hard vs soft boundaries and assess probability calibration",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
-    ]
-  },
-  {
-    "objectID": "lectures/08-decision-trees.html#materials",
-    "href": "lectures/08-decision-trees.html#materials",
-    "title": "Lecture 8: Modern Decision Trees",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModern Decision Trees Notebook",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
-    ]
-  },
-  {
-    "objectID": "lectures/08-decision-trees.html#datasets-acknowledgments",
-    "href": "lectures/08-decision-trees.html#datasets-acknowledgments",
-    "title": "Lecture 8: Modern Decision Trees",
-    "section": "Datasets & Acknowledgments",
-    "text": "Datasets & Acknowledgments\n\nHome Credit Default Risk (Kaggle): real-world credit risk dataset used throughout the lecture.\n\nSource: https://www.kaggle.com/competitions/home-credit-default-risk\nPlease review the dataset license and Kaggle terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch (soft trees)\nSoft Decision Trees (prior work):\n\nFrosst, N., & Hinton, G. (2017). Distilling a Neural Network Into a Soft Decision Tree\nKontschieder, P., Fiterau, M., Criminisi, A., & Bulo, S. R. (2015). Deep Neural Decision Forests (ICCV)\n\n\n\nPrevious: ← Lecture 7: Overfitting and Regularization | Next: Lecture 9: Ensemble Methods →",
-    "crumbs": [
-      "Home",
-      "Module 2: Let's Understand",
-      "L8: Modern Decision Trees"
-    ]
-  },
-  {
-    "objectID": "lectures/01-overview.html",
-    "href": "lectures/01-overview.html",
-    "title": "Lecture 1: Welcome to Machine Learning",
-    "section": "",
-    "text": "Welcome to Machine Learning! This course takes a unique “Learn by Building” approach where you’ll implement real ML systems from day one. In today’s hands-on session, we’ll explore the three fundamental paradigms of machine learning—supervised, unsupervised, and active learning—by building CatShop, an e-commerce system that thinks like a cat using Google’s Gemma-3 language model.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L1: Welcome to ML"
-    ]
-  },
-  {
-    "objectID": "lectures/01-overview.html#overview",
-    "href": "lectures/01-overview.html#overview",
-    "title": "Lecture 1: Welcome to Machine Learning",
-    "section": "",
-    "text": "Welcome to Machine Learning! This course takes a unique “Learn by Building” approach where you’ll implement real ML systems from day one. In today’s hands-on session, we’ll explore the three fundamental paradigms of machine learning—supervised, unsupervised, and active learning—by building CatShop, an e-commerce system that thinks like a cat using Google’s Gemma-3 language model.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L1: Welcome to ML"
-    ]
-  },
-  {
-    "objectID": "lectures/01-overview.html#learning-objectives",
-    "href": "lectures/01-overview.html#learning-objectives",
-    "title": "Lecture 1: Welcome to Machine Learning",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nExperience all three ML paradigms through hands-on implementation\nFine-tune Gemma-3 (270M parameters) using LoRA for efficient adaptation\nObserve catastrophic forgetting and model trade-offs\nBuild a complete ML application from data to deployment\nUnderstand how active learning reduces labeling costs",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L1: Welcome to ML"
-    ]
-  },
-  {
-    "objectID": "lectures/01-overview.html#materials",
-    "href": "lectures/01-overview.html#materials",
-    "title": "Lecture 1: Welcome to Machine Learning",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nPre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!\n\n\n\n\n\n\n\n\n\nWarningReminder\n\n\n\n\n\nJoin the course Piazza forum (Required for participation)\nComplete the Project Matchmaker Form by Mon 8/26, 12:00 PM ET. Required for Lecture 2: k-NN; counts toward participation.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L1: Welcome to ML"
-    ]
-  },
-  {
-    "objectID": "lectures/01-overview.html#interactive-demo",
-    "href": "lectures/01-overview.html#interactive-demo",
-    "title": "Lecture 1: Welcome to Machine Learning",
-    "section": "Interactive Demo",
-    "text": "Interactive Demo\n\n\n\n\n\n\nNote🐱 CatShop Web Application\n\n\n\nExperience your trained model in action with the CatShop e-commerce demo, featuring real-time cat perspective classifications, confidence visualization, and interactive chat.\nBuilt upon the WebShop environment with modifications for educational purposes.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L1: Welcome to ML"
-    ]
-  },
-  {
-    "objectID": "lectures/01-overview.html#acknowledgments-resources",
-    "href": "lectures/01-overview.html#acknowledgments-resources",
-    "title": "Lecture 1: Welcome to Machine Learning",
-    "section": "Acknowledgments & Resources",
-    "text": "Acknowledgments & Resources\n\nCore Technologies\n\nGemma-3 270M: Google’s efficient language model\nPEFT/LoRA: Parameter-efficient fine-tuning\nTransformers: Hugging Face’s model library\n\n\n\nDataset & Environment\n\nWebShop: E-commerce product data and environment\nYao et al., “WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents”, NeurIPS 2022\n\n\nNext: Lecture 2: k-Nearest Neighbors →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L1: Welcome to ML"
-    ]
-  },
-  {
-    "objectID": "lectures/02-knn.html",
-    "href": "lectures/02-knn.html",
-    "title": "Lecture 2: k-Nearest Neighbors",
-    "section": "",
-    "text": "In this hands-on lecture, we tackle a real problem: finding compatible ML project teammates using k-Nearest Neighbors. Yes, you’ll actually use this system to form your project teams! We’ll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L2: k-NN"
-    ]
-  },
-  {
-    "objectID": "lectures/02-knn.html#overview",
-    "href": "lectures/02-knn.html#overview",
-    "title": "Lecture 2: k-Nearest Neighbors",
-    "section": "",
-    "text": "In this hands-on lecture, we tackle a real problem: finding compatible ML project teammates using k-Nearest Neighbors. Yes, you’ll actually use this system to form your project teams! We’ll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L2: k-NN"
-    ]
-  },
-  {
-    "objectID": "lectures/02-knn.html#learning-objectives",
-    "href": "lectures/02-knn.html#learning-objectives",
-    "title": "Lecture 2: k-Nearest Neighbors",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFrame real-world problems as ML tasks with inputs (X) and outputs (y)\nApply k-NN for classification and regression tasks\nAnalyze the impact of distance metrics and feature scaling\nUnderstand the curse of dimensionality and its practical implications\nDesign fair and effective matching systems with domain constraints\nEvaluate trade-offs between different similarity measures",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L2: k-NN"
-    ]
-  },
-  {
-    "objectID": "lectures/02-knn.html#materials",
-    "href": "lectures/02-knn.html#materials",
-    "title": "Lecture 2: k-Nearest Neighbors",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLecture Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Project Matchmaker Form by Mon 8/26, 12:00 PM ET. Required for Lecture 2: k-NN; counts toward participation.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L2: k-NN"
-    ]
-  },
-  {
-    "objectID": "lectures/02-knn.html#interactive-demo",
-    "href": "lectures/02-knn.html#interactive-demo",
-    "title": "Lecture 2: k-Nearest Neighbors",
-    "section": "Interactive Demo",
-    "text": "Interactive Demo\n\n\n\n\n\n\nNote🎮 Team Matcher Visualization\n\n\n\nExperience k-NN in action with our Interactive Team Matching Demo\nThis real-time visualization lets you:\n\nAdjust k parameter and see immediate effects\nExplore different dimension pairs\nView how proximity translates to similarity\nDiscover natural clustering patterns in the class",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L2: k-NN"
-    ]
-  },
-  {
-    "objectID": "lectures/02-knn.html#key-topics",
-    "href": "lectures/02-knn.html#key-topics",
-    "title": "Lecture 2: k-Nearest Neighbors",
-    "section": "Key Topics",
-    "text": "Key Topics\n\nThe Data Journey: From text surveys → NLP features → 8D vectors\nk-NN Fundamentals: The beautiful simplicity of “you are your neighbors”\nDistance Metrics: Euclidean, Manhattan, Cosine, and when each matters\nCurse of Dimensionality: When all points become equidistant\nFairness in ML: Ensuring inclusive team formation",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L2: k-NN"
-    ]
-  },
-  {
-    "objectID": "lectures/02-knn.html#additional-resources",
-    "href": "lectures/02-knn.html#additional-resources",
-    "title": "Lecture 2: k-Nearest Neighbors",
-    "section": "Additional Resources",
-    "text": "Additional Resources\n\nScikit-learn k-NN Documentation\n\n\nPrevious: ← Lecture 1: Welcome to ML | Next: Lecture 3: Linear Regression →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L2: k-NN"
-    ]
-  },
-  {
-    "objectID": "lectures/15-cnn.html",
-    "href": "lectures/15-cnn.html",
-    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
-    "section": "",
-    "text": "In 2012, AlexNet achieved a breakthrough 15.3% error rate on ImageNet, fundamentally changing computer vision. This lecture explores why CNNs work so well for visual tasks through hands-on experimentation. The core insight: instead of learning separate parameters for every pixel location, CNNs learn small patterns that slide across the image through weight sharing, reducing parameters from millions to thousands while encoding translation invariance. You’ll implement convolution from scratch, compare MLP vs CNN robustness on MNIST, visualize hierarchical features in ResNet50, and use saliency maps to understand what CNNs actually “see.”",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L15: Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/15-cnn.html#overview",
-    "href": "lectures/15-cnn.html#overview",
-    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
-    "section": "",
-    "text": "In 2012, AlexNet achieved a breakthrough 15.3% error rate on ImageNet, fundamentally changing computer vision. This lecture explores why CNNs work so well for visual tasks through hands-on experimentation. The core insight: instead of learning separate parameters for every pixel location, CNNs learn small patterns that slide across the image through weight sharing, reducing parameters from millions to thousands while encoding translation invariance. You’ll implement convolution from scratch, compare MLP vs CNN robustness on MNIST, visualize hierarchical features in ResNet50, and use saliency maps to understand what CNNs actually “see.”",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L15: Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/15-cnn.html#learning-objectives",
-    "href": "lectures/15-cnn.html#learning-objectives",
-    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nUnderstand why spatial structure matters in vision and how CNNs exploit it\nLearn how convolution operations extract local features through weight sharing\nMaster the mathematics behind convolution and its relationship to cross-correlation\nUnderstand how CNNs build hierarchical representations from edges to objects\nLearn the role of pooling in creating translation invariance and dimension reduction\nImplement convolution from scratch to understand the operation deeply\nVisualize learned features at different network depths\nApply transfer learning to solve custom image classification tasks\nDiagnose what CNNs actually “see” using activation and gradient visualization\nCompare translation robustness between fully connected networks and CNNs",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L15: Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/15-cnn.html#materials",
-    "href": "lectures/15-cnn.html#materials",
-    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nCNN Notebook",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L15: Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/15-cnn.html#resources",
-    "href": "lectures/15-cnn.html#resources",
-    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
-    "section": "Resources",
-    "text": "Resources\n\nPapers:\n\n“ImageNet Classification with Deep Convolutional Neural Networks” (Krizhevsky et al., 2012) - AlexNet\n“Deep Residual Learning for Image Recognition” (He et al., 2015) - ResNet\n“Visualizing and Understanding Convolutional Networks” (Zeiler & Fergus, 2013)\n“Deep Inside Convolutional Networks: Visualising Image Classification Models” (Simonyan et al., 2013) - Saliency maps\n\n\n\nPrevious: ← Lecture 14: Understanding Transformers | Next: Lecture 16: Recurrent Neural Networks →",
-    "crumbs": [
-      "Home",
-      "Module 4: Let's See & Chat",
-      "L15: Convolutional Neural Networks"
-    ]
-  },
-  {
-    "objectID": "lectures/00-setup.html",
-    "href": "lectures/00-setup.html",
-    "title": "Lecture 0: Environment Setup",
-    "section": "",
-    "text": "Set up Python environment for ML development\nUse Jupyter notebooks effectively\nRun code both locally and on Google Colab\nNavigate course GitHub repository",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L0: Environment Setup"
-    ]
-  },
-  {
-    "objectID": "lectures/00-setup.html#learning-objectives",
-    "href": "lectures/00-setup.html#learning-objectives",
-    "title": "Lecture 0: Environment Setup",
-    "section": "",
-    "text": "Set up Python environment for ML development\nUse Jupyter notebooks effectively\nRun code both locally and on Google Colab\nNavigate course GitHub repository",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L0: Environment Setup"
-    ]
-  },
-  {
-    "objectID": "lectures/00-setup.html#materials",
-    "href": "lectures/00-setup.html#materials",
-    "title": "Lecture 0: Environment Setup",
-    "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nSetup Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nWarningReminder\n\n\n\n\n\nJoin the course Piazza forum (Required for participation)\nComplete the Project Matchmaker Form by Tue 8/26, 12:00 PM ET. Required for Lecture 2: k-NN; counts toward participation.",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L0: Environment Setup"
-    ]
-  },
-  {
-    "objectID": "lectures/00-setup.html#pre-class-preparation",
-    "href": "lectures/00-setup.html#pre-class-preparation",
-    "title": "Lecture 0: Environment Setup",
-    "section": "Pre-Class Preparation",
-    "text": "Pre-Class Preparation\n\nComplete environment setup: Setup Guide (SETUP.md)\nRun through the setup notebook\nPost any issues on Piazza\n\n\nNext: Lecture 1: Welcome to Machine Learning →",
-    "crumbs": [
-      "Home",
-      "Module 1: Let's Predict",
-      "L0: Environment Setup"
+      "Projects",
+      "Project 3: Thought Cascade"
     ]
   },
   {
@@ -1434,6 +306,1218 @@
       "Home",
       "Projects",
       "Project 2: Neural Archaeology"
+    ]
+  },
+  {
+    "objectID": "lectures/00-setup.html",
+    "href": "lectures/00-setup.html",
+    "title": "Lecture 0: Environment Setup",
+    "section": "",
+    "text": "Set up Python environment for ML development\nUse Jupyter notebooks effectively\nRun code both locally and on Google Colab\nNavigate course GitHub repository",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L0: Environment Setup"
+    ]
+  },
+  {
+    "objectID": "lectures/00-setup.html#learning-objectives",
+    "href": "lectures/00-setup.html#learning-objectives",
+    "title": "Lecture 0: Environment Setup",
+    "section": "",
+    "text": "Set up Python environment for ML development\nUse Jupyter notebooks effectively\nRun code both locally and on Google Colab\nNavigate course GitHub repository",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L0: Environment Setup"
+    ]
+  },
+  {
+    "objectID": "lectures/00-setup.html#materials",
+    "href": "lectures/00-setup.html#materials",
+    "title": "Lecture 0: Environment Setup",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nSetup Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nWarningReminder\n\n\n\n\n\nJoin the course Piazza forum (Required for participation)\nComplete the Project Matchmaker Form by Tue 8/26, 12:00 PM ET. Required for Lecture 2: k-NN; counts toward participation.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L0: Environment Setup"
+    ]
+  },
+  {
+    "objectID": "lectures/00-setup.html#pre-class-preparation",
+    "href": "lectures/00-setup.html#pre-class-preparation",
+    "title": "Lecture 0: Environment Setup",
+    "section": "Pre-Class Preparation",
+    "text": "Pre-Class Preparation\n\nComplete environment setup: Setup Guide (SETUP.md)\nRun through the setup notebook\nPost any issues on Piazza\n\n\nNext: Lecture 1: Welcome to Machine Learning →",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L0: Environment Setup"
+    ]
+  },
+  {
+    "objectID": "lectures/15-cnn.html",
+    "href": "lectures/15-cnn.html",
+    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
+    "section": "",
+    "text": "In 2012, AlexNet achieved a breakthrough 15.3% error rate on ImageNet, fundamentally changing computer vision. This lecture explores why CNNs work so well for visual tasks through hands-on experimentation. The core insight: instead of learning separate parameters for every pixel location, CNNs learn small patterns that slide across the image through weight sharing, reducing parameters from millions to thousands while encoding translation invariance. You’ll implement convolution from scratch, compare MLP vs CNN robustness on MNIST, visualize hierarchical features in ResNet50, and use saliency maps to understand what CNNs actually “see.”",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L15: Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/15-cnn.html#overview",
+    "href": "lectures/15-cnn.html#overview",
+    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
+    "section": "",
+    "text": "In 2012, AlexNet achieved a breakthrough 15.3% error rate on ImageNet, fundamentally changing computer vision. This lecture explores why CNNs work so well for visual tasks through hands-on experimentation. The core insight: instead of learning separate parameters for every pixel location, CNNs learn small patterns that slide across the image through weight sharing, reducing parameters from millions to thousands while encoding translation invariance. You’ll implement convolution from scratch, compare MLP vs CNN robustness on MNIST, visualize hierarchical features in ResNet50, and use saliency maps to understand what CNNs actually “see.”",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L15: Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/15-cnn.html#learning-objectives",
+    "href": "lectures/15-cnn.html#learning-objectives",
+    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nUnderstand why spatial structure matters in vision and how CNNs exploit it\nLearn how convolution operations extract local features through weight sharing\nMaster the mathematics behind convolution and its relationship to cross-correlation\nUnderstand how CNNs build hierarchical representations from edges to objects\nLearn the role of pooling in creating translation invariance and dimension reduction\nImplement convolution from scratch to understand the operation deeply\nVisualize learned features at different network depths\nApply transfer learning to solve custom image classification tasks\nDiagnose what CNNs actually “see” using activation and gradient visualization\nCompare translation robustness between fully connected networks and CNNs",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L15: Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/15-cnn.html#materials",
+    "href": "lectures/15-cnn.html#materials",
+    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nCNN Notebook",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L15: Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/15-cnn.html#resources",
+    "href": "lectures/15-cnn.html#resources",
+    "title": "Lecture 15: Convolutional Neural Networks - Learning to See",
+    "section": "Resources",
+    "text": "Resources\n\nPapers:\n\n“ImageNet Classification with Deep Convolutional Neural Networks” (Krizhevsky et al., 2012) - AlexNet\n“Deep Residual Learning for Image Recognition” (He et al., 2015) - ResNet\n“Visualizing and Understanding Convolutional Networks” (Zeiler & Fergus, 2013)\n“Deep Inside Convolutional Networks: Visualising Image Classification Models” (Simonyan et al., 2013) - Saliency maps\n\n\n\nPrevious: ← Lecture 14: Understanding Transformers | Next: Lecture 16: Recurrent Neural Networks →",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L15: Convolutional Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/02-knn.html",
+    "href": "lectures/02-knn.html",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "",
+    "text": "In this hands-on lecture, we tackle a real problem: finding compatible ML project teammates using k-Nearest Neighbors. Yes, you’ll actually use this system to form your project teams! We’ll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L2: k-NN"
+    ]
+  },
+  {
+    "objectID": "lectures/02-knn.html#overview",
+    "href": "lectures/02-knn.html#overview",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "",
+    "text": "In this hands-on lecture, we tackle a real problem: finding compatible ML project teammates using k-Nearest Neighbors. Yes, you’ll actually use this system to form your project teams! We’ll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L2: k-NN"
+    ]
+  },
+  {
+    "objectID": "lectures/02-knn.html#learning-objectives",
+    "href": "lectures/02-knn.html#learning-objectives",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFrame real-world problems as ML tasks with inputs (X) and outputs (y)\nApply k-NN for classification and regression tasks\nAnalyze the impact of distance metrics and feature scaling\nUnderstand the curse of dimensionality and its practical implications\nDesign fair and effective matching systems with domain constraints\nEvaluate trade-offs between different similarity measures",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L2: k-NN"
+    ]
+  },
+  {
+    "objectID": "lectures/02-knn.html#materials",
+    "href": "lectures/02-knn.html#materials",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLecture Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Project Matchmaker Form by Mon 8/26, 12:00 PM ET. Required for Lecture 2: k-NN; counts toward participation.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L2: k-NN"
+    ]
+  },
+  {
+    "objectID": "lectures/02-knn.html#interactive-demo",
+    "href": "lectures/02-knn.html#interactive-demo",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Interactive Demo",
+    "text": "Interactive Demo\n\n\n\n\n\n\nNote🎮 Team Matcher Visualization\n\n\n\nExperience k-NN in action with our Interactive Team Matching Demo\nThis real-time visualization lets you:\n\nAdjust k parameter and see immediate effects\nExplore different dimension pairs\nView how proximity translates to similarity\nDiscover natural clustering patterns in the class",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L2: k-NN"
+    ]
+  },
+  {
+    "objectID": "lectures/02-knn.html#key-topics",
+    "href": "lectures/02-knn.html#key-topics",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Key Topics",
+    "text": "Key Topics\n\nThe Data Journey: From text surveys → NLP features → 8D vectors\nk-NN Fundamentals: The beautiful simplicity of “you are your neighbors”\nDistance Metrics: Euclidean, Manhattan, Cosine, and when each matters\nCurse of Dimensionality: When all points become equidistant\nFairness in ML: Ensuring inclusive team formation",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L2: k-NN"
+    ]
+  },
+  {
+    "objectID": "lectures/02-knn.html#additional-resources",
+    "href": "lectures/02-knn.html#additional-resources",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nScikit-learn k-NN Documentation\n\n\nPrevious: ← Lecture 1: Welcome to ML | Next: Lecture 3: Linear Regression →",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L2: k-NN"
+    ]
+  },
+  {
+    "objectID": "lectures/01-overview.html",
+    "href": "lectures/01-overview.html",
+    "title": "Lecture 1: Welcome to Machine Learning",
+    "section": "",
+    "text": "Welcome to Machine Learning! This course takes a unique “Learn by Building” approach where you’ll implement real ML systems from day one. In today’s hands-on session, we’ll explore the three fundamental paradigms of machine learning—supervised, unsupervised, and active learning—by building CatShop, an e-commerce system that thinks like a cat using Google’s Gemma-3 language model.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L1: Welcome to ML"
+    ]
+  },
+  {
+    "objectID": "lectures/01-overview.html#overview",
+    "href": "lectures/01-overview.html#overview",
+    "title": "Lecture 1: Welcome to Machine Learning",
+    "section": "",
+    "text": "Welcome to Machine Learning! This course takes a unique “Learn by Building” approach where you’ll implement real ML systems from day one. In today’s hands-on session, we’ll explore the three fundamental paradigms of machine learning—supervised, unsupervised, and active learning—by building CatShop, an e-commerce system that thinks like a cat using Google’s Gemma-3 language model.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L1: Welcome to ML"
+    ]
+  },
+  {
+    "objectID": "lectures/01-overview.html#learning-objectives",
+    "href": "lectures/01-overview.html#learning-objectives",
+    "title": "Lecture 1: Welcome to Machine Learning",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nExperience all three ML paradigms through hands-on implementation\nFine-tune Gemma-3 (270M parameters) using LoRA for efficient adaptation\nObserve catastrophic forgetting and model trade-offs\nBuild a complete ML application from data to deployment\nUnderstand how active learning reduces labeling costs",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L1: Welcome to ML"
+    ]
+  },
+  {
+    "objectID": "lectures/01-overview.html#materials",
+    "href": "lectures/01-overview.html#materials",
+    "title": "Lecture 1: Welcome to Machine Learning",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nPre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!\n\n\n\n\n\n\n\n\n\nWarningReminder\n\n\n\n\n\nJoin the course Piazza forum (Required for participation)\nComplete the Project Matchmaker Form by Mon 8/26, 12:00 PM ET. Required for Lecture 2: k-NN; counts toward participation.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L1: Welcome to ML"
+    ]
+  },
+  {
+    "objectID": "lectures/01-overview.html#interactive-demo",
+    "href": "lectures/01-overview.html#interactive-demo",
+    "title": "Lecture 1: Welcome to Machine Learning",
+    "section": "Interactive Demo",
+    "text": "Interactive Demo\n\n\n\n\n\n\nNote🐱 CatShop Web Application\n\n\n\nExperience your trained model in action with the CatShop e-commerce demo, featuring real-time cat perspective classifications, confidence visualization, and interactive chat.\nBuilt upon the WebShop environment with modifications for educational purposes.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L1: Welcome to ML"
+    ]
+  },
+  {
+    "objectID": "lectures/01-overview.html#acknowledgments-resources",
+    "href": "lectures/01-overview.html#acknowledgments-resources",
+    "title": "Lecture 1: Welcome to Machine Learning",
+    "section": "Acknowledgments & Resources",
+    "text": "Acknowledgments & Resources\n\nCore Technologies\n\nGemma-3 270M: Google’s efficient language model\nPEFT/LoRA: Parameter-efficient fine-tuning\nTransformers: Hugging Face’s model library\n\n\n\nDataset & Environment\n\nWebShop: E-commerce product data and environment\nYao et al., “WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents”, NeurIPS 2022\n\n\nNext: Lecture 2: k-Nearest Neighbors →",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L1: Welcome to ML"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html",
+    "href": "lectures/08-decision-trees.html",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#overview",
+    "href": "lectures/08-decision-trees.html#overview",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "",
+    "text": "In this lecture, we move from classical decision trees to modern perspectives:\n\nWhy axis-aligned splits can be limiting, and how depth affects overfitting\nPractical strategies for class imbalance (resampling vs class-weighting)\nDifferentiable (soft) decision trees that enable gradient-based learning\nHow to evaluate beyond accuracy with AUC/PR-AUC, calibration, and confusion matrices",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#learning-objectives",
+    "href": "lectures/08-decision-trees.html#learning-objectives",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand tree impurity criteria and how splits are chosen\nDiagnose overfitting and complexity growth as depth increases\nAddress class imbalance with data rebalancing and class weighting (and know the math behind it)\nBuild intuition for soft trees and temperature-controlled routing\nCompare hard vs soft boundaries and assess probability calibration",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#materials",
+    "href": "lectures/08-decision-trees.html#materials",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModern Decision Trees Notebook",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/08-decision-trees.html#datasets-acknowledgments",
+    "href": "lectures/08-decision-trees.html#datasets-acknowledgments",
+    "title": "Lecture 8: Modern Decision Trees",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nHome Credit Default Risk (Kaggle): real-world credit risk dataset used throughout the lecture.\n\nSource: https://www.kaggle.com/competitions/home-credit-default-risk\nPlease review the dataset license and Kaggle terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch (soft trees)\nSoft Decision Trees (prior work):\n\nFrosst, N., & Hinton, G. (2017). Distilling a Neural Network Into a Soft Decision Tree\nKontschieder, P., Fiterau, M., Criminisi, A., & Bulo, S. R. (2015). Deep Neural Decision Forests (ICCV)\n\n\n\nPrevious: ← Lecture 7: Overfitting and Regularization | Next: Lecture 9: Ensemble Methods →",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L8: Modern Decision Trees"
+    ]
+  },
+  {
+    "objectID": "lectures/05-probclass.html",
+    "href": "lectures/05-probclass.html",
+    "title": "Lecture 5: Probabilistic Classification",
+    "section": "",
+    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L5: Probabilistic Classification"
+    ]
+  },
+  {
+    "objectID": "lectures/05-probclass.html#overview",
+    "href": "lectures/05-probclass.html#overview",
+    "title": "Lecture 5: Probabilistic Classification",
+    "section": "",
+    "text": "In this critical lecture, we tackle a life-or-death classification problem: identifying poisonous mushrooms. Through this compelling case study, you’ll discover why probabilistic outputs are essential for risk-aware decisions, moving beyond simple yes/no predictions. We’ll build two fundamental probabilistic classifiers—Logistic Regression and Naive Bayes—and learn how to calibrate them for safety-critical applications where the cost of false negatives can be fatal.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L5: Probabilistic Classification"
+    ]
+  },
+  {
+    "objectID": "lectures/05-probclass.html#learning-objectives",
+    "href": "lectures/05-probclass.html#learning-objectives",
+    "title": "Lecture 5: Probabilistic Classification",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand why probabilistic outputs are essential for risk-aware decisions\nImplement logistic regression as a “soft” decision maker that expresses confidence\nMaster Naive Bayes as a probabilistic detective gathering and combining evidence\nCalibrate models and tune decision thresholds for safety-critical applications\nDiagnose model disagreements and understand edge cases\nBuild production-ready classifiers that prioritize safety over accuracy",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L5: Probabilistic Classification"
+    ]
+  },
+  {
+    "objectID": "lectures/05-probclass.html#materials",
+    "href": "lectures/05-probclass.html#materials",
+    "title": "Lecture 5: Probabilistic Classification",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nProbabilistic Classification Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with scikit-learn, pandas, matplotlib, and seaborn\nUnderstanding of linear regression from Lecture 3\nBasic probability theory (Bayes’ theorem helpful but not required)\nCompleted Lecture 4 on optimization",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L5: Probabilistic Classification"
+    ]
+  },
+  {
+    "objectID": "lectures/05-probclass.html#datasets-acknowledgments",
+    "href": "lectures/05-probclass.html#datasets-acknowledgments",
+    "title": "Lecture 5: Probabilistic Classification",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nUCI Mushroom Dataset\n\nSource: UCI Machine Learning Repository\nSize: 8,124 mushrooms with 22 categorical features\nWhy This Dataset: Perfect 52/48 class balance, real mushroom characteristics from field guides, and life-or-death stakes make it ideal for teaching safety-critical classification",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L5: Probabilistic Classification"
+    ]
+  },
+  {
+    "objectID": "lectures/05-probclass.html#key-takeaways",
+    "href": "lectures/05-probclass.html#key-takeaways",
+    "title": "Lecture 5: Probabilistic Classification",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Safety Principle\n\n\n\nIn mushroom classification, it’s better to skip a meal than risk your life! This principle extends to all safety-critical applications where false negatives have catastrophic consequences.\n\n\n\nPrevious: ← Lecture 4: Gradient Descent and Optimization | Next: Lecture 6: Decision Trees (Coming Soon)",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L5: Probabilistic Classification"
+    ]
+  },
+  {
+    "objectID": "lectures/13-nn-architecture.html",
+    "href": "lectures/13-nn-architecture.html",
+    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
+    "section": "",
+    "text": "Linear models struggle with non-linear patterns, as seen in classic datasets like two moons. This lecture introduces fully connected neural networks (multi-layer perceptrons) and the crucial role of non-linear activation functions in enabling complex decision boundaries. We build MLPs in PyTorch, trace forward propagation step-by-step, discuss backpropagation intuition and gradient checking, visualize capacity vs. complexity through decision boundaries, and finish by training on the CIFAR-10 dataset.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L13: Neural Network Architecture"
+    ]
+  },
+  {
+    "objectID": "lectures/13-nn-architecture.html#overview",
+    "href": "lectures/13-nn-architecture.html#overview",
+    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
+    "section": "",
+    "text": "Linear models struggle with non-linear patterns, as seen in classic datasets like two moons. This lecture introduces fully connected neural networks (multi-layer perceptrons) and the crucial role of non-linear activation functions in enabling complex decision boundaries. We build MLPs in PyTorch, trace forward propagation step-by-step, discuss backpropagation intuition and gradient checking, visualize capacity vs. complexity through decision boundaries, and finish by training on the CIFAR-10 dataset.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L13: Neural Network Architecture"
+    ]
+  },
+  {
+    "objectID": "lectures/13-nn-architecture.html#learning-objectives",
+    "href": "lectures/13-nn-architecture.html#learning-objectives",
+    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nUnderstand why non-linear activation functions are essential for neural networks\nBuild multi-layer perceptrons (MLPs) from scratch using PyTorch\nTrace forward propagation through a network step-by-step\nExplain backpropagation intuitively and implement gradient checking\nTrain neural networks on real-world datasets (CIFAR-10)\nApply modern practices like proper initialization and optimization",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L13: Neural Network Architecture"
+    ]
+  },
+  {
+    "objectID": "lectures/13-nn-architecture.html#materials",
+    "href": "lectures/13-nn-architecture.html#materials",
+    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nNeural Network Architecture Notebook",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L13: Neural Network Architecture"
+    ]
+  },
+  {
+    "objectID": "lectures/13-nn-architecture.html#datasets-acknowledgments",
+    "href": "lectures/13-nn-architecture.html#datasets-acknowledgments",
+    "title": "Lecture 13: Fully Connected Neural Networks — Architectures & Learning",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): 60k 32×32 color images across 10 classes, accessed via torchvision.datasets.CIFAR10\nSynthetic datasets: Two moons, circles for illustrating non-linear decision boundaries (sklearn.datasets.make_moons, make_circles)\nLibraries: PyTorch/torchvision, scikit-learn, matplotlib, seaborn, ipywidgets\nFigures/visualizations: Decision boundaries, activation functions, and architecture diagrams generated programmatically in the notebook\n\n\nPrevious: ← Lecture 12: PCA and Dimensionality Reduction | Next: Lecture 14: Understanding Transformers →",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L13: Neural Network Architecture"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html",
+    "href": "lectures/12-pca.html",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "",
+    "text": "High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore advanced nonlinear visualization tools like t-SNE and UMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#overview",
+    "href": "lectures/12-pca.html#overview",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "",
+    "text": "High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore advanced nonlinear visualization tools like t-SNE and UMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#learning-objectives",
+    "href": "lectures/12-pca.html#learning-objectives",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nExplain PCA geometrically and understand how it finds directions of maximum variance for data compression\nRecognize PCA’s limitations and know when it works well (linear structure, global relationships) versus when it fails (nonlinear manifolds, local clusters)\nChoose appropriate DR methods by selecting between PCA and advanced nonlinear tools (t-SNE, UMAP) based on whether you need global structure or local cluster visualization\nInterpret DR visualizations critically, understanding what relationships are preserved and what might be artifacts\nApply DR to real data using the full pipeline (embedding → PCA → nonlinear DR → clustering) on text data while avoiding common pitfalls like text length leakage\nOptimize DR workflows by using PCA preprocessing to speed up nonlinear methods and choosing appropriate hyperparameters",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#materials",
+    "href": "lectures/12-pca.html#materials",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nPCA and Dimensionality Reduction Notebook",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/12-pca.html#datasets-acknowledgments",
+    "href": "lectures/12-pca.html#datasets-acknowledgments",
+    "title": "Lecture 12: Simplifying Data — PCA and Friends",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nDAIGT V3 (thedrcat, Kaggle): Detecting AI Generated Text dataset with 130k texts, used to demonstrate real-world DR applications for distinguishing AI vs. human writing\nMammoth 3D (PaCMAP repository): 10k-point digitization of mammoth skeleton for testing global structure preservation\nSynthetic datasets: Circles, moons, and swiss roll for demonstrating nonlinear structure\nLibraries: scikit-learn (PCA, t-SNE), UMAP-learn, sentence-transformers (text embeddings)\nMethodology inspiration: Yang Lu (uwyang), “Visualizing AI v.s. Human writing embeddings using TSNE for AI detection (Part 1/n)” — our analysis follows similar preprocessing and visualization techniques\nKey papers: van der Maaten & Hinton (2008) for t-SNE, McInnes et al. (2018) for UMAP\n\n\nPrevious: ← Lecture 11: K-Means Clustering | Next: Lecture 13: Neural Network Architecture →",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L12: PCA and Dimensionality Reduction"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html",
+    "href": "lectures/14-transformers.html",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "",
+    "text": "Transformers have revolutionized natural language processing since their introduction in “Attention is All You Need” (Vaswani et al., 2017). This lecture explores pre-trained transformer models through visualization and analysis, specifically examining GPT-2. Rather than building transformers from scratch, we perform an “MRI scan” on a transformer’s brain while it processes text—extracting attention patterns, watching hidden representations evolve, and discovering how different components specialize in different tasks. You’ll gain an intuitive understanding of how transformers work by examining them in action.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#overview",
+    "href": "lectures/14-transformers.html#overview",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "",
+    "text": "Transformers have revolutionized natural language processing since their introduction in “Attention is All You Need” (Vaswani et al., 2017). This lecture explores pre-trained transformer models through visualization and analysis, specifically examining GPT-2. Rather than building transformers from scratch, we perform an “MRI scan” on a transformer’s brain while it processes text—extracting attention patterns, watching hidden representations evolve, and discovering how different components specialize in different tasks. You’ll gain an intuitive understanding of how transformers work by examining them in action.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#learning-objectives",
+    "href": "lectures/14-transformers.html#learning-objectives",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nExtract and visualize attention weights from any pre-trained transformer model\nIdentify attention head specialization and understand how different heads focus on different linguistic patterns\nTrack hidden state evolution and see how word representations change through transformer layers\nUnderstand causal masking in autoregressive models like GPT-2\nInterpret attention patterns to understand model predictions\nUse visualization tools like BertViz and custom heatmaps for model analysis\nRecognize common attention patterns (positional, syntactic, semantic)",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#materials",
+    "href": "lectures/14-transformers.html#materials",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nTransformers Notebook",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#connection-to-project-2",
+    "href": "lectures/14-transformers.html#connection-to-project-2",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Connection to Project 2",
+    "text": "Connection to Project 2\nThis lecture provides the foundation for Project 2: Neural Archaeology, where you’ll go deeper into the hidden layers of language models to decode how they represent concepts like safety, emotion, and truthfulness. You’ll apply cutting-edge interpretability techniques from AI safety research to understand what models actually learn beyond just attention patterns.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/14-transformers.html#resources",
+    "href": "lectures/14-transformers.html#resources",
+    "title": "Lecture 14: Understanding Transformers Through Exploration and Visualization",
+    "section": "Resources",
+    "text": "Resources\n\nPapers:\n\n“Attention is All You Need” (Vaswani et al., 2017)\n“What Does BERT Look At?” (Clark et al., 2019)\n\nTutorials:\n\nJay Alammar’s “The Illustrated Transformer”\nAndrej Karpathy’s “minGPT”\n\n\n\nPrevious: ← Lecture 13: Neural Network Architecture | Next: Lecture 15: Convolutional Neural Networks →",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L14: Understanding Transformers"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html",
+    "href": "lectures/03-linear.html",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#overview",
+    "href": "lectures/03-linear.html#overview",
+    "title": "Lecture 3: Linear Regression",
+    "section": "",
+    "text": "Linear regression is far more powerful than its name suggests. In this hands-on lecture, we’ll discover how the same algorithm that fits straight lines can capture complex curved relationships in real-world data. Through interactive experiments with automotive engineering and weather forecasting datasets, you’ll master polynomial features, understand the “lifting technique,” and learn when models become too complex.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#learning-objectives",
+    "href": "lectures/03-linear.html#learning-objectives",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand linear regression model, parameters, and MSE loss function\nMaster polynomial features through hands-on interaction\nApply regression to real problems (automotive MPG, weather bias correction)\nVisualize the “lifting technique” that transforms curves into hyperplanes\nRecognize overfitting and understand model complexity trade-offs\nEngineer domain-specific features that outperform blind polynomial expansion",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#materials",
+    "href": "lectures/03-linear.html#materials",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/03-linear.html#datasets-acknowledgments",
+    "href": "lectures/03-linear.html#datasets-acknowledgments",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nReal-World Datasets Used\n\nAuto MPG Dataset: 398 vehicles from 1970-1982\nUCI Machine Learning Repository, accessed via MLxtend\nECMWF Weather Data: 5.2M observations from 8,000+ weather stations\nEuropean Centre for Medium-Range Weather Forecasts, via ClimeLab (Apache 2.0)\n\n\nPrevious: ← Lecture 2: k-NN | Next: Lecture 4: Gradient Descent and Optimization →",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L3: Linear Regression"
+    ]
+  },
+  {
+    "objectID": "lectures/06-model-eval.html",
+    "href": "lectures/06-model-eval.html",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "section": "",
+    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
+    ]
+  },
+  {
+    "objectID": "lectures/06-model-eval.html#overview",
+    "href": "lectures/06-model-eval.html#overview",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "section": "",
+    "text": "In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
+    ]
+  },
+  {
+    "objectID": "lectures/06-model-eval.html#learning-objectives",
+    "href": "lectures/06-model-eval.html#learning-objectives",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect when summary statistics hide critical patterns using visualization techniques\nRecognize and resolve Simpson’s Paradox in aggregated data\nChoose appropriate metrics beyond accuracy for imbalanced problems\nIdentify and prevent data leakage in time series and customer data\nInterpret ML visualizations (ROC curves, confusion matrices) correctly\nBuild a systematic evaluation framework for production models",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
+    ]
+  },
+  {
+    "objectID": "lectures/06-model-eval.html#materials",
+    "href": "lectures/06-model-eval.html#materials",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nModel Evaluation and Data Deception Notebook",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
+    ]
+  },
+  {
+    "objectID": "lectures/06-model-eval.html#datasets-acknowledgments",
+    "href": "lectures/06-model-eval.html#datasets-acknowledgments",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nReal Datasets Used\n\nDatasaurus Dozen: Created by Autodesk Research — 13 datasets with identical statistics but widely differing spatial patterns\nUC Berkeley Admissions (1973): Historical admissions data illustrating Simpson’s Paradox\nCredit Card Fraud (Kaggle): Transactions from European cardholders over two days; 492 frauds out of 284,807 transactions (0.172%), resulting in a highly imbalanced dataset\nTelco Customer Churn (IBM, Kaggle): Customer account data used to demonstrate evaluation pitfalls and potential data leakage",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
+    ]
+  },
+  {
+    "objectID": "lectures/06-model-eval.html#key-takeaways",
+    "href": "lectures/06-model-eval.html#key-takeaways",
+    "title": "Lecture 6: Model Evaluation and Data Deception",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nWarningCritical Evaluation Principles\n\n\n\n\nAlways visualize your data — Summary statistics alone can hide dinosaurs (literally!)\nAccuracy lies for imbalanced data — A 99.8% accurate model can be completely useless\nData leakage is subtle and devastating — Always ask: “Would I have this information at prediction time?”\nContext matters — What looks like discrimination at one level may be the opposite at another (Simpson’s Paradox)\n\n\n\n\nPrevious: ← Lecture 5: Probabilistic Classification | Next: Lecture 7: Overfitting and Regularization →",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L6: Model Evaluation and Data Deception"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html",
+    "href": "lectures/11-kmeans.html",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "",
+    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#overview",
+    "href": "lectures/11-kmeans.html#overview",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "",
+    "text": "In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#learning-objectives",
+    "href": "lectures/11-kmeans.html#learning-objectives",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand the fundamental concepts of clustering and unsupervised learning\nMaster the K-Means algorithm, including its objective function (WCSS) and iterative optimization\nImplement K-Means from scratch to understand the assignment and update steps\nApply K-Means to text data using TF-IDF transformation\nEvaluate clustering quality using silhouette score, Davies-Bouldin index, and Calinski-Harabasz score\nChoose optimal K using the elbow method and silhouette analysis\nUse K-Means variants (MiniBatch K-Means, K-Means++) for improved performance\nRecognize K-Means limitations (spherical clusters, fixed K) and when to use alternative methods",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#materials",
+    "href": "lectures/11-kmeans.html#materials",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nK-Means Clustering Notebook",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/11-kmeans.html#datasets-acknowledgments",
+    "href": "lectures/11-kmeans.html#datasets-acknowledgments",
+    "title": "Lecture 11: K-Means Clustering",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\n20 Newsgroups (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering\nLibraries: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)\n\n\nPrevious: ← Lecture 10: Kernel Methods & Gaussian Processes | Next: Lecture 12: PCA and Dimensionality Reduction →",
+    "crumbs": [
+      "Home",
+      "Module 3: Let's Discover",
+      "L11: K-Means Clustering"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html",
+    "href": "lectures/04-optimization.html",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "",
+    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#overview",
+    "href": "lectures/04-optimization.html#overview",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "",
+    "text": "Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#learning-objectives",
+    "href": "lectures/04-optimization.html#learning-objectives",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFormulate optimization problems in machine learning\nImplement gradient descent from scratch with proper numerical stability\nMaster the critical importance of data standardization\nCompare batch, stochastic, and mini-batch gradient descent variants\nDiagnose and fix gradient explosion/vanishing problems\nApply modern optimizers (Adam, SGD with momentum) effectively",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#materials",
+    "href": "lectures/04-optimization.html#materials",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#key-concepts-highlights",
+    "href": "lectures/04-optimization.html#key-concepts-highlights",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Key Concepts & Highlights",
+    "text": "Key Concepts & Highlights\n\nInteractive Line Fitting Game Start by manually adjusting weights and biases to minimize loss. This hands-on experience builds intuition for what gradient descent automates—finding the lowest point in the loss landscape.\nThe #1 Pitfall: Data Standardization Learn why unstandardized data causes gradient explosion and how proper preprocessing prevents this. We’ll demonstrate why gradients scale with data magnitude and provide diagnostic tools to catch this early.\nThree Flavors of SGD Compare batch, stochastic, and mini-batch gradient descent side-by-side. Understand the speed vs. accuracy trade-offs and why mini-batch has become the industry standard.\nDebugging Toolkit Master systematic debugging with our gradient diagnostic dashboard that detects vanishing/exploding gradients, loss plateaus, and oscillations—complete with suggested fixes for each problem.",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/04-optimization.html#datasets-acknowledgments",
+    "href": "lectures/04-optimization.html#datasets-acknowledgments",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nCalifornia Housing Dataset\n\nSource: Scikit-learn California housing dataset- Why This Dataset: Strong income–price correlation makes it perfect for demonstrating optimization concepts while being complex enough to show real challenges\n\n\nPrevious: ← Lecture 3: Linear Regression | Next: Lecture 5: Probabilistic Classification",
+    "crumbs": [
+      "Home",
+      "Module 1: Let's Predict",
+      "L4: Gradient Descent and Optimization"
+    ]
+  },
+  {
+    "objectID": "lectures/17-llm-agents.html",
+    "href": "lectures/17-llm-agents.html",
+    "title": "Lecture 17: LLM Agents & Tool Use",
+    "section": "",
+    "text": "Large Language Models are more than chatbots—they can plan, call tools, and take actions. This lecture shows how to turn an LLM into an agent: structuring outputs, invoking external functions/APIs, and iterating with reasoning-and-action loops (ReAct). We contrast naive prompting with constrained and schema-validated approaches, calibrate model decisions via log-prob scoring, and discuss evaluation, safety, and failure modes when models act in the real world.",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L17: LLM Agents & Tool Use"
+    ]
+  },
+  {
+    "objectID": "lectures/17-llm-agents.html#overview",
+    "href": "lectures/17-llm-agents.html#overview",
+    "title": "Lecture 17: LLM Agents & Tool Use",
+    "section": "",
+    "text": "Large Language Models are more than chatbots—they can plan, call tools, and take actions. This lecture shows how to turn an LLM into an agent: structuring outputs, invoking external functions/APIs, and iterating with reasoning-and-action loops (ReAct). We contrast naive prompting with constrained and schema-validated approaches, calibrate model decisions via log-prob scoring, and discuss evaluation, safety, and failure modes when models act in the real world.",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L17: LLM Agents & Tool Use"
+    ]
+  },
+  {
+    "objectID": "lectures/17-llm-agents.html#learning-objectives",
+    "href": "lectures/17-llm-agents.html#learning-objectives",
+    "title": "Lecture 17: LLM Agents & Tool Use",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nUnderstand LLM versatility - Recognize that LLMs are general-purpose text processors capable of classification, extraction, reasoning, and generation tasks\nImplement tool use - Build systems that enable LLMs to interact with external functions and APIs through structured tool calling\nCreate ReAct agents - Develop agents that combine reasoning and acting in an iterative loop to solve multi-step problems\nFine-tune models - Customize language models for specific domains through efficient fine-tuning techniques",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L17: LLM Agents & Tool Use"
+    ]
+  },
+  {
+    "objectID": "lectures/17-llm-agents.html#materials",
+    "href": "lectures/17-llm-agents.html#materials",
+    "title": "Lecture 17: LLM Agents & Tool Use",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLLM Agents & Tool Use Notebook",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L17: LLM Agents & Tool Use"
+    ]
+  },
+  {
+    "objectID": "lectures/17-llm-agents.html#resources",
+    "href": "lectures/17-llm-agents.html#resources",
+    "title": "Lecture 17: LLM Agents & Tool Use",
+    "section": "Resources",
+    "text": "Resources\n\nClassic Blog Posts:\n\nA Visual Guide to LLM Agents — Architectures for reasoning, planning, and tool use\nLLM Powered Autonomous Agents\n\n\nPrevious: ← Lecture 16: Recurrent Neural Networks | Next: Lecture 18: Coming Soon →",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L17: LLM Agents & Tool Use"
+    ]
+  },
+  {
+    "objectID": "lectures/10-kernel-gp.html",
+    "href": "lectures/10-kernel-gp.html",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
+    "section": "",
+    "text": "In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.\n\nGaussian Processes as distributions over functions: priors, posteriors, and the role of kernels\nKernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge\nSmall data advantage: why GPs outperform neural networks with sparse training data\nDeep kernel learning: combining neural network feature extractors with GP inference\nReal-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L10: Kernel Methods & Gaussian Processes"
+    ]
+  },
+  {
+    "objectID": "lectures/10-kernel-gp.html#overview",
+    "href": "lectures/10-kernel-gp.html#overview",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
+    "section": "",
+    "text": "In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.\n\nGaussian Processes as distributions over functions: priors, posteriors, and the role of kernels\nKernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge\nSmall data advantage: why GPs outperform neural networks with sparse training data\nDeep kernel learning: combining neural network feature extractors with GP inference\nReal-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L10: Kernel Methods & Gaussian Processes"
+    ]
+  },
+  {
+    "objectID": "lectures/10-kernel-gp.html#learning-objectives",
+    "href": "lectures/10-kernel-gp.html#learning-objectives",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nUnderstand the paradigm shift from learning single predictions to learning probability distributions over functions\nDesign and combine kernels to encode domain knowledge about patterns in data (trends, seasonality, smoothness)\nApply GPs effectively when neural networks fail due to limited training data\nObtain calibrated confidence intervals and quantify prediction uncertainty\nImplement deep kernel learning by using neural networks as feature extractors for GPs\nMake informed model choices between GPs and neural networks for real-world problems",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L10: Kernel Methods & Gaussian Processes"
+    ]
+  },
+  {
+    "objectID": "lectures/10-kernel-gp.html#materials",
+    "href": "lectures/10-kernel-gp.html#materials",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nKernel Methods & GP Notebook",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L10: Kernel Methods & Gaussian Processes"
+    ]
+  },
+  {
+    "objectID": "lectures/10-kernel-gp.html#datasets-acknowledgments",
+    "href": "lectures/10-kernel-gp.html#datasets-acknowledgments",
+    "title": "Lecture 10: Kernel Methods & Gaussian Processes",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nMauna Loa CO₂ Data: Monthly atmospheric CO₂ measurements from 1958-2017 used to demonstrate GP forecasting with uncertainty\n\nSource: NOAA Global Monitoring Laboratory\nDownload: Available on Kaggle\nNote: Dataset is included in the repository at Lecture 10 Kernel Methods/data/archive.csv\n\nCIFAR-10 (Krizhevsky et al.): Natural images used for deep kernel learning demonstration\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nDownloaded automatically by PyTorch when running the notebook\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (GP implementation, kernels), PyTorch/torchvision (ResNet features for deep kernels)\n\n\nPrevious: ← Lecture 9: Ensemble Methods | Next: Lecture 11: K-Means Clustering →",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L10: Kernel Methods & Gaussian Processes"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html",
+    "href": "lectures/07-regularization.html",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "",
+    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#overview",
+    "href": "lectures/07-regularization.html#overview",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "",
+    "text": "This lecture examines overfitting and generalization using Fashion-MNIST. We will diagnose overfitting by comparing training and validation performance, and then study both model-centric (regularization) and data-centric (quantity/diversity) interventions to improve generalization. The emphasis is on principled evaluation and reproducible procedures.",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#learning-objectives",
+    "href": "lectures/07-regularization.html#learning-objectives",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nDetect overfitting early using validation sets and learning curves\nMaster classical regularization techniques (L1/L2, early stopping)\nApply modern approaches (label smoothing, mixup augmentation)\nExplore data-centric solutions through quantity and diversity experiments",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#materials",
+    "href": "lectures/07-regularization.html#materials",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\n\nOverfitting & Regularization Notebook\n\n\n\n\n\n\n\n\n\nNoteThree Fundamental Curves You’ll Generate\n\n\n\n\nModel Complexity Curve: The classic U-shaped validation error showing underfitting → optimal → overfitting zones\nData Quantity Curve: Diminishing returns as training samples increase\nData Diversity Effect: Diverse samples can outperform larger homogeneous sets for out-of-distribution generalization",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/07-regularization.html#datasets-acknowledgments",
+    "href": "lectures/07-regularization.html#datasets-acknowledgments",
+    "title": "Lecture 7: Overfitting and Regularization",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nFashion-MNIST Dataset (Kaggle)\nSource: Zalando Research\nSize: 70,000 grayscale images (28×28) of 10 clothing categories\nWhy This Dataset: Complex enough to demonstrate overfitting, simple enough to train quickly, real-world relevance\n\n\nPrevious: ← Lecture 6: Model Evaluation and Data Deception | Next: TBD",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L7: Overfitting and Regularization"
+    ]
+  },
+  {
+    "objectID": "lectures/16-rnn.html",
+    "href": "lectures/16-rnn.html",
+    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
+    "section": "",
+    "text": "Sequential data is everywhere: time series, text, audio, video. This lecture explores how neural networks process sequences of arbitrary length while maintaining memory of past inputs. We start with vanilla RNNs and discover their fundamental limitation—the vanishing gradient problem. Then we see how LSTMs solve this through gating mechanisms, making them highly effective for time series and moderate-length sequences. Finally, we examine why LSTMs struggle with modern language modeling tasks and explore how newer architectures like Mamba bring back recursion with linear complexity. Through hands-on experiments with Sequential MNIST and architecture comparisons, the lecture reveals when to use each approach based on computational trade-offs.",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L16: Recurrent Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/16-rnn.html#overview",
+    "href": "lectures/16-rnn.html#overview",
+    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
+    "section": "",
+    "text": "Sequential data is everywhere: time series, text, audio, video. This lecture explores how neural networks process sequences of arbitrary length while maintaining memory of past inputs. We start with vanilla RNNs and discover their fundamental limitation—the vanishing gradient problem. Then we see how LSTMs solve this through gating mechanisms, making them highly effective for time series and moderate-length sequences. Finally, we examine why LSTMs struggle with modern language modeling tasks and explore how newer architectures like Mamba bring back recursion with linear complexity. Through hands-on experiments with Sequential MNIST and architecture comparisons, the lecture reveals when to use each approach based on computational trade-offs.",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L16: Recurrent Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/16-rnn.html#learning-objectives",
+    "href": "lectures/16-rnn.html#learning-objectives",
+    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nImplement vanilla RNN and LSTM architectures and understand their core computational mechanisms\nDiagnose the vanishing gradient problem in RNNs through visualization and empirical analysis\nExplain LSTM’s gating mechanisms (forget, input, output gates) and how they enable long-term memory\nTrain and compare RNN vs LSTM on Sequential MNIST to observe performance differences with sequence length\nAnalyze computational bottlenecks in Transformers (quadratic attention) vs recursive models (linear complexity)\nSelect appropriate architectures for different tasks based on sequence length, memory constraints, and computational requirements",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L16: Recurrent Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/16-rnn.html#materials",
+    "href": "lectures/16-rnn.html#materials",
+    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nRNN & Language Models Notebook",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L16: Recurrent Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/16-rnn.html#resources",
+    "href": "lectures/16-rnn.html#resources",
+    "title": "Lecture 16: Recurrent Neural Networks and Language Models",
+    "section": "Resources",
+    "text": "Resources\n\nClassic Blog Posts:\n\nUnderstanding LSTM Networks by Christopher Olah - The definitive visual guide to LSTMs\nA Visual Guide to Mamba and State Space Models - Modern recursive architectures explained\n\nFoundational Papers:\n\n“Long Short-Term Memory” (Hochreiter & Schmidhuber, 1997) - The original LSTM paper\n“Attention Is All You Need” (Vaswani et al., 2017) - The Transformer architecture\n“Mamba: Linear-Time Sequence Modeling with Selective State Spaces” (Gu & Dao, 2023) - Modern efficient recursion\n\n\n\nPrevious: ← Lecture 15: Convolutional Neural Networks | Next: Lecture 17: LLM Agents & Tool Use →",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L16: Recurrent Neural Networks"
+    ]
+  },
+  {
+    "objectID": "lectures/18-vlms.html",
+    "href": "lectures/18-vlms.html",
+    "title": "Lecture 18: Vision-Language Models",
+    "section": "",
+    "text": "Vision-Language Models (VLMs) connect images and text in a shared embedding space so a model can “look” at a picture and understand it using language. In this lecture we use CLIP and a modern efficient VLM (SmolVLM) to see how contrastive learning aligns visual and textual representations, how attention in vision transformers highlights important regions, and how simple projection layers and instruction tuning turn these models into practical multimodal assistants. We finish with a small image analysis app that performs zero-shot classification and multi-aspect tagging.",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L18: Vision-Language Models"
+    ]
+  },
+  {
+    "objectID": "lectures/18-vlms.html#overview",
+    "href": "lectures/18-vlms.html#overview",
+    "title": "Lecture 18: Vision-Language Models",
+    "section": "",
+    "text": "Vision-Language Models (VLMs) connect images and text in a shared embedding space so a model can “look” at a picture and understand it using language. In this lecture we use CLIP and a modern efficient VLM (SmolVLM) to see how contrastive learning aligns visual and textual representations, how attention in vision transformers highlights important regions, and how simple projection layers and instruction tuning turn these models into practical multimodal assistants. We finish with a small image analysis app that performs zero-shot classification and multi-aspect tagging.",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L18: Vision-Language Models"
+    ]
+  },
+  {
+    "objectID": "lectures/18-vlms.html#learning-objectives",
+    "href": "lectures/18-vlms.html#learning-objectives",
+    "title": "Lecture 18: Vision-Language Models",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will be able to:\n\nExplain how contrastive learning creates shared embedding spaces between vision and text\nDemonstrate the dual-encoder architecture of CLIP and how it enables zero-shot transfer\nAnalyze attention mechanisms in vision transformers and their role in visual understanding\nCompare different vision-language architectures (CLIP vs SmolVLM) and their trade-offs\nImplement practical applications using vision-language models\nEvaluate the impact of instruction tuning on model capabilities",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L18: Vision-Language Models"
+    ]
+  },
+  {
+    "objectID": "lectures/18-vlms.html#materials",
+    "href": "lectures/18-vlms.html#materials",
+    "title": "Lecture 18: Vision-Language Models",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nVision-Language Models Notebook",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L18: Vision-Language Models"
+    ]
+  },
+  {
+    "objectID": "lectures/18-vlms.html#resources-acknowledgements",
+    "href": "lectures/18-vlms.html#resources-acknowledgements",
+    "title": "Lecture 18: Vision-Language Models",
+    "section": "Resources & Acknowledgements",
+    "text": "Resources & Acknowledgements\n\nModels and code used in this lecture:\n\nCLIP: Radford et al., “Learning Transferable Visual Models From Natural Language Supervision” (2021)\nSmolVLM-Instruct: Hugging Face HuggingFaceTB/SmolVLM-Instruct vision-language model\nVision Transformers: Dosovitskiy et al., “An Image is Worth 16x16 Words” (2020)\n\nTraining and tuning techniques:\n\nVisual Instruction Tuning / LLaVA: Liu et al., “Visual Instruction Tuning” (2023)\n\nLibraries and tooling:\n\nPyTorch and TorchVision for model execution and visualization\nHugging Face Transformers and AutoProcessor for loading CLIP and SmolVLM\n\n\n\nPrevious: ← Lecture 17: LLM Agents & Tool Use | Next: Lecture 19: Coming Soon →",
+    "crumbs": [
+      "Home",
+      "Module 4: Let's See & Chat",
+      "L18: Vision-Language Models"
+    ]
+  },
+  {
+    "objectID": "lectures/09-ensemble.html",
+    "href": "lectures/09-ensemble.html",
+    "title": "Lecture 9: Ensemble Methods",
+    "section": "",
+    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models:\n\nBagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction\nBoosting (AdaBoost/Gradient Boosting): sequentially reducing bias\nDiversity and agreement: why uncorrelated errors matter; majority vs soft voting\nDeep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection\nPractical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L9: Ensemble Methods"
+    ]
+  },
+  {
+    "objectID": "lectures/09-ensemble.html#overview",
+    "href": "lectures/09-ensemble.html#overview",
+    "title": "Lecture 9: Ensemble Methods",
+    "section": "",
+    "text": "In this lecture, we study why and how multiple weak/strong learners can be combined to outperform single models:\n\nBagging and Random Forests: bootstrap sampling, feature subspaces, OOB estimation, and variance reduction\nBoosting (AdaBoost/Gradient Boosting): sequentially reducing bias\nDiversity and agreement: why uncorrelated errors matter; majority vs soft voting\nDeep ensembles: probability averaging, uncertainty decomposition (epistemic vs aleatoric), and OOD detection\nPractical feature choices (HOG vs ResNet embeddings) and trade-offs in speed vs accuracy",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L9: Ensemble Methods"
+    ]
+  },
+  {
+    "objectID": "lectures/09-ensemble.html#learning-objectives",
+    "href": "lectures/09-ensemble.html#learning-objectives",
+    "title": "Lecture 9: Ensemble Methods",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nExplain bootstrap sampling, out-of-bag (OOB) evaluation, and feature randomness in Random Forests\nBuild and compare bagged trees/Extra Trees vs boosting, and interpret bias–variance effects\nQuantify diversity using pairwise agreement and visualize error distributions across models\nForm ensemble predictions via hard (majority) and soft (probability) voting and compare outcomes\nDecompose predictive uncertainty into epistemic and aleatoric components and use them for OOD detection",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L9: Ensemble Methods"
+    ]
+  },
+  {
+    "objectID": "lectures/09-ensemble.html#materials",
+    "href": "lectures/09-ensemble.html#materials",
+    "title": "Lecture 9: Ensemble Methods",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nEnsemble Methods Notebook",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L9: Ensemble Methods"
+    ]
+  },
+  {
+    "objectID": "lectures/09-ensemble.html#datasets-acknowledgments",
+    "href": "lectures/09-ensemble.html#datasets-acknowledgments",
+    "title": "Lecture 9: Ensemble Methods",
+    "section": "Datasets & Acknowledgments",
+    "text": "Datasets & Acknowledgments\n\nCIFAR-10 (Krizhevsky et al.): small natural images used to illustrate ensembles with classical features and with pretrained embeddings\n\nSource: https://www.cs.toronto.edu/~kriz/cifar.html\nPlease review dataset license/terms of use before redistribution\n\nLibraries: scikit-learn (trees/metrics/visualization), PyTorch/torchvision (deep models, ResNet features), scikit-image (HOG)\n\n\nPrevious: ← Lecture 8: Modern Decision Trees | Next: Lecture 10: Kernel Methods & Gaussian Processes →",
+    "crumbs": [
+      "Home",
+      "Module 2: Let's Understand",
+      "L9: Ensemble Methods"
     ]
   },
   {

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 1: Welcome to Machine Learning – ECE4424/CS4824: Machine Learning</title>
+<title>Project 3: Thought Cascade – ECE4424/CS4824: Machine Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/00-setup.html">Module 1: Let’s Predict</a></li><li class="breadcrumb-item"><a href="../lectures/01-overview.html">L1: Welcome to ML</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../projects/project1.html">Projects</a></li><li class="breadcrumb-item"><a href="../projects/thought_cascade.html">Project 3: Thought Cascade</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -198,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L1: Welcome to ML</span></a>
   </div>
 </li>
@@ -385,7 +385,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../projects/thought_cascade.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/thought_cascade.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Project 3: Thought Cascade</span></a>
   </div>
 </li>
@@ -404,18 +404,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
-  <li><a href="#interactive-demo" id="toc-interactive-demo" class="nav-link" data-scroll-target="#interactive-demo">Interactive Demo</a></li>
-  <li><a href="#acknowledgments-resources" id="toc-acknowledgments-resources" class="nav-link" data-scroll-target="#acknowledgments-resources">Acknowledgments &amp; Resources</a></li>
+  <li><a href="#what-youll-build" id="toc-what-youll-build" class="nav-link" data-scroll-target="#what-youll-build">What You’ll Build</a></li>
+  <li><a href="#technical-stack" id="toc-technical-stack" class="nav-link" data-scroll-target="#technical-stack">Technical Stack</a></li>
+  <li><a href="#research-context" id="toc-research-context" class="nav-link" data-scroll-target="#research-context">Research Context</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/00-setup.html">Module 1: Let’s Predict</a></li><li class="breadcrumb-item"><a href="../lectures/01-overview.html">L1: Welcome to ML</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../projects/project1.html">Projects</a></li><li class="breadcrumb-item"><a href="../projects/thought_cascade.html">Project 3: Thought Cascade</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Lecture 1: Welcome to Machine Learning</h1>
-<p class="subtitle lead">Course Introduction &amp; Learning ML Through a Cat’s Eyes</p>
+<h1 class="title">Project 3: Thought Cascade</h1>
+<p class="subtitle lead">Building and Evaluating Agentic AI Systems with Small Language Models</p>
 </div>
 
 
@@ -434,17 +435,18 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Welcome to Machine Learning! This course takes a unique “Learn by Building” approach where you’ll implement real ML systems from day one. In today’s hands-on session, we’ll explore the three fundamental paradigms of machine learning—supervised, unsupervised, and active learning—by building <strong>CatShop</strong>, an e-commerce system that thinks like a cat using Google’s Gemma-3 language model.</p>
+<p>In this assignment, you will explore the transition from traditional “single-shot” prompting to <strong>Agentic AI</strong>. You will build a system that uses the <strong>ReAct (Reasoning + Acting)</strong> pattern to solve complex debugging problems by iterating, testing, and self-correcting.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>By the end of this lecture, you will:</p>
+<p>By completing this project, you will:</p>
 <ul>
-<li><strong>Experience</strong> all three ML paradigms through hands-on implementation</li>
-<li><strong>Fine-tune</strong> Gemma-3 (270M parameters) using LoRA for efficient adaptation</li>
-<li><strong>Observe</strong> catastrophic forgetting and model trade-offs</li>
-<li><strong>Build</strong> a complete ML application from data to deployment</li>
-<li><strong>Understand</strong> how active learning reduces labeling costs</li>
+<li><strong>Understand</strong> the theoretical foundations of agentic AI and why iteration beats size</li>
+<li><strong>Build</strong> complete agentic systems using the ReAct pattern</li>
+<li><strong>Measure</strong> system performance at the component level, not just end-to-end</li>
+<li><strong>Design</strong> tools that enable effective agent-environment interaction</li>
+<li><strong>Diagnose</strong> failure modes and implement recovery strategies</li>
+<li><strong>Apply</strong> agentic patterns to diverse problem domains</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -459,11 +461,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Pre-Lecture-Setup.ipynb">Pre-Lecture Setup</a></strong><br>
-<strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Course-Overview.ipynb">Course Overview</a></strong><br>
-<strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Catshop.ipynb">CatShop Notebook</a></strong><br>
-<strong><a href="https://colab.research.google.com/github/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Catshop.ipynb">Open in Colab</a></strong><br>
-<strong><a href="https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%201%20Overview">Lecture Folder</a></strong></p>
+<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Project%203%20Thought%20Cascade/p03_Thought_Cascade.ipynb">Project Notebook (GitHub)</a></strong> — Complete implementation guide and assignment<br>
+<strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Project%203%20Thought%20Cascade/README.md">Setup Guide</a></strong> — Local setup instructions</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -472,72 +471,54 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Pre-Class Requirements
+<span class="screen-reader-only">Important</span>Submission Requirements
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Complete <strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Pre-Lecture-Setup.ipynb">Pre-Lecture 1 Setup</a></strong> before the lecture!</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Reminder
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Join the course Piazza forum (Required for participation)</p>
-<p>Complete the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfx5iz7JF3ePe1-c-HkKMlxiUICjjog9D89YGy5VtqfhUFu_g/viewform?usp=sharing&amp;ouid=116115729328867711828">Project Matchmaker Form</a> by Mon 8/26, 12:00 PM ET. Required for <a href="../lectures/02-knn.html">Lecture 2: k-NN</a>; counts toward participation.</p>
+<ol type="1">
+<li><strong>Complete all coding implementations</strong> marked with <code>TODO</code> in the notebook.</li>
+<li><strong>Complete all analysis sections</strong> explicitly labeled “Required Analysis”.</li>
+<li><strong>Run all cells</strong> so that key tables and plots are visible in your saved notebook.</li>
+<li><strong>Follow course submission instructions</strong> for exporting your answers.</li>
+</ol>
 </div>
 </div>
 </div>
 </section>
-<section id="interactive-demo" class="level2">
-<h2 class="anchored" data-anchor-id="interactive-demo">Interactive Demo</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>🐱 CatShop Web Application
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Experience your trained model in action with the CatShop e-commerce demo, featuring real-time cat perspective classifications, confidence visualization, and interactive chat.</p>
-<p>Built upon the <a href="https://webshop-pnlp.github.io/">WebShop environment</a> with modifications for educational purposes.</p>
-</div>
-</div>
+<section id="what-youll-build" class="level2">
+<h2 class="anchored" data-anchor-id="what-youll-build">What You’ll Build</h2>
+<section id="core-agentic-components" class="level3">
+<h3 class="anchored" data-anchor-id="core-agentic-components">Core Agentic Components</h3>
+<p>You’ll implement the building blocks of an autonomous agent: - <strong>Code Execution Environment</strong>: A safe sandbox for the agent to run and test code. - <strong>ReAct Loop</strong>: The main control loop that interleaves Reasoning, Acting, and Observing. - <strong>Tool Use</strong>: Mechanisms for the model to invoke external functions.</p>
 </section>
-<section id="acknowledgments-resources" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments-resources">Acknowledgments &amp; Resources</h2>
-<section id="core-technologies" class="level3">
-<h3 class="anchored" data-anchor-id="core-technologies">Core Technologies</h3>
+<section id="evaluation-frameworks" class="level3">
+<h3 class="anchored" data-anchor-id="evaluation-frameworks">Evaluation Frameworks</h3>
+<p>You’ll build rigorous ways to measure performance: - <strong>Pass@k Metrics</strong>: Measuring reliability across multiple attempts. - <strong>Strict Testing</strong>: Creating adversarial test cases to catch subtle bugs. - <strong>Trajectory Analysis</strong>: Evaluating the quality of the agent’s reasoning process.</p>
+</section>
+</section>
+<section id="technical-stack" class="level2">
+<h2 class="anchored" data-anchor-id="technical-stack">Technical Stack</h2>
 <ul>
-<li><strong><a href="https://huggingface.co/google/gemma-3-270m">Gemma-3 270M</a></strong>: Google’s efficient language model</li>
-<li><strong><a href="https://github.com/huggingface/peft">PEFT/LoRA</a></strong>: Parameter-efficient fine-tuning</li>
-<li><strong><a href="https://huggingface.co/docs/transformers">Transformers</a></strong>: Hugging Face’s model library</li>
+<li><strong>Models</strong>: Gemma-2-2b-it (Google) or SmolLM-360M (HuggingFaceTB)</li>
+<li><strong>Frameworks</strong>: PyTorch, Hugging Face Transformers</li>
+<li><strong>Dataset</strong>: QuixBugs (classic algorithmic bugs)</li>
+<li><strong>Compute</strong>: CPU (optimized for Apple Silicon/standard CPU) or GPU</li>
 </ul>
 </section>
-<section id="dataset-environment" class="level3">
-<h3 class="anchored" data-anchor-id="dataset-environment">Dataset &amp; Environment</h3>
+<section id="research-context" class="level2">
+<h2 class="anchored" data-anchor-id="research-context">Research Context</h2>
+<p>This project connects to the forefront of AI research:</p>
 <ul>
-<li><strong><a href="https://webshop-pnlp.github.io/">WebShop</a></strong>: E-commerce product data and environment<br>
-<em>Yao et al., “WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents”, NeurIPS 2022</em></li>
+<li><strong>ReAct</strong> (<a href="https://react-lm.github.io/">Yao et al., 2022</a>) — Synergizing reasoning and acting in language models.</li>
+<li><strong>Agentic Workflows</strong> — Moving beyond simple QA to autonomous problem solving.</li>
+<li><strong>Small Language Models</strong> — Showing how agentic patterns allow smaller models to outperform larger ones on complex tasks.</li>
 </ul>
 <hr>
-<p><strong>Next</strong>: <a href="../lectures/02-knn.html">Lecture 2: k-Nearest Neighbors →</a></p>
+<p><strong>Previous</strong>: <a href="../projects/project2.html">← Project 2: Neural Archaeology</a> | <strong>Next</strong>: <a href="../capstone.qmd">Capstone Project →</a></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
