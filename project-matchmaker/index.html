@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Matchmaker - ML Team Formation</title>
-    
+
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
@@ -22,41 +23,41 @@
             background-color: #fff;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
         h1 {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 10px;
         }
-        
+
         h2 {
             font-size: 18px;
             font-weight: 600;
             margin-top: 30px;
             margin-bottom: 15px;
         }
-        
+
         h3 {
             font-size: 16px;
             font-weight: 600;
             margin-top: 20px;
             margin-bottom: 10px;
         }
-        
+
         p {
             margin-bottom: 15px;
             color: #666;
         }
-        
+
         .section {
             margin-bottom: 40px;
         }
-        
+
         label {
             display: block;
             font-size: 14px;
@@ -64,7 +65,7 @@
             margin-bottom: 5px;
             color: #555;
         }
-        
+
         input[type="email"],
         select {
             width: 100%;
@@ -75,75 +76,75 @@
             margin-bottom: 15px;
             background-color: #fff;
         }
-        
+
         input[type="email"]:focus,
         select:focus {
             outline: none;
             border-color: #999;
         }
-        
+
         input[type="range"] {
             width: 100%;
             margin-bottom: 10px;
         }
-        
+
         #plotDiv {
             width: 100%;
             height: 500px;
             border: 1px solid #eee;
             margin-bottom: 20px;
         }
-        
+
         .controls-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
-        
+
         .legend {
             background-color: #f9f9f9;
             padding: 15px;
             border-radius: 4px;
             margin-bottom: 20px;
         }
-        
+
         .legend-items {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-top: 10px;
         }
-        
+
         .legend-item {
             display: flex;
             align-items: center;
             font-size: 14px;
         }
-        
+
         .color-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
             margin-right: 8px;
         }
-        
+
         .student-details {
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 4px;
             margin-bottom: 20px;
         }
-        
+
         .student-info {
             font-size: 14px;
             line-height: 1.8;
         }
-        
+
         .student-info strong {
             font-weight: 500;
         }
-        
+
         .neighbor-card {
             background-color: #fff;
             border: 1px solid #eee;
@@ -152,36 +153,36 @@
             border-radius: 4px;
             transition: border-color 0.2s;
         }
-        
+
         .neighbor-card:hover {
             border-color: #999;
         }
-        
+
         .neighbor-card details {
             margin-top: 10px;
         }
-        
+
         .neighbor-card summary {
             font-size: 13px;
         }
-        
+
         .neighbor-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
             margin-bottom: 5px;
         }
-        
+
         .neighbor-name {
             font-weight: 500;
             font-size: 15px;
         }
-        
+
         .neighbor-info {
             font-size: 13px;
             color: #666;
         }
-        
+
         .status-badge {
             font-size: 12px;
             padding: 2px 8px;
@@ -189,36 +190,36 @@
             background-color: #f0f0f0;
             color: #666;
         }
-        
+
         .status-badge.seeking {
             background-color: #e8f5e9;
             color: #2e7d32;
         }
-        
+
         details {
             margin-top: 15px;
         }
-        
+
         summary {
             cursor: pointer;
             font-size: 14px;
             color: #666;
             margin-bottom: 10px;
         }
-        
+
         .response-text {
             font-size: 13px;
             line-height: 1.6;
             color: #555;
             padding-left: 15px;
         }
-        
+
         .empty-state {
             text-align: center;
             padding: 40px;
             color: #999;
         }
-        
+
         .footnote {
             margin-top: 60px;
             padding-top: 30px;
@@ -226,56 +227,54 @@
             font-size: 13px;
             color: #666;
         }
-        
+
         .footnote a {
             color: #333;
         }
-        
+
         @media (max-width: 600px) {
             .controls-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             #plotDiv {
                 height: 400px;
             }
         }
     </style>
 </head>
+
 <body>
     <script>
-    // VERY LIGHT DETERRENCE ONLY — not secure
-    const allowedHash = "d3345c34d271b40b895f578c4088ba3010cd9042845b93bacc1aeff865835f3b";
-    async function sha256(s) {
-      const enc = new TextEncoder().encode(s);
-      const buf = await crypto.subtle.digest("SHA-256", enc);
-      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
-    }
-    (async () => {
-      const pwd = prompt("Enter password:");
-      if (pwd === null) { document.body.innerHTML = ""; return; }
-      const hash = await sha256(pwd);
-      if (hash !== allowedHash) { document.body.innerHTML = "<h2>Access denied</h2>"; }
-    })();
+        // Simple password protection (client-side only - not secure for sensitive data)
+        const allowedHash = "c8332b7b1873902c8cc92836d20181503cac1fd19d427809f2b99e3b7ce49713";
+        async function sha256(s) {
+            const enc = new TextEncoder().encode(s);
+            const buf = await crypto.subtle.digest("SHA-256", enc);
+            return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+        }
+        (async () => {
+            const pwd = prompt("Enter password:");
+            if (pwd === null) { document.body.innerHTML = ""; return; }
+            const hash = await sha256(pwd);
+            if (hash !== allowedHash) { document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>Access denied</h2>"; }
+        })();
     </script>
-
     <div class="container">
         <div class="section">
             <h1>Project Matchmaker</h1>
             <p>ECE4424/CS4824: Machine Learning</p>
-            <p>Find ML project partners using k-nearest neighbors. This tool matches students with similar interests and complementary skills while demonstrating practical applications of k-NN algorithms.</p>
-            <p>Select any two dimensions to explore different aspects of compatibility. Adjust k to see more or fewer potential teammates.</p>
+            <p>Find ML project partners using k-nearest neighbors. This tool matches students with similar interests and
+                complementary skills while demonstrating practical applications of k-NN algorithms.</p>
+            <p>Select any two dimensions to explore different aspects of compatibility. Adjust k to see more or fewer
+                potential teammates.</p>
         </div>
-        
+
         <div class="section">
             <label for="userEmail">Your VT Email ID (to highlight your position):</label>
-            <input 
-                type="email" 
-                id="userEmail" 
-                placeholder="alice123@vt.edu"
-            >
+            <input type="email" id="userEmail" placeholder="alice123@vt.edu">
         </div>
-        
+
         <div class="section">
             <h2>Dimension Selection</h2>
             <div class="controls-grid">
@@ -288,40 +287,55 @@
                     <select id="yDimension"></select>
                 </div>
             </div>
-            
+
             <label for="colorBy">Color By Category:</label>
             <select id="colorBy"></select>
-            
+
             <label for="kSlider">Number of Nearest Neighbors (k): <span id="kValue">3</span></label>
             <input type="range" id="kSlider" min="1" max="10" value="3">
+
+            <div style="margin-top: 15px;">
+                <label style="display: inline-flex; align-items: center; cursor: pointer;">
+                    <input type="checkbox" id="jitterToggle" checked style="margin-right: 8px; width: auto;">
+                    Add jitter to spread overlapping points
+                </label>
+                <div style="margin-top: 5px;">
+                    <label for="jitterAmount" style="font-size: 13px; color: #666;">Jitter amount: <span
+                            id="jitterValue">0.05</span></label>
+                    <input type="range" id="jitterAmount" min="0" max="0.15" step="0.01" value="0.05"
+                        style="width: 150px;">
+                </div>
+            </div>
         </div>
-        
+
         <div class="section">
             <h2>Visualization</h2>
             <div id="plotDiv"></div>
             <div id="legend" class="legend"></div>
         </div>
-        
+
         <div class="section">
             <h2>Selected Student</h2>
             <div id="selectedStudent" class="student-details">
                 <div class="empty-state">Click on a student in the visualization to see details</div>
             </div>
         </div>
-        
+
         <div class="section">
             <h2>Nearest Neighbors</h2>
             <div id="neighborsList">
                 <div class="empty-state">Select a student to see their nearest neighbors</div>
             </div>
         </div>
-        
+
         <div class="section footnote">
-            <p>Developed by <a href="https://jinming99.github.io">Prof. Ming Jin</a> for ECE4424/CS4824: Machine Learning.</p>
-            <p>Student responses processed using OpenAI to extract multi-dimensional preferences. Privacy note: Names and responses are visible to facilitate team formation.</p>
+            <p>Developed by <a href="https://jinming99.github.io">Prof. Ming Jin</a> for ECE4424/CS4824: Machine
+                Learning.</p>
+            <p>Student responses processed using OpenAI to extract multi-dimensional preferences. Privacy note: Names
+                and responses are visible to facilitate team formation.</p>
         </div>
     </div>
-    
+
     <script>
         // Global variables
         let studentData = null;
@@ -329,11 +343,12 @@
         let plotData = null;
         let knnLines = []; // Initialize the array to hold KNN line traces
         let plotListenersBound = false; // track Plotly event listener binding
-        
+
         // Load student data
         async function loadData() {
             try {
                 const dataUrl = new URL('./student_data.json', window.location.href);
+                // Cache-bust to avoid stale cached 404s and ensure fresh fetch
                 const fetchUrl = `${dataUrl.toString()}?ts=${Date.now()}`;
                 const response = await fetch(fetchUrl, { cache: 'no-store' });
                 if (!response.ok) {
@@ -348,11 +363,16 @@
                 alert(`Error loading student_data.json.\n\nDetails: ${error}\n\n${hint}`);
             }
         }
-        
+
+        // Initialize control dropdowns
         function initializeControls() {
+            // Get available dimensions
             const dimensions = studentData.dimensions;
+
+            // Populate dimension dropdowns
             const xSelect = document.getElementById('xDimension');
             const ySelect = document.getElementById('yDimension');
+
             dimensions.forEach((dim, index) => {
                 const optionX = new Option(
                     studentData.dimension_descriptions[dim] || dim,
@@ -365,32 +385,74 @@
                 xSelect.add(optionX);
                 ySelect.add(optionY);
             });
+
+            // Set defaults to first two dimensions
             xSelect.value = dimensions[0];
             ySelect.value = dimensions[1];
+
+            // Populate categorical feature dropdown
             const colorSelect = document.getElementById('colorBy');
             Object.entries(studentData.categorical_features).forEach(([key, feature]) => {
                 const option = new Option(feature.name, key);
                 colorSelect.add(option);
             });
+
+            // Add event listeners
             xSelect.addEventListener('change', updateVisualization);
             ySelect.addEventListener('change', updateVisualization);
             colorSelect.addEventListener('change', updateVisualization);
             document.getElementById('kSlider').addEventListener('input', (e) => {
                 document.getElementById('kValue').textContent = e.target.value;
+                // Call the main visualization function to ensure a full redraw
                 updateVisualization();
             });
             document.getElementById('userEmail').addEventListener('input', updateVisualization);
+
+            // Jitter controls
+            document.getElementById('jitterToggle').addEventListener('change', updateVisualization);
+            document.getElementById('jitterAmount').addEventListener('input', (e) => {
+                document.getElementById('jitterValue').textContent = e.target.value;
+                updateVisualization();
+            });
+
+            // Plotly click handler will be attached after the plot is created in updateVisualization()
         }
-        
+
+        // Seeded random number generator for consistent jitter per student
+        function seededRandom(seed) {
+            const x = Math.sin(seed * 9999) * 10000;
+            return x - Math.floor(x);
+        }
+
+        // Get jitter offset for a student (consistent per email)
+        function getJitter(email, axis) {
+            const jitterEnabled = document.getElementById('jitterToggle').checked;
+            if (!jitterEnabled) return 0;
+
+            const jitterAmount = parseFloat(document.getElementById('jitterAmount').value);
+            // Use email hash as seed, add axis offset to get different x/y jitter
+            let seed = 0;
+            for (let i = 0; i < email.length; i++) {
+                seed += email.charCodeAt(i) * (i + 1);
+            }
+            seed += axis === 'x' ? 0 : 12345;
+
+            // Return jitter in range [-jitterAmount, +jitterAmount]
+            return (seededRandom(seed) - 0.5) * 2 * jitterAmount;
+        }
+
+        // Calculate Euclidean distance (using original values, not jittered)
         function calculateDistance(s1, s2, xDim, yDim) {
             const dx = s1[xDim] - s2[xDim];
             const dy = s1[yDim] - s2[yDim];
             return Math.sqrt(dx * dx + dy * dy);
         }
-        
+
+        // Find k nearest neighbors
         function findKNN(student, k) {
             const xDim = document.getElementById('xDimension').value;
             const yDim = document.getElementById('yDimension').value;
+
             const distances = studentData.students
                 .filter(s => s.email !== student.email)
                 .map(s => ({
@@ -399,22 +461,43 @@
                 }))
                 .sort((a, b) => a.distance - b.distance)
                 .slice(0, k);
+
             return distances;
         }
-        
+
+        // Update visualization
         function updateVisualization() {
             const xDim = document.getElementById('xDimension').value;
             const yDim = document.getElementById('yDimension').value;
             const colorBy = document.getElementById('colorBy').value;
             const userEmail = document.getElementById('userEmail').value.toLowerCase();
+
             const feature = studentData.categorical_features[colorBy];
+
+            // Create color mapping
             const colorMap = {};
-            feature.values.forEach((val, idx) => { colorMap[val] = feature.colors[idx]; });
-            const x = [], y = [], colors = [], texts = [], customdata = [], symbols = [], sizes = [];
+            feature.values.forEach((val, idx) => {
+                colorMap[val] = feature.colors[idx];
+            });
+
+            // Prepare plot data
+            const x = [];
+            const y = [];
+            const colors = [];
+            const texts = [];
+            const customdata = [];
+            const symbols = [];
+            const sizes = [];
+
             studentData.students.forEach(student => {
-                x.push(student[xDim]);
-                y.push(student[yDim]);
+                // Apply jitter to spread overlapping points
+                const jitterX = getJitter(student.email, 'x');
+                const jitterY = getJitter(student.email, 'y');
+                x.push(student[xDim] + jitterX);
+                y.push(student[yDim] + jitterY);
                 colors.push(colorMap[student[colorBy]]);
+
+                // Create detailed hover text with survey responses
                 let hoverText = `<b>${student.name}</b><br>`;
                 hoverText += `${colorBy}: ${student[colorBy]}<br>`;
                 hoverText += `Team: ${student.team_status}<br>`;
@@ -422,53 +505,101 @@
                 hoverText += `Experience: ${student.experience_level}<br>`;
                 if (student.original_responses && student.original_responses.project_ideas) {
                     const ideas = student.original_responses.project_ideas;
-                    if (ideas && ideas.length > 100) { hoverText += `<br>Project Ideas: ${ideas.substring(0, 100)}...`; }
-                    else if (ideas) { hoverText += `<br>Project Ideas: ${ideas}`; }
+                    if (ideas && ideas.length > 100) {
+                        hoverText += `<br>Project Ideas: ${ideas.substring(0, 100)}...`;
+                    } else if (ideas) {
+                        hoverText += `<br>Project Ideas: ${ideas}`;
+                    }
                 }
+
                 texts.push(hoverText);
                 customdata.push(student);
-                if (student.email.toLowerCase() === userEmail) { symbols.push('star'); sizes.push(15); currentStudent = student; }
-                else { symbols.push('circle'); sizes.push(10); }
+
+                // Highlight current user
+                if (student.email.toLowerCase() === userEmail) {
+                    symbols.push('star');
+                    sizes.push(15);
+                    currentStudent = student;
+                } else {
+                    symbols.push('circle');
+                    sizes.push(10);
+                }
             });
+
             plotData = [{
-                x, y,
+                x: x,
+                y: y,
                 mode: 'markers',
                 type: 'scatter',
                 marker: {
                     color: colors,
                     size: sizes,
                     symbol: symbols,
-                    line: { width: 1, color: '#fff' }
+                    line: {
+                        width: 1,
+                        color: '#fff'
+                    }
                 },
                 text: texts,
                 hoverinfo: 'text',
-                hoverlabel: { bgcolor: 'white', bordercolor: '#ccc', font: {size: 12} },
-                customdata
+                hoverlabel: {
+                    bgcolor: 'white',
+                    bordercolor: '#ccc',
+                    font: { size: 12 }
+                },
+                customdata: customdata
             }];
+
             const layout = {
-                xaxis: { title: studentData.dimension_descriptions[xDim] || xDim, range: [-1.2, 1.2], zeroline: true, zerolinecolor: '#eee' },
-                yaxis: { title: studentData.dimension_descriptions[yDim] || yDim, range: [-1.2, 1.2], zeroline: true, zerolinecolor: '#eee' },
+                xaxis: {
+                    title: studentData.dimension_descriptions[xDim] || xDim,
+                    range: [-1.2, 1.2],
+                    zeroline: true,
+                    zerolinecolor: '#eee'
+                },
+                yaxis: {
+                    title: studentData.dimension_descriptions[yDim] || yDim,
+                    range: [-1.2, 1.2],
+                    zeroline: true,
+                    zerolinecolor: '#eee'
+                },
                 hovermode: 'closest',
                 showlegend: false,
                 plot_bgcolor: '#fafafa',
-                margin: {t: 20, r: 20, b: 60, l: 60}
+                margin: { t: 20, r: 20, b: 60, l: 60 }
             };
+
             Plotly.newPlot('plotDiv', plotData, layout).then(() => {
                 const plotDiv = document.getElementById('plotDiv');
-                if (plotDiv && typeof plotDiv.removeAllListeners === 'function') { plotDiv.removeAllListeners('plotly_click'); }
+                // Avoid duplicate handlers across redraws
+                if (plotDiv && typeof plotDiv.removeAllListeners === 'function') {
+                    plotDiv.removeAllListeners('plotly_click');
+                }
                 if (plotDiv && typeof plotDiv.on === 'function') {
-                    plotDiv.on('plotly_click', function(data) { const student = data.points[0].customdata; selectStudent(student); });
+                    plotDiv.on('plotly_click', function (data) {
+                        const student = data.points[0].customdata;
+                        selectStudent(student);
+                    });
                     plotListenersBound = true;
                 }
             });
+
+
+            // Update legend
             updateLegend(feature, colorMap);
-            if (currentStudent) { updateKNN(); }
+
+            // Update KNN if a student is selected
+            if (currentStudent) {
+                updateKNN();
+            }
         }
-        
+
+        // Update legend
         function updateLegend(feature, colorMap) {
             const legendDiv = document.getElementById('legend');
             let html = `<h3>${feature.name}</h3>`;
             html += '<div class="legend-items">';
+
             feature.values.forEach(val => {
                 html += `
                     <div class="legend-item">
@@ -477,12 +608,16 @@
                     </div>
                 `;
             });
+
             html += '</div>';
             legendDiv.innerHTML = html;
         }
-        
+
+        // Select a student
         function selectStudent(student) {
             currentStudent = student;
+
+            // Update selected student display
             const selectedDiv = document.getElementById('selectedStudent');
             selectedDiv.innerHTML = `
                 <h3>${student.name}</h3>
@@ -500,40 +635,63 @@
                 <details>
                     <summary>View Survey Responses</summary>
                     <div class="response-text">
-                        ${Object.entries(student.original_responses || {}).map(([key, value]) => 
-                            `<p><strong>${key}:</strong> ${value}</p>`
-                        ).join('')}
+                        ${Object.entries(student.original_responses || {}).map(([key, value]) =>
+                `<p><strong>${key}:</strong> ${value}</p>`
+            ).join('')}
                     </div>
                 </details>
             `;
+
+            // updateKNN will handle drawing the lines without a full redraw
             updateKNN();
         }
-        
+
+        // Update KNN visualization and list
         function updateKNN() {
             if (!currentStudent) return;
+
             const k = parseInt(document.getElementById('kSlider').value);
             const neighbors = findKNN(currentStudent, k);
+
+            // Remove previous KNN lines from the plot
             if (knnLines.length > 0) {
                 const tracesToRemove = [];
-                for (let i = 0; i < knnLines.length; i++) { tracesToRemove.push(i + 1); }
+                for (let i = 0; i < knnLines.length; i++) {
+                    // The first trace is the scatter plot, so we start from trace index 1
+                    tracesToRemove.push(i + 1);
+                }
                 Plotly.deleteTraces('plotDiv', tracesToRemove);
-                knnLines = [];
+                knnLines = []; // Clear the array
             }
+
+            // Add new KNN lines
             const xDim = document.getElementById('xDimension').value;
             const yDim = document.getElementById('yDimension').value;
-            neighbors.forEach(({student: neighbor}) => {
+
+            neighbors.forEach(({ student: neighbor }) => {
+                // Use jittered coordinates for drawing lines
+                const currentJitterX = getJitter(currentStudent.email, 'x');
+                const currentJitterY = getJitter(currentStudent.email, 'y');
+                const neighborJitterX = getJitter(neighbor.email, 'x');
+                const neighborJitterY = getJitter(neighbor.email, 'y');
+
                 const line = {
-                    x: [currentStudent[xDim], neighbor[xDim]],
-                    y: [currentStudent[yDim], neighbor[yDim]],
+                    x: [currentStudent[xDim] + currentJitterX, neighbor[xDim] + neighborJitterX],
+                    y: [currentStudent[yDim] + currentJitterY, neighbor[yDim] + neighborJitterY],
                     mode: 'lines',
-                    line: { color: 'rgba(0, 0, 0, 0.2)', width: 1 },
+                    line: {
+                        color: 'rgba(0, 0, 0, 0.2)',
+                        width: 1
+                    },
                     hoverinfo: 'skip'
                 };
                 Plotly.addTraces('plotDiv', [line]);
                 knnLines.push(line);
             });
+
+            // Update neighbors list
             const neighborsList = document.getElementById('neighborsList');
-            neighborsList.innerHTML = neighbors.map(({student: neighbor, distance}, idx) => `
+            neighborsList.innerHTML = neighbors.map(({ student: neighbor, distance }, idx) => `
                 <div class="neighbor-card">
                     <div class="neighbor-header">
                         <div>
@@ -548,16 +706,18 @@
                     <details>
                         <summary>View Survey Responses</summary>
                         <div class="response-text">
-                            ${Object.entries(neighbor.original_responses || {}).map(([key, value]) => 
-                                `<p><strong>${key.replace(/_/g, ' ')}:</strong> ${value}</p>`
-                            ).join('')}
+                            ${Object.entries(neighbor.original_responses || {}).map(([key, value]) =>
+                `<p><strong>${key.replace(/_/g, ' ')}:</strong> ${value}</p>`
+            ).join('')}
                         </div>
                     </details>
                 </div>
             `).join('');
         }
-        
+
+        // Initialize on load
         window.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
+
 </html>
