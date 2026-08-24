@@ -5,6 +5,11 @@ subtitle: "Decoding and Rewiring the Hidden Mind of Language Models"
 
 ## Overview
 
+:::{.callout-note}
+## Fall 2026
+This is an individual assignment worth 10% of the course grade. It is due Tuesday, October 6, at 11:59 p.m. ET. See the [live schedule](../schedule.qmd) for updates.
+:::
+
 Peer into the **"black box"** of language models by implementing interpretability techniques from cutting-edge research. This project takes you on a journey of neural archaeology—excavating the hidden layers of transformer models to understand how they encode concepts like safety, emotion, and truthfulness. You'll build practical tools to detect harmful content, visualize emotional representations, and understand how information flows through neural networks.
 
 ## Learning Objectives
@@ -24,8 +29,9 @@ By completing this project, you will:
 
 :::{.callout-tip}
 ## Quick Access
-**[Project Notebook (GitHub)](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology%20(instructor)/Neural_Archaeology_Student.ipynb)** — Complete implementation guide and assignment  
-**[Setup Guide](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology%20(instructor)/README.md)** — Colab and local setup instructions
+**[Project Notebook (GitHub)](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology/Neural_Archaeology_Student.ipynb)** — Complete implementation guide and assignment
+
+**[Setup Guide](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology/README.md)** — Colab and local setup instructions
 :::
 
 :::{.callout-important collapse=false}
@@ -86,4 +92,4 @@ You'll gain hands-on experience with methods used by AI safety researchers at le
 
 ---
 
-**Previous**: [← Project 1: Music Recommender](project1.qmd) | **Next**: [Capstone Project →](capstone.qmd)
+**Previous**: [← Project 1: Music Recommender](project1.qmd) | **Next**: [Project 3: Thought Cascade →](thought_cascade.qmd)

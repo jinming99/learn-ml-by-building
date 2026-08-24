@@ -5,6 +5,11 @@ subtitle: "From Algorithm Implementation to Web Deployment"
 
 ## Overview
 
+:::{.callout-note}
+## Fall 2026
+This is an individual assignment worth 10% of the course grade. It is due Friday, September 11, at 11:59 p.m. ET. See the [live schedule](../schedule.qmd) for updates.
+:::
+
 Build a **Spotify-inspired music recommendation engine** from scratch, implementing the k-Nearest Neighbors algorithm and deploying it as an interactive web application. This project bridges the gap between academic ML and real-world applications, taking you through the complete pipeline from data exploration to production deployment. You'll work with actual Spotify audio features to recommend songs based on musical similarity.
 
 ## Learning Objectives
@@ -23,9 +28,11 @@ By completing this project, you will:
 
 :::{.callout-tip}
 ## Quick Access
-**[Project Notebook (GitHub)](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%201%20KNN%20Music%20Recommender/music_recommender.ipynb)** — Complete implementation guide and assignment  
-**[Repository](https://github.com/jinming99/learn-ml-by-building)** — Full codebase with web application  
-**[Live Demo (Static UI)](https://jinming99.github.io/learn-ml-by-building/demos/p1-music/)** — UI preview only (no backend)  
+**[Project Notebook (GitHub)](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%201%20KNN%20Music%20Recommender/p01-Music-Recommender.ipynb)** — Complete implementation guide and assignment
+
+**[Project Folder](https://github.com/jinming99/learn-ml-by-building/tree/main/Project%201%20KNN%20Music%20Recommender)** — Full codebase with web application
+
+**[Live Demo (Static UI)](https://jinming.tech/learn-ml-by-building/demos/p1-music/)** — UI preview only (no backend)
 :::
 
 :::{.callout-important collapse=false}

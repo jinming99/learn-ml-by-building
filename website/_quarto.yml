@@ -1,15 +1,12 @@
 project:
   type: website
   resources:
-    - project-matchmaker/**
-    - project-matchmaker/*
-    - project-matchmaker/student_data.json
     - demos/p1-music/**
 
 website:
-  title: "Advanced Machine Learning"
-  description: "Learn ML by Building"
-  site-url: https://jinming99.github.io/learn-ml-by-building/
+  title: "ECE 4424/CS 4824: Machine Learning"
+  description: "Learn ML by Building · Fall 2026"
+  site-url: https://jinming.tech/learn-ml-by-building/
   repo-url: https://github.com/jinming99/learn-ml-by-building
   repo-actions: []
   
@@ -23,14 +20,18 @@ website:
         href: schedule.qmd
       - text: "Projects"
         menu:
+          - text: "Projects Overview"
+            href: projects/index.qmd
           - text: "Project 1: KNN Music Recommender"
             href: projects/project1.qmd
           - text: "Project 2: Neural Archaeology"
             href: projects/project2.qmd
+          - text: "Project 3: Thought Cascade"
+            href: projects/thought_cascade.qmd
+          - text: "Capstone Project"
+            href: projects/capstone.qmd
       - text: "Resources"
         href: resources.qmd
-      - text: "Project Matchmaker"
-        href: project-matchmaker/
     right:
       - icon: github
         href: https://github.com/jinming99/learn-ml-by-building
@@ -108,12 +109,16 @@ website:
 
       - section: "Projects"
         contents:
+          - text: "Projects Overview"
+            href: projects/index.qmd
           - text: "Project 1: KNN Music Recommender"
             href: projects/project1.qmd
           - text: "Project 2: Neural Archaeology"
             href: projects/project2.qmd
           - text: "Project 3: Thought Cascade"
             href: projects/thought_cascade.qmd
+          - text: "Capstone Project"
+            href: projects/capstone.qmd
 
 format:
   html:

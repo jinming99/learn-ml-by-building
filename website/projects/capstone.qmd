@@ -1,125 +1,50 @@
 ---
 title: "Capstone Project"
-subtitle: "Your Individual ML Research Project"
-draft: true
+subtitle: "Trust and Evidence in AI"
 ---
 
 ## Overview
 
-The capstone project is your opportunity to conduct independent research in machine learning, applying everything you've learned to a problem you're passionate about. This individual project represents 45% of your course grade and culminates in a conference-style paper and presentation.
+The capstone asks you to begin with a domain problem and intended use, then determine what evidence would justify a specific conclusion about an AI system. The goal is not simply to build a model. It is to identify what the evidence supports, where the system may fail or shift, and what responsibility would remain before real use.
 
-## Timeline & Deliverables
+You may work individually or in a team of 2–4 students. Team submissions must include a clear contribution statement. The capstone represents 50% of the course grade.
 
-| Deliverable | Due Date | Weight | Format |
-|------------|----------|--------|---------|
-| **Proposal** | April 11 (Week 13) | 10% of capstone | 1-2 pages |
-| **Milestone Report** | April 18 (Week 14) | 20% of capstone | 3-4 pages + code |
-| **Spotlight Presentation** | April 21-23 (Week 15) | 10% of capstone | 10 min talk |
-| **Final Report** | April 25 (Week 15) | 60% of capstone | 6-8 pages |
-
-## Detailed Rubrics & Guidelines
-
-:::{.callout-important}
-## 📋 Complete Rubrics Document
-**[View Detailed Rubrics in Google Docs →](YOUR_GOOGLE_DOC_LINK)**
-
-This document contains:
-- Detailed grading criteria for each deliverable
-- Point breakdowns and weights
-- Submission requirements
-- Tips for success
+:::{.callout-tip}
+## Capstone Project Guide and Rubrics
+[Read the complete deliverable requirements and grading rubrics →](https://docs.google.com/document/d/1b1L0pGoXljxnNjJNEGAzGJfaxvMPxNr1L_DshiAkK4E/edit?tab=t.0)
 :::
 
-## Project Scope
+## Timeline and Deliverables
 
-### Good Capstone Projects:
-- **Applied ML**: Apply ML to a novel domain or dataset
-- **Reproduce & Extend**: Replicate a recent paper and add improvements
-- **Comparative Study**: Systematic comparison of methods on new task
-- **Tool/Library**: Build a useful ML tool with documentation
-- **Theory**: Prove something about an algorithm or propose new method
+| Deliverable | Due | Weight within capstone | Main format |
+|---|---|---:|---|
+| **Project Proposal** | September 18, 2026 | 10% | 300–500-word PDF plus one slide, a ~3-minute presentation, and ~4-minute discussion |
+| **Milestone Report** | October 16, 2026 | 20% | At most 3 pages in NeurIPS format; references may be additional |
+| **Milestone Poster Presentation** | October 19, 2026, in class | 10% | One poster per project/team and individual questions |
+| **Spotlight Presentation** | Slides due December 4; presentations December 7 and 9 | 10% | Short final presentation; details will be announced |
+| **Final Report and Class-Survey Contribution** | December 9, 2026 | 50% | At most 5 report pages plus a separate survey contribution |
 
-### Topic Selection Criteria:
-- Aligned with course content
-- Feasible in 3 weeks
-- Has clear evaluation metrics
-- Potential for interesting findings
-- Relates to your interests/research
+The [live schedule](../schedule.qmd) is the source of truth for due dates and class sessions.
 
-## Resources & Support
+## Project Categories
 
-### Compute Resources
-- Google Colab Pro available (request access)
-- Virginia Tech ARC clusters for GPU jobs
-- Contact instructor for cloud credits if needed
+Choose the category that best matches the work:
 
-### Datasets
-- [Kaggle Datasets](https://www.kaggle.com/datasets)
-- [UCI ML Repository](https://archive.ics.uci.edu/ml/)
-- [Papers with Code](https://paperswithcode.com/datasets)
-- Your own research data (with advisor permission)
+1. Application or domain case
+2. Reproduction, evaluation, and diagnosis
+3. Survey or white paper
+4. Theory, algorithm, or system design
 
-### Writing Resources
-- [NeurIPS Paper Template](https://neurips.cc/Conferences/2024/PaperInformation/StyleFiles)
-- [How to Write a Good ML Paper](https://www.cs.mcgill.ca/~jpineau/ReproducibilityChecklist.pdf)
-- [VT Writing Center](https://lib.vt.edu/research-teaching/writing-center.html)
+The first three categories are recommended for most teams. Large language models and agents are welcome when they serve a clear project question and evaluation; merely using an agent to assemble a pipeline is not enough.
 
-## Submission Instructions
+## What Every Project Should Make Clear
 
-### For All Deliverables:
-1. Submit PDF via Canvas
-2. Include GitHub repository link
-3. Use NeurIPS/ICML format for reports
-4. Name files: `LastName_Capstone_[Deliverable].pdf`
+- The domain decision, intended use, and current non-AI process or baseline
+- A specific question and evolving one-sentence thesis
+- The evidence, data, sources, and evaluation design
+- At least one realistic shift, difficult condition, or unsupported case
+- What the results support and what they do not support
+- Who would be responsible for review, monitoring, or re-evaluation in practice
+- What additional expertise or evidence would be needed before responsible use
 
-### Code Repository Must Include:
-- README with setup instructions
-- Requirements file
-- Core implementation
-- Example notebook
-- Data preprocessing (if applicable)
-
-## FAQ
-
-**Q: Can I extend one of Projects 1-3?**  
-A: Yes, but the extension must be substantial and clearly beyond the original scope.
-
-**Q: Can I use my research for the capstone?**  
-A: Yes, with advisor approval and clear statement of your individual contribution.
-
-**Q: What if my project fails?**  
-A: Negative results are valuable! Document what you tried, why it didn't work, and what you learned.
-
-**Q: Can I collaborate with others?**  
-A: You can discuss ideas, but implementation and writing must be individual. All discussions must be acknowledged.
-
-**Q: How much code is expected?**  
-A: Quality over quantity. A well-documented, clean implementation of one algorithm is better than messy code for five.
-
-## Past Successful Projects
-
-Examples of A-grade capstones from previous years:
-
-1. **"Predicting Solar Panel Efficiency from Weather Data"** - Applied various models, created useful tool
-2. **"Reproducing and Improving BERT for Low-Resource Languages"** - Extended paper with new language
-3. **"Comparative Study of RL Algorithms on Custom Game Environment"** - Built environment, tested 5 algorithms
-4. **"Neural Architecture Search for Edge Devices"** - Novel constraints, practical application
-5. **"Fairness Analysis of Admission Algorithms"** - Important social impact, thorough analysis
-
-## Office Hours & Support
-
-### Special Capstone Support (Weeks 13-15):
-- **Regular OH**: Wednesday 10-11 AM
-- **Extra Capstone OH**: 
-  - Monday 2-4 PM
-  - Friday 1-3 PM
-- **By Appointment**: Email for additional help
-
-### Piazza Support:
-- Use tag `[capstone]` for capstone questions
-- Check pinned post for common issues
-- Peer feedback encouraged (acknowledge in report)
-
----
-
-Ready to start? Begin with the [Detailed Rubrics →](YOUR_GOOGLE_DOC_LINK) and brainstorm ideas!
+Each project also contributes a standardized case to the class survey, currently titled *From AI Output to Justified Use: Trust and Evidence Across Domains*.

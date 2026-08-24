@@ -31,4 +31,4 @@ By the end of this lecture, you will be able to:
   - [LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)
 ---
 
-**Previous**: [← Lecture 16: Recurrent Neural Networks](16-rnn.qmd) | **Next**: [Lecture 18: Coming Soon →](#)
+**Previous**: [← Lecture 16: Recurrent Neural Networks](16-rnn.qmd) | **Next**: [Lecture 18: Vision-Language Models →](18-vlms.qmd)

@@ -1,104 +1,23 @@
 ---
-title: "Projects Overview"
-subtitle: "Building Your AI Portfolio"
-draft: true
+title: "Projects"
+subtitle: "Fall 2026"
 ---
 
-## Project Structure
+## Overview
 
-Each project is designed to deepen your understanding while building practical skills. You'll submit mini research papers that demonstrate both technical implementation and critical analysis.
+The course includes three individual portfolio projects and one capstone that may be completed individually or in a team of 2–4 students. Assignment submissions and grading are managed in Canvas; the live schedule is the source of truth for due dates.
 
-## Project Reports
+| Assignment | Work format | Course weight | Due |
+|---|---|---:|---|
+| [Project 1: Music Recommendation with k-NN](project1.qmd) | Individual | 10% | September 11, 2026, 11:59 p.m. ET |
+| [Project 2: Neural Archaeology](project2.qmd) | Individual | 10% | October 6, 2026, 11:59 p.m. ET |
+| [Project 3: Thought Cascade](thought_cascade.qmd) | Individual | 10% | November 2, 2026, 11:59 p.m. ET |
+| [Capstone: Trust and Evidence in AI](capstone.qmd) | Individual or team of 2–4 | 50% | Multiple deliverables |
 
-### Format Requirements
-- **Length**: 3-5 pages (Projects 1-3), 6-8 pages (Capstone)
-- **Structure**: 
-  - Introduction & Problem Statement
-  - Dataset Description
-  - Methods & Implementation
-  - Experiments & Results
-  - Analysis & Discussion
-  - Conclusion & Future Work
-- **Code**: Submit via GitHub links
-- **Format**: PDF via Canvas
+The separate **ML Videos for Kids** assignment is worth 3%. Participation through in-class quizzes is worth 17%.
 
-### Evaluation Criteria
+## Course Links
 
-Each project will be evaluated on:
-
-1. **Technical Implementation** (40%)
-   - Correctness of algorithms
-   - Code quality and documentation
-   - Appropriate use of libraries
-
-2. **Experimental Design** (30%)
-   - Systematic evaluation
-   - Appropriate metrics
-   - Hyperparameter tuning
-
-3. **Analysis & Insights** (20%)
-   - Understanding of results
-   - Discussion of limitations
-   - Bias-variance analysis where appropriate
-
-4. **Presentation** (10%)
-   - Clear writing
-   - Effective visualizations
-   - Proper citations
-
-## Collaboration Policy
-
-- Teams of 2-3 students allowed for Projects 1-3
-- Individual work required for Capstone
-- Clear contribution statements required for team projects
-
-## Getting Started
-
-1. Review project descriptions and starter code
-2. Form teams (if desired) via Piazza
-3. Start early - these projects require iteration
-4. Use office hours for guidance
-
-## Resources
-
-### Starter Code
-All starter code is available in the main repository:
-- [Project 1 Starter](https://github.com/jinming99/learn-ml-by-building/tree/main/projects/project1)
-- Project 2 Starter (Coming Soon)
-- Project 3 Starter (Coming Soon)
-
-### Compute Resources
-- Google Colab free tier is sufficient for Projects 1-2
-- GPU access available for advanced projects
-- Contact instructors for additional compute needs
-
-## Tips for Success
-
-:::{.callout-tip}
-## Best Practices
-1. **Start Early**: ML projects always take longer than expected
-2. **Iterate**: Your first model won't be your best
-3. **Document**: Keep notes on what you try and why
-4. **Visualize**: A good plot is worth 1000 numbers
-5. **Collaborate**: Discuss ideas, but write your own code
-:::
-
-## Example Projects
-
-### Past Successful Projects
-- Image classification with CNNs on custom datasets
-- Time series prediction for energy consumption
-- Reinforcement learning for game playing
-- Text generation with fine-tuned transformers
-- Clustering analysis of social media data
-
-### Capstone Ideas
-- Apply ML to your research area
-- Reproduce and extend a recent paper
-- Create a novel dataset and benchmark
-- Combine multiple techniques for a complex problem
-- Build an interactive ML application
-
----
-
-Ready to start? → [Project 1: Foundational Predictive Modeling](project1.qmd)
+- [Live Schedule](../schedule.qmd)
+- [Capstone Project Guide and Rubrics](https://docs.google.com/document/d/1b1L0pGoXljxnNjJNEGAzGJfaxvMPxNr1L_DshiAkK4E/edit?tab=t.0)
+- [Canvas](https://canvas.vt.edu/)

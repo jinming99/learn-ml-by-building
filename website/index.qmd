@@ -1,6 +1,6 @@
 ---
-title: "Machine Learning: Learn by Building"
-subtitle: ""
+title: "ECE 4424/CS 4824: Machine Learning"
+subtitle: "Learn by Building · Fall 2026"
 ---
 
 ## Course Philosophy
@@ -28,5 +28,17 @@ Our practical, project-first ethos is inspired by the excellent work from [fast.
 
 ## Course Team
 
-**Instructor**: Ming Jin  
-Email: jinming@vt.edu  
+**Class meetings:** Mondays and Wednesdays, 5:30–6:45 p.m., PAM 30
+
+**Instructor:** Ming Jin
+
+**Course email:** [ece4424.cs4824.fa26@gmail.com](mailto:ece4424.cs4824.fa26@gmail.com)
+
+Use this address for course questions and correspondence.
+
+**Teaching assistants:**
+
+- Priya Pitre
+- Jihyun Jeong
+- Chenru Wang
+- Qingze Guo

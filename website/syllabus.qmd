@@ -1,20 +1,26 @@
 ---
-title: "Course Syllabus"
+title: "Course Syllabus and Documents"
 subtitle: ""
 ---
 
-## Official Syllabus
+## Official Course Documents
 
-For the most up-to-date and complete syllabus, please refer to the official Google Doc:
+These Google files are the current sources of truth for Fall 2026:
 
-- Syllabus (published): https://docs.google.com/document/d/e/2PACX-1vRG8-sfrWXjflUf2qzuTQQi2auHgEuEUbStWhGfas4NdxL6CboMGeepmp9VrmutmupDX4Dr60S1Dlr7/pub
+- [Detailed Syllabus](https://docs.google.com/document/d/1LVvH7q9xf_ii0Jou4raTLWUJfNYGTc5-OnythuDy5A0/edit?tab=t.0#heading=h.3nqopy2jnuue)
+- [Course Schedule](https://docs.google.com/spreadsheets/d/1N-Ju45RhMW1j5i4DnSFGJKAjTXCeQodddNqnWEHCRYA/edit?gid=0#gid=0)
+- [Capstone Project Guide and Rubrics](https://docs.google.com/document/d/1b1L0pGoXljxnNjJNEGAzGJfaxvMPxNr1L_DshiAkK4E/edit?tab=t.0)
 
-Any updates will appear in the Google Doc.
+## Course Information
 
-## Capstone Project Rubrics
+**Meetings:** Mondays and Wednesdays, 5:30–6:45 p.m., PAM 30
 
-Rubrics for the capstone project are available here:
+**Course email:** [ece4424.cs4824.fa26@gmail.com](mailto:ece4424.cs4824.fa26@gmail.com)
 
-- Capstone Rubrics (Google Doc): https://docs.google.com/document/d/19t7HrBbnLVrmRtOs5qiSXxERDdMcxxKG-LZQqSTZmJs/edit?usp=sharing
+## Key Policies
 
-If you need a printable or offline copy, use File → Download in Google Docs.
+Normally, each content lecture includes one short in-class quiz that also records attendance. A fully correct submission earns 2 points, an incomplete submission or one containing an incorrect answer earns 1 point, and an absence or missing submission earns 0 points. There are no quizzes during the guest lecture, TA-led project discussions, milestone poster session, or spotlight presentations. The three lowest quiz scores, including zeros from ordinary absences, are dropped. Ordinary makeup quizzes are not offered; authorized absences and approved accommodations are handled separately.
+
+Students have five slip days for eligible take-home assignments. Slip days do not apply to quizzes or in-class presentations. Canvas closes three calendar days after a due date; work that is still eligible after Canvas closes should be sent to the course email with the assignment name, the grading owner, and the number of slip days used.
+
+Generative AI tools may be used unless an assignment says otherwise. Students remain responsible for the accuracy, quality, originality, and compliance of submitted work and must acknowledge material AI use. AI tools may not be used during quizzes unless explicitly authorized as an accommodation.

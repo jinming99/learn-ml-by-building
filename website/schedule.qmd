@@ -5,14 +5,18 @@ subtitle: ""
 
 ## Week-by-Week Schedule
 
+**Fall 2026 class meetings:** Mondays and Wednesdays, 5:30–6:45 PM, PAM 30.
+
+Normally, content lectures include an in-class quiz. There is no quiz for the guest lecture, TA-led project discussions, the milestone poster session, or spotlight presentations. The three lowest quiz scores are dropped. A TBD session is quiz-eligible only if it becomes a content lecture.
+
 :::{.callout-tip}
 ## Live Schedule
 The schedule below is embedded from Google Sheets and updates automatically. 
-[Open in Google Sheets →](https://docs.google.com/spreadsheets/d/1Rfe9l8TIzAjvbFVapTWAr60tp_GFOB0yn-YckQa4O94/edit?usp=sharing)
+[Open in Google Sheets →](https://docs.google.com/spreadsheets/d/1N-Ju45RhMW1j5i4DnSFGJKAjTXCeQodddNqnWEHCRYA/edit?gid=0#gid=0)
 :::
 
 <iframe 
-  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT_dtKYdTMFLn3wtvePBTOHUH8wIlnqLMasVvOAj9NkxWTO0oAXxBuQQl_uJtP9SPk3l6GBejY_TNEX/pubhtml?widget=true&amp;headers=false" 
+  src="https://docs.google.com/spreadsheets/d/1N-Ju45RhMW1j5i4DnSFGJKAjTXCeQodddNqnWEHCRYA/preview?widget=true&amp;headers=false"
   width="100%" 
   height="800" 
   frameborder="0"

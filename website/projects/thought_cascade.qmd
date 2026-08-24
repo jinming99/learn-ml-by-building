@@ -5,6 +5,11 @@ subtitle: "Building and Evaluating Agentic AI Systems with Small Language Models
 
 ## Overview
 
+:::{.callout-note}
+## Fall 2026
+This is an individual assignment worth 10% of the course grade. It is due Monday, November 2, at 11:59 p.m. ET. See the [live schedule](../schedule.qmd) for updates.
+:::
+
 In this assignment, you will explore the transition from traditional "single-shot" prompting to **Agentic AI**. You will build a system that uses the **ReAct (Reasoning + Acting)** pattern to solve complex debugging problems by iterating, testing, and self-correcting.
 
 ## Learning Objectives
@@ -65,4 +70,4 @@ This project connects to the forefront of AI research:
 
 ---
 
-**Previous**: [← Project 2: Neural Archaeology](project2.qmd) | **Next**: [Capstone Project →](../capstone.qmd)
+**Previous**: [← Project 2: Neural Archaeology](project2.qmd) | **Next**: [Capstone Project →](capstone.qmd)
