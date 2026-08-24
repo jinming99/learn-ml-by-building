@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Course Syllabus – Advanced Machine Learning</title>
+<title>Course Syllabus and Documents – ECE 4424/CS 4824: Machine Learning</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -32,15 +38,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0317aa8110301c694a76ea51382b99b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3c61efc53a6f7557640ad3d31a35a94e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Advanced Machine Learning</span>
+    <span class="navbar-title">ECE 4424/CS 4824: Machine Learning</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -103,6 +108,10 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
+    <a class="dropdown-item" href="./projects/index.html">
+ <span class="dropdown-text">Projects Overview</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./projects/project1.html">
  <span class="dropdown-text">Project 1: KNN Music Recommender</span></a>
   </li>  
@@ -110,15 +119,19 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./projects/project2.html">
  <span class="dropdown-text">Project 2: Neural Archaeology</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/thought_cascade.html">
+ <span class="dropdown-text">Project 3: Thought Cascade</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/capstone.html">
+ <span class="dropdown-text">Capstone Project</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="./resources.html"> 
 <span class="menu-text">Resources</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./project-matchmaker/"> 
-<span class="menu-text">Project Matchmaker</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -369,6 +382,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projects Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./projects/project1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 1: KNN Music Recommender</span></a>
   </div>
@@ -385,6 +404,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Project 3: Thought Cascade</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projects/capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Capstone Project</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -397,8 +422,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#official-syllabus" id="toc-official-syllabus" class="nav-link active" data-scroll-target="#official-syllabus">Official Syllabus</a></li>
-  <li><a href="#capstone-project-rubrics" id="toc-capstone-project-rubrics" class="nav-link" data-scroll-target="#capstone-project-rubrics">Capstone Project Rubrics</a></li>
+  <li><a href="#official-course-documents" id="toc-official-course-documents" class="nav-link active" data-scroll-target="#official-course-documents">Official Course Documents</a></li>
+  <li><a href="#course-information" id="toc-course-information" class="nav-link" data-scroll-target="#course-information">Course Information</a></li>
+  <li><a href="#key-policies" id="toc-key-policies" class="nav-link" data-scroll-target="#key-policies">Key Policies</a></li>
   </ul>
 </nav>
     </div>
@@ -407,7 +433,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./syllabus.html">Course Info</a></li><li class="breadcrumb-item"><a href="./syllabus.html">Syllabus</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Course Syllabus</h1>
+<h1 class="title">Course Syllabus and Documents</h1>
 </div>
 
 
@@ -424,21 +450,25 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="official-syllabus" class="level2">
-<h2 class="anchored" data-anchor-id="official-syllabus">Official Syllabus</h2>
-<p>For the most up-to-date and complete syllabus, please refer to the official Google Doc:</p>
+<section id="official-course-documents" class="level2">
+<h2 class="anchored" data-anchor-id="official-course-documents">Official Course Documents</h2>
+<p>These Google files are the current sources of truth for Fall 2026:</p>
 <ul>
-<li>Syllabus (published): https://docs.google.com/document/d/e/2PACX-1vRG8-sfrWXjflUf2qzuTQQi2auHgEuEUbStWhGfas4NdxL6CboMGeepmp9VrmutmupDX4Dr60S1Dlr7/pub</li>
+<li><a href="https://docs.google.com/document/d/1LVvH7q9xf_ii0Jou4raTLWUJfNYGTc5-OnythuDy5A0/edit?tab=t.0#heading=h.3nqopy2jnuue">Detailed Syllabus</a></li>
+<li><a href="https://docs.google.com/spreadsheets/d/1N-Ju45RhMW1j5i4DnSFGJKAjTXCeQodddNqnWEHCRYA/edit?gid=0#gid=0">Course Schedule</a></li>
+<li><a href="https://docs.google.com/document/d/1b1L0pGoXljxnNjJNEGAzGJfaxvMPxNr1L_DshiAkK4E/edit?tab=t.0">Capstone Project Guide and Rubrics</a></li>
 </ul>
-<p>Any updates will appear in the Google Doc.</p>
 </section>
-<section id="capstone-project-rubrics" class="level2">
-<h2 class="anchored" data-anchor-id="capstone-project-rubrics">Capstone Project Rubrics</h2>
-<p>Rubrics for the capstone project are available here:</p>
-<ul>
-<li>Capstone Rubrics (Google Doc): https://docs.google.com/document/d/19t7HrBbnLVrmRtOs5qiSXxERDdMcxxKG-LZQqSTZmJs/edit?usp=sharing</li>
-</ul>
-<p>If you need a printable or offline copy, use File → Download in Google Docs.</p>
+<section id="course-information" class="level2">
+<h2 class="anchored" data-anchor-id="course-information">Course Information</h2>
+<p><strong>Meetings:</strong> Mondays and Wednesdays, 5:30–6:45 p.m., PAM 30</p>
+<p><strong>Course email:</strong> <a href="mailto:ece4424.cs4824.fa26@gmail.com">ece4424.cs4824.fa26@gmail.com</a></p>
+</section>
+<section id="key-policies" class="level2">
+<h2 class="anchored" data-anchor-id="key-policies">Key Policies</h2>
+<p>Normally, each content lecture includes one short in-class quiz that also records attendance. A fully correct submission earns 2 points, an incomplete submission or one containing an incorrect answer earns 1 point, and an absence or missing submission earns 0 points. There are no quizzes during the guest lecture, TA-led project discussions, milestone poster session, or spotlight presentations. The three lowest quiz scores, including zeros from ordinary absences, are dropped. Ordinary makeup quizzes are not offered; authorized absences and approved accommodations are handled separately.</p>
+<p>Students have five slip days for eligible take-home assignments. Slip days do not apply to quizzes or in-class presentations. Canvas closes three calendar days after a due date; work that is still eligible after Canvas closes should be sent to the course email with the assignment name, the grading owner, and the number of slip days used.</p>
+<p>Generative AI tools may be used unless an assignment says otherwise. Students remain responsible for the accuracy, quality, originality, and compliance of submitted work and must acknowledge material AI use. AI tools may not be used during quizzes unless explicitly authorized as an accommodation.</p>
 
 
 </section>
@@ -517,7 +547,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/jinming99\.github\.io\/learn-ml-by-building\/");
+        var filterRegex = new RegExp("https:\/\/jinming\.tech\/learn-ml-by-building\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

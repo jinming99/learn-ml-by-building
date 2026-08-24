@@ -1,1 +1,1 @@
-Sitemap: https://jinming99.github.io/learn-ml-by-building/sitemap.xml
+Sitemap: https://jinming.tech/learn-ml-by-building/sitemap.xml
