@@ -123,6 +123,6 @@ website:
 format:
   html:
     theme: morph
-    css: site-legibility.css
+    css: site-legibility-v2.css
     toc: true
     toc-depth: 2

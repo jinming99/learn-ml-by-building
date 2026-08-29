@@ -1,4 +1,4 @@
-/* High-contrast reading palette for the Morph theme. */
+/* High-contrast reading palette and restrained controls for the Morph theme. */
 :root {
   --bs-body-color: #25324a;
   --bs-body-color-rgb: 37, 50, 74;
