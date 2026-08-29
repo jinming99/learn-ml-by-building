@@ -376,7 +376,7 @@
     "href": "lectures/02-knn.html#materials",
     "title": "Lecture 2: k-Nearest Neighbors",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nRead the Lecture Notes Download the PDF Lecture Notebook\nOpen in Colab\nLecture Folder",
+    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nRead the Lecture Notes Download Lecture 2 PDF Lecture Notebook\nOpen in Colab\nLecture Folder",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -1096,7 +1096,7 @@
     "href": "notes/01-what-is-machine-learning.html",
     "title": "Lecture 1: What Is Machine Learning?",
     "section": "",
-    "text": "Machine learning uses experience to improve decisions. Improvement depends on evidence about performance, failure, and transfer to the intended environment. This lecture connects building, verification, and real-world use.\nDownload lecture notes (PDF)"
+    "text": "Machine learning uses experience to improve decisions. Improvement depends on evidence about performance, failure, and transfer to the intended environment. This lecture connects building, verification, and real-world use.\nDownload Lecture 1 PDF"
   },
   {
     "objectID": "notes/01-what-is-machine-learning.html#building-shifts-the-work",
@@ -1282,7 +1282,7 @@
     "href": "lectures/01-overview.html#materials",
     "title": "Lecture 1: Welcome to Machine Learning",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nRead the Lecture Notes Download the PDF Pre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!",
+    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nRead the Lecture Notes Download Lecture 1 PDF Pre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -1750,14 +1750,14 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Lecture 1: What Is Machine Learning? · Download PDF\nLecture 2: k-Nearest Neighbors · Download PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
+    "text": "Lecture 1: What Is Machine Learning?Download Lecture 1 PDF\nLecture 2: k-Nearest NeighborsDownload Lecture 2 PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
   },
   {
     "objectID": "resources.html#lecture-notes-template",
     "href": "resources.html#lecture-notes-template",
     "title": "Resources",
     "section": "",
-    "text": "Lecture 1: What Is Machine Learning? · Download PDF\nLecture 2: k-Nearest Neighbors · Download PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
+    "text": "Lecture 1: What Is Machine Learning?Download Lecture 1 PDF\nLecture 2: k-Nearest NeighborsDownload Lecture 2 PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
   },
   {
     "objectID": "resources.html#software-tools",
