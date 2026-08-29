@@ -21,7 +21,8 @@ By the end of this lecture, you will:
 
 :::{.callout-tip}
 ## Quick Access
-**[Lecture Notes (PDF)](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/Lecture%2001%20-%20What%20Is%20Machine%20Learning/output/pdf/lecture-01-what-is-machine-learning.pdf)**  
+**[Read the Lecture Notes](../notes/01-what-is-machine-learning.qmd)**<br>
+**[Download the PDF](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-01-what-is-machine-learning.pdf)**<br>
 **[Pre-Lecture Setup](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Pre-Lecture-Setup.ipynb)**  
 **[Course Overview](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Course-Overview.ipynb)**  
 **[CatShop Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%201%20Overview/01-Catshop.ipynb)**  

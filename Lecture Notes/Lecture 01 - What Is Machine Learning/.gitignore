@@ -1,9 +1,0 @@
-# Public lecture package: compiled PDFs only.
-/*
-!/.gitignore
-!/output/
-
-/output/*
-!/output/pdf/
-/output/pdf/*
-!/output/pdf/*.pdf

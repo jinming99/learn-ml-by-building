@@ -1,28 +1,27 @@
 ---
 title: "Lecture 2: k-Nearest Neighbors"
-subtitle: "Framing Prediction Problems & Instance-Based Learning"
+subtitle: "From Similarity to Learned Compatibility"
 ---
 
 ## Overview
 
-In this hands-on lecture, we use similarity-based prediction and recommendation to study k-Nearest Neighbors. We'll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.
+This lecture begins with practical decisions: predicting whether you will like a track and finding classmates who may work well with you. We use k-nearest neighbors to see how representation, distance, and evaluation turn proximity into a prediction.
 
 ## Learning Objectives
 
 By the end of this lecture, you will:
 
-- **Frame** real-world problems as ML tasks with inputs (X) and outputs (y)
-- **Apply** k-NN for classification and regression tasks
-- **Analyze** the impact of distance metrics and feature scaling
-- **Understand** the curse of dimensionality and its practical implications
-- **Design** fair and effective neighbor-based systems with domain constraints
-- **Evaluate** trade-offs between different similarity measures
+- **Formulate** a practical decision in terms of examples, features, a target, eligibility rules, and evidence of success
+- **Apply** k-NN classification using a neighborhood, a voting rule, and a justified choice of $k$
+- **Explain** how representation and distance encode the model's proximity assumption
+- **Translate** a human preference into a logical constraint and a loss for distance learning
 
 ## Materials
 
 :::{.callout-tip}
 ## Quick Access
-**[Lecture Notes (PDF)](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/Lecture%2002%20-%20k-Nearest%20Neighbors/output/pdf/lecture-02-k-nearest-neighbors.pdf)**  
+**[Read the Lecture Notes](../notes/02-k-nearest-neighbors.qmd)**<br>
+**[Download the PDF](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf)**<br>
 **[Lecture Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Open in Colab](https://colab.research.google.com/github/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Lecture Folder](https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%202%20KNN)**
@@ -30,11 +29,11 @@ By the end of this lecture, you will:
 
 ## Key Topics
 
-1. **The Data Journey**: From raw observations → feature vectors → predictions
-2. **k-NN Fundamentals**: The beautiful simplicity of "you are your neighbors"
-3. **Distance Metrics**: Euclidean, Manhattan, Cosine, and when each matters
-4. **Curse of Dimensionality**: When all points become equidistant
-5. **Fairness in ML**: Identifying and mitigating bias in similarity-based systems
+1. **Problem formulation**: connect examples, features, targets, and evidence to the decision
+2. **k-NN classification**: retrieve a neighborhood and aggregate its labels
+3. **Geometry**: understand what each representation and distance assumes
+4. **Compatibility**: use human preferences to learn a better distance
+5. **Whole-pipeline evaluation**: locate failures in data, features, eligibility, distance, aggregation, or evidence
 
 ## Additional Resources
 

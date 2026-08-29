@@ -258,6 +258,10 @@ Lecture 15 CNN/15-CNN/
 Lecture 15 CNN/data/
 Lecture 16 RNN and Recurrent Language Models/data/
 
-# Keep the local cross-lecture index private. This final rule intentionally
-# follows the general README exception above.
-Lecture Notes/README.md
+# Public lecture-note allowlist. Handouts are flat PDFs so GitHub shows every
+# note immediately. Production sources and the private cross-lecture index stay
+# local by default; the reusable template remains public.
+/Lecture Notes/*
+!/Lecture Notes/*.pdf
+!/Lecture Notes/Template - Learn ML by Building/
+!/Lecture Notes/Template - Learn ML by Building/**
