@@ -340,7 +340,7 @@
     "href": "lectures/02-knn.html",
     "title": "Lecture 2: k-Nearest Neighbors",
     "section": "",
-    "text": "In this hands-on lecture, we use similarity-based prediction and recommendation to study k-Nearest Neighbors. We’ll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.",
+    "text": "This lecture begins with practical decisions: predicting whether you will like a track and finding classmates who may work well with you. We use k-nearest neighbors to see how representation, distance, and evaluation turn proximity into a prediction.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -352,7 +352,7 @@
     "href": "lectures/02-knn.html#overview",
     "title": "Lecture 2: k-Nearest Neighbors",
     "section": "",
-    "text": "In this hands-on lecture, we use similarity-based prediction and recommendation to study k-Nearest Neighbors. We’ll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.",
+    "text": "This lecture begins with practical decisions: predicting whether you will like a track and finding classmates who may work well with you. We use k-nearest neighbors to see how representation, distance, and evaluation turn proximity into a prediction.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -364,7 +364,7 @@
     "href": "lectures/02-knn.html#learning-objectives",
     "title": "Lecture 2: k-Nearest Neighbors",
     "section": "Learning Objectives",
-    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFrame real-world problems as ML tasks with inputs (X) and outputs (y)\nApply k-NN for classification and regression tasks\nAnalyze the impact of distance metrics and feature scaling\nUnderstand the curse of dimensionality and its practical implications\nDesign fair and effective neighbor-based systems with domain constraints\nEvaluate trade-offs between different similarity measures",
+    "text": "Learning Objectives\nBy the end of this lecture, you will:\n\nFormulate a practical decision in terms of examples, features, a target, eligibility rules, and evidence of success\nApply k-NN classification using a neighborhood, a voting rule, and a justified choice of \\(k\\)\nExplain how representation and distance encode the model’s proximity assumption\nTranslate a human preference into a logical constraint and a loss for distance learning",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -376,7 +376,7 @@
     "href": "lectures/02-knn.html#materials",
     "title": "Lecture 2: k-Nearest Neighbors",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nLecture Notes (PDF)\nLecture Notebook\nOpen in Colab\nLecture Folder",
+    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nRead the Lecture Notes Download the PDF Lecture Notebook\nOpen in Colab\nLecture Folder",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -388,7 +388,7 @@
     "href": "lectures/02-knn.html#key-topics",
     "title": "Lecture 2: k-Nearest Neighbors",
     "section": "Key Topics",
-    "text": "Key Topics\n\nThe Data Journey: From raw observations → feature vectors → predictions\nk-NN Fundamentals: The beautiful simplicity of “you are your neighbors”\nDistance Metrics: Euclidean, Manhattan, Cosine, and when each matters\nCurse of Dimensionality: When all points become equidistant\nFairness in ML: Identifying and mitigating bias in similarity-based systems",
+    "text": "Key Topics\n\nProblem formulation: connect examples, features, targets, and evidence to the decision\nk-NN classification: retrieve a neighborhood and aggregate its labels\nGeometry: understand what each representation and distance assumes\nCompatibility: use human preferences to learn a better distance\nWhole-pipeline evaluation: locate failures in data, features, eligibility, distance, aggregation, or evidence",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -658,6 +658,62 @@
       "Module 1: Let's Predict",
       "L3: Linear Regression"
     ]
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html",
+    "href": "notes/02-k-nearest-neighbors.html",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "",
+    "text": "Nearest-neighbor methods begin with a practical problem and a simple assumption: proximity under the chosen representation and distance should support useful predictions. Understanding the model means tracing that assumption through data collection, feature construction, eligibility, geometry, and evaluation."
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html#begin-with-the-problem",
+    "href": "notes/02-k-nearest-neighbors.html#begin-with-the-problem",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Begin with the problem",
+    "text": "Begin with the problem\nMachine learning starts with a decision we want to improve. The algorithm comes later.\n\n\n\n\n\n\nDesign note\n\n\n\nA precise problem statement prevents a common failure: optimizing a clean mathematical target that does not correspond to the real decision.\n\n\n\nA brief labeled example\nBegin with the problem: predict whether a listener will like a new track using historical likes and dislikes. Represent each track as a feature vector such as\n\\[\n\\mathbf{x}\n=\n\\begin{bmatrix}\n\\text{tempo} & \\text{energy} & \\text{danceability} & \\text{acousticness} & \\cdots\n\\end{bmatrix}^{\\!\\top}\n\\in \\mathbb{R}^d,\n\\]\nwith an observed label \\(y\\in\\{0,1\\}\\), where \\(1\\) denotes “liked.” The data are\n\\[\n\\mathcal D=\\{(\\mathbf{x}_i,y_i)\\}_{i=1}^{n}.\n\\]\nFor an unseen track \\(\\mathbf{x}_\\star\\), the output is a prediction \\(\\widehat y(\\mathbf{x}_\\star)\\). The hat matters: \\(y\\) is observed evidence; \\(\\widehat y\\) is what the model predicts.\nUsing k-NN adds a modeling assumption: proximity should support good predictions. Data collection and feature design are part of that assumption because they determine which forms of proximity the model can see."
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html#the-k-nearest-neighbor-rule",
+    "href": "notes/02-k-nearest-neighbors.html#the-k-nearest-neighbor-rule",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "The k-nearest-neighbor rule",
+    "text": "The k-nearest-neighbor rule\nLet \\(\\mathcal D=\\{(\\mathbf{x}_i,y_i)\\}_{i=1}^{n}\\) and let \\(d(\\cdot,\\cdot)\\) be a dissimilarity rule. For a query \\(\\mathbf{x}\\), sort the training indices so that\n\\[\nd(\\mathbf{x},\\mathbf{x}_{(1)})\n\\le d(\\mathbf{x},\\mathbf{x}_{(2)})\n\\le \\cdots\n\\le d(\\mathbf{x},\\mathbf{x}_{(n)}).\n\\]\nThe neighborhood index set is\n\\[\n\\mathcal N_k(\\mathbf{x})=\\{(1),(2),\\ldots,(k)\\}.\n\\]\nThis order-statistic definition makes the computation transparent. If points tie at the \\(k\\)th distance, a deterministic rule is still required.\n\n\n\n\n\n\nFigure 1: A synthetic binary example. The query’s three nearest points contain two teal circles and one blue square, so unweighted \\(k=3\\) predicts the teal class. The geometry, not the plotting axes alone, determines the neighborhood.\n\n\n\n\nClassification and distance weighting\nFor class labels \\(c\\in\\mathcal C\\), unweighted k-NN classification predicts\n\\[\n\\widehat y(\\mathbf{x})\n=\n\\operatorname*{arg\\,max}_{c\\in\\mathcal C}\n\\sum_{i\\in\\mathcal N_k(\\mathbf{x})}\n\\mathbb{1}[y_i=c].\n\\]\nCloser neighbors can receive more influence. With nonnegative weights \\(a_i(\\mathbf{x})\\), a common choice is\n\\[\na_i(\\mathbf{x})\n=\n\\frac{1}{d(\\mathbf{x},\\mathbf{x}_i)+\\varepsilon},\n\\qquad \\varepsilon&gt;0.\n\\]\nThe weighted classifier replaces vote counts with weighted counts. The small \\(\\varepsilon\\) prevents division by zero, although exact matches deserve an explicit policy.\n\n\nWhat does \\(k\\) control?\nIn classification, \\(k\\) controls how local the vote is. A small \\(k\\) follows individual observations closely; a larger \\(k\\) aggregates evidence across a wider neighborhood.\n\n\n\n\n\n\nFigure 2: Conceptual effect of \\(k\\) in classification. Small neighborhoods react strongly to individual observations; larger neighborhoods average across a wider region. Select \\(k\\) with validation data, not by visual preference.\n\n\n\n\n\n\n\nTable 1: The appropriate \\(k\\) is data-dependent. Cross-validation estimates which neighborhood size generalizes.\n\n\n\n\n\n\n\n\n\n\n\nChoice\nBoundary behavior\nMain advantage\nMain risk\n\n\n\n\n\\(k=1\\)\nHighly local and irregular\nPreserves fine structure\nSensitive to noise and mislabeled points\n\n\nModerate \\(k\\)\nSmooths nearby evidence\nOften balances bias and variance\nMust be tuned to density and sample size\n\n\nLarge \\(k\\)\nApproaches a global vote\nStable under local noise\nErases local structure and favors common classes\n\n\n\n\n\n\n\n\n\n\n\n\n\nOdd \\(k\\) is not a complete tie policy\n\n\n\nAn odd \\(k\\) reduces vote ties only for binary classification when the neighborhood itself is unambiguous. Multiclass votes, equal distances at the cutoff, and duplicate points can still tie. Use a documented rule such as distance-weighted voting, a fixed class order, or inclusion of all points tied at the boundary."
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html#the-geometry-is-the-model",
+    "href": "notes/02-k-nearest-neighbors.html#the-geometry-is-the-model",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "The geometry is the model",
+    "text": "The geometry is the model\nThe k-NN rule assumes that nearby examples are useful for prediction, but the distance decides which examples count as nearby. Changing the dissimilarity can change every neighbor. In a zero-shot system, this is a substantive modeling assumption.\nLet \\(\\Delta_j=x_j-z_j\\). The Minkowski family is\n\\[\nd_p(\\mathbf{x},\\mathbf{z})\n=\n\\left(\\sum_{j=1}^{d}|\\Delta_j|^p\\right)^{1/p},\n\\qquad p\\ge 1.\n\\]\nEuclidean distance uses \\(p=2\\), Manhattan uses \\(p=1\\), and the limit \\(p\\to\\infty\\) gives Chebyshev distance.\n\n\n\n\n\n\nFigure 3: Unit-distance contours in two dimensions. A point on each contour is exactly one unit from the center under that metric. Different contours imply different neighbor orderings.\n\n\n\n\nFour common rules\n\n\n\n\nTable 2: Metric choice should follow the semantics of the features and the downstream decision.\n\n\n\n\n\n\n\n\n\n\n\nRule\nDefinition\nUseful when\nCaution\n\n\n\n\nEuclidean\n\\(\\sqrt{\\sum_j\\Delta_j^2}\\)\nStraight-line proximity is meaningful; large coordinate gaps should count strongly\nSensitive to outliers and irrelevant coordinates\n\n\nManhattan\n\\(\\sum_j|\\Delta_j|\\)\nCoordinate-wise deviations add; sparse or robust comparisons are desirable\nAxes remain equally weighted by default\n\n\nChebyshev\n\\(\\max_j|\\Delta_j|\\)\nThe largest mismatch acts like a deal-breaker\nIgnores improvement on nonmaximum coordinates until the maximum changes\n\n\nCosine dissimilarity\n\\(1-\\dfrac{\\mathbf{x}^{\\top}\\mathbf{z}}{\\lVert\\mathbf{x}\\rVert_2\\lVert\\mathbf{z}\\rVert_2}\\)\nDirection or relative pattern matters more than magnitude\nUndefined for a zero vector; \\(1-\\cos\\) is not generally a mathematical metric\n\n\n\n\n\n\n\n\n\nWhy cosine helps with document counts\nSuppose articles are represented only by counts of the words “computer” and “poll.” A long technology article and a short technology query may point in nearly the same direction even when their Euclidean distance is large. Cosine similarity measures that direction:\n\\[\n\\operatorname{cosim}(\\mathbf{x},\\mathbf{z})\n=\n\\frac{\\mathbf{x}^{\\top}\\mathbf{z}}\n{\\lVert\\mathbf{x}\\rVert_2\\lVert\\mathbf{z}\\rVert_2}\n=\\cos\\theta.\n\\]\nHere \\(\\theta\\) is the angle directly between the two nonzero vectors at their shared origin.\n\n\n\n\n\n\nFigure 4: The marked angle \\(\\theta\\) lies between the query vector and the technology-article vector. Their directions are similar even though their lengths and Euclidean separation differ.\n\n\n\n\n\n\n\n\n\nValidity requires a domain argument\n\n\n\nA metric can be mathematically well-defined and still encode the wrong domain assumption. A useful task-specific score may also violate symmetry or the triangle inequality. Name the object honestly: distance, dissimilarity, or compatibility cost."
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html#case-study-zero-shot-teammate-matching",
+    "href": "notes/02-k-nearest-neighbors.html#case-study-zero-shot-teammate-matching",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Case study: zero-shot teammate matching",
+    "text": "Case study: zero-shot teammate matching\nThe lecture dataset contains 41 survey responses. An NLP extraction step maps each response to eight numerical axes on a nominal \\([-1,1]\\) range. Treat yourself as the fixed query. The missing outcome for each candidate is\n\\[\ny_i=\\mathbb{1}\\{\\text{student $i$ works well with me}\\}.\n\\]\nThose collaboration outcomes do not yet exist. The first system is nearest-neighbor candidate ranking under designed assumptions.\n\n\n\n\n\n\nRole of k-NN\n\n\n\nk-NN returns the nearest eligible candidates under the representation and scoring rule we choose. The system designer still has to define compatibility.\n\n\n\nRepresentation and system roles\n\n\n\n\nTable 3: The eight extracted axes. The final column is a design hypothesis, not a discovered fact.\n\n\n\n\n\n\n\n\n\n\n\nFeature\nNegative endpoint\nPositive endpoint\nPossible role\n\n\n\n\ntheory_implementation\nTheory / mathematics\nImplementation / engineering\nRole coverage\n\n\nresearch_industry\nResearch / academic\nIndustry / product\nContext dependent\n\n\nstructured_exploratory\nStructured problems\nExploratory / open-ended\nWork-style alignment\n\n\nsolo_collaborative\nSolo work\nTeam collaboration\nWork-style alignment\n\n\ndepth_breadth\nDeep focus\nBroad interests\nContext dependent\n\n\nplan_iterate\nPlan first\nIterate quickly\nWork-style alignment\n\n\ndata_model\nData / analysis first\nModel / algorithm first\nRole coverage\n\n\nfoundational_applied\nBuild foundations\nApplied solutions\nContext dependent\n\n\n\n\n\n\n\nThe categorical team_status field serves a different purpose: it is an eligibility rule. Students choosing to work solo should be filtered out before distances are ranked. Treating eligibility as another coordinate can return operationally invalid neighbors.\n\n\n\n\n\n\nSeparate the layers\n\n\n\nRepresentation features, eligibility constraints, and the scoring function answer different questions. Keep them explicit.\n\n\n\n\nStandard metrics disagree\nFor the worked comparison, one anonymized profile stands in for you. The notebook ranks all eligible candidates using all eight features and keeps the top three under each rule.\n\n\n\n\n\n\nFigure 5: For the same anonymized query profile, different metrics produce different top-three lists. Student 03 is the only candidate appearing under all four rules. A dash means the candidate falls outside that metric’s top three.\n\n\n\nThe disagreement is not an implementation bug. Euclidean aggregates squared gaps, Manhattan aggregates absolute gaps, cosine compares orientation, and Chebyshev focuses on the largest coordinate gap. Each rule compresses the same profile difference differently.\n\n\n\n\n\n\nWhat unlabeled data cannot tell us\n\n\n\nWithout compatibility outcomes, Figure 5 cannot identify a correct metric. The metric must be defended as a transparent domain assumption and later validated against feedback or collaboration outcomes.\n\n\n\n\nSimilarity is only one design objective\nA team matcher may seek:\n\nalignment on working approach, to reduce coordination friction;\ncoverage across technical perspectives, to avoid redundant strengths; and\neligibility constraints, to respect availability and stated preferences.\n\nThese objectives are not equivalent to Euclidean closeness. We can alter the geometry by learning which similarities matter from feedback or by targeting nonzero gaps for complementary roles."
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html#learning-and-designing-a-better-ruler",
+    "href": "notes/02-k-nearest-neighbors.html#learning-and-designing-a-better-ruler",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Learning and designing a better ruler",
+    "text": "Learning and designing a better ruler\nDistance learning begins with a concrete failure: we prefer \\(A\\) to \\(B\\), but the current metric ranks \\(B\\) closer. We turn that desired ordering into a logical condition and then a loss the machine can optimize.\n\nA two-feature counterexample\nConsider a toy \\([0,10]\\) profile with\n\\[\n\\mathbf{x}_{\\mathrm{me}}=[5,5],\n\\qquad\n\\mathbf{x}_A=[5,9],\n\\qquad\n\\mathbf{x}_B=[7,6].\n\\]\nThe first feature is theory versus implementation; the second is coding versus mathematics. Suppose prior experience says \\(A\\) is preferred to \\(B\\).\n\n\n\n\nTable 4: Ordinary Euclidean distance ranks \\(B\\) closer even though the observed preference favors \\(A\\).\n\n\n\n\n\n\n\n\n\n\n\nCandidate\nSquared gap on \\(x_1\\)\nSquared gap on \\(x_2\\)\nUnweighted squared distance\n\n\n\n\n\\(A=[5,9]\\)\n\\((5-5)^2=0\\)\n\\((5-9)^2=16\\)\n\\(16\\)\n\n\n\\(B=[7,6]\\)\n\\((5-7)^2=4\\)\n\\((5-6)^2=1\\)\n\\(5\\)\n\n\n\n\n\n\n\nThe human preference becomes the logical condition\n\\[\nd_{\\mathbf{w}}(\\mathbf{x}_{\\mathrm{me}},\\mathbf{x}_A)^2\n&lt;\nd_{\\mathbf{w}}(\\mathbf{x}_{\\mathrm{me}},\\mathbf{x}_B)^2.\n\\]\nGive the model parameters that can satisfy this ordering with a diagonal weighted squared distance:\n\\[\nd_{\\mathbf{w}}(\\mathbf{x},\\mathbf{z})^2\n=\n\\sum_{j=1}^{d}w_j(x_j-z_j)^2,\n\\qquad w_j\\ge 0.\n\\]\nIf every weight is strictly positive, \\(d_{\\mathbf{w}}\\) is a metric. Allowing a zero weight collapses that coordinate and yields a pseudometric.\nWith \\(w_1=4\\) and \\(w_2=1\\), the squared distances become \\(16\\) for \\(A\\) and \\(17\\) for \\(B\\). The ranking flips because agreement on the first feature is declared four times as important.\n\n\n\n\n\n\nWhat diagonal weights can express\n\n\n\nPositive diagonal weights learn which similarities matter. They cannot reward a nonzero feature gap, model interactions between features, or satisfy a preference when the positive example is no closer on any available coordinate.\n\n\n\n\nFrom a preference to a learnable loss\nA triplet \\((a,p,n)\\) records that anchor \\(a\\) prefers positive example \\(p\\) over negative example \\(n\\). With margin \\(m&gt;0\\), the desired condition is\n\\[\nd_{\\mathbf{w}}(a,p)^2+m\n\\le\nd_{\\mathbf{w}}(a,n)^2.\n\\]\nDefine the constraint gap\n\\[\ng_{a,p,n}(\\mathbf{w})\n=\nd_{\\mathbf{w}}(a,n)^2-d_{\\mathbf{w}}(a,p)^2.\n\\]\nThe condition is \\(g_{a,p,n}(\\mathbf{w})\\ge m\\). The hinge loss measures how far the current weights are from satisfying it:\n\\[\n\\mathcal L(\\mathbf{w})\n=\n\\max\\bigl(0,m-g_{a,p,n}(\\mathbf{w})\\bigr).\n\\]\nWhy the maximum matters. Without the outer maximum, minimizing \\(m-g\\) would keep rewarding an already-correct triplet for making the gap arbitrarily large. Clipping at zero once the margin is met prevents this reward hacking and focuses learning on preferences that are still violated.\nFor an active hinge, the feature-wise gradient is\n\\[\n\\frac{\\partial\\mathcal L}{\\partial w_j}\n=\n(a_j-p_j)^2-(a_j-n_j)^2.\n\\]\nA projected update keeps weights feasible:\n\\[\n\\mathbf{w}\n\\leftarrow\n\\Pi_{\\mathbb{R}_{\\ge 0}^{d}}\n\\left(\\mathbf{w}-\\eta\\nabla_{\\mathbf{w}}\\mathcal L\\right).\n\\]\nThese updates require observed preference triplets. Learned weights should be assessed on held-out feedback; satisfying the training triplets alone does not establish useful compatibility.\n\n\nComplementarity requires a different objective\nA maximum-gap rule can reward extreme differences even when extremes make collaboration harder. A more explicit design targets a moderate gap for role coverage.\nFor absolute feature gaps \\(\\Delta_j=|x_j-z_j|\\), split features into alignment set \\(S\\) and coverage set \\(C\\):\n\\[\n\\begin{aligned}\nL_{\\mathrm{align}}\n&=\\operatorname{mean}_{j\\in S}\\Delta_j^2,\\\\\nL_{\\mathrm{cover}}\n&=\\operatorname{mean}_{j\\in C}(\\Delta_j-\\tau)^2,\\\\\nC(\\mathbf{x},\\mathbf{z})\n&=\\alpha L_{\\mathrm{align}}\n+(1-\\alpha)L_{\\mathrm{cover}}.\n\\end{aligned}\n\\]\nIn the worked example, the alignment set contains structured/exploratory; the coverage set contains theory/implementation and data/model. We use \\(\\tau=0.6\\) and \\(\\alpha=0.5\\).\n\n\n\n\n\n\nFigure 6: Alignment has its minimum at zero gap; role coverage has its minimum at the chosen target \\(\\tau=0.6\\). The parameters expose assumptions that can be debated and tested.\n\n\n\n\n\n\n\n\n\nCompatibility cost\n\n\n\nOn a coverage feature, zero gap can receive a penalty, so identity of indiscernibles fails. The score ranks potential partners for one query; it does not prove compatibility or optimize an entire team’s composition."
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html#evaluation-belongs-to-the-whole-pipeline",
+    "href": "notes/02-k-nearest-neighbors.html#evaluation-belongs-to-the-whole-pipeline",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Evaluation belongs to the whole pipeline",
+    "text": "Evaluation belongs to the whole pipeline\nAn apparently simple neighbor lookup rests on a chain of assumptions: the problem is framed correctly, data collection captures relevant evidence, the representation preserves it, eligibility is valid, and the chosen distance makes proximity useful. When outcomes are poor, diagnose the whole chain. The choice of \\(k\\) is only one possible source.\n\n\n\n\n\n\nFigure 7: The teammate-matching pipeline. Evaluation feeds back to every stage: the goal, questions, extraction, eligibility, and geometry can all be failure sources.\n\n\n\n\nMatch evaluation to the task\n\n\n\n\nTable 5: Choose a split and measurement that reproduce the future decision.\n\n\n\n\n\n\n\n\n\n\n\nSetting\nValidation unit\nUseful measurements\nLeakage to avoid\n\n\n\n\nSupervised classification\nFuture examples or entities, depending on deployment\nAccuracy, balanced accuracy, precision/recall, calibration\nThe same entity or a near duplicate in train and test\n\n\nCandidate ranking\nQuery with judged relevant items\nRecall@\\(k\\), precision@\\(k\\), mean reciprocal rank, NDCG\nUsing relevance feedback from evaluation queries to design the metric\n\n\nTeam matching\nPair or team outcome after collaboration\nPreference satisfaction, acceptance rate, project outcome, subgroup diagnostics\nUsing evaluation preferences to design or fit the score\n\n\n\n\n\n\n\nFor supervised k-NN, tune preprocessing, the distance rule, weighting, and \\(k\\) inside cross-validation. For teammate ranking, compare transparent baselines and gather outcome feedback before presenting rankings as learned recommendations.\n\n\n\n\n\n\nBaseline ladder\n\n\n\nStart with a simple eligible-candidate baseline, then compare unweighted Euclidean, alternative metrics, weighted k-NN, and only then a custom learned or complementary score. Each extra degree of freedom should earn its complexity on held-out evidence.\n\n\n\n\nDiagnose failures at the right layer\n\n\n\n\nTable 6: A failure map for the full pipeline. Model tuning is only one possible response.\n\n\n\n\n\n\n\n\n\n\n\nLayer\nAssumption\nDiagnostic\nPossible intervention\n\n\n\n\nGoal\n“Good teammate” has an operational meaning\nCompare stakeholder definitions and downstream outcomes\nReframe the target; separate compatibility, coverage, and logistics\n\n\nSurvey\nQuestions capture relevant, answerable traits\nReliability checks; missingness; interviews; outcome correlations\nRevise questions or collect direct behavioral evidence\n\n\nExtraction\nText becomes faithful numerical features\nHuman rubric audit; repeated extraction; subgroup error analysis\nCalibrate prompts or rubrics, add examples, or replace the extractor\n\n\nEligibility\nReturned candidates are actionable\nCount invalid recommendations and constraint violations\nFilter first; encode hard constraints outside the distance\n\n\nGeometry\nLower score corresponds to better pairs\nNeighbor inspection; counterexamples; held-out preferences\nReweight, learn a metric, or redesign the score\n\n\nOutcome\nThe ranking improves collaboration\nProspective evaluation and qualitative follow-up\nRevisit upstream layers; retuning \\(k\\) alone may not help\n\n\n\n\n\n\n\n\nLecture summary. Practical k-NN starts from the problem: trace the assumption that proximity predicts well through data collection, representation, eligibility, distance, and evaluation, then convert observed ranking failures into constraints and losses the model can learn from."
+  },
+  {
+    "objectID": "notes/02-k-nearest-neighbors.html#further-reading",
+    "href": "notes/02-k-nearest-neighbors.html#further-reading",
+    "title": "Lecture 2: k-Nearest Neighbors",
+    "section": "Further reading",
+    "text": "Further reading\n\nT. Cover and P. Hart, “Nearest Neighbor Pattern Classification”, 1967.\nscikit-learn: Nearest Neighbors User Guide.\nCourse notebook: 02-KNN.ipynb.\n\n\nAcknowledgment. These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.\n\n\nPrevious native note: What Is Machine Learning? · Lecture 2 course materials"
   },
   {
     "objectID": "index.html",
@@ -1036,6 +1092,48 @@
     ]
   },
   {
+    "objectID": "notes/01-what-is-machine-learning.html",
+    "href": "notes/01-what-is-machine-learning.html",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "",
+    "text": "Machine learning uses experience to improve decisions. Improvement depends on evidence about performance, failure, and transfer to the intended environment. This lecture connects building, verification, and real-world use.\nDownload lecture notes (PDF)"
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#building-shifts-the-work",
+    "href": "notes/01-what-is-machine-learning.html#building-shifts-the-work",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Building shifts the work",
+    "text": "Building shifts the work\nTraditional engineering often begins by learning the technology: How does it work? AI tools can produce a prototype earlier. Engineering effort then shifts toward three review questions:\n\nWhy should it work? When will it fail? What evidence supports it?\n\n\n\n\n\n\n\nFigure 1: Traditional engineering learns before building. AI engineering builds earlier and shifts effort toward learning from outputs, verification, review, and alignment.\n\n\n\nThe AI cycle studies the outputs and checks their alignment with the original problem. Review and verification guide the next build.\nStart with the intended use. Define the task, operating environment, and cost of failure before choosing a model. These choices determine the evidence required. Unit tests measure software behavior under specified cases. Medical and control systems also require evidence from their operating conditions.\nPeople set the goal, identify important failures, collect evidence, and decide whether the evidence supports the intended use."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#machine-learning-uses-experience",
+    "href": "notes/01-what-is-machine-learning.html#machine-learning-uses-experience",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Machine learning uses experience",
+    "text": "Machine learning uses experience\nA practical definition has three parts:\n\n\n\n\n\nAutomation gives machine learning scale and impact. Predictions and discoveries can shape consequential choices. Improvement requires experience and a feedback signal aligned with the goal. Repeated feedback can support continual learning and recursive improvement.\n\n\n\n\n\n\nFigure 2: A fixed program applies written rules to data. A learned system uses examples and a learning procedure to construct the model.\n\n\n\nFigure 2 uses labeled examples \\((x_i,y_i)\\). Other systems learn from rewards, comparisons, demonstrations, or unlabeled data. In every setting, identify the experience, the part of the system that changes, and the measure of improvement.\nMachine-learning history is cumulative. Early neural and neighbor methods remain useful. Later advances expanded the scale of learning and changed how people interact with learned systems.\n\n\n\n\n\n\nFigure 3: Selected milestones and one open question about the future of machine learning.\n\n\n\nChatGPT made foundation models widely interactive. Coding agents extend them into multi-step work. Recursive intelligence remains an open question. These systems require clear objectives, review, and evidence."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#learning-needs-a-verification-signal",
+    "href": "notes/01-what-is-machine-learning.html#learning-needs-a-verification-signal",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Learning needs a verification signal",
+    "text": "Learning needs a verification signal\nGeneration produces candidates. A verification signal measures behavior, judges improvement, and guides the next attempt.\n\n\n\n\n\n\nFigure 4: Verification maps evidence to an outcome, then uses that outcome to choose the next action.\n\n\n\nSoftware tests, checked calculations, and game scores provide direct digital feedback. Each check measures a specific criterion.\n\n\n\n\nTable 1: The useful verification signal depends on the task. Every signal leaves some uncertainty outside what it measures.\n\n\n\n\n\n\n\n\n\n\n\nSetting\nCandidate\nPossible signal\nWhat remains unresolved\n\n\n\n\nSoftware\nProgram or patch\nTests, static checks, runtime behavior\nWhether the tests express the full requirement\n\n\nMathematics\nAnswer or proof\nRecalculation, proof checking, counterexamples\nWhether the assumptions and question are correct\n\n\nPhysical system\nDecision or policy\nSensors, constraints, outcomes over time\nNoise, drift, delayed effects, and rare harm\n\n\n\n\n\n\n\n\n\n\n\n\n\nMatch the signal to the intended use\n\n\n\nTests cover tested behavior. Scores encode the chosen objective. Sensors cover what they observe. Choose criteria for the intended use and major failure modes.\n\n\nTrust grows from repeated evidence for a specific claim under stated conditions. Missing, ambiguous, or out-of-environment evidence weakens the claim."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#real-world-use-requires-real-world-evidence",
+    "href": "notes/01-what-is-machine-learning.html#real-world-use-requires-real-world-evidence",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Real-world use requires real-world evidence",
+    "text": "Real-world use requires real-world evidence\nDigital environments offer repeatable trials and fast feedback. Real-world use adds hidden state, measurement error, changing conditions, people, and irreversible consequences.\n\n\n\n\n\n\nFigure 5: Human-AI collaboration helps bridge the grounding gap. People frame the use, review evidence from the target environment, and guide revision.\n\n\n\nDigital training captures patterns in text, code, simulations, or games. Deployment also depends on physical causes, human behavior, and real consequences. Simulation narrows the gap. Target-environment evidence tests the remaining mismatch.\nHuman-AI collaboration keeps the transfer claim explicit. AI supports rapid generation and simulation. People define the task, interpret target-environment evidence, and decide what requires revision.\nDiagnose failures through the evidence. Inspect the problem formulation, training experience, verification signal, and deployment environment before tuning the learning algorithm."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#lecture-summary",
+    "href": "notes/01-what-is-machine-learning.html#lecture-summary",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Lecture summary",
+    "text": "Lecture summary\nMachine learning uses experience to improve decisions. Relevant evidence guides each iteration and tests whether performance transfers to the intended environment.\n\n\nAcknowledgment. These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.\n\n← Course materials | Next lecture note: k-Nearest Neighbors →"
+  },
+  {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "Course Syllabus and Documents",
@@ -1184,7 +1282,7 @@
     "href": "lectures/01-overview.html#materials",
     "title": "Lecture 1: Welcome to Machine Learning",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nLecture Notes (PDF)\nPre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!",
+    "text": "Materials\n\n\n\n\n\n\nQuick Access\n\n\n\nRead the Lecture Notes Download the PDF Pre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -1652,14 +1750,14 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Lecture 1: What Is Machine Learning? (PDF)\nLecture 2: k-Nearest Neighbors (PDF)\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
+    "text": "Lecture 1: What Is Machine Learning? · Download PDF\nLecture 2: k-Nearest Neighbors · Download PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
   },
   {
     "objectID": "resources.html#lecture-notes-template",
     "href": "resources.html#lecture-notes-template",
     "title": "Resources",
     "section": "",
-    "text": "Lecture 1: What Is Machine Learning? (PDF)\nLecture 2: k-Nearest Neighbors (PDF)\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
+    "text": "Lecture 1: What Is Machine Learning? · Download PDF\nLecture 2: k-Nearest Neighbors · Download PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
   },
   {
     "objectID": "resources.html#software-tools",

@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Problem formulation, neighborhood classification, geometry, teammate matching, distance learning, and evaluation.">
+
+<title>Lecture 2: k-Nearest Neighbors – ECE 4424/CS 4824: Machine Learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-fcd7aac6391cd251d6692036b0269f5c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../lecture-notes.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">ECE 4424/CS 4824: Machine Learning</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../schedule.html" aria-current="page"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../projects/index.html">
+ <span class="dropdown-text">Projects Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/project1.html">
+ <span class="dropdown-text">Project 1: KNN Music Recommender</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/project2.html">
+ <span class="dropdown-text">Project 2: Neural Archaeology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/thought_cascade.html">
+ <span class="dropdown-text">Project 3: Thought Cascade</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/capstone.html">
+ <span class="dropdown-text">Capstone Project</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jinming99/learn-ml-by-building"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://canvas.vt.edu/"> 
+<span class="menu-text">Canvas</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 2: k-Nearest Neighbors</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Info</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 1: Let’s Predict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/00-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L0: Environment Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L1: Welcome to ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/02-knn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L2: k-NN</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/03-linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L3: Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L4: Gradient Descent and Optimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L5: Probabilistic Classification</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 2: Let’s Understand</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L6: Model Evaluation and Data Deception</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L7: Overfitting and Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L8: Modern Decision Trees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/09-ensemble.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L9: Ensemble Methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/10-kernel-gp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L10: Kernel Methods &amp; Gaussian Processes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 3: Let’s Discover</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L11: K-Means Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/12-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L12: PCA and Dimensionality Reduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L13: Neural Network Architecture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/14-transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L14: Understanding Transformers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 4: Let’s See &amp; Chat</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/15-cnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L15: Convolutional Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/16-rnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L16: Recurrent Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L17: LLM Agents &amp; Tool Use</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/18-vlms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L18: Vision-Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../#" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L19-20: Coming Soon</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 5: Let’s Act &amp; Impact</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../#" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L19-20: Coming Soon</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projects Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/project1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project 1: KNN Music Recommender</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/project2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project 2: Neural Archaeology</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/thought_cascade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project 3: Thought Cascade</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Capstone Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#begin-with-the-problem" id="toc-begin-with-the-problem" class="nav-link active" data-scroll-target="#begin-with-the-problem">Begin with the problem</a>
+  <ul class="collapse">
+  <li><a href="#a-brief-labeled-example" id="toc-a-brief-labeled-example" class="nav-link" data-scroll-target="#a-brief-labeled-example">A brief labeled example</a></li>
+  </ul></li>
+  <li><a href="#the-k-nearest-neighbor-rule" id="toc-the-k-nearest-neighbor-rule" class="nav-link" data-scroll-target="#the-k-nearest-neighbor-rule">The k-nearest-neighbor rule</a>
+  <ul class="collapse">
+  <li><a href="#classification-and-distance-weighting" id="toc-classification-and-distance-weighting" class="nav-link" data-scroll-target="#classification-and-distance-weighting">Classification and distance weighting</a></li>
+  <li><a href="#what-does-k-control" id="toc-what-does-k-control" class="nav-link" data-scroll-target="#what-does-k-control">What does <span class="math inline">\(k\)</span> control?</a></li>
+  </ul></li>
+  <li><a href="#the-geometry-is-the-model" id="toc-the-geometry-is-the-model" class="nav-link" data-scroll-target="#the-geometry-is-the-model">The geometry is the model</a>
+  <ul class="collapse">
+  <li><a href="#four-common-rules" id="toc-four-common-rules" class="nav-link" data-scroll-target="#four-common-rules">Four common rules</a></li>
+  <li><a href="#why-cosine-helps-with-document-counts" id="toc-why-cosine-helps-with-document-counts" class="nav-link" data-scroll-target="#why-cosine-helps-with-document-counts">Why cosine helps with document counts</a></li>
+  </ul></li>
+  <li><a href="#case-study-zero-shot-teammate-matching" id="toc-case-study-zero-shot-teammate-matching" class="nav-link" data-scroll-target="#case-study-zero-shot-teammate-matching">Case study: zero-shot teammate matching</a>
+  <ul class="collapse">
+  <li><a href="#representation-and-system-roles" id="toc-representation-and-system-roles" class="nav-link" data-scroll-target="#representation-and-system-roles">Representation and system roles</a></li>
+  <li><a href="#standard-metrics-disagree" id="toc-standard-metrics-disagree" class="nav-link" data-scroll-target="#standard-metrics-disagree">Standard metrics disagree</a></li>
+  <li><a href="#similarity-is-only-one-design-objective" id="toc-similarity-is-only-one-design-objective" class="nav-link" data-scroll-target="#similarity-is-only-one-design-objective">Similarity is only one design objective</a></li>
+  </ul></li>
+  <li><a href="#learning-and-designing-a-better-ruler" id="toc-learning-and-designing-a-better-ruler" class="nav-link" data-scroll-target="#learning-and-designing-a-better-ruler">Learning and designing a better ruler</a>
+  <ul class="collapse">
+  <li><a href="#a-two-feature-counterexample" id="toc-a-two-feature-counterexample" class="nav-link" data-scroll-target="#a-two-feature-counterexample">A two-feature counterexample</a></li>
+  <li><a href="#from-a-preference-to-a-learnable-loss" id="toc-from-a-preference-to-a-learnable-loss" class="nav-link" data-scroll-target="#from-a-preference-to-a-learnable-loss">From a preference to a learnable loss</a></li>
+  <li><a href="#complementarity-requires-a-different-objective" id="toc-complementarity-requires-a-different-objective" class="nav-link" data-scroll-target="#complementarity-requires-a-different-objective">Complementarity requires a different objective</a></li>
+  </ul></li>
+  <li><a href="#evaluation-belongs-to-the-whole-pipeline" id="toc-evaluation-belongs-to-the-whole-pipeline" class="nav-link" data-scroll-target="#evaluation-belongs-to-the-whole-pipeline">Evaluation belongs to the whole pipeline</a>
+  <ul class="collapse">
+  <li><a href="#match-evaluation-to-the-task" id="toc-match-evaluation-to-the-task" class="nav-link" data-scroll-target="#match-evaluation-to-the-task">Match evaluation to the task</a></li>
+  <li><a href="#diagnose-failures-at-the-right-layer" id="toc-diagnose-failures-at-the-right-layer" class="nav-link" data-scroll-target="#diagnose-failures-at-the-right-layer">Diagnose failures at the right layer</a></li>
+  </ul></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lecture 2: k-Nearest Neighbors</h1>
+<p class="subtitle lead">From similarity to learned compatibility</p>
+</div>
+
+<div>
+  <div class="description">
+    Problem formulation, neighborhood classification, geometry, teammate matching, distance learning, and evaluation.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Nearest-neighbor methods begin with a practical problem and a simple assumption: proximity under the chosen representation and distance should support useful predictions. Understanding the model means tracing that assumption through data collection, feature construction, eligibility, geometry, and evaluation.</p>
+<div class="d-flex flex-wrap gap-2 mb-4">
+<p><a href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf" class="btn btn-primary" target="_blank">Download the polished PDF</a> <a href="../lectures/02-knn.html" class="btn btn-outline-primary">Course materials</a> <a href="../notes/01-what-is-machine-learning.html" class="btn btn-outline-secondary">Previous native note</a></p>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning goals
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By the end of this lecture, you should be able to:</p>
+<ol type="1">
+<li>start from a practical decision and formulate its examples, features, target, eligibility rules, and evidence of success;</li>
+<li>apply k-NN classification using a neighborhood, a voting rule, and a justified choice of <span class="math inline">\(k\)</span>;</li>
+<li>explain how the representation and distance encode the model’s proximity assumption; and</li>
+<li>translate a human preference into a logical constraint and a loss for distance learning.</li>
+</ol>
+</div>
+</div>
+<section id="begin-with-the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="begin-with-the-problem">Begin with the problem</h2>
+<p>Machine learning starts with a decision we want to improve. The algorithm comes later.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Design note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A precise problem statement prevents a common failure: optimizing a clean mathematical target that does not correspond to the real decision.</p>
+</div>
+</div>
+<section id="a-brief-labeled-example" class="level3">
+<h3 class="anchored" data-anchor-id="a-brief-labeled-example">A brief labeled example</h3>
+<p>Begin with the problem: predict whether a listener will like a new track using historical likes and dislikes. Represent each track as a feature vector such as</p>
+<p><span class="math display">\[
+\mathbf{x}
+=
+\begin{bmatrix}
+\text{tempo} &amp; \text{energy} &amp; \text{danceability} &amp; \text{acousticness} &amp; \cdots
+\end{bmatrix}^{\!\top}
+\in \mathbb{R}^d,
+\]</span></p>
+<p>with an observed label <span class="math inline">\(y\in\{0,1\}\)</span>, where <span class="math inline">\(1\)</span> denotes “liked.” The data are</p>
+<p><span class="math display">\[
+\mathcal D=\{(\mathbf{x}_i,y_i)\}_{i=1}^{n}.
+\]</span></p>
+<p>For an unseen track <span class="math inline">\(\mathbf{x}_\star\)</span>, the output is a prediction <span class="math inline">\(\widehat y(\mathbf{x}_\star)\)</span>. The hat matters: <span class="math inline">\(y\)</span> is observed evidence; <span class="math inline">\(\widehat y\)</span> is what the model predicts.</p>
+<p>Using k-NN adds a modeling assumption: proximity should support good predictions. Data collection and feature design are part of that assumption because they determine which forms of proximity the model can see.</p>
+</section>
+</section>
+<section id="the-k-nearest-neighbor-rule" class="level2">
+<h2 class="anchored" data-anchor-id="the-k-nearest-neighbor-rule">The k-nearest-neighbor rule</h2>
+<p>Let <span class="math inline">\(\mathcal D=\{(\mathbf{x}_i,y_i)\}_{i=1}^{n}\)</span> and let <span class="math inline">\(d(\cdot,\cdot)\)</span> be a dissimilarity rule. For a query <span class="math inline">\(\mathbf{x}\)</span>, sort the training indices so that</p>
+<p><span class="math display">\[
+d(\mathbf{x},\mathbf{x}_{(1)})
+\le d(\mathbf{x},\mathbf{x}_{(2)})
+\le \cdots
+\le d(\mathbf{x},\mathbf{x}_{(n)}).
+\]</span></p>
+<p>The neighborhood index set is</p>
+<p><span class="math display">\[
+\mathcal N_k(\mathbf{x})=\{(1),(2),\ldots,(k)\}.
+\]</span></p>
+<p>This order-statistic definition makes the computation transparent. If points tie at the <span class="math inline">\(k\)</span>th distance, a deterministic rule is still required.</p>
+<div id="fig-knn-neighborhood" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A binary scatterplot with a query point and its three nearest neighbors highlighted.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-knn-neighborhood-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-02/knn-neighborhood.svg" class="img-fluid figure-img" style="width:92.0%" alt="A binary scatterplot with a query point and its three nearest neighbors highlighted.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-knn-neighborhood-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A synthetic binary example. The query’s three nearest points contain two teal circles and one blue square, so unweighted <span class="math inline">\(k=3\)</span> predicts the teal class. The geometry, not the plotting axes alone, determines the neighborhood.
+</figcaption>
+</figure>
+</div>
+<section id="classification-and-distance-weighting" class="level3">
+<h3 class="anchored" data-anchor-id="classification-and-distance-weighting">Classification and distance weighting</h3>
+<p>For class labels <span class="math inline">\(c\in\mathcal C\)</span>, unweighted k-NN classification predicts</p>
+<p><span class="math display">\[
+\widehat y(\mathbf{x})
+=
+\operatorname*{arg\,max}_{c\in\mathcal C}
+\sum_{i\in\mathcal N_k(\mathbf{x})}
+\mathbb{1}[y_i=c].
+\]</span></p>
+<p>Closer neighbors can receive more influence. With nonnegative weights <span class="math inline">\(a_i(\mathbf{x})\)</span>, a common choice is</p>
+<p><span class="math display">\[
+a_i(\mathbf{x})
+=
+\frac{1}{d(\mathbf{x},\mathbf{x}_i)+\varepsilon},
+\qquad \varepsilon&gt;0.
+\]</span></p>
+<p>The weighted classifier replaces vote counts with weighted counts. The small <span class="math inline">\(\varepsilon\)</span> prevents division by zero, although exact matches deserve an explicit policy.</p>
+</section>
+<section id="what-does-k-control" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-k-control">What does <span class="math inline">\(k\)</span> control?</h3>
+<p>In classification, <span class="math inline">\(k\)</span> controls how local the vote is. A small <span class="math inline">\(k\)</span> follows individual observations closely; a larger <span class="math inline">\(k\)</span> aggregates evidence across a wider neighborhood.</p>
+<div id="fig-k-behavior" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Three classification sketches compare increasingly smooth decision boundaries as k grows.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-k-behavior-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-02/k-behavior.svg" class="img-fluid figure-img" style="width:100.0%" alt="Three classification sketches compare increasingly smooth decision boundaries as k grows.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-k-behavior-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Conceptual effect of <span class="math inline">\(k\)</span> in classification. Small neighborhoods react strongly to individual observations; larger neighborhoods average across a wider region. Select <span class="math inline">\(k\)</span> with validation data, not by visual preference.
+</figcaption>
+</figure>
+</div>
+<div class="table-responsive">
+<div id="tbl-k-tradeoff" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-k-tradeoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The appropriate <span class="math inline">\(k\)</span> is data-dependent. Cross-validation estimates which neighborhood size generalizes.
+</figcaption>
+<div aria-describedby="tbl-k-tradeoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Choice</th>
+<th>Boundary behavior</th>
+<th>Main advantage</th>
+<th>Main risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(k=1\)</span></td>
+<td>Highly local and irregular</td>
+<td>Preserves fine structure</td>
+<td>Sensitive to noise and mislabeled points</td>
+</tr>
+<tr class="even">
+<td>Moderate <span class="math inline">\(k\)</span></td>
+<td>Smooths nearby evidence</td>
+<td>Often balances bias and variance</td>
+<td>Must be tuned to density and sample size</td>
+</tr>
+<tr class="odd">
+<td>Large <span class="math inline">\(k\)</span></td>
+<td>Approaches a global vote</td>
+<td>Stable under local noise</td>
+<td>Erases local structure and favors common classes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Odd <span class="math inline">\(k\)</span> is not a complete tie policy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An odd <span class="math inline">\(k\)</span> reduces vote ties only for binary classification when the neighborhood itself is unambiguous. Multiclass votes, equal distances at the cutoff, and duplicate points can still tie. Use a documented rule such as distance-weighted voting, a fixed class order, or inclusion of all points tied at the boundary.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="the-geometry-is-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-geometry-is-the-model">The geometry is the model</h2>
+<p>The k-NN rule assumes that nearby examples are useful for prediction, but the distance decides which examples count as nearby. Changing the dissimilarity can change every neighbor. In a zero-shot system, this is a substantive modeling assumption.</p>
+<p>Let <span class="math inline">\(\Delta_j=x_j-z_j\)</span>. The Minkowski family is</p>
+<p><span class="math display">\[
+d_p(\mathbf{x},\mathbf{z})
+=
+\left(\sum_{j=1}^{d}|\Delta_j|^p\right)^{1/p},
+\qquad p\ge 1.
+\]</span></p>
+<p>Euclidean distance uses <span class="math inline">\(p=2\)</span>, Manhattan uses <span class="math inline">\(p=1\)</span>, and the limit <span class="math inline">\(p\to\infty\)</span> gives Chebyshev distance.</p>
+<div id="fig-distance-geometries" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Unit contours compare Manhattan, Euclidean, and Chebyshev distance in two dimensions.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-distance-geometries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-02/distance-geometries.svg" class="img-fluid figure-img" style="width:100.0%" alt="Unit contours compare Manhattan, Euclidean, and Chebyshev distance in two dimensions.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distance-geometries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Unit-distance contours in two dimensions. A point on each contour is exactly one unit from the center under that metric. Different contours imply different neighbor orderings.
+</figcaption>
+</figure>
+</div>
+<section id="four-common-rules" class="level3">
+<h3 class="anchored" data-anchor-id="four-common-rules">Four common rules</h3>
+<div class="table-responsive">
+<div id="tbl-metrics" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-metrics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Metric choice should follow the semantics of the features and the downstream decision.
+</figcaption>
+<div aria-describedby="tbl-metrics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rule</th>
+<th>Definition</th>
+<th>Useful when</th>
+<th>Caution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Euclidean</td>
+<td><span class="math inline">\(\sqrt{\sum_j\Delta_j^2}\)</span></td>
+<td>Straight-line proximity is meaningful; large coordinate gaps should count strongly</td>
+<td>Sensitive to outliers and irrelevant coordinates</td>
+</tr>
+<tr class="even">
+<td>Manhattan</td>
+<td><span class="math inline">\(\sum_j|\Delta_j|\)</span></td>
+<td>Coordinate-wise deviations add; sparse or robust comparisons are desirable</td>
+<td>Axes remain equally weighted by default</td>
+</tr>
+<tr class="odd">
+<td>Chebyshev</td>
+<td><span class="math inline">\(\max_j|\Delta_j|\)</span></td>
+<td>The largest mismatch acts like a deal-breaker</td>
+<td>Ignores improvement on nonmaximum coordinates until the maximum changes</td>
+</tr>
+<tr class="even">
+<td>Cosine dissimilarity</td>
+<td><span class="math inline">\(1-\dfrac{\mathbf{x}^{\top}\mathbf{z}}{\lVert\mathbf{x}\rVert_2\lVert\mathbf{z}\rVert_2}\)</span></td>
+<td>Direction or relative pattern matters more than magnitude</td>
+<td>Undefined for a zero vector; <span class="math inline">\(1-\cos\)</span> is not generally a mathematical metric</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="why-cosine-helps-with-document-counts" class="level3">
+<h3 class="anchored" data-anchor-id="why-cosine-helps-with-document-counts">Why cosine helps with document counts</h3>
+<p>Suppose articles are represented only by counts of the words “computer” and “poll.” A long technology article and a short technology query may point in nearly the same direction even when their Euclidean distance is large. Cosine similarity measures that direction:</p>
+<p><span class="math display">\[
+\operatorname{cosim}(\mathbf{x},\mathbf{z})
+=
+\frac{\mathbf{x}^{\top}\mathbf{z}}
+{\lVert\mathbf{x}\rVert_2\lVert\mathbf{z}\rVert_2}
+=\cos\theta.
+\]</span></p>
+<p>Here <span class="math inline">\(\theta\)</span> is the angle directly between the two nonzero vectors at their shared origin.</p>
+<div id="fig-cosine-vectors" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A short query vector and a longer technology-article vector share an origin, with theta marking the small angle between them.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cosine-vectors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-02/cosine-vectors.svg" class="img-fluid figure-img" style="width:100.0%" alt="A short query vector and a longer technology-article vector share an origin, with theta marking the small angle between them.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cosine-vectors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: The marked angle <span class="math inline">\(\theta\)</span> lies between the query vector and the technology-article vector. Their directions are similar even though their lengths and Euclidean separation differ.
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Validity requires a domain argument
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A metric can be mathematically well-defined and still encode the wrong domain assumption. A useful task-specific score may also violate symmetry or the triangle inequality. Name the object honestly: <em>distance</em>, <em>dissimilarity</em>, or <em>compatibility cost</em>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="case-study-zero-shot-teammate-matching" class="level2">
+<h2 class="anchored" data-anchor-id="case-study-zero-shot-teammate-matching">Case study: zero-shot teammate matching</h2>
+<p>The lecture dataset contains 41 survey responses. An NLP extraction step maps each response to eight numerical axes on a nominal <span class="math inline">\([-1,1]\)</span> range. Treat yourself as the fixed query. The missing outcome for each candidate is</p>
+<p><span class="math display">\[
+y_i=\mathbb{1}\{\text{student $i$ works well with me}\}.
+\]</span></p>
+<p>Those collaboration outcomes do not yet exist. The first system is nearest-neighbor candidate ranking under designed assumptions.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Role of k-NN
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>k-NN returns the nearest eligible candidates under the representation and scoring rule we choose. The system designer still has to define compatibility.</p>
+</div>
+</div>
+<section id="representation-and-system-roles" class="level3">
+<h3 class="anchored" data-anchor-id="representation-and-system-roles">Representation and system roles</h3>
+<div class="table-responsive">
+<div id="tbl-eight-features" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eight-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: The eight extracted axes. The final column is a design hypothesis, not a discovered fact.
+</figcaption>
+<div aria-describedby="tbl-eight-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Negative endpoint</th>
+<th>Positive endpoint</th>
+<th>Possible role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>theory_implementation</code></td>
+<td>Theory / mathematics</td>
+<td>Implementation / engineering</td>
+<td>Role coverage</td>
+</tr>
+<tr class="even">
+<td><code>research_industry</code></td>
+<td>Research / academic</td>
+<td>Industry / product</td>
+<td>Context dependent</td>
+</tr>
+<tr class="odd">
+<td><code>structured_exploratory</code></td>
+<td>Structured problems</td>
+<td>Exploratory / open-ended</td>
+<td>Work-style alignment</td>
+</tr>
+<tr class="even">
+<td><code>solo_collaborative</code></td>
+<td>Solo work</td>
+<td>Team collaboration</td>
+<td>Work-style alignment</td>
+</tr>
+<tr class="odd">
+<td><code>depth_breadth</code></td>
+<td>Deep focus</td>
+<td>Broad interests</td>
+<td>Context dependent</td>
+</tr>
+<tr class="even">
+<td><code>plan_iterate</code></td>
+<td>Plan first</td>
+<td>Iterate quickly</td>
+<td>Work-style alignment</td>
+</tr>
+<tr class="odd">
+<td><code>data_model</code></td>
+<td>Data / analysis first</td>
+<td>Model / algorithm first</td>
+<td>Role coverage</td>
+</tr>
+<tr class="even">
+<td><code>foundational_applied</code></td>
+<td>Build foundations</td>
+<td>Applied solutions</td>
+<td>Context dependent</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>The categorical <code>team_status</code> field serves a different purpose: it is an eligibility rule. Students choosing to work solo should be filtered out before distances are ranked. Treating eligibility as another coordinate can return operationally invalid neighbors.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Separate the layers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Representation features, eligibility constraints, and the scoring function answer different questions. Keep them explicit.</p>
+</div>
+</div>
+</section>
+<section id="standard-metrics-disagree" class="level3">
+<h3 class="anchored" data-anchor-id="standard-metrics-disagree">Standard metrics disagree</h3>
+<p>For the worked comparison, one anonymized profile stands in for you. The notebook ranks all eligible candidates using all eight features and keeps the top three under each rule.</p>
+<div id="fig-rank-matrix" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A matrix compares the top three teammate candidates under Euclidean, Manhattan, cosine, and Chebyshev scoring.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rank-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-02/rank-matrix.svg" class="img-fluid figure-img" style="width:92.0%" alt="A matrix compares the top three teammate candidates under Euclidean, Manhattan, cosine, and Chebyshev scoring.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rank-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: For the same anonymized query profile, different metrics produce different top-three lists. Student 03 is the only candidate appearing under all four rules. A dash means the candidate falls outside that metric’s top three.
+</figcaption>
+</figure>
+</div>
+<p>The disagreement is not an implementation bug. Euclidean aggregates squared gaps, Manhattan aggregates absolute gaps, cosine compares orientation, and Chebyshev focuses on the largest coordinate gap. Each rule compresses the same profile difference differently.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What unlabeled data cannot tell us
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Without compatibility outcomes, <a href="#fig-rank-matrix" class="quarto-xref">Figure&nbsp;5</a> cannot identify a correct metric. The metric must be defended as a transparent domain assumption and later validated against feedback or collaboration outcomes.</p>
+</div>
+</div>
+</section>
+<section id="similarity-is-only-one-design-objective" class="level3">
+<h3 class="anchored" data-anchor-id="similarity-is-only-one-design-objective">Similarity is only one design objective</h3>
+<p>A team matcher may seek:</p>
+<ul>
+<li><strong>alignment</strong> on working approach, to reduce coordination friction;</li>
+<li><strong>coverage</strong> across technical perspectives, to avoid redundant strengths; and</li>
+<li><strong>eligibility</strong> constraints, to respect availability and stated preferences.</li>
+</ul>
+<p>These objectives are not equivalent to Euclidean closeness. We can alter the geometry by learning which similarities matter from feedback or by targeting nonzero gaps for complementary roles.</p>
+</section>
+</section>
+<section id="learning-and-designing-a-better-ruler" class="level2">
+<h2 class="anchored" data-anchor-id="learning-and-designing-a-better-ruler">Learning and designing a better ruler</h2>
+<p>Distance learning begins with a concrete failure: we prefer <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span>, but the current metric ranks <span class="math inline">\(B\)</span> closer. We turn that desired ordering into a logical condition and then a loss the machine can optimize.</p>
+<section id="a-two-feature-counterexample" class="level3">
+<h3 class="anchored" data-anchor-id="a-two-feature-counterexample">A two-feature counterexample</h3>
+<p>Consider a toy <span class="math inline">\([0,10]\)</span> profile with</p>
+<p><span class="math display">\[
+\mathbf{x}_{\mathrm{me}}=[5,5],
+\qquad
+\mathbf{x}_A=[5,9],
+\qquad
+\mathbf{x}_B=[7,6].
+\]</span></p>
+<p>The first feature is theory versus implementation; the second is coding versus mathematics. Suppose prior experience says <span class="math inline">\(A\)</span> is preferred to <span class="math inline">\(B\)</span>.</p>
+<div class="table-responsive">
+<div id="tbl-unweighted-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-unweighted-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Ordinary Euclidean distance ranks <span class="math inline">\(B\)</span> closer even though the observed preference favors <span class="math inline">\(A\)</span>.
+</figcaption>
+<div aria-describedby="tbl-unweighted-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Candidate</th>
+<th style="text-align: right;">Squared gap on <span class="math inline">\(x_1\)</span></th>
+<th style="text-align: right;">Squared gap on <span class="math inline">\(x_2\)</span></th>
+<th style="text-align: right;">Unweighted squared distance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(A=[5,9]\)</span></td>
+<td style="text-align: right;"><span class="math inline">\((5-5)^2=0\)</span></td>
+<td style="text-align: right;"><span class="math inline">\((5-9)^2=16\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(16\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(B=[7,6]\)</span></td>
+<td style="text-align: right;"><span class="math inline">\((5-7)^2=4\)</span></td>
+<td style="text-align: right;"><span class="math inline">\((5-6)^2=1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(5\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>The human preference becomes the logical condition</p>
+<p><span class="math display">\[
+d_{\mathbf{w}}(\mathbf{x}_{\mathrm{me}},\mathbf{x}_A)^2
+&lt;
+d_{\mathbf{w}}(\mathbf{x}_{\mathrm{me}},\mathbf{x}_B)^2.
+\]</span></p>
+<p>Give the model parameters that can satisfy this ordering with a diagonal weighted squared distance:</p>
+<p><span class="math display">\[
+d_{\mathbf{w}}(\mathbf{x},\mathbf{z})^2
+=
+\sum_{j=1}^{d}w_j(x_j-z_j)^2,
+\qquad w_j\ge 0.
+\]</span></p>
+<p>If every weight is strictly positive, <span class="math inline">\(d_{\mathbf{w}}\)</span> is a metric. Allowing a zero weight collapses that coordinate and yields a pseudometric.</p>
+<p>With <span class="math inline">\(w_1=4\)</span> and <span class="math inline">\(w_2=1\)</span>, the squared distances become <span class="math inline">\(16\)</span> for <span class="math inline">\(A\)</span> and <span class="math inline">\(17\)</span> for <span class="math inline">\(B\)</span>. The ranking flips because agreement on the first feature is declared four times as important.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What diagonal weights can express
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Positive diagonal weights learn which similarities matter. They cannot reward a nonzero feature gap, model interactions between features, or satisfy a preference when the positive example is no closer on any available coordinate.</p>
+</div>
+</div>
+</section>
+<section id="from-a-preference-to-a-learnable-loss" class="level3">
+<h3 class="anchored" data-anchor-id="from-a-preference-to-a-learnable-loss">From a preference to a learnable loss</h3>
+<p>A triplet <span class="math inline">\((a,p,n)\)</span> records that anchor <span class="math inline">\(a\)</span> prefers positive example <span class="math inline">\(p\)</span> over negative example <span class="math inline">\(n\)</span>. With margin <span class="math inline">\(m&gt;0\)</span>, the desired condition is</p>
+<p><span class="math display">\[
+d_{\mathbf{w}}(a,p)^2+m
+\le
+d_{\mathbf{w}}(a,n)^2.
+\]</span></p>
+<p>Define the constraint gap</p>
+<p><span class="math display">\[
+g_{a,p,n}(\mathbf{w})
+=
+d_{\mathbf{w}}(a,n)^2-d_{\mathbf{w}}(a,p)^2.
+\]</span></p>
+<p>The condition is <span class="math inline">\(g_{a,p,n}(\mathbf{w})\ge m\)</span>. The hinge loss measures how far the current weights are from satisfying it:</p>
+<p><span class="math display">\[
+\mathcal L(\mathbf{w})
+=
+\max\bigl(0,m-g_{a,p,n}(\mathbf{w})\bigr).
+\]</span></p>
+<p><strong>Why the maximum matters.</strong> Without the outer maximum, minimizing <span class="math inline">\(m-g\)</span> would keep rewarding an already-correct triplet for making the gap arbitrarily large. Clipping at zero once the margin is met prevents this reward hacking and focuses learning on preferences that are still violated.</p>
+<p>For an active hinge, the feature-wise gradient is</p>
+<p><span class="math display">\[
+\frac{\partial\mathcal L}{\partial w_j}
+=
+(a_j-p_j)^2-(a_j-n_j)^2.
+\]</span></p>
+<p>A projected update keeps weights feasible:</p>
+<p><span class="math display">\[
+\mathbf{w}
+\leftarrow
+\Pi_{\mathbb{R}_{\ge 0}^{d}}
+\left(\mathbf{w}-\eta\nabla_{\mathbf{w}}\mathcal L\right).
+\]</span></p>
+<p>These updates require observed preference triplets. Learned weights should be assessed on held-out feedback; satisfying the training triplets alone does not establish useful compatibility.</p>
+</section>
+<section id="complementarity-requires-a-different-objective" class="level3">
+<h3 class="anchored" data-anchor-id="complementarity-requires-a-different-objective">Complementarity requires a different objective</h3>
+<p>A maximum-gap rule can reward extreme differences even when extremes make collaboration harder. A more explicit design targets a moderate gap for role coverage.</p>
+<p>For absolute feature gaps <span class="math inline">\(\Delta_j=|x_j-z_j|\)</span>, split features into alignment set <span class="math inline">\(S\)</span> and coverage set <span class="math inline">\(C\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+L_{\mathrm{align}}
+&amp;=\operatorname{mean}_{j\in S}\Delta_j^2,\\
+L_{\mathrm{cover}}
+&amp;=\operatorname{mean}_{j\in C}(\Delta_j-\tau)^2,\\
+C(\mathbf{x},\mathbf{z})
+&amp;=\alpha L_{\mathrm{align}}
++(1-\alpha)L_{\mathrm{cover}}.
+\end{aligned}
+\]</span></p>
+<p>In the worked example, the alignment set contains <em>structured/exploratory</em>; the coverage set contains <em>theory/implementation</em> and <em>data/model</em>. We use <span class="math inline">\(\tau=0.6\)</span> and <span class="math inline">\(\alpha=0.5\)</span>.</p>
+<div id="fig-compatibility-penalties" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two penalty curves show alignment minimized at zero gap and role coverage minimized at a target gap of 0.6.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-compatibility-penalties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-02/compatibility-penalties.svg" class="img-fluid figure-img" style="width:96.0%" alt="Two penalty curves show alignment minimized at zero gap and role coverage minimized at a target gap of 0.6.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-compatibility-penalties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Alignment has its minimum at zero gap; role coverage has its minimum at the chosen target <span class="math inline">\(\tau=0.6\)</span>. The parameters expose assumptions that can be debated and tested.
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Compatibility cost
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>On a coverage feature, zero gap can receive a penalty, so identity of indiscernibles fails. The score ranks potential partners for one query; it does not prove compatibility or optimize an entire team’s composition.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="evaluation-belongs-to-the-whole-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation-belongs-to-the-whole-pipeline">Evaluation belongs to the whole pipeline</h2>
+<p>An apparently simple neighbor lookup rests on a chain of assumptions: the problem is framed correctly, data collection captures relevant evidence, the representation preserves it, eligibility is valid, and the chosen distance makes proximity useful. When outcomes are poor, diagnose the whole chain. The choice of <span class="math inline">\(k\)</span> is only one possible source.</p>
+<div id="fig-system-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A pipeline connects problem framing, survey questions, feature extraction, eligibility, distance, ranking, and outcome evaluation.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-system-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-02/system-pipeline.svg" class="img-fluid figure-img" style="width:100.0%" alt="A pipeline connects problem framing, survey questions, feature extraction, eligibility, distance, ranking, and outcome evaluation.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-system-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: The teammate-matching pipeline. Evaluation feeds back to every stage: the goal, questions, extraction, eligibility, and geometry can all be failure sources.
+</figcaption>
+</figure>
+</div>
+<section id="match-evaluation-to-the-task" class="level3">
+<h3 class="anchored" data-anchor-id="match-evaluation-to-the-task">Match evaluation to the task</h3>
+<div class="table-responsive">
+<div id="tbl-evaluation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-evaluation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Choose a split and measurement that reproduce the future decision.
+</figcaption>
+<div aria-describedby="tbl-evaluation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Validation unit</th>
+<th>Useful measurements</th>
+<th>Leakage to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Supervised classification</td>
+<td>Future examples or entities, depending on deployment</td>
+<td>Accuracy, balanced accuracy, precision/recall, calibration</td>
+<td>The same entity or a near duplicate in train and test</td>
+</tr>
+<tr class="even">
+<td>Candidate ranking</td>
+<td>Query with judged relevant items</td>
+<td>Recall@<span class="math inline">\(k\)</span>, precision@<span class="math inline">\(k\)</span>, mean reciprocal rank, NDCG</td>
+<td>Using relevance feedback from evaluation queries to design the metric</td>
+</tr>
+<tr class="odd">
+<td>Team matching</td>
+<td>Pair or team outcome after collaboration</td>
+<td>Preference satisfaction, acceptance rate, project outcome, subgroup diagnostics</td>
+<td>Using evaluation preferences to design or fit the score</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>For supervised k-NN, tune preprocessing, the distance rule, weighting, and <span class="math inline">\(k\)</span> inside cross-validation. For teammate ranking, compare transparent baselines and gather outcome feedback before presenting rankings as learned recommendations.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Baseline ladder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Start with a simple eligible-candidate baseline, then compare unweighted Euclidean, alternative metrics, weighted k-NN, and only then a custom learned or complementary score. Each extra degree of freedom should earn its complexity on held-out evidence.</p>
+</div>
+</div>
+</section>
+<section id="diagnose-failures-at-the-right-layer" class="level3">
+<h3 class="anchored" data-anchor-id="diagnose-failures-at-the-right-layer">Diagnose failures at the right layer</h3>
+<div class="table-responsive">
+<div id="tbl-failure-layers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-failure-layers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: A failure map for the full pipeline. Model tuning is only one possible response.
+</figcaption>
+<div aria-describedby="tbl-failure-layers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>Assumption</th>
+<th>Diagnostic</th>
+<th>Possible intervention</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Goal</td>
+<td>“Good teammate” has an operational meaning</td>
+<td>Compare stakeholder definitions and downstream outcomes</td>
+<td>Reframe the target; separate compatibility, coverage, and logistics</td>
+</tr>
+<tr class="even">
+<td>Survey</td>
+<td>Questions capture relevant, answerable traits</td>
+<td>Reliability checks; missingness; interviews; outcome correlations</td>
+<td>Revise questions or collect direct behavioral evidence</td>
+</tr>
+<tr class="odd">
+<td>Extraction</td>
+<td>Text becomes faithful numerical features</td>
+<td>Human rubric audit; repeated extraction; subgroup error analysis</td>
+<td>Calibrate prompts or rubrics, add examples, or replace the extractor</td>
+</tr>
+<tr class="even">
+<td>Eligibility</td>
+<td>Returned candidates are actionable</td>
+<td>Count invalid recommendations and constraint violations</td>
+<td>Filter first; encode hard constraints outside the distance</td>
+</tr>
+<tr class="odd">
+<td>Geometry</td>
+<td>Lower score corresponds to better pairs</td>
+<td>Neighbor inspection; counterexamples; held-out preferences</td>
+<td>Reweight, learn a metric, or redesign the score</td>
+</tr>
+<tr class="even">
+<td>Outcome</td>
+<td>The ranking improves collaboration</td>
+<td>Prospective evaluation and qualitative follow-up</td>
+<td>Revisit upstream layers; retuning <span class="math inline">\(k\)</span> alone may not help</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<hr>
+<p><strong>Lecture summary.</strong> Practical k-NN starts from the problem: trace the assumption that proximity predicts well through data collection, representation, eligibility, distance, and evaluation, then convert observed ranking failures into constraints and losses the model can learn from.</p>
+</section>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<ul>
+<li>T. Cover and P. Hart, <a href="https://doi.org/10.1109/TIT.1967.1053964">“Nearest Neighbor Pattern Classification”</a>, 1967.</li>
+<li><a href="https://scikit-learn.org/stable/modules/neighbors.html">scikit-learn: Nearest Neighbors User Guide</a>.</li>
+<li>Course notebook: <a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb"><code>02-KNN.ipynb</code></a>.</li>
+</ul>
+<div class="small text-muted">
+<p><strong>Acknowledgment.</strong> These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.</p>
+</div>
+<hr>
+<p><a href="../notes/01-what-is-machine-learning.html">Previous native note: What Is Machine Learning?</a> · <a href="../lectures/02-knn.html">Lecture 2 course materials</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/jinming\.tech\/learn-ml-by-building\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

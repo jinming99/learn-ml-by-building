@@ -1,0 +1,12 @@
+/* Native lecture-note pages: keep wide equations inside the reading column. */
+mjx-container[display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.15rem;
+}
+
+/* The Morph theme's default float captions are too faint on its pale canvas. */
+.quarto-float-caption {
+  color: var(--bs-body-color);
+}

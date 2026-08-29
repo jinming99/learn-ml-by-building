@@ -68,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -430,7 +459,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/00-setup.html">Module 1: Let’s Predict</a></li><li class="breadcrumb-item"><a href="../lectures/02-knn.html">L2: k-NN</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Lecture 2: k-Nearest Neighbors</h1>
-<p class="subtitle lead">Framing Prediction Problems &amp; Instance-Based Learning</p>
+<p class="subtitle lead">From Similarity to Learned Compatibility</p>
 </div>
 
 
@@ -449,18 +478,16 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this hands-on lecture, we use similarity-based prediction and recommendation to study k-Nearest Neighbors. We’ll explore how to frame real-world problems as ML tasks, understand the elegance of lazy learning, and confront the challenges of high-dimensional spaces.</p>
+<p>This lecture begins with practical decisions: predicting whether you will like a track and finding classmates who may work well with you. We use k-nearest neighbors to see how representation, distance, and evaluation turn proximity into a prediction.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
 <p>By the end of this lecture, you will:</p>
 <ul>
-<li><strong>Frame</strong> real-world problems as ML tasks with inputs (X) and outputs (y)</li>
-<li><strong>Apply</strong> k-NN for classification and regression tasks</li>
-<li><strong>Analyze</strong> the impact of distance metrics and feature scaling</li>
-<li><strong>Understand</strong> the curse of dimensionality and its practical implications</li>
-<li><strong>Design</strong> fair and effective neighbor-based systems with domain constraints</li>
-<li><strong>Evaluate</strong> trade-offs between different similarity measures</li>
+<li><strong>Formulate</strong> a practical decision in terms of examples, features, a target, eligibility rules, and evidence of success</li>
+<li><strong>Apply</strong> k-NN classification using a neighborhood, a voting rule, and a justified choice of <span class="math inline">\(k\)</span></li>
+<li><strong>Explain</strong> how representation and distance encode the model’s proximity assumption</li>
+<li><strong>Translate</strong> a human preference into a logical constraint and a loss for distance learning</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -475,8 +502,7 @@ Quick Access
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/Lecture%2002%20-%20k-Nearest%20Neighbors/output/pdf/lecture-02-k-nearest-neighbors.pdf">Lecture Notes (PDF)</a></strong><br>
-<strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb">Lecture Notebook</a></strong><br>
+<p><strong><a href="../notes/02-k-nearest-neighbors.html">Read the Lecture Notes</a></strong><br> <strong><a href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf">Download the PDF</a></strong><br> <strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb">Lecture Notebook</a></strong><br>
 <strong><a href="https://colab.research.google.com/github/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb">Open in Colab</a></strong><br>
 <strong><a href="https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%202%20KNN">Lecture Folder</a></strong></p>
 </div>
@@ -485,11 +511,11 @@ Quick Access
 <section id="key-topics" class="level2">
 <h2 class="anchored" data-anchor-id="key-topics">Key Topics</h2>
 <ol type="1">
-<li><strong>The Data Journey</strong>: From raw observations → feature vectors → predictions</li>
-<li><strong>k-NN Fundamentals</strong>: The beautiful simplicity of “you are your neighbors”</li>
-<li><strong>Distance Metrics</strong>: Euclidean, Manhattan, Cosine, and when each matters</li>
-<li><strong>Curse of Dimensionality</strong>: When all points become equidistant</li>
-<li><strong>Fairness in ML</strong>: Identifying and mitigating bias in similarity-based systems</li>
+<li><strong>Problem formulation</strong>: connect examples, features, targets, and evidence to the decision</li>
+<li><strong>k-NN classification</strong>: retrieve a neighborhood and aggregate its labels</li>
+<li><strong>Geometry</strong>: understand what each representation and distance assumes</li>
+<li><strong>Compatibility</strong>: use human preferences to learn a better distance</li>
+<li><strong>Whole-pipeline evaluation</strong>: locate failures in data, features, eligibility, distance, aggregation, or evidence</li>
 </ol>
 </section>
 <section id="additional-resources" class="level2">
