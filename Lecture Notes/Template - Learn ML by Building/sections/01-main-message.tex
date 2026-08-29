@@ -1,0 +1,49 @@
+\section{Begin with the problem}
+
+Open with the decision or failure that motivates the lecture. Introduce the algorithm only after the problem has a clear formulation, and keep the opening example proportional to its role in the lecture.
+
+\marginidea{Use the margin for a brief design implication, not a second narrative thread.}
+
+\subsection{Move from the problem to a formulation}
+
+Show the conceptual translation explicitly:
+
+\[
+\begin{gathered}
+\text{practical problem}\;\longrightarrow\;\text{mathematical condition}\\[-1mm]
+\longrightarrow\;\text{model or objective}\;\longrightarrow\;\text{evaluation evidence}.
+\end{gathered}
+\]
+
+Define notation immediately before it is used and explain why each component matters. One focused worked example is usually more valuable than several near-duplicates.
+
+\begin{widepar}
+\centering
+\input{figures/example-figure}
+\FigureCaption{fig:template-pipeline}{The standard figure format: native TikZ, shared colors and node styles, a compact title-free composition, and a caption that states the message.}
+\end{widepar}
+
+\subsection{State assumptions and diagnose them}
+
+Do not treat a model assumption as an isolated mathematical sentence. Trace it through the system that creates the model's inputs and evaluates its outputs.
+
+\begin{cautionbox}[Use emphasis selectively]
+Reserve colored boxes for a limitation, warning, or worked result that students should genuinely notice. Keep ordinary principles in ordinary prose.
+\end{cautionbox}
+
+When several layers must be compared exactly, use a LaTeX table:
+
+\begin{widepar}
+\footnotesize
+\begin{tabularx}{\linewidth}{L{0.18\linewidth} L{0.29\linewidth} Y Y}
+\toprule
+\tablehead{Layer} & \tablehead{Assumption} & \tablehead{Evidence} & \tablehead{Possible response} \\
+\midrule
+Problem & The target represents the real decision & Stakeholder definition and downstream outcome & Reframe the target \\
+Representation & Available features preserve relevant information & Data audit and counterexamples & Revise collection or features \\
+Model & The method's structural assumption is useful & Held-out behavior and error analysis & Change the ruler or method \\
+Evaluation & The test reproduces future use & Prospective or deployment-aligned evidence & Redesign the validation \\
+\bottomrule
+\end{tabularx}
+\TableCaption{tab:template-diagnosis}{The standard table format: native LaTeX, restrained rules, semantic columns, and a concise interpretive caption.}
+\end{widepar}

@@ -1,0 +1,29 @@
+\begin{tikzpicture}[x=1.22cm,y=1.22cm]
+  \fill[LectureTealLight, opacity=0.55, rounded corners=1mm] (0.25,0.25) rectangle (2.65,3.35);
+  \fill[LectureBlueLight, opacity=0.65, rounded corners=1mm] (2.85,2.35) rectangle (5.25,5.05);
+
+  \foreach \x in {1,...,5} {\draw[guide] (\x,0.2)--(\x,5.1);}
+  \foreach \y in {1,...,5} {\draw[guide] (0.2,\y)--(5.3,\y);}
+  \draw[lecture axis] (0.2,0.2)--(5.45,0.2) node[below, font=\sffamily\footnotesize, text=LectureMuted]{feature 1};
+  \draw[lecture axis] (0.2,0.2)--(0.2,5.35) node[above, font=\sffamily\footnotesize, text=LectureMuted]{feature 2};
+
+  \foreach \p in {(0.8,1.0),(1.3,1.8),(1.9,1.1),(1.0,2.5),(2.4,2.4),(1.8,3.0)}
+    \node[data point, fill=LectureTeal] at \p {};
+  \foreach \p in {(3.1,4.2),(3.6,3.5),(4.2,3.8),(3.8,2.7),(4.8,3.1),(4.5,4.7)}
+    \node[rectangle, rounded corners=0.5pt, draw=white, line width=0.8pt, fill=LectureBlue, minimum size=3.5mm, inner sep=0pt] at \p {};
+
+  \coordinate (q) at (2.7,2.4);
+  \draw[LectureGold, dashed, line width=1.1pt] (q) circle[radius=1.16];
+  \node[query point] at (q) {};
+  \node[font=\sffamily\bfseries\footnotesize, text=LectureGold, anchor=west] at (2.9,2.15) {query};
+
+  \draw[LectureMuted, line width=0.65pt] (q)--(2.4,2.4);
+  \draw[LectureMuted, line width=0.65pt] (q)--(1.8,3.0);
+  \draw[LectureMuted, line width=0.65pt] (q)--(3.8,2.7);
+
+  \node[pill, anchor=west] at (5.75,4.30) {\tikz\node[data point, fill=LectureTeal]{};\quad class A};
+  \node[pill, anchor=west] at (5.75,3.65) {\tikz\node[rectangle, rounded corners=0.5pt, fill=LectureBlue, minimum size=3.5mm, inner sep=0pt]{};\quad class B};
+  \node[pill, anchor=west] at (5.75,3.00) {\tikz\node[query point, minimum size=4.5mm]{};\quad unlabeled query};
+  \node[align=left, anchor=north west, font=\sffamily\small, text=LectureInk] at (5.75,2.30) {\textbf{Neighborhood vote}\\A: 2\quad B: 1\\[1mm]\textcolor{LectureTeal}{\(\widehat y=\mathrm{A}\)}};
+\end{tikzpicture}
+

@@ -1,0 +1,193 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{lecture-notes}[2026/08/27 Learn ML by Building lecture-note styling]
+
+\RequirePackage{amsmath}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{makecell}
+\RequirePackage{pgfplots}
+\RequirePackage{pgfplotstable}
+\RequirePackage{tikz}
+\RequirePackage{url}
+
+\usetikzlibrary{
+  arrows.meta,
+  backgrounds,
+  calc,
+  decorations.pathreplacing,
+  fit,
+  matrix,
+  patterns,
+  positioning,
+  shapes.geometric
+}
+\pgfplotsset{compat=1.18}
+
+% -----------------------------------------------------------------------------
+% Palette
+% -----------------------------------------------------------------------------
+\definecolor{LectureInk}{HTML}{172033}
+\definecolor{LectureMuted}{HTML}{64748B}
+\definecolor{LectureGrid}{HTML}{D9E1EA}
+\definecolor{LecturePaper}{HTML}{F8FAFC}
+\definecolor{LectureTeal}{HTML}{0F766E}
+\definecolor{LectureTealLight}{HTML}{DDF2EF}
+\definecolor{LectureBlue}{HTML}{2563EB}
+\definecolor{LectureBlueLight}{HTML}{E8F0FF}
+\definecolor{LectureGold}{HTML}{D97706}
+\definecolor{LectureGoldLight}{HTML}{FFF3D6}
+\definecolor{LectureCoral}{HTML}{E45756}
+\definecolor{LectureCoralLight}{HTML}{FDE9E8}
+\definecolor{LecturePurple}{HTML}{7C3AED}
+\definecolor{LecturePurpleLight}{HTML}{F1EAFE}
+\definecolor{LectureSlate}{HTML}{A8B3C2}
+
+% -----------------------------------------------------------------------------
+% Typography and document chrome
+% -----------------------------------------------------------------------------
+\addtokomafont{title}{\color{LectureInk}\fontsize{34}{38}\selectfont}
+\addtokomafont{subtitle}{\color{LectureMuted}\Large\mdseries}
+\addtokomafont{subject}{\color{LectureTeal}\bfseries\sffamily\small}
+\addtokomafont{section}{\color{LectureInk}\sffamily}
+\addtokomafont{subsection}{\color{LectureTeal}\sffamily}
+\addtokomafont{subsubsection}{\color{LectureInk}\sffamily}
+\addtokomafont{captionlabel}{\color{LectureTeal}\sffamily\bfseries}
+\addtokomafont{pagenumber}{\color{LectureMuted}\sffamily}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em plus 0.15em minus 0.1em}
+\setlength{\emergencystretch}{2em}
+\setlist[itemize]{leftmargin=1.45em, itemsep=0.18em, topsep=0.35em}
+\setlist[enumerate]{itemsep=0.18em, topsep=0.35em}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=LectureTeal,
+  urlcolor=LectureBlue,
+  citecolor=LecturePurple
+}
+
+% -----------------------------------------------------------------------------
+% Mathematical shorthand
+% -----------------------------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\vect}[1]{\symbf{#1}}
+\newcommand{\given}{\,\middle|\,}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\mode}{mode}
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\cosim}{cosim}
+
+% -----------------------------------------------------------------------------
+% Boxes
+% -----------------------------------------------------------------------------
+\newtcolorbox{learningbox}{
+  enhanced,
+  colback=LecturePaper,
+  colframe=LectureGrid,
+  boxrule=0.5pt,
+  arc=1.2mm,
+  left=3mm,right=3mm,top=2.2mm,bottom=2.2mm
+}
+
+\newtcolorbox{keybox}[1][]{
+  enhanced,
+  colback=LectureTealLight,
+  colframe=LectureTeal,
+  boxrule=0pt,
+  borderline west={2.2pt}{0pt}{LectureTeal},
+  arc=0.8mm,
+  left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,
+  title={#1},
+  fonttitle=\sffamily\bfseries\color{white}
+}
+
+\newtcolorbox{workedbox}[1][]{
+  enhanced,
+  colback=LectureBlueLight,
+  colframe=LectureBlue,
+  boxrule=0pt,
+  borderline west={2.2pt}{0pt}{LectureBlue},
+  arc=0.8mm,
+  left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,
+  title={#1},
+  fonttitle=\sffamily\bfseries\color{white}
+}
+
+\newtcolorbox{cautionbox}[1][]{
+  enhanced,
+  colback=LectureGoldLight,
+  colframe=LectureGold,
+  boxrule=0pt,
+  borderline west={2.2pt}{0pt}{LectureGold},
+  arc=0.8mm,
+  left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,
+  title={#1},
+  fonttitle=\sffamily\bfseries\color{white}
+}
+
+\newtcolorbox{auditbox}[1][]{
+  enhanced,
+  colback=LecturePurpleLight,
+  colframe=LecturePurple,
+  boxrule=0pt,
+  borderline west={2.2pt}{0pt}{LecturePurple},
+  arc=0.8mm,
+  left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,
+  title={#1},
+  fonttitle=\sffamily\bfseries\color{white}
+}
+
+\newcommand{\marginidea}[1]{\marginnote{\textcolor{LectureTeal}{\sffamily\bfseries DESIGN NOTE}\\[1mm]\textcolor{LectureMuted}{#1}}}
+\newcommand{\margincaution}[1]{\marginnote{\textcolor{LectureGold}{\sffamily\bfseries CAUTION}\\[1mm]\textcolor{LectureMuted}{#1}}}
+
+% Numbered captions that stay with non-floating TikZ material.
+\newcommand{\FigureCaption}[2]{%
+  \refstepcounter{figure}\label{#1}%
+  \par\nopagebreak[4]\smallskip{\small\color{LectureMuted}\textbf{\textcolor{LectureTeal}{Figure \thefigure.}}~#2\par}\medskip
+}
+\newcommand{\TableCaption}[2]{%
+  \refstepcounter{table}\label{#1}%
+  \par\nopagebreak[4]\smallskip{\small\color{LectureMuted}\textbf{\textcolor{LectureTeal}{Table \thetable.}}~#2\par}\medskip
+}
+
+% Quiet end matter that travels with a standalone lecture PDF.
+\newcommand{\lectureacknowledgment}[1]{%
+  \par\smallskip
+  {\footnotesize\color{LectureMuted}%
+  \noindent\textcolor{LectureTeal}{\sffamily\bfseries Acknowledgment.} #1\par}%
+}
+
+% -----------------------------------------------------------------------------
+% Table and figure helpers
+% -----------------------------------------------------------------------------
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\tablehead}[1]{\textcolor{LectureInk}{\sffamily\bfseries #1}}
+\renewcommand{\arraystretch}{1.23}
+
+\tikzset{
+  lecture axis/.style={->, >=Stealth, draw=LectureMuted, line width=0.65pt},
+  guide/.style={draw=LectureGrid, line width=0.5pt},
+  link/.style={-{Stealth[length=2.2mm]}, draw=LectureMuted, line width=0.8pt},
+  strong link/.style={-{Stealth[length=2.5mm]}, draw=LectureTeal, line width=1.3pt},
+  process/.style={rounded corners=1.5mm, draw=LectureGrid, fill=white, minimum height=12mm, align=center, font=\sffamily\small, inner xsep=3mm},
+  data point/.style={circle, draw=white, line width=0.8pt, minimum size=3.4mm, inner sep=0pt},
+  query point/.style={star, star points=5, star point ratio=2.3, fill=LectureGold, draw=white, line width=0.8pt, minimum size=6mm, inner sep=0pt},
+  pill/.style={rounded corners=4mm, fill=LecturePaper, draw=LectureGrid, inner xsep=3mm, inner ysep=1.2mm, font=\sffamily\footnotesize}
+}
+
+\pgfplotsset{
+  lecture plot/.style={
+    axis line style={draw=LectureMuted},
+    tick style={draw=LectureMuted},
+    tick label style={font=\footnotesize, color=LectureMuted},
+    label style={font=\small, color=LectureInk},
+    title style={font=\sffamily\bfseries\small, color=LectureInk},
+    grid=major,
+    grid style={draw=LectureGrid, line width=0.45pt},
+    legend style={draw=none, fill=none, font=\footnotesize, text=LectureInk},
+    every axis plot/.append style={line width=1.25pt}
+  }
+}

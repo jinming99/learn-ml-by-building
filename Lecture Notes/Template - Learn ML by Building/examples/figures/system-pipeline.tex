@@ -1,0 +1,22 @@
+\begin{tikzpicture}[node distance=3mm, process/.append style={inner xsep=2mm,font=\sffamily\footnotesize}]
+  \node[process, fill=LectureTealLight, draw=LectureTeal, text width=16mm] (goal) {\textbf{Goal}\\good teammate};
+  \node[process, right=of goal, text width=16mm] (survey) {\textbf{Survey}\\questions};
+  \node[process, right=of survey, fill=LectureBlueLight, draw=LectureBlue, text width=16mm] (extract) {\textbf{LLM}\\extraction};
+  \node[process, right=of extract, text width=18mm] (represent) {\textbf{Features}\\+ eligibility};
+  \node[process, right=of represent, fill=LectureGoldLight, draw=LectureGold, text width=17mm] (metric) {\textbf{Metric}\\+ k-NN};
+  \node[process, right=of metric, fill=LecturePurpleLight, draw=LecturePurple, text width=16mm] (outcome) {\textbf{Outcome}\\and feedback};
+
+  \draw[strong link] (goal)--(survey);
+  \draw[strong link] (survey)--(extract);
+  \draw[strong link] (extract)--(represent);
+  \draw[strong link] (represent)--(metric);
+  \draw[strong link] (metric)--(outcome);
+
+  \node[font=\sffamily\scriptsize, text=LectureMuted, align=center, below=4mm of survey] (a1) {questions capture\\compatibility?};
+  \node[font=\sffamily\scriptsize, text=LectureMuted, align=center, below=4mm of extract] (a2) {faithful and\\unbiased?};
+  \node[font=\sffamily\scriptsize, text=LectureMuted, align=center, below=4mm of represent] (a3) {valid representation\\and constraints?};
+  \node[font=\sffamily\scriptsize, text=LectureMuted, align=center, below=4mm of metric] (a4) {does ``near''\\mean useful?};
+
+  \draw[-{Stealth[length=2.5mm]}, draw=LectureCoral, line width=1.2pt, rounded corners=2mm]
+    (outcome.south) -- ++(0,-14mm) -| node[pos=0.55, below, font=\sffamily\footnotesize, text=LectureCoral]{diagnose and revise any stage} (goal.south);
+\end{tikzpicture}

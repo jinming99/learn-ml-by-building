@@ -1,0 +1,16 @@
+/output/build/
+/tmp/
+/inputs/
+
+# Internal editorial and release instructions stay local.
+/WORKFLOW.md
+/PUBLISHING.md
+
+# Common LaTeX by-products if a local editor writes beside the source.
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc

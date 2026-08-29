@@ -1,0 +1,26 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \offset/\label/\metric in {0/{Manhattan}/{\(L_1\)},5.15/{Euclidean}/{\(L_2\)},10.30/{Chebyshev}/{\(L_\infty\)}} {
+    \begin{scope}[shift={(\offset,0)}]
+      \fill[LecturePaper, rounded corners=1.5mm] (0,0) rectangle (4.45,3.55);
+      \draw[LectureGrid, rounded corners=1.5mm] (0,0) rectangle (4.45,3.55);
+      \draw[lecture axis] (0.45,1.75)--(4.05,1.75);
+      \draw[lecture axis] (2.22,0.35)--(2.22,3.20);
+      \fill[LectureInk] (2.22,1.75) circle[radius=1.2pt];
+      \node[font=\sffamily\bfseries\small, text=LectureInk] at (2.22,4.10) {\label};
+      \node[font=\sffamily\footnotesize, text=LectureMuted] at (2.22,3.78) {\metric unit contour};
+    \end{scope}
+  }
+
+  \begin{scope}[shift={(0,0)}]
+    \fill[LectureTealLight, opacity=0.85] (2.22,2.90)--(3.37,1.75)--(2.22,0.60)--(1.07,1.75)--cycle;
+    \draw[LectureTeal, line width=1.4pt] (2.22,2.90)--(3.37,1.75)--(2.22,0.60)--(1.07,1.75)--cycle;
+  \end{scope}
+  \begin{scope}[shift={(5.15,0)}]
+    \fill[LectureBlueLight, opacity=0.9] (2.22,1.75) circle[radius=1.15];
+    \draw[LectureBlue, line width=1.4pt] (2.22,1.75) circle[radius=1.15];
+  \end{scope}
+  \begin{scope}[shift={(10.30,0)}]
+    \fill[LectureGoldLight, opacity=0.9] (1.07,0.60) rectangle (3.37,2.90);
+    \draw[LectureGold, line width=1.4pt] (1.07,0.60) rectangle (3.37,2.90);
+  \end{scope}
+\end{tikzpicture}

@@ -22,6 +22,7 @@ By the end of this lecture, you will:
 
 :::{.callout-tip}
 ## Quick Access
+**[Lecture Notes (PDF)](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/Lecture%2002%20-%20k-Nearest%20Neighbors/output/pdf/lecture-02-k-nearest-neighbors.pdf)**  
 **[Lecture Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Open in Colab](https://colab.research.google.com/github/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Lecture Folder](https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%202%20KNN)**

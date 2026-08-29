@@ -1,0 +1,15 @@
+\begin{tikzpicture}[node distance=4mm, process/.append style={font=\sffamily\footnotesize, inner xsep=2mm}]
+  \node[process, fill=LectureTealLight, draw=LectureTeal, text width=20mm] (problem) {\textbf{Problem}\\real decision};
+  \node[process, right=of problem, text width=22mm] (formulation) {\textbf{Formulation}\\data and target};
+  \node[process, right=of formulation, fill=LectureBlueLight, draw=LectureBlue, text width=21mm] (assumption) {\textbf{Assumption}\\why it may work};
+  \node[process, right=of assumption, fill=LectureGoldLight, draw=LectureGold, text width=19mm] (method) {\textbf{Method}\\learn or predict};
+  \node[process, right=of method, fill=LecturePurpleLight, draw=LecturePurple, text width=20mm] (evidence) {\textbf{Evidence}\\evaluate outcomes};
+
+  \draw[strong link] (problem)--(formulation);
+  \draw[strong link] (formulation)--(assumption);
+  \draw[strong link] (assumption)--(method);
+  \draw[strong link] (method)--(evidence);
+
+  \draw[-{Stealth[length=2.5mm]}, draw=LectureCoral, line width=1.2pt, rounded corners=2mm]
+    (evidence.south) -- ++(0,-10mm) -| node[pos=0.52, below, font=\sffamily\footnotesize, text=LectureCoral]{diagnose and revise the right layer} (problem.south);
+\end{tikzpicture}

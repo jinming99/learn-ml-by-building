@@ -1,0 +1,26 @@
+\begin{tikzpicture}[x=1.05cm,y=1.05cm]
+  \foreach \x in {1,...,5} {\draw[guide] (\x,0)--(\x,4.7);}
+  \foreach \y in {1,...,4} {\draw[guide] (0,\y)--(5.5,\y);}
+  \draw[lecture axis] (0,0)--(5.75,0) node[below, font=\sffamily\footnotesize, text=LectureMuted]{count of ``computer''};
+  \draw[lecture axis] (0,0)--(0,4.95) node[above, font=\sffamily\footnotesize, text=LectureMuted]{count of ``poll''};
+
+  % The highlighted angle is measured between the two vectors, not from an axis.
+  \path[fill=LectureGoldLight] (0,0) -- (20:1.22)
+    arc[start angle=20,end angle=27.5,radius=1.22] -- cycle;
+  \draw[LectureGold, line width=1pt] (20:1.22)
+    arc[start angle=20,end angle=27.5,radius=1.22];
+  \node[font=\footnotesize, text=LectureGold] at (23.75:1.52) {\(\theta\)};
+
+  \draw[-{Stealth[length=2.7mm]}, LectureGold, line width=1.7pt] (0,0)--(2.15,0.78)
+    node[pos=1, below right, font=\sffamily\bfseries\small, text=LectureGold]{query vector \(\vect q\)};
+  \draw[-{Stealth[length=2.7mm]}, LectureTeal, line width=1.7pt] (0,0)--(4.75,2.47)
+    node[pos=0.98, above left, xshift=-0.5mm, yshift=0.5mm, font=\sffamily\bfseries\small, text=LectureTeal]{technology article \(\vect a\)};
+  \draw[-{Stealth[length=2.7mm]}, LecturePurple, line width=1.7pt] (0,0)--(1.05,4.15)
+    node[pos=1, above right, font=\sffamily\bfseries\small, text=LecturePurple]{politics article};
+
+  \draw[LectureCoral, dashed, line width=1pt] (2.15,0.78)--(4.75,2.47);
+  \node[pill, anchor=west] at (6.10,3.75) {\(\theta=\angle(\vect q,\vect a)\) is small \(\Rightarrow\) high cosine};
+  \node[pill, anchor=west] at (6.10,3.02) {dashed segment is long \(\Rightarrow\) large Euclidean gap};
+  \node[align=left, anchor=north west, font=\sffamily\small, text=LectureInk] at (6.10,2.25)
+    {\textbf{Question}\\[-0.3mm]Which notion of ``near''\\matches the task?};
+\end{tikzpicture}

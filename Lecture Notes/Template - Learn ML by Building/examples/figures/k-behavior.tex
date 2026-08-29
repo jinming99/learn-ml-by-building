@@ -1,0 +1,35 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \offset/\title/\sub in {0/{\(k=1\)}/{very local},5.15/{moderate \(k\)}/{balanced},10.30/{large \(k\)}/{very smooth}} {
+    \begin{scope}[shift={(\offset,0)}]
+      \fill[LecturePaper, rounded corners=1.5mm] (0,0) rectangle (4.45,3.25);
+      \draw[LectureGrid, rounded corners=1.5mm] (0,0) rectangle (4.45,3.25);
+      \node[font=\sffamily\bfseries\small, text=LectureInk] at (2.225,3.55) {\title};
+      \node[font=\sffamily\footnotesize, text=LectureMuted] at (2.225,3.27) {\sub};
+
+      \foreach \p in {(0.55,0.55),(1.00,0.95),(0.75,1.65),(1.45,1.45),(1.25,2.35),(1.90,2.55),(2.00,1.80)}
+        \node[data point, fill=LectureTeal, minimum size=3mm] at \p {};
+      \foreach \p in {(2.35,0.45),(2.90,0.80),(3.55,0.65),(2.70,1.45),(3.35,1.65),(2.60,2.35),(3.55,2.65),(3.95,2.15)}
+        \node[rectangle, rounded corners=0.4pt, fill=LectureBlue, draw=white, line width=0.6pt, minimum size=3mm, inner sep=0pt] at \p {};
+    \end{scope}
+  }
+
+  \begin{scope}
+    \draw[LectureCoral, line width=1.25pt]
+      (1.85,0.05)..controls(1.55,0.40) and (2.55,0.55)..(2.10,0.95)
+      ..controls(1.65,1.30) and (2.75,1.45)..(2.25,1.85)
+      ..controls(1.75,2.20) and (2.80,2.55)..(2.35,3.18);
+  \end{scope}
+  \begin{scope}[shift={(5.15,0)}]
+    \draw[LectureCoral, line width=1.25pt]
+      (2.05,0.05)..controls(2.25,0.75) and (2.05,1.30)..(2.20,1.75)
+      ..controls(2.35,2.30) and (2.20,2.75)..(2.45,3.18);
+  \end{scope}
+  \begin{scope}[shift={(10.30,0)}]
+    \draw[LectureCoral, line width=1.25pt]
+      (2.35,0.05)..controls(2.42,1.05) and (2.35,2.10)..(2.45,3.18);
+  \end{scope}
+
+  \node[font=\sffamily\footnotesize, text=LectureCoral, anchor=west] at (0, -0.40) {decision boundary};
+  \draw[LectureCoral, line width=1.25pt] (2.55,-0.38)--(3.45,-0.38);
+  \node[font=\sffamily\footnotesize, text=LectureMuted, anchor=east] at (14.75,-0.40) {conceptual illustration};
+\end{tikzpicture}

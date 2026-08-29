@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+\matrix (ranks) [
+  matrix of nodes,
+  nodes={minimum height=7.2mm, minimum width=25mm, anchor=center, font=\sffamily\small, draw=white, line width=1pt},
+  column 1/.style={nodes={minimum width=25mm, anchor=east, align=right, fill=white, draw=white, text=LectureInk}},
+  row 1/.style={nodes={fill=LectureInk, text=white, font=\sffamily\bfseries\footnotesize, minimum height=8.5mm}},
+  row sep=0.3mm,
+  column sep=0.3mm
+] {
+  Candidate & Euclidean & Manhattan & Cosine & Chebyshev \\
+  Student 34 & |[fill=LectureTeal,text=white,font=\sffamily\bfseries]| 1 & |[fill=LectureTeal,text=white,font=\sffamily\bfseries]| 1 & |[fill=LectureTeal,text=white,font=\sffamily\bfseries]| 1 & |[fill=LecturePaper,text=LectureMuted]| -- \\
+  Student 03 & |[fill=LectureTealLight,text=LectureInk,font=\sffamily\bfseries]| 3 & |[fill=LectureTeal!38,text=LectureInk,font=\sffamily\bfseries]| 2 & |[fill=LectureTeal!38,text=LectureInk,font=\sffamily\bfseries]| 2 & |[fill=LectureTeal,text=white,font=\sffamily\bfseries]| 1 \\
+  Student 24 & |[fill=LectureTeal!38,text=LectureInk,font=\sffamily\bfseries]| 2 & |[fill=LecturePaper,text=LectureMuted]| -- & |[fill=LectureTealLight,text=LectureInk,font=\sffamily\bfseries]| 3 & |[fill=LectureTealLight,text=LectureInk,font=\sffamily\bfseries]| 3 \\
+  Student 06 & |[fill=LecturePaper,text=LectureMuted]| -- & |[fill=LecturePaper,text=LectureMuted]| -- & |[fill=LecturePaper,text=LectureMuted]| -- & |[fill=LectureTeal!38,text=LectureInk,font=\sffamily\bfseries]| 2 \\
+  Student 17 & |[fill=LecturePaper,text=LectureMuted]| -- & |[fill=LectureTealLight,text=LectureInk,font=\sffamily\bfseries]| 3 & |[fill=LecturePaper,text=LectureMuted]| -- & |[fill=LecturePaper,text=LectureMuted]| -- \\
+};
+
+\node[font=\sffamily\footnotesize, text=LectureMuted, anchor=north west] at ([yshift=-3mm]ranks.south west)
+  {Query: you\quad\textbullet\quad anonymized profile\quad\textbullet\quad \(k=3\)};
+\node[font=\sffamily\footnotesize, text=LectureTeal, anchor=north east] at ([yshift=-3mm]ranks.south east)
+  {darker color = higher rank};
+\end{tikzpicture}

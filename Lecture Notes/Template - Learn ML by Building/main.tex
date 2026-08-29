@@ -1,0 +1,48 @@
+\documentclass[
+  fontsize=10pt,
+  twoside=false,
+  secnumdepth=2,
+  numbers=noenddot,
+  fontmethod=modern
+]{kaohandt}
+
+\usepackage[american]{babel}
+\usepackage{lecture-notes}
+\input{metadata}
+
+\titlehead{\textcolor{LectureTeal}{\sffamily\bfseries\small \CourseHeader}}
+\subject{LECTURE \LectureNumber}
+\title[\LectureTitle]{\textcolor{LectureInk}{\LectureTitle}}
+\subtitle{\LectureSubtitle}
+\author[Learn ML by Building]{}
+\date{}
+
+\hypersetup{pdfsubject={\LecturePdfSubject}}
+
+\begin{document}
+
+\maketitle
+\pagestyle{pagenum.scrheadings}
+\thispagestyle{pagenum.scrheadings}
+
+\begin{abstract}
+\noindent
+\LectureAbstract
+\end{abstract}
+
+\begin{widepar}
+\begin{learningbox}
+\textbf{Learning goals.} By the end of this lecture, you should be able to
+\begin{enumerate}[label=\textcolor{LectureTeal}{\arabic*.}, leftmargin=1.8em, itemsep=0.15em]
+  % Replace these with goals supported by the material actually taught.
+  \item formulate the practical problem and the evidence needed to evaluate it;
+  \item explain the method and the assumption that makes it plausible; and
+  \item diagnose a failure at the correct layer of the system.
+\end{enumerate}
+\end{learningbox}
+\end{widepar}
+
+\input{sections/01-main-message}
+\input{sections/99-summary}
+
+\end{document}

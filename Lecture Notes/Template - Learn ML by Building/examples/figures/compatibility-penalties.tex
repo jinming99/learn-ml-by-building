@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    lecture plot,
+    width=12.3cm,
+    height=5.2cm,
+    xmin=0,xmax=1.2,
+    ymin=0,ymax=1.48,
+    xtick={0,0.3,0.6,0.9,1.2},
+    xlabel={absolute feature gap \(\Delta\)},
+    ylabel={penalty},
+    title={Different goals prefer different gaps},
+    legend style={at={(0.5,0.96)},anchor=north,legend columns=2}
+  ]
+    \addplot[color=LectureTeal, domain=0:1.2, samples=120] {x^2};
+    \addlegendentry{alignment: \(\Delta^2\)}
+    \addplot[color=LectureGold, domain=0:1.2, samples=120] {(x-0.6)^2};
+    \addlegendentry{coverage: \((\Delta-0.6)^2\)}
+    \addplot[only marks, mark=*, mark size=2.2pt, color=LectureTeal] coordinates {(0,0)};
+    \addplot[only marks, mark=*, mark size=2.2pt, color=LectureGold] coordinates {(0.6,0)};
+    \draw[LectureGold, dashed, line width=0.9pt] (axis cs:0.6,0)--(axis cs:0.6,1.44);
+    \node[font=\sffamily\footnotesize, text=LectureGold, anchor=west, fill=white, inner sep=1.5pt] at (axis cs:0.62,1.18) {target role gap \(\tau=0.6\)};
+  \end{axis}
+\end{tikzpicture}

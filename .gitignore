@@ -144,6 +144,13 @@ Lecture 1 Overview/temp.md
 Lecture 1 Overview/ACTIVE_LEARNING_GUIDE.md
 Lecture 1 Overview/verification-notebook.md
 
+# ===== Public lecture-note release =====
+# Individual lecture allowlists publish only compiled handouts, while the
+# reusable template remains public.
+
+# Source deck retained locally for Lecture 1 production.
+Lecture 1 Overview/Lecture 1 Course intro.pptx
+
 # ===== Lecture 1 Overview: generated artifacts =====
 Lecture 1 Overview/models/active_learning_checkpoints/
 Lecture 1 Overview/models/lecture_assets/
@@ -250,3 +257,7 @@ NOTEBOOK_GUIDELINES.md
 Lecture 15 CNN/15-CNN/
 Lecture 15 CNN/data/
 Lecture 16 RNN and Recurrent Language Models/data/
+
+# Keep the local cross-lecture index private. This final rule intentionally
+# follows the general README exception above.
+Lecture Notes/README.md
