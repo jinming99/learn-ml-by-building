@@ -1,0 +1,128 @@
+/* High-contrast reading palette for the Morph theme. */
+:root {
+  --bs-body-color: #25324a;
+  --bs-body-color-rgb: 37, 50, 74;
+  --bs-secondary-color: #33415f;
+  --bs-secondary-color-rgb: 51, 65, 95;
+  --bs-tertiary-color: #3f4d68;
+  --bs-link-color: #174a8b;
+  --bs-link-color-rgb: 23, 74, 139;
+  --bs-link-hover-color: #0d3568;
+}
+
+body,
+main {
+  color: var(--bs-body-color);
+}
+
+#quarto-header .navbar {
+  background-color: #174a8b !important;
+}
+
+main .subtitle,
+main .description,
+main .quarto-float-caption,
+main .figure-caption,
+main .table-caption,
+main small,
+main .small,
+main .text-muted {
+  color: var(--bs-secondary-color) !important;
+  opacity: 1;
+}
+
+main blockquote,
+main .blockquote,
+main .callout-title-container,
+main .callout-body,
+main table,
+main .table {
+  color: var(--bs-body-color) !important;
+}
+
+main .table {
+  --bs-table-color: #25324a;
+  --bs-table-striped-color: #25324a;
+  --bs-table-active-color: #25324a;
+  --bs-table-hover-color: #25324a;
+}
+
+main a:not(.btn):not(.pdf-icon-link) {
+  color: var(--bs-link-color);
+}
+
+main a:not(.btn):not(.pdf-icon-link):hover,
+main a:not(.btn):not(.pdf-icon-link):focus-visible {
+  color: var(--bs-link-hover-color);
+}
+
+main .btn-primary,
+main .btn-outline-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #174a8b;
+  --bs-btn-border-color: #174a8b;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0d3568;
+  --bs-btn-hover-border-color: #0d3568;
+  color: #fff;
+  background-color: #174a8b;
+  border-color: #174a8b;
+}
+
+main .btn-outline-secondary {
+  --bs-btn-color: #25324a;
+  --bs-btn-border-color: #52617d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #33415f;
+  --bs-btn-hover-border-color: #33415f;
+  color: #25324a;
+  border-color: #52617d;
+}
+
+main .pdf-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-inline-start: 0.2rem;
+  color: #8b1e35;
+  background: #faeef1;
+  border: 1px solid #c88b98;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  vertical-align: -0.2rem;
+}
+
+main .pdf-icon-link .bi {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+main .pdf-icon-link:hover,
+main .pdf-icon-link:focus-visible {
+  color: #fff;
+  background: #8b1e35;
+  border-color: #8b1e35;
+}
+
+main .pdf-icon-link:focus-visible {
+  outline: 3px solid #174a8b;
+  outline-offset: 2px;
+}
+
+main .lecture-note-resource {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  max-width: 100%;
+}
+
+main .lecture-note-resource > a:first-child {
+  min-width: 0;
+}
+
+main .lecture-note-resource .pdf-icon-link {
+  flex: 0 0 auto;
+  margin-inline-start: 0;
+}

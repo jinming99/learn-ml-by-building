@@ -9,7 +9,7 @@ css: ../lecture-notes.css
 Nearest-neighbor methods begin with a practical problem and a simple assumption: proximity under the chosen representation and distance should support useful predictions. Understanding the model means tracing that assumption through data collection, feature construction, eligibility, geometry, and evaluation.
 
 ::: {.d-flex .flex-wrap .gap-2 .mb-4}
-[Download the polished PDF](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf){.btn .btn-primary target="_blank"}
+<a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 2 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf-fill" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 2 PDF</span></a>
 [Course materials](../lectures/02-knn.qmd){.btn .btn-outline-primary}
 [Previous native note](01-what-is-machine-learning.qmd){.btn .btn-outline-secondary}
 :::
