@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Lecture 2: k-Nearest Neighbors – ECE 4424/CS 4824: Machine Learning</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -37,10 +43,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-fcd7aac6391cd251d6692036b0269f5c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3c61efc53a6f7557640ad3d31a35a94e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -83,7 +89,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -513,7 +519,7 @@ window.Quarto = {
 
 <p>Nearest-neighbor methods begin with a practical problem and a simple assumption: proximity under the chosen representation and distance should support useful predictions. Understanding the model means tracing that assumption through data collection, feature construction, eligibility, geometry, and evaluation.</p>
 <div class="d-flex flex-wrap gap-2 mb-4">
-<p><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 2 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf-fill" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 2 PDF</span></a> <a href="../lectures/02-knn.html" class="btn btn-outline-primary">Course materials</a> <a href="../notes/01-what-is-machine-learning.html" class="btn btn-outline-secondary">Previous native note</a></p>
+<p><a href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf" class="pdf-text-link" target="_blank" rel="noopener">PDF version</a> <a href="../lectures/02-knn.html" class="btn btn-outline-primary">Course materials</a> <a href="../notes/01-what-is-machine-learning.html" class="btn btn-outline-secondary">Previous native note</a></p>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -521,7 +527,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Learning goals
+<span class="screen-reader-only">Tip</span>Learning goals
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -543,7 +549,7 @@ Learning goals
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Design note
+<span class="screen-reader-only">Note</span>Design note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -678,7 +684,7 @@ Table&nbsp;1: The appropriate <span class="math inline">\(k\)</span> is data-dep
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Odd <span class="math inline">\(k\)</span> is not a complete tie policy
+<span class="screen-reader-only">Warning</span>Odd <span class="math inline">\(k\)</span> is not a complete tie policy
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -791,7 +797,7 @@ Figure&nbsp;4: The marked angle <span class="math inline">\(\theta\)</span> lies
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Validity requires a domain argument
+<span class="screen-reader-only">Warning</span>Validity requires a domain argument
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -813,7 +819,7 @@ y_i=\mathbb{1}\{\text{student $i$ works well with me}\}.
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Role of k-NN
+<span class="screen-reader-only">Note</span>Role of k-NN
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -906,7 +912,7 @@ Table&nbsp;3: The eight extracted axes. The final column is a design hypothesis,
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Separate the layers
+<span class="screen-reader-only">Note</span>Separate the layers
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -934,7 +940,7 @@ Figure&nbsp;5: For the same anonymized query profile, different metrics produce 
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What unlabeled data cannot tell us
+<span class="screen-reader-only">Warning</span>What unlabeled data cannot tell us
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1029,7 +1035,7 @@ d_{\mathbf{w}}(\mathbf{x},\mathbf{z})^2
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What diagonal weights can express
+<span class="screen-reader-only">Warning</span>What diagonal weights can express
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1105,7 +1111,7 @@ Figure&nbsp;6: Alignment has its minimum at zero gap; role coverage has its mini
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Compatibility cost
+<span class="screen-reader-only">Important</span>Compatibility cost
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1183,7 +1189,7 @@ Table&nbsp;5: Choose a split and measurement that reproduce the future decision.
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Baseline ladder
+<span class="screen-reader-only">Tip</span>Baseline ladder
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1330,13 +1336,14 @@ Table&nbsp;6: A failure map for the full pipeline. Model tuning is only one poss
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
