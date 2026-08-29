@@ -400,7 +400,7 @@
     "href": "lectures/02-knn.html#materials",
     "title": "Lecture 2: k-Nearest Neighbors",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLecture Notebook\nOpen in Colab\nLecture Folder",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLecture Notes (PDF)\nLecture Notebook\nOpen in Colab\nLecture Folder",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -808,14 +808,21 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
+    "text": "Lecture 1: What Is Machine Learning? (PDF)\nLecture 2: k-Nearest Neighbors (PDF)\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
+  },
+  {
+    "objectID": "resources.html#lecture-notes-template",
+    "href": "resources.html#lecture-notes-template",
+    "title": "Resources",
+    "section": "",
+    "text": "Lecture 1: What Is Machine Learning? (PDF)\nLecture 2: k-Nearest Neighbors (PDF)\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
   },
   {
     "objectID": "resources.html#software-tools",
     "href": "resources.html#software-tools",
     "title": "Resources",
-    "section": "",
-    "text": "Python Installation\nGoogle Colab\nGitHub Student Pack"
+    "section": "Software & Tools",
+    "text": "Software & Tools\n\nPython Installation\nGoogle Colab\nGitHub Student Pack"
   },
   {
     "objectID": "resources.html#documentation",
@@ -1397,7 +1404,7 @@
     "href": "lectures/01-overview.html#materials",
     "title": "Lecture 1: Welcome to Machine Learning",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nPre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLecture Notes (PDF)\nPre-Lecture Setup\nCourse Overview\nCatShop Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete Pre-Lecture 1 Setup before the lecture!",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
