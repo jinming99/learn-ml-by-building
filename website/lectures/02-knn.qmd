@@ -20,7 +20,7 @@ By the end of this lecture, you will:
 
 :::{.callout-tip}
 ## Quick Access
-**[Read the Lecture Notes](../notes/02-k-nearest-neighbors.qmd)** <a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 2 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf-fill" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 2 PDF</span></a><br>
+**[Read the Lecture Notes](../notes/02-k-nearest-neighbors.qmd)** · [PDF version](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf){.pdf-text-link target="_blank" rel="noopener"}<br>
 **[Lecture Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Open in Colab](https://colab.research.google.com/github/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Lecture Folder](https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%202%20KNN)**

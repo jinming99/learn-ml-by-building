@@ -7,7 +7,7 @@ css: ../lecture-notes.css
 
 Machine learning uses experience to improve decisions. Improvement depends on evidence about performance, failure, and transfer to the intended environment. This lecture connects building, verification, and real-world use.
 
-<a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-01-what-is-machine-learning.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 1 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf-fill" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 1 PDF</span></a>
+[PDF version](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-01-what-is-machine-learning.pdf){.pdf-text-link target="_blank" rel="noopener"}
 
 ::: {.callout-note}
 ## Learning goals

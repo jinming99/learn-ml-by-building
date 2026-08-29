@@ -83,27 +83,27 @@ main .pdf-icon-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  margin-inline-start: 0.2rem;
-  color: #8b1e35;
-  background: #faeef1;
-  border: 1px solid #c88b98;
-  border-radius: 0.4rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-inline-start: 0.1rem;
+  color: #52617d;
+  background: transparent;
+  border: 0;
+  border-radius: 0.3rem;
   text-decoration: none;
-  vertical-align: -0.2rem;
+  vertical-align: -0.14rem;
+  transition: color 120ms ease, background-color 120ms ease;
 }
 
 main .pdf-icon-link .bi {
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1;
 }
 
 main .pdf-icon-link:hover,
 main .pdf-icon-link:focus-visible {
-  color: #fff;
-  background: #8b1e35;
-  border-color: #8b1e35;
+  color: #174a8b;
+  background: #e6edf7;
 }
 
 main .pdf-icon-link:focus-visible {
@@ -125,4 +125,11 @@ main .lecture-note-resource > a:first-child {
 main .lecture-note-resource .pdf-icon-link {
   flex: 0 0 auto;
   margin-inline-start: 0;
+}
+
+main .pdf-text-link {
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-underline-offset: 0.16em;
 }
