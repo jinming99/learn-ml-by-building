@@ -10,3 +10,31 @@ mjx-container[display="true"] {
 .quarto-float-caption {
   color: var(--bs-body-color);
 }
+
+/* Keep note-level navigation compact and consistent across lectures. */
+.lecture-note-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 0 1.75rem;
+}
+
+.lecture-note-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
+@media (max-width: 36rem) {
+  .lecture-note-actions .btn {
+    flex: 1 1 11rem;
+  }
+}

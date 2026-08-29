@@ -491,7 +491,9 @@ window.Quarto = {
 
 
 <p>Machine learning uses experience to improve decisions. Improvement depends on evidence about performance, failure, and transfer to the intended environment. This lecture connects building, verification, and real-world use.</p>
-<p><a href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-01-what-is-machine-learning.pdf" class="pdf-text-link" target="_blank" rel="noopener">PDF version</a></p>
+<div class="lecture-note-actions" role="navigation" aria-label="Lecture note navigation">
+<p><a href="../lectures/01-overview.html" class="btn btn-primary btn-sm">Course materials</a> <a href="../notes/02-k-nearest-neighbors.html" class="btn btn-outline-secondary btn-sm">Next native note</a></p>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -516,7 +518,7 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p><em>Why should it work? When will it fail? What evidence supports it?</em></p>
 </blockquote>
-<div id="fig-learning-loop" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Two triangular engineering cycles connect problem, learn, and build. Traditional engineering moves from problem to learning to building; AI engineering moves from problem to building to verification and learning.">
+<div id="fig-learning-loop" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two triangular engineering cycles connect problem, learn, and build. Traditional engineering moves from problem to learning to building; AI engineering moves from problem to building to verification and learning." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-learning-loop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-01/learning-loop.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Two triangular engineering cycles connect problem, learn, and build. Traditional engineering moves from problem to learning to building; AI engineering moves from problem to building to verification and learning.">
@@ -539,7 +541,7 @@ Figure&nbsp;1: Traditional engineering learns before building. AI engineering bu
 </figure>
 </div>
 <p>Automation gives machine learning scale and impact. Predictions and discoveries can shape consequential choices. Improvement requires experience and a feedback signal aligned with the goal. Repeated feedback can support continual learning and recursive improvement.</p>
-<div id="fig-programming-vs-learning" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="The fixed paradigm maps an input through a written program to an output. The learned paradigm maps examples through a learning procedure to a learned model.">
+<div id="fig-programming-vs-learning" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The fixed paradigm maps an input through a written program to an output. The learned paradigm maps examples through a learning procedure to a learned model." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-programming-vs-learning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-01/programming-vs-learning.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:92.0%" alt="The fixed paradigm maps an input through a written program to an output. The learned paradigm maps examples through a learning procedure to a learned model.">
@@ -551,7 +553,7 @@ Figure&nbsp;2: A fixed program applies written rules to data. A learned system u
 </div>
 <p><a href="#fig-programming-vs-learning" class="quarto-xref">Figure&nbsp;2</a> uses labeled examples <span class="math inline">\((x_i,y_i)\)</span>. Other systems learn from rewards, comparisons, demonstrations, or unlabeled data. In every setting, identify the experience, the part of the system that changes, and the measure of improvement.</p>
 <p>Machine-learning history is cumulative. Early neural and neighbor methods remain useful. Later advances expanded the scale of learning and changed how people interact with learned systems.</p>
-<div id="fig-selective-history" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A timeline runs from early neural and neighbor methods in the 1950s and 1960s through statistical learning, deep learning, ChatGPT, coding agents, and an open question about recursive intelligence.">
+<div id="fig-selective-history" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A timeline runs from early neural and neighbor methods in the 1950s and 1960s through statistical learning, deep learning, ChatGPT, coding agents, and an open question about recursive intelligence." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-selective-history-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-01/selective-history.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="A timeline runs from early neural and neighbor methods in the 1950s and 1960s through statistical learning, deep learning, ChatGPT, coding agents, and an open question about recursive intelligence.">
@@ -566,7 +568,7 @@ Figure&nbsp;3: Selected milestones and one open question about the future of mac
 <section id="learning-needs-a-verification-signal" class="level2">
 <h2 class="anchored" data-anchor-id="learning-needs-a-verification-signal">Learning needs a verification signal</h2>
 <p>Generation produces candidates. A verification signal measures behavior, judges improvement, and guides the next attempt.</p>
-<div id="fig-verification-signal" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A candidate output is compared with a criterion. Evidence can support the claim, contradict it, or remain uncertain. The result guides whether to keep, revise, or abstain.">
+<div id="fig-verification-signal" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A candidate output is compared with a criterion. Evidence can support the claim, contradict it, or remain uncertain. The result guides whether to keep, revise, or abstain." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-verification-signal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-01/verification-signal.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="A candidate output is compared with a criterion. Evidence can support the claim, contradict it, or remain uncertain. The result guides whether to keep, revise, or abstain.">
@@ -642,7 +644,7 @@ Table&nbsp;1: The useful verification signal depends on the task. Every signal l
 <section id="real-world-use-requires-real-world-evidence" class="level2">
 <h2 class="anchored" data-anchor-id="real-world-use-requires-real-world-evidence">Real-world use requires real-world evidence</h2>
 <p>Digital environments offer repeatable trials and fast feedback. Real-world use adds hidden state, measurement error, changing conditions, people, and irreversible consequences.</p>
-<div id="fig-grounding-gap" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A digital environment sends a model through human-AI collaboration to a target environment. Outcomes return through collaboration to guide revision, bridging the grounding gap.">
+<div id="fig-grounding-gap" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A digital environment sends a model through human-AI collaboration to a target environment. Outcomes return through collaboration to guide revision, bridging the grounding gap." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-grounding-gap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-01/grounding-gap.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="A digital environment sends a model through human-AI collaboration to a target environment. Outcomes return through collaboration to guide revision, bridging the grounding gap.">
