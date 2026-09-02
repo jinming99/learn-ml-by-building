@@ -46,11 +46,30 @@ This repository is [Ming Jin's](https://jinming.tech/) workshop floor for **ECE 
 
 ## Build something that bites back
 
-| Project | What you build | Materials |
-|:---|:---|:---:|
-| **01 · KNN Music Recommender** | A recommendation system whose notion of “similar” you can inspect and challenge | [brief](<Project 1 KNN Music Recommender/README.md>) · [notebook](<Project 1 KNN Music Recommender/p01-Music-Recommender.ipynb>) · [demo](https://jinming.tech/learn-ml-by-building/demos/p1-music/) |
-| **02 · Neural Archaeology** | A model investigation: recover hidden behavior from evidence, interventions, and careful experiments | [brief](<Project 2 Neural Archaeology/README.md>) · [notebook](<Project 2 Neural Archaeology/Neural_Archaeology_Student.ipynb>) |
-| **03 · Thought Cascade** | An agentic debugging system that turns failing programs into structured reasoning experiments | [brief](<Project 3 Thought Cascade/README.md>) · [notebook](<Project 3 Thought Cascade/p03_Thought_Cascade.ipynb>) |
+Three projects, three ways to make a model reveal what it is doing.
+
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <a href="Project%201%20KNN%20Music%20Recommender/p01-Music-Recommender.ipynb"><img src="readme-assets/projects/music-recommender-preview.jpg" alt="KNN Music Recommender interface with album covers and a seed-song search"></a>
+      <h3>01 · KNN Music Recommender</h3>
+      <p>Search a real music catalog, define what “similar” means, and listen critically when nearest neighbors get strange.</p>
+      <p><a href="Project%201%20KNN%20Music%20Recommender/README.md">Brief</a> · <a href="Project%201%20KNN%20Music%20Recommender/p01-Music-Recommender.ipynb">Notebook</a> · <a href="https://jinming.tech/learn-ml-by-building/demos/p1-music/">Live demo</a></p>
+    </td>
+    <td width="33%" valign="top">
+      <a href="Project%202%20Neural%20Archaeology/Neural_Archaeology_Student.ipynb"><img src="readme-assets/projects/neural-archaeology.svg" alt="Emotion prompts separating into measurable directions across hidden neural-network layers"></a>
+      <h3>02 · Neural Archaeology</h3>
+      <p>Excavate hidden states layer by layer, find the geometry of a concept, and test whether it can predict—or change—behavior.</p>
+      <p><a href="Project%202%20Neural%20Archaeology/README.md">Brief</a> · <a href="Project%202%20Neural%20Archaeology/Neural_Archaeology_Student.ipynb">Notebook</a></p>
+    </td>
+    <td width="33%" valign="top">
+      <a href="Project%203%20Thought%20Cascade/p03_Thought_Cascade.ipynb"><img src="readme-assets/projects/thought-cascade.svg" alt="A real QuixBugs error moving through observe, reason, patch, and verify steps"></a>
+      <h3>03 · Thought Cascade</h3>
+      <p>Give a small language model tools and feedback, then measure when a reasoning-and-action loop actually repairs broken code.</p>
+      <p><a href="Project%203%20Thought%20Cascade/README.md">Brief</a> · <a href="Project%203%20Thought%20Cascade/p03_Thought_Cascade.ipynb">Notebook</a></p>
+    </td>
+  </tr>
+</table>
 
 ## Enter the lab
 

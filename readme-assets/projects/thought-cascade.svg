@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Thought Cascade project preview</title>
+  <desc id="desc">A real QuixBugs GCD failure is observed, diagnosed, patched, and tested in an agentic loop.</desc>
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#11100f"/>
+      <stop offset="1" stop-color="#251b28"/>
+    </linearGradient>
+    <linearGradient id="loop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff8cb8"/>
+      <stop offset="1" stop-color="#ffd36e"/>
+    </linearGradient>
+    <filter id="shadow3" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="15" stdDeviation="18" flood-color="#000" flood-opacity=".45"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" rx="30" fill="url(#bg3)"/>
+  <circle cx="1100" cy="30" r="235" fill="#ff5ca8" opacity=".06"/>
+  <circle cx="870" cy="660" r="260" fill="#ffd36e" opacity=".05"/>
+  <text x="62" y="72" fill="#b69aaf" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="5">PROJECT 03  /  AGENTIC AI</text>
+  <text x="62" y="137" fill="#fff9fc" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">Can a model debug by doing?</text>
+
+  <g filter="url(#shadow3)">
+    <rect x="62" y="188" width="511" height="335" rx="22" fill="#171719" stroke="#43353f" stroke-width="2"/>
+  </g>
+  <circle cx="98" cy="221" r="8" fill="#ff6b7a"/><circle cx="125" cy="221" r="8" fill="#ffd36e"/><circle cx="152" cy="221" r="8" fill="#67e8c4"/>
+  <text x="519" y="229" fill="#7d6c78" font-family="Arial, Helvetica, sans-serif" font-size="19" text-anchor="end">QuixBugs / gcd.py</text>
+  <g font-family="SFMono-Regular, Consolas, Liberation Mono, monospace" font-size="24">
+    <text x="96" y="292" fill="#a9a1a7">1</text><text x="136" y="292" fill="#ff8cb8">def</text><text x="187" y="292" fill="#f8f1f5"> gcd(a, b):</text>
+    <text x="96" y="338" fill="#a9a1a7">2</text><text x="136" y="338" fill="#ff8cb8">    if</text><text x="210" y="338" fill="#f8f1f5"> b == 0:</text>
+    <text x="96" y="384" fill="#a9a1a7">3</text><text x="136" y="384" fill="#ffd36e">        return</text><text x="280" y="384" fill="#f8f1f5"> a</text>
+    <rect x="119" y="407" width="420" height="54" rx="10" fill="#4b1e2f" opacity=".78"/>
+    <text x="96" y="443" fill="#a9a1a7">4</text><text x="136" y="443" fill="#ffd36e">    return</text><text x="253" y="443" fill="#fff9fc"> gcd(a % b, b)</text>
+    <path d="M262 453 H469" stroke="#ff6b7a" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <path d="M611 330 C633 222 728 185 826 214" fill="none" stroke="url(#loop)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M813 193 L840 220 L805 227" fill="none" stroke="#ffd36e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1071 349 C1046 468 948 511 850 482" fill="none" stroke="url(#loop)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M866 504 L836 477 L873 470" fill="none" stroke="#ff8cb8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="689" y="240" width="396" height="74" rx="17" fill="#2b2028" stroke="#664555" stroke-width="2"/>
+    <circle cx="729" cy="277" r="19" fill="#ff6b7a"/>
+    <text x="729" y="285" fill="#211318" font-size="23" font-weight="900" text-anchor="middle">1</text>
+    <text x="767" y="269" fill="#ff9ebf" font-size="20" font-weight="800" letter-spacing="2">OBSERVE</text>
+    <text x="767" y="295" fill="#fff5f9" font-size="22">gcd(35, 21) → RecursionError</text>
+
+    <rect x="689" y="329" width="396" height="74" rx="17" fill="#2b2028" stroke="#664555" stroke-width="2"/>
+    <circle cx="729" cy="366" r="19" fill="#ffd36e"/>
+    <text x="729" y="374" fill="#2a210f" font-size="23" font-weight="900" text-anchor="middle">2</text>
+    <text x="767" y="358" fill="#ffe39c" font-size="20" font-weight="800" letter-spacing="2">REASON + ACT</text>
+    <text x="767" y="384" fill="#fff5f9" font-size="22">swap arguments → run tests</text>
+
+    <rect x="689" y="418" width="396" height="74" rx="17" fill="#172a27" stroke="#397769" stroke-width="2"/>
+    <circle cx="729" cy="455" r="19" fill="#67e8c4"/>
+    <text x="729" y="463" fill="#10231f" font-size="23" font-weight="900" text-anchor="middle">3</text>
+    <text x="767" y="447" fill="#8af2d8" font-size="20" font-weight="800" letter-spacing="2">VERIFY</text>
+    <text x="767" y="474" fill="#ecfff9" font-size="22">return gcd(b, a % b)  ✓</text>
+  </g>
+
+  <text x="62" y="582" fill="#fff9fc" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800">FAILURE → EVIDENCE → PATCH → TEST → REPEAT</text>
+  <text x="62" y="626" fill="#bba9b5" font-family="Arial, Helvetica, sans-serif" font-size="23">Turn reasoning into an observable process—and evaluate whether the loop actually helps.</text>
+</svg>

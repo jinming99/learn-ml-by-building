@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Neural Archaeology project preview</title>
+  <desc id="desc">Paired emotion prompts pass through transformer layers and separate into an interpretable representation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1022"/>
+      <stop offset="1" stop-color="#18254a"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9b8cff"/>
+      <stop offset="1" stop-color="#67e8c4"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#020617" flood-opacity=".42"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" rx="30" fill="url(#bg)"/>
+  <circle cx="1058" cy="80" r="180" fill="#715cff" opacity=".08"/>
+  <circle cx="945" cy="566" r="230" fill="#36d6b2" opacity=".07"/>
+
+  <text x="62" y="72" fill="#8da2cf" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="5">PROJECT 02  /  INTERPRETABILITY</text>
+  <text x="62" y="137" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">Where does a concept live?</text>
+
+  <g filter="url(#shadow)">
+    <rect x="62" y="190" width="304" height="128" rx="20" fill="#161f3a" stroke="#8b7cff" stroke-width="2"/>
+    <rect x="62" y="338" width="304" height="128" rx="20" fill="#161f3a" stroke="#53dab7" stroke-width="2"/>
+  </g>
+  <circle cx="102" cy="230" r="13" fill="#9b8cff"/>
+  <text x="129" y="239" fill="#c8c1ff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" letter-spacing="2">HAPPINESS</text>
+  <text x="95" y="282" fill="#edf2ff" font-family="Arial, Helvetica, sans-serif" font-size="24">“The best news after</text>
+  <text x="95" y="311" fill="#edf2ff" font-family="Arial, Helvetica, sans-serif" font-size="24">a long wait.”</text>
+  <circle cx="102" cy="378" r="13" fill="#53dab7"/>
+  <text x="129" y="387" fill="#96f1da" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" letter-spacing="2">FEAR</text>
+  <text x="95" y="430" fill="#edf2ff" font-family="Arial, Helvetica, sans-serif" font-size="24">“The tides start to rise</text>
+  <text x="95" y="459" fill="#edf2ff" font-family="Arial, Helvetica, sans-serif" font-size="24">quickly.”</text>
+
+  <path d="M392 328 H445" stroke="url(#flow)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M434 313 L451 328 L434 343" fill="none" stroke="#77d9c4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="800" text-anchor="middle">
+    <rect x="470" y="198" width="82" height="268" rx="18" fill="#202b4d" stroke="#52628f" stroke-width="2"/>
+    <rect x="570" y="218" width="82" height="228" rx="18" fill="#253154" stroke="#6678aa" stroke-width="2"/>
+    <rect x="670" y="238" width="82" height="188" rx="18" fill="#2a385d" stroke="#8192c4" stroke-width="2"/>
+    <text x="511" y="501" fill="#94a3c7" font-size="24">L0</text>
+    <text x="611" y="501" fill="#a8b7dc" font-size="24">L8</text>
+    <text x="711" y="501" fill="#c1ccef" font-size="24">L16</text>
+  </g>
+  <g fill="#9b8cff">
+    <circle cx="506" cy="274" r="11"/><circle cx="521" cy="340" r="11"/><circle cx="497" cy="399" r="11"/>
+    <circle cx="605" cy="275" r="11"/><circle cx="618" cy="310" r="11"/><circle cx="600" cy="345" r="11"/>
+    <circle cx="703" cy="283" r="11"/><circle cx="721" cy="304" r="11"/><circle cx="696" cy="324" r="11"/>
+  </g>
+  <g fill="#53dab7">
+    <circle cx="521" cy="292" r="11"/><circle cx="500" cy="359" r="11"/><circle cx="520" cy="418" r="11"/>
+    <circle cx="616" cy="367" r="11"/><circle cx="598" cy="395" r="11"/><circle cx="623" cy="416" r="11"/>
+    <circle cx="701" cy="367" r="11"/><circle cx="724" cy="386" r="11"/><circle cx="696" cy="406" r="11"/>
+  </g>
+
+  <path d="M775 328 H823" stroke="url(#flow)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M812 313 L829 328 L812 343" fill="none" stroke="#77d9c4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g filter="url(#shadow)">
+    <rect x="849" y="190" width="289" height="276" rx="24" fill="#10192f" stroke="#43547f" stroke-width="2"/>
+  </g>
+  <line x1="899" y1="418" x2="1089" y2="418" stroke="#52628f" stroke-width="2"/>
+  <line x1="899" y1="418" x2="899" y2="236" stroke="#52628f" stroke-width="2"/>
+  <g fill="#9b8cff" opacity=".95">
+    <circle cx="952" cy="280" r="13"/><circle cx="979" cy="302" r="13"/><circle cx="940" cy="320" r="13"/><circle cx="1005" cy="267" r="13"/><circle cx="1020" cy="311" r="13"/>
+  </g>
+  <g fill="#53dab7" opacity=".95">
+    <circle cx="1000" cy="370" r="13"/><circle cx="1038" cy="384" r="13"/><circle cx="1062" cy="349" r="13"/><circle cx="974" cy="397" r="13"/><circle cx="1080" cy="387" r="13"/>
+  </g>
+  <path d="M925 383 C966 348 1004 337 1084 304" fill="none" stroke="#f7c65d" stroke-width="5" stroke-dasharray="10 10"/>
+
+  <text x="62" y="583" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800">PROMPT PAIRS</text>
+  <text x="334" y="583" fill="#607099" font-family="Arial, Helvetica, sans-serif" font-size="32">→</text>
+  <text x="384" y="583" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800">HIDDEN STATES</text>
+  <text x="673" y="583" fill="#607099" font-family="Arial, Helvetica, sans-serif" font-size="32">→</text>
+  <text x="723" y="583" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800">A MEASURABLE DIRECTION</text>
+  <text x="62" y="626" fill="#91a3ca" font-family="Arial, Helvetica, sans-serif" font-size="23">Excavate the model layer by layer. Then test what the geometry can predict—and change.</text>
+</svg>
