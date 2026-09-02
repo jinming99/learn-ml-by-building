@@ -1,53 +1,74 @@
-# Practical Machine Learning Course
+<div align="center">
+  <br>
+  <h1>Machine Learning,<br>from the inside out.</h1>
+  <p><strong>See the model. Stress the assumptions. Understand the behavior.</strong></p>
+  <p><code>NOTEBOOKS → VISUAL EXPERIMENTS → PROJECTS → QUESTIONS</code></p>
+  <br>
+</div>
 
-A comprehensive, hands-on machine learning course using interactive Jupyter notebooks. Build real ML systems while understanding the fundamental principles.
+<p align="center">
+  <a href="https://jinming.tech/learn-ml-by-building/"><img alt="Course site" src="https://img.shields.io/badge/course_site-open-7BA7FF?style=for-the-badge"></a>
+  <a href="https://jinming.tech/"><img alt="Ming Jin's website" src="https://img.shields.io/badge/jinming.tech-visit-A9FBD7?style=for-the-badge"></a>
+  <img alt="19 interactive lectures" src="https://img.shields.io/badge/interactive_lectures-19-A9FBD7?style=for-the-badge">
+  <img alt="3 build projects" src="https://img.shields.io/badge/build_projects-3-FF8CB8?style=for-the-badge">
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-FFD36E?style=for-the-badge"></a>
+</p>
 
-## Course Philosophy
+---
 
-Inspired by fast.ai, our motto is "build first, understand later." We believe the best way to develop a deep intuition for machine learning is to start by building real systems.
+This repository is the workshop floor for **ECE 4424 / CS 4824: Machine Learning**. The notebooks favor experiments, visual explanations, and real systems over long stretches of passive theory. Curiosity is required; advanced mathematics is not.
 
-**Note on AI in Development:** To model modern and transparent development practices, AI-powered tools were used to assist in the creation of these course materials. All content has been directed, reviewed, and validated by the instructor.
+> [!TIP]
+> Looking for the polished course experience? Visit the **[course site](https://jinming.tech/learn-ml-by-building/)**. Looking to tinker? Pick a notebook below and make something behave strangely.
 
-## Course Overview
+## Course map
 
-### What You'll Learn
-- **Foundations**: Core ML algorithms (kNN, Linear/Logistic Regression, Trees)
-- **Deep Learning**: Neural Networks, CNNs, RNNs, Transformers
-- **Advanced Topics**: Reinforcement Learning, Generative AI, AI Safety
-- **Practical Skills**: Data handling, model evaluation, deployment
+| Arc | # | Topic | Notebook | Companion material |
+|:---|:--:|:---|:---:|:---|
+| **Let's predict** | 00 | Environment setup | [open](<Lecture 0 Environment Setup/00-Environment-Setup.ipynb>) | [setup guide](<Lecture 0 Environment Setup/SETUP.md>) |
+|  | 01 | What is machine learning? | [open](<Lecture 1 Overview/01-Course-Overview.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/01-overview.html) · [notes](<Lecture Notes/lecture-01-what-is-machine-learning.pdf>) |
+|  | 02 | k-Nearest Neighbors | [open](<Lecture 2 KNN/02-KNN.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/02-knn.html) · [notes](<Lecture Notes/lecture-02-k-nearest-neighbors.pdf>) |
+|  | 03 | Linear Regression | [open](<Lecture 3 Linear Regression/03-Linear-Regression.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/03-linear.html) · [environment](<Lecture 3 Linear Regression/ENV_SETUP.md>) |
+|  | 04 | Gradient Descent & Optimization | [open](<Lecture 4 Optimization/04-Optimization-GD.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/04-optimization.html) · [teaching notes](<Lecture 4 Optimization/04-Optimization-Transcript-Addendum.md>) |
+|  | 05 | Probabilistic Classification | [open](<Lecture 5 Probabilistic Classification/05-ProbClass.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/05-probclass.html) |
+| **Let's understand** | 06 | Evaluation Pitfalls & Data Visualization | [open](<Lecture 6 Evaluation Pitfalls and Data Visualization/06-ModelEval.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/06-model-eval.html) |
+|  | 07 | Regularization & Generalization | [open](<Lecture 7 Regularization and Generalization/07-Overfitting-Regularization.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/07-regularization.html) · [environment](<Lecture 7 Regularization and Generalization/ENV_SETUP.md>) |
+|  | 08 | Modern Decision Trees | [open](<Lecture 8 Modern Decision Trees/08-DecisionTrees-ModernView.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/08-decision-trees.html) |
+|  | 09 | Ensemble Methods | [open](<Lecture 9 Ensemble Methods/09-Ensemble-Methods.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/09-ensemble.html) |
+|  | 10 | Kernel Methods & Gaussian Processes | [open](<Lecture 10 Kernel Methods/10-GP-Kernel-Methods.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/10-kernel-gp.html) |
+| **Let's discover** | 11 | K-Means Clustering | [open](<Lecture 11 K-Means/11-KMeans.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/11-kmeans.html) |
+|  | 12 | PCA & Dimensionality Reduction | [open](<Lecture 12 PCA/12-PCA.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/12-pca.html) · [quickstart](<Lecture 12 PCA/QUICKSTART.md>) |
+|  | 13 | Neural Network Architecture | [open](<Lecture 13 NN Architecture/13-FCNeuralNet.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/13-nn-architecture.html) |
+|  | 14 | Understanding Transformers | [open](<Lecture 14 Transformers/14-Transformers.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/14-transformers.html) |
+| **Let's see & chat** | 15 | Convolutional Neural Networks | [open](<Lecture 15 CNN/15-CNN.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/15-cnn.html) |
+|  | 16 | Recurrent Neural Networks | [open](<Lecture 16 RNN and Recurrent Language Models/16_RNN.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/16-rnn.html) |
+|  | 17 | LLM Agents & Tool Use | [open](<Lecture 17 LLM Agents/17_llm_agents.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/17-llm-agents.html) |
+|  | 18 | Vision-Language Models | [open](<Lecture 18 VLMs/18_vlms.ipynb>) | [course page](https://jinming.tech/learn-ml-by-building/lectures/18-vlms.html) |
 
-### Prerequisites
-- Basic Python programming
-- High school mathematics
-- Curiosity and willingness to experiment
+## Build something that bites back
 
-## Quick Start
+| Project | What you build | Materials |
+|:---|:---|:---:|
+| **01 · KNN Music Recommender** | A recommendation system whose notion of “similar” you can inspect and challenge | [brief](<Project 1 KNN Music Recommender/README.md>) · [notebook](<Project 1 KNN Music Recommender/p01-Music-Recommender.ipynb>) · [demo](https://jinming.tech/learn-ml-by-building/demos/p1-music/) |
+| **02 · Neural Archaeology** | A model investigation: recover hidden behavior from evidence, interventions, and careful experiments | [brief](<Project 2 Neural Archaeology/README.md>) · [notebook](<Project 2 Neural Archaeology/Neural_Archaeology_Student.ipynb>) |
+| **03 · Thought Cascade** | An agentic debugging system that turns failing programs into structured reasoning experiments | [brief](<Project 3 Thought Cascade/README.md>) · [notebook](<Project 3 Thought Cascade/p03_Thought_Cascade.ipynb>) |
 
-### 1. Clone the Repository
+## Enter the lab
+
 ```bash
-git clone https://github.com/yourusername/practical-ml-course.git
-cd practical-ml-course
-```
+git clone https://github.com/jinming99/learn-ml-by-building.git
+cd learn-ml-by-building
 
-### 2. Create a Virtual Environment
-```bash
 python3 -m venv ml_lectures_env
-source ml_lectures_env/bin/activate   # Windows: ml_lectures_env\\Scripts\\activate
-```
-
-### 3. Install Requirements
-```bash
+source ml_lectures_env/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-```
 
-Note: The requirements include deep learning dependencies `torch==2.2.2` and `torchvision==0.17.2` (CPU wheels). First install can take several minutes and a few hundred MB of disk.
-
-### 4. Launch Jupyter Notebook (classic)
-```bash
 jupyter notebook
 ```
 
-Optional: Register the environment as a named kernel to select it in notebooks:
-```bash
-python -m ipykernel install --user --name ml_lectures_env --display-name "Python (ml_lectures_env)"
+For platform-specific help, begin with the **[environment setup guide](<Lecture 0 Environment Setup/SETUP.md>)**. Basic Python, high-school mathematics, and a willingness to poke at models are enough to start.
+
+---
+
+<sub>These materials were directed, reviewed, and validated by the instructor. AI-assisted tools were used during development to model transparent, modern technical practice. Released under the <a href="LICENSE">MIT License</a>.</sub>
