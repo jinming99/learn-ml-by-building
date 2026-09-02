@@ -8,7 +8,6 @@
 
 <p align="center">
   <a href="https://jinming.tech/learn-ml-by-building/"><img alt="Course site" src="https://img.shields.io/badge/course_site-open-7BA7FF?style=for-the-badge"></a>
-  <a href="https://jinming.tech/"><img alt="Ming Jin's website" src="https://img.shields.io/badge/jinming.tech-visit-A9FBD7?style=for-the-badge"></a>
   <img alt="19 interactive lectures" src="https://img.shields.io/badge/interactive_lectures-19-A9FBD7?style=for-the-badge">
   <img alt="3 build projects" src="https://img.shields.io/badge/build_projects-3-FF8CB8?style=for-the-badge">
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-FFD36E?style=for-the-badge"></a>
@@ -16,7 +15,7 @@
 
 ---
 
-This repository is the workshop floor for **ECE 4424 / CS 4824: Machine Learning**. The notebooks favor experiments, visual explanations, and real systems over long stretches of passive theory. Curiosity is required; advanced mathematics is not.
+This repository is [Ming Jin's](https://jinming.tech/) workshop floor for **ECE 4424 / CS 4824: Machine Learning**. The notebooks favor experiments, visual explanations, and real systems over long stretches of passive theory. Curiosity is required; advanced mathematics is not.
 
 > [!TIP]
 > Looking for the polished course experience? Visit the **[course site](https://jinming.tech/learn-ml-by-building/)**. Looking to tinker? Pick a notebook below and make something behave strangely.
