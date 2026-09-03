@@ -56,6 +56,48 @@
     "text": "Further reading\n\nT. Cover and P. Hart, “Nearest Neighbor Pattern Classification”, 1967.\nscikit-learn: Nearest Neighbors User Guide.\nCourse notebook: 02-KNN.ipynb.\n\n\nAcknowledgment. These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.\n\n\nPrevious native note: What Is Machine Learning? · Lecture 2 course materials"
   },
   {
+    "objectID": "notes/01-what-is-machine-learning.html",
+    "href": "notes/01-what-is-machine-learning.html",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "",
+    "text": "Machine learning uses experience to improve decisions. Improvement depends on evidence about performance, failure, and transfer to the intended environment. This lecture connects building, verification, and real-world use."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#building-shifts-the-work",
+    "href": "notes/01-what-is-machine-learning.html#building-shifts-the-work",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Building shifts the work",
+    "text": "Building shifts the work\nTraditional engineering often begins by learning the technology: How does it work? AI tools can produce a prototype earlier. Engineering effort then shifts toward three review questions:\n\nWhy should it work? When will it fail? What evidence supports it?\n\n\n\n\n\n\n\nFigure 1: Traditional engineering learns before building. AI engineering builds earlier and shifts effort toward learning from outputs, verification, review, and alignment.\n\n\n\nThe AI cycle studies the outputs and checks their alignment with the original problem. Review and verification guide the next build.\nStart with the intended use. Define the task, operating environment, and cost of failure before choosing a model. These choices determine the evidence required. Unit tests measure software behavior under specified cases. Medical and control systems also require evidence from their operating conditions.\nPeople set the goal, identify important failures, collect evidence, and decide whether the evidence supports the intended use."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#machine-learning-uses-experience",
+    "href": "notes/01-what-is-machine-learning.html#machine-learning-uses-experience",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Machine learning uses experience",
+    "text": "Machine learning uses experience\nA practical definition has three parts:\n\n\n\n\n\nAutomation gives machine learning scale and impact. Predictions and discoveries can shape consequential choices. Improvement requires experience and a feedback signal aligned with the goal. Repeated feedback can support continual learning and recursive improvement.\n\n\n\n\n\n\nFigure 2: A fixed program applies written rules to data. A learned system uses examples and a learning procedure to construct the model.\n\n\n\nFigure 2 uses labeled examples \\((x_i,y_i)\\). Other systems learn from rewards, comparisons, demonstrations, or unlabeled data. In every setting, identify the experience, the part of the system that changes, and the measure of improvement.\nMachine-learning history is cumulative. Early neural and neighbor methods remain useful. Later advances expanded the scale of learning and changed how people interact with learned systems.\n\n\n\n\n\n\nFigure 3: Selected milestones and one open question about the future of machine learning.\n\n\n\nChatGPT made foundation models widely interactive. Coding agents extend them into multi-step work. Recursive intelligence remains an open question. These systems require clear objectives, review, and evidence."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#learning-needs-a-verification-signal",
+    "href": "notes/01-what-is-machine-learning.html#learning-needs-a-verification-signal",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Learning needs a verification signal",
+    "text": "Learning needs a verification signal\nGeneration produces candidates. A verification signal measures behavior, judges improvement, and guides the next attempt.\n\n\n\n\n\n\nFigure 4: Verification maps evidence to an outcome, then uses that outcome to choose the next action.\n\n\n\nSoftware tests, checked calculations, and game scores provide direct digital feedback. Each check measures a specific criterion.\n\n\n\n\nTable 1: The useful verification signal depends on the task. Every signal leaves some uncertainty outside what it measures.\n\n\n\n\n\n\n\n\n\n\n\nSetting\nCandidate\nPossible signal\nWhat remains unresolved\n\n\n\n\nSoftware\nProgram or patch\nTests, static checks, runtime behavior\nWhether the tests express the full requirement\n\n\nMathematics\nAnswer or proof\nRecalculation, proof checking, counterexamples\nWhether the assumptions and question are correct\n\n\nPhysical system\nDecision or policy\nSensors, constraints, outcomes over time\nNoise, drift, delayed effects, and rare harm\n\n\n\n\n\n\n\n\n\n\n\n\n\nWarningMatch the signal to the intended use\n\n\n\nTests cover tested behavior. Scores encode the chosen objective. Sensors cover what they observe. Choose criteria for the intended use and major failure modes.\n\n\nTrust grows from repeated evidence for a specific claim under stated conditions. Missing, ambiguous, or out-of-environment evidence weakens the claim."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#real-world-use-requires-real-world-evidence",
+    "href": "notes/01-what-is-machine-learning.html#real-world-use-requires-real-world-evidence",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Real-world use requires real-world evidence",
+    "text": "Real-world use requires real-world evidence\nDigital environments offer repeatable trials and fast feedback. Real-world use adds hidden state, measurement error, changing conditions, people, and irreversible consequences.\n\n\n\n\n\n\nFigure 5: Human-AI collaboration helps bridge the grounding gap. People frame the use, review evidence from the target environment, and guide revision.\n\n\n\nDigital training captures patterns in text, code, simulations, or games. Deployment also depends on physical causes, human behavior, and real consequences. Simulation narrows the gap. Target-environment evidence tests the remaining mismatch.\nHuman-AI collaboration keeps the transfer claim explicit. AI supports rapid generation and simulation. People define the task, interpret target-environment evidence, and decide what requires revision.\nDiagnose failures through the evidence. Inspect the problem formulation, training experience, verification signal, and deployment environment before tuning the learning algorithm."
+  },
+  {
+    "objectID": "notes/01-what-is-machine-learning.html#lecture-summary",
+    "href": "notes/01-what-is-machine-learning.html#lecture-summary",
+    "title": "Lecture 1: What Is Machine Learning?",
+    "section": "Lecture summary",
+    "text": "Lecture summary\nMachine learning uses experience to improve decisions. Relevant evidence guides each iteration and tests whether performance transfers to the intended environment.\n\n\nAcknowledgment. These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.\n\n← Course materials | Next lecture note: k-Nearest Neighbors →"
+  },
+  {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "Course Syllabus and Documents",
@@ -264,7 +306,7 @@
     "href": "lectures/04-optimization.html#materials",
     "title": "Lecture 4: Gradient Descent and Optimization",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nRead the Lecture Notes\nOptimization Notebook\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\n\nPython environment with NumPy, scikit-learn, matplotlib, and PyTorch\nBasic calculus knowledge (derivatives, chain rule)\nFamiliarity with linear regression concepts from Lecture 3",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -864,14 +906,14 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Lecture 1: What Is Machine Learning?Download Lecture 1 PDF\nLecture 2: k-Nearest NeighborsDownload Lecture 2 PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
+    "text": "Lecture 1: What Is Machine Learning?Download Lecture 1 PDF\nLecture 2: k-Nearest NeighborsDownload Lecture 2 PDF\nLecture 3: Linear RegressionDownload Lecture 3 PDF\nLecture 4: Gradient Descent and OptimizationDownload Lecture 4 PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
   },
   {
     "objectID": "resources.html#lecture-notes-template",
     "href": "resources.html#lecture-notes-template",
     "title": "Resources",
     "section": "",
-    "text": "Lecture 1: What Is Machine Learning?Download Lecture 1 PDF\nLecture 2: k-Nearest NeighborsDownload Lecture 2 PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
+    "text": "Lecture 1: What Is Machine Learning?Download Lecture 1 PDF\nLecture 2: k-Nearest NeighborsDownload Lecture 2 PDF\nLecture 3: Linear RegressionDownload Lecture 3 PDF\nLecture 4: Gradient Descent and OptimizationDownload Lecture 4 PDF\nAll lecture-note PDFs on GitHub\nLearn ML by Building LaTeX template — reusable source, figure and table conventions, and a compiled preview."
   },
   {
     "objectID": "resources.html#software-tools",
@@ -1640,7 +1682,7 @@
     "href": "lectures/03-linear.html#materials",
     "title": "Lecture 3: Linear Regression",
     "section": "Materials",
-    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
+    "text": "Materials\n\n\n\n\n\n\nTipQuick Access\n\n\n\nRead the Lecture Notes\nLinear Regression Notebook\nOpen in Colab\nLecture Folder\n\n\n\n\n\n\n\n\nImportantPre-Class Requirements\n\n\n\n\n\nComplete the Environment Setup Guide.",
     "crumbs": [
       "Home",
       "Module 1: Let's Predict",
@@ -1732,45 +1774,66 @@
     ]
   },
   {
-    "objectID": "notes/01-what-is-machine-learning.html",
-    "href": "notes/01-what-is-machine-learning.html",
-    "title": "Lecture 1: What Is Machine Learning?",
+    "objectID": "notes/03-linear-regression.html",
+    "href": "notes/03-linear-regression.html",
+    "title": "Lecture 3: Linear Regression",
     "section": "",
-    "text": "Machine learning uses experience to improve decisions. Improvement depends on evidence about performance, failure, and transfer to the intended environment. This lecture connects building, verification, and real-world use."
+    "text": "Linear regression predicts a number from input features. The model defines how features produce predictions, the loss defines a good fit, and the feature representation determines which relationships the model can express."
   },
   {
-    "objectID": "notes/01-what-is-machine-learning.html#building-shifts-the-work",
-    "href": "notes/01-what-is-machine-learning.html#building-shifts-the-work",
-    "title": "Lecture 1: What Is Machine Learning?",
-    "section": "Building shifts the work",
-    "text": "Building shifts the work\nTraditional engineering often begins by learning the technology: How does it work? AI tools can produce a prototype earlier. Engineering effort then shifts toward three review questions:\n\nWhy should it work? When will it fail? What evidence supports it?\n\n\n\n\n\n\n\nFigure 1: Traditional engineering learns before building. AI engineering builds earlier and shifts effort toward learning from outputs, verification, review, and alignment.\n\n\n\nThe AI cycle studies the outputs and checks their alignment with the original problem. Review and verification guide the next build.\nStart with the intended use. Define the task, operating environment, and cost of failure before choosing a model. These choices determine the evidence required. Unit tests measure software behavior under specified cases. Medical and control systems also require evidence from their operating conditions.\nPeople set the goal, identify important failures, collect evidence, and decide whether the evidence supports the intended use."
+    "objectID": "notes/03-linear-regression.html#begin-with-the-prediction-problem",
+    "href": "notes/03-linear-regression.html#begin-with-the-prediction-problem",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Begin with the prediction problem",
+    "text": "Begin with the prediction problem\nConsider predicting a student’s GPA from a feature such as study time. A scatterplot might show GPA increasing with study time or decreasing with gaming time. Linear regression represents either trend with a line.\n\n\n\n\n\n\nNoteClassification and regression\n\n\n\nClassification predicts a category, such as whether an image contains a cat. Regression predicts a number, such as a student’s GPA. The output type determines the task. Here the target is numerical, so this is a regression problem.\n\n\n\n\n\n\n\n\nFigure 1: Two regression examples with synthetic data. For each input, the fitted line gives a prediction \\(\\widehat y_i\\). Each vertical segment connects the observed value \\(y_i\\) to its prediction and shows the error.\n\n\n\nFor observations \\(\\mathcal D=\\{(x_i,y_i)\\}_{i=1}^{n}\\), the one-feature model predicts\n\\[\n\\widehat y_i = w x_i+b.\n\\]\nThe input \\(x_i\\) is a feature, \\(y_i\\) is the observed target, and \\(\\widehat y_i\\) is the model’s prediction. The two learned coefficients play different roles.\n\n\n\n\nTable 1: The components of a one-feature linear model.\n\n\n\n\n\n\n\n\n\n\nQuantity\nRole\nEffect on the prediction\n\n\n\n\n\\(w\\)\nWeight or slope\nChanges how much \\(\\widehat y\\) moves when \\(x\\) increases by one unit.\n\n\n\\(b\\)\nBias or intercept\nShifts every prediction by the same amount.\n\n\n\\(\\widehat y_i\\)\nPredicted target\nGives the model’s estimate for example \\(i\\).\n\n\n\n\n\n\n\nWith several features, the model becomes \\(\\widehat y_i=\\mathbf w^{\\top}\\mathbf x_i+b\\). It assumes that the chosen features contain useful information about the target and that the same coefficients apply across examples. Training chooses the coefficients that make the predictions close to the observed targets."
   },
   {
-    "objectID": "notes/01-what-is-machine-learning.html#machine-learning-uses-experience",
-    "href": "notes/01-what-is-machine-learning.html#machine-learning-uses-experience",
-    "title": "Lecture 1: What Is Machine Learning?",
-    "section": "Machine learning uses experience",
-    "text": "Machine learning uses experience\nA practical definition has three parts:\n\n\n\n\n\nAutomation gives machine learning scale and impact. Predictions and discoveries can shape consequential choices. Improvement requires experience and a feedback signal aligned with the goal. Repeated feedback can support continual learning and recursive improvement.\n\n\n\n\n\n\nFigure 2: A fixed program applies written rules to data. A learned system uses examples and a learning procedure to construct the model.\n\n\n\nFigure 2 uses labeled examples \\((x_i,y_i)\\). Other systems learn from rewards, comparisons, demonstrations, or unlabeled data. In every setting, identify the experience, the part of the system that changes, and the measure of improvement.\nMachine-learning history is cumulative. Early neural and neighbor methods remain useful. Later advances expanded the scale of learning and changed how people interact with learned systems.\n\n\n\n\n\n\nFigure 3: Selected milestones and one open question about the future of machine learning.\n\n\n\nChatGPT made foundation models widely interactive. Coding agents extend them into multi-step work. Recursive intelligence remains an open question. These systems require clear objectives, review, and evidence."
+    "objectID": "notes/03-linear-regression.html#define-what-counts-as-error",
+    "href": "notes/03-linear-regression.html#define-what-counts-as-error",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Define what counts as error",
+    "text": "Define what counts as error\nA model needs a numerical definition of a good prediction. For example \\(i\\), define the residual as\n\\[\ne_i=y_i-\\widehat y_i.\n\\]\n\n\n\n\n\n\nWarningWhy signed error fails\n\n\n\nA common first reaction is to use the signed difference \\(\\ell_i=y_i-\\widehat y_i\\) as the loss. When these signed errors are averaged over the dataset, positive and negative values can cancel. More importantly, minimizing this loss rewards arbitrarily large predictions: increasing \\(\\widehat y_i\\) drives \\(\\ell_i\\) toward \\(-\\infty\\) even as the prediction gets worse. This is a simple form of reward hacking: the model improves the score without improving the prediction. Absolute and squared loss close the loophole by assigning every error a nonnegative penalty.\n\n\nTwo common ways to turn a residual into a per-example loss \\(\\ell(y_i,\\widehat y_i)\\) are:\n\n\n\n\nTable 2: Two ways to score the error on one example. This lecture uses squared loss.\n\n\n\n\n\n\n\n\n\n\nLoss\nDefinition\nBehavior\n\n\n\n\nAbsolute loss\n\\(|y_i-\\widehat y_i|\\)\nThe penalty grows in direct proportion to the size of the error.\n\n\nSquared loss\n\\((y_i-\\widehat y_i)^2\\)\nThe penalty grows quadratically, so larger errors receive more weight.\n\n\n\n\n\n\n\nFor squared loss, the training loss is the average squared error across the dataset:\n\\[\nL(w,b)\n=\\frac{1}{n}\\sum_{i=1}^{n}\\bigl(y_i-\\widehat y_i\\bigr)^2\n=\\frac{1}{n}\\sum_{i=1}^{n}\\bigl(y_i-(wx_i+b)\\bigr)^2.\n\\]\nThis quantity is the mean squared error (MSE).\n\n\n\n\nTable 3: A three-example calculation gives \\(\\operatorname{MSE}=(9+0+4)/3=13/3\\).\n\n\n\n\n\nExample\nTarget \\(y_i\\)\nPrediction \\(\\widehat y_i\\)\nSquared error\n\n\n\n\n1\n7\n10\n\\((7-10)^2=9\\)\n\n\n2\n5\n5\n\\((5-5)^2=0\\)\n\n\n3\n7\n5\n\\((7-5)^2=4\\)\n\n\n\n\n\n\n\nA lower MSE means that the squared errors are smaller on average for this dataset."
   },
   {
-    "objectID": "notes/01-what-is-machine-learning.html#learning-needs-a-verification-signal",
-    "href": "notes/01-what-is-machine-learning.html#learning-needs-a-verification-signal",
-    "title": "Lecture 1: What Is Machine Learning?",
-    "section": "Learning needs a verification signal",
-    "text": "Learning needs a verification signal\nGeneration produces candidates. A verification signal measures behavior, judges improvement, and guides the next attempt.\n\n\n\n\n\n\nFigure 4: Verification maps evidence to an outcome, then uses that outcome to choose the next action.\n\n\n\nSoftware tests, checked calculations, and game scores provide direct digital feedback. Each check measures a specific criterion.\n\n\n\n\nTable 1: The useful verification signal depends on the task. Every signal leaves some uncertainty outside what it measures.\n\n\n\n\n\n\n\n\n\n\n\nSetting\nCandidate\nPossible signal\nWhat remains unresolved\n\n\n\n\nSoftware\nProgram or patch\nTests, static checks, runtime behavior\nWhether the tests express the full requirement\n\n\nMathematics\nAnswer or proof\nRecalculation, proof checking, counterexamples\nWhether the assumptions and question are correct\n\n\nPhysical system\nDecision or policy\nSensors, constraints, outcomes over time\nNoise, drift, delayed effects, and rare harm\n\n\n\n\n\n\n\n\n\n\n\n\n\nWarningMatch the signal to the intended use\n\n\n\nTests cover tested behavior. Scores encode the chosen objective. Sensors cover what they observe. Choose criteria for the intended use and major failure modes.\n\n\nTrust grows from repeated evidence for a specific claim under stated conditions. Missing, ambiguous, or out-of-environment evidence weakens the claim."
+    "objectID": "notes/03-linear-regression.html#representation-sets-what-the-model-can-express",
+    "href": "notes/03-linear-regression.html#representation-sets-what-the-model-can-express",
+    "title": "Lecture 3: Linear Regression",
+    "section": "Representation sets what the model can express",
+    "text": "Representation sets what the model can express\nTo model a curved relationship, we can transform the original input \\(x\\) into polynomial features before fitting the model. For degree \\(d\\), define\n\\[\n\\boldsymbol\\phi(x)=\n\\begin{bmatrix}\n1 & x & x^2 & \\cdots & x^d\n\\end{bmatrix}^{\\!\\top},\n\\qquad\n\\widehat y=\\boldsymbol\\theta^{\\top}\\boldsymbol\\phi(x).\n\\]\nThe prediction can now curve with \\(x\\). The parameters still enter linearly: in \\(\\theta_0+\\theta_1x+\\theta_2x^2\\), each learned coefficient appears only to the first power.\n\n\n\n\n\n\nFigure 2: A model can use only the features it receives. Transforming measurements or collecting more informative data can expose relationships that a linear predictor can learn.\n\n\n\nResiduals can show when the current features are inadequate. A systematic curve in the residuals means that the current features leave predictable structure unexplained. Adjusting the coefficients alone cannot fit a pattern the representation cannot express. Change the feature map or collect better measurements.\n\nLecture summary. Linear regression predicts a number from a weighted combination of features. The loss defines a good fit, and the feature representation determines which relationships the model can learn.\n\nAcknowledgment. These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.\n\n\nPrevious lecture: k-Nearest Neighbors · Next lecture: Gradient Descent and Optimization · Lecture 3 course materials"
   },
   {
-    "objectID": "notes/01-what-is-machine-learning.html#real-world-use-requires-real-world-evidence",
-    "href": "notes/01-what-is-machine-learning.html#real-world-use-requires-real-world-evidence",
-    "title": "Lecture 1: What Is Machine Learning?",
-    "section": "Real-world use requires real-world evidence",
-    "text": "Real-world use requires real-world evidence\nDigital environments offer repeatable trials and fast feedback. Real-world use adds hidden state, measurement error, changing conditions, people, and irreversible consequences.\n\n\n\n\n\n\nFigure 5: Human-AI collaboration helps bridge the grounding gap. People frame the use, review evidence from the target environment, and guide revision.\n\n\n\nDigital training captures patterns in text, code, simulations, or games. Deployment also depends on physical causes, human behavior, and real consequences. Simulation narrows the gap. Target-environment evidence tests the remaining mismatch.\nHuman-AI collaboration keeps the transfer claim explicit. AI supports rapid generation and simulation. People define the task, interpret target-environment evidence, and decide what requires revision.\nDiagnose failures through the evidence. Inspect the problem formulation, training experience, verification signal, and deployment environment before tuning the learning algorithm."
+    "objectID": "notes/04-gradient-descent-and-optimization.html",
+    "href": "notes/04-gradient-descent-and-optimization.html",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "",
+    "text": "Training searches for parameter values that reduce a loss. Optimization methods differ in the information they use: function values, gradients, or curvature."
   },
   {
-    "objectID": "notes/01-what-is-machine-learning.html#lecture-summary",
-    "href": "notes/01-what-is-machine-learning.html#lecture-summary",
-    "title": "Lecture 1: What Is Machine Learning?",
-    "section": "Lecture summary",
-    "text": "Lecture summary\nMachine learning uses experience to improve decisions. Relevant evidence guides each iteration and tests whether performance transfers to the intended environment.\n\n\nAcknowledgment. These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.\n\n← Course materials | Next lecture note: k-Nearest Neighbors →"
+    "objectID": "notes/04-gradient-descent-and-optimization.html#start-from-the-training-problem",
+    "href": "notes/04-gradient-descent-and-optimization.html#start-from-the-training-problem",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Start from the training problem",
+    "text": "Start from the training problem\nLecture 3 specified a linear predictor and its mean squared error:\n\\[\n\\widehat y_i=wx_i+b,\n\\qquad\nL(w,b)=\\frac{1}{n}\\sum_{i=1}^{n}\\bigl(y_i-(wx_i+b)\\bigr)^2.\n\\]\nTraining finds values of \\(w\\) and \\(b\\) that make this objective small. Trying a few values by hand can build intuition. A learning procedure needs a systematic way to update them.\nThe model defines the predictions available for a given input. The loss scores how well those predictions match the data. Optimization searches for parameter values that reduce that score.\n\n\n\n\n\n\nFigure 1: The figure shows the current fit and one gradient-descent update in data space and parameter space."
+  },
+  {
+    "objectID": "notes/04-gradient-descent-and-optimization.html#specify-the-optimization-problem",
+    "href": "notes/04-gradient-descent-and-optimization.html#specify-the-optimization-problem",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Specify the optimization problem",
+    "text": "Specify the optimization problem\nIn general, an optimization problem takes the form\n\\[\n\\boldsymbol\\theta^{\\star}\\in\n\\operatorname*{arg\\,min}_{\\boldsymbol\\theta}\\; f(\\boldsymbol\\theta)\n\\qquad\n\\text{subject to}\\qquad\ng_j(\\boldsymbol\\theta)\\le 0,\n\\quad j=1,\\ldots,m.\n\\]\nFor one-feature linear regression, \\(\\boldsymbol\\theta=(w,b)^{\\top}\\) and the objective \\(f\\) is the MSE above. Many introductory problems have no explicit constraints.\n\n\n\n\nTable 1: An optimization problem is defined by its variables, objective, and any constraints.\n\n\n\n\n\n\n\n\n\n\nPart\nLinear regression\nQuestion it answers\n\n\n\n\nVariables\n\\(\\boldsymbol\\theta=(w,b)^{\\top}\\)\nWhich values may the optimizer change?\n\n\nObjective\n\\(L(w,b)\\)\nHow does the system score a candidate model?\n\n\nConstraints\nFeasible values of \\(\\boldsymbol\\theta\\)\nWhich candidate models are allowed?\n\n\n\n\n\n\n\nSpecifying an optimization problem creates a contract with the ML model: the variables define what may change, the constraints define what is allowed, and the loss or reward defines what counts as success. This parallels contract design in economics, where incentives are chosen to shape an agent’s behavior when every action cannot be prescribed directly. Designing losses and rewards remains an active area of research because a learned system follows the objective we provide, including any gaps between that objective and the outcome we intended.\nThe shape of the objective determines what a search method can guarantee. A global minimum has the lowest objective value over the full feasible set. At a local minimum, no nearby point has a lower value.\n\n\n\n\n\n\nFigure 2: For a convex objective, every local minimum is global. A nonconvex objective can have several valleys with different depths. Linear regression with MSE has a convex quadratic objective in its parameters."
+  },
+  {
+    "objectID": "notes/04-gradient-descent-and-optimization.html#gradient-descent-turns-loss-into-updates",
+    "href": "notes/04-gradient-descent-and-optimization.html#gradient-descent-turns-loss-into-updates",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Gradient descent turns loss into updates",
+    "text": "Gradient descent turns loss into updates\nFor the model and loss above, differentiating the MSE gives\n\\[\n\\begin{aligned}\n\\frac{\\partial L}{\\partial w}\n&=-\\frac{2}{n}\\sum_{i=1}^{n}x_i\\bigl(y_i-\\widehat y_i\\bigr),\\\\\n\\frac{\\partial L}{\\partial b}\n&=-\\frac{2}{n}\\sum_{i=1}^{n}\\bigl(y_i-\\widehat y_i\\bigr).\n\\end{aligned}\n\\]\nNear the current parameters, the gradient \\(\\nabla L(\\boldsymbol\\theta)\\) points in the direction in which the loss increases fastest. Gradient descent takes a step in the opposite direction:\n\\[\n\\boldsymbol\\theta_{t+1}\n=\\boldsymbol\\theta_t-\\alpha\\nabla L(\\boldsymbol\\theta_t),\n\\]\nwhere \\(\\alpha&gt;0\\) is the learning rate. It controls how far the parameters move at each update.\n\n\n\n\n\n\nFigure 3: The learning rate sets the size of each update. A very small value makes slow progress. A useful value reduces the loss steadily. An overly large value can overshoot and diverge. The curves are conceptual.\n\n\n\nThe same update can use different amounts of data to estimate the gradient:\n\n\n\n\nTable 2: Examples per update change the computation and variability of the gradient estimate.\n\n\n\n\n\n\n\n\n\n\nMethod\nExamples per update\nPractical behavior\n\n\n\n\nBatch gradient descent\nAll \\(n\\) examples\nExact gradient of the empirical loss; each update can be expensive.\n\n\nStochastic gradient descent\nOne sampled example\nInexpensive, frequent, and noisy updates.\n\n\nMini-batch gradient descent\nA small sampled group\nBalances computation with a less noisy gradient estimate; common in practice.\n\n\n\n\n\n\n\nWhen examples are sampled appropriately, all three methods target the same training objective. They differ in the cost and variability of each update. A fair comparison should track both passes through the data and the total number of parameter updates."
+  },
+  {
+    "objectID": "notes/04-gradient-descent-and-optimization.html#optimization-methods-by-order",
+    "href": "notes/04-gradient-descent-and-optimization.html#optimization-methods-by-order",
+    "title": "Lecture 4: Gradient Descent and Optimization",
+    "section": "Optimization methods by order",
+    "text": "Optimization methods by order\nThe order of an optimization method describes the derivative information available to it. Additional information can improve the search direction; it also raises the cost of computation and storage.\n\n\n\n\nTable 3: The useful method depends on which information can be obtained at a reasonable cost.\n\n\n\n\n\n\n\n\n\n\n\nOrder\nInformation used\nRepresentative methods\nApplications and tradeoff\n\n\n\n\nZeroth\nValues of \\(f(\\boldsymbol\\theta)\\)\nFinite differences, random directions, SPSA\nSimulators, physical experiments, and black-box systems; function queries and dimension can make estimates costly or noisy.\n\n\nFirst\nGradients or stochastic gradients\nGD, SGD, momentum, Nesterov acceleration, AdaGrad, Adam\nLarge datasets and high-dimensional models; inexpensive vector updates often require many iterations.\n\n\nSecond\nGradients and curvature\nNewton, Gauss-Newton, Levenberg-Marquardt\nSmooth, moderate-size problems; strong directions and fast local convergence come with expensive curvature calculations.\n\n\n\n\n\n\n\nZeroth-order methods observe only objective values, which makes them useful for black-box systems, simulators, and experiments where gradients are unavailable. A random-direction method can use one sampled perturbation to estimate first-order information in expectation for a smoothed objective, though individual estimates can be noisy. First-order methods use gradients and include SGD, momentum, Nesterov acceleration, adaptive methods such as AdaGrad and Adam, and proximal methods. Their modest cost per update makes them the standard choice for large-scale ML. Second-order methods such as Newton’s method also use curvature and can converge in far fewer iterations near a solution. Computing and storing curvature may be too expensive for large datasets and models, so quasi-Newton and Hessian-free methods provide practical compromises.\n\nLecture summary. An optimization problem specifies the parameters, objective, and constraints; function values, gradients, and curvature determine which algorithms are practical and how per-step cost trades against convergence speed.\n\nAcknowledgment. These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.\n\n\nPrevious lecture: Linear Regression · Lecture 4 course materials"
   }
 ]

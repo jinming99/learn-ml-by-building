@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="How a linear model, a loss, and feature representation work together in numerical prediction.">
 
-<title>Resources – ECE 4424/CS 4824: Machine Learning</title>
+<title>Lecture 3: Linear Regression – ECE 4424/CS 4824: Machine Learning</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +30,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3c61efc53a6f7557640ad3d31a35a94e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3c61efc53a6f7557640ad3d31a35a94e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,8 +75,38 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="site-legibility-v2.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../site-legibility-v2.css">
+<link rel="stylesheet" href="../lecture-notes.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -85,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">ECE 4424/CS 4824: Machine Learning</span>
     </a>
   </div>
@@ -96,11 +127,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./schedule.html" aria-current="page"> 
+    <a class="nav-link active" href="../schedule.html" aria-current="page"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -109,29 +140,29 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="./projects/index.html">
+    <a class="dropdown-item" href="../projects/index.html">
  <span class="dropdown-text">Projects Overview</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/project1.html">
+    <a class="dropdown-item" href="../projects/project1.html">
  <span class="dropdown-text">Project 1: KNN Music Recommender</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/project2.html">
+    <a class="dropdown-item" href="../projects/project2.html">
  <span class="dropdown-text">Project 2: Neural Archaeology</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/thought_cascade.html">
+    <a class="dropdown-item" href="../projects/thought_cascade.html">
  <span class="dropdown-text">Project 3: Thought Cascade</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/capstone.html">
+    <a class="dropdown-item" href="../projects/capstone.html">
  <span class="dropdown-text">Capstone Project</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./resources.html"> 
+    <a class="nav-link" href="../resources.html"> 
 <span class="menu-text">Resources</span></a>
   </li>  
 </ul>
@@ -156,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Resources</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 3: Linear Regression</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,13 +210,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syllabus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
@@ -202,37 +233,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/00-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/00-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L0: Environment Setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/01-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L1: Welcome to ML</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/02-knn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/02-knn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L2: k-NN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/03-linear.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/03-linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L3: Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L4: Gradient Descent and Optimization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L5: Probabilistic Classification</span></a>
   </div>
 </li>
@@ -249,31 +280,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L6: Model Evaluation and Data Deception</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L7: Overfitting and Regularization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L8: Modern Decision Trees</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/09-ensemble.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/09-ensemble.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L9: Ensemble Methods</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/10-kernel-gp.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/10-kernel-gp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L10: Kernel Methods &amp; Gaussian Processes</span></a>
   </div>
 </li>
@@ -290,25 +321,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L11: K-Means Clustering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/12-pca.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/12-pca.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L12: PCA and Dimensionality Reduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L13: Neural Network Architecture</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/14-transformers.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/14-transformers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L14: Understanding Transformers</span></a>
   </div>
 </li>
@@ -325,31 +356,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/15-cnn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/15-cnn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L15: Convolutional Neural Networks</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/16-rnn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/16-rnn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L16: Recurrent Neural Networks</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L17: LLM Agents &amp; Tool Use</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/18-vlms.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/18-vlms.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L18: Vision-Language Models</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L19-20: Coming Soon</span></a>
   </div>
 </li>
@@ -366,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L19-20: Coming Soon</span></a>
   </div>
 </li>
@@ -383,31 +414,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projects Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/project1.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/project1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 1: KNN Music Recommender</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/project2.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/project2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 2: Neural Archaeology</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/thought_cascade.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/thought_cascade.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 3: Thought Cascade</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/capstone.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/capstone.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Capstone Project</span></a>
   </div>
 </li>
@@ -423,9 +454,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#lecture-notes-template" id="toc-lecture-notes-template" class="nav-link active" data-scroll-target="#lecture-notes-template">Lecture Notes &amp; Template</a></li>
-  <li><a href="#software-tools" id="toc-software-tools" class="nav-link" data-scroll-target="#software-tools">Software &amp; Tools</a></li>
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  <li><a href="#begin-with-the-prediction-problem" id="toc-begin-with-the-prediction-problem" class="nav-link active" data-scroll-target="#begin-with-the-prediction-problem">Begin with the prediction problem</a></li>
+  <li><a href="#define-what-counts-as-error" id="toc-define-what-counts-as-error" class="nav-link" data-scroll-target="#define-what-counts-as-error">Define what counts as error</a></li>
+  <li><a href="#representation-sets-what-the-model-can-express" id="toc-representation-sets-what-the-model-can-express" class="nav-link" data-scroll-target="#representation-sets-what-the-model-can-express">Representation sets what the model can express</a></li>
   </ul>
 </nav>
     </div>
@@ -434,9 +465,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Resources</h1>
+<h1 class="title">Lecture 3: Linear Regression</h1>
+<p class="subtitle lead">Prediction, loss, and feature representation</p>
 </div>
 
+<div>
+  <div class="description">
+    How a linear model, a loss, and feature representation work together in numerical prediction.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -451,33 +488,240 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="lecture-notes-template" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-notes-template">Lecture Notes &amp; Template</h2>
-<ul>
-<li><span class="lecture-note-resource"><a href="notes/01-what-is-machine-learning.html">Lecture 1: What Is Machine Learning?</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-01-what-is-machine-learning.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 1 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 1 PDF</span></a></span></li>
-<li><span class="lecture-note-resource"><a href="notes/02-k-nearest-neighbors.html">Lecture 2: k-Nearest Neighbors</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 2 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 2 PDF</span></a></span></li>
-<li><span class="lecture-note-resource"><a href="notes/03-linear-regression.html">Lecture 3: Linear Regression</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-03-linear-regression.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 3 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 3 PDF</span></a></span></li>
-<li><span class="lecture-note-resource"><a href="notes/04-gradient-descent-and-optimization.html">Lecture 4: Gradient Descent and Optimization</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-04-gradient-descent-and-optimization.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 4 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 4 PDF</span></a></span></li>
-<li><a href="https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%20Notes">All lecture-note PDFs on GitHub</a></li>
-<li><a href="https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%20Notes/Template%20-%20Learn%20ML%20by%20Building">Learn ML by Building LaTeX template</a> — reusable source, figure and table conventions, and a compiled preview.</li>
-</ul>
+<p>Linear regression predicts a number from input features. The model defines how features produce predictions, the loss defines a good fit, and the feature representation determines which relationships the model can express.</p>
+<div class="lecture-note-actions" role="navigation" aria-label="Lecture note navigation">
+<p><a href="../lectures/03-linear.html" class="btn btn-primary btn-sm">Course materials</a> <a href="../notes/02-k-nearest-neighbors.html" class="btn btn-outline-secondary btn-sm">Previous lecture</a> <a href="../notes/04-gradient-descent-and-optimization.html" class="btn btn-outline-secondary btn-sm">Next lecture</a></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Learning goals
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By the end of this lecture, you should be able to:</p>
+<ol type="1">
+<li>identify a regression problem and interpret the weight and bias in a linear model;</li>
+<li>explain why signed error is unsuitable as a loss and compute mean squared error; and</li>
+<li>explain how a feature map lets a linear model represent a curved relationship.</li>
+</ol>
+</div>
+</div>
+<section id="begin-with-the-prediction-problem" class="level2">
+<h2 class="anchored" data-anchor-id="begin-with-the-prediction-problem">Begin with the prediction problem</h2>
+<p>Consider predicting a student’s GPA from a feature such as study time. A scatterplot might show GPA increasing with study time or decreasing with gaming time. Linear regression represents either trend with a line.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Classification and regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Classification predicts a category, such as whether an image contains a cat. Regression predicts a number, such as a student’s GPA. The output type determines the task. Here the target is numerical, so this is a regression problem.</p>
+</div>
+</div>
+<div id="fig-linear-relationships" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two synthetic scatterplots show GPA increasing with study time and decreasing with gaming time. Gold vertical segments connect observed data points to their predictions on the fitted lines." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-03/linear-relationships.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Two synthetic scatterplots show GPA increasing with study time and decreasing with gaming time. Gold vertical segments connect observed data points to their predictions on the fitted lines.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Two regression examples with synthetic data. For each input, the fitted line gives a prediction <span class="math inline">\(\widehat y_i\)</span>. Each vertical segment connects the observed value <span class="math inline">\(y_i\)</span> to its prediction and shows the error.
+</figcaption>
+</figure>
+</div>
+<p>For observations <span class="math inline">\(\mathcal D=\{(x_i,y_i)\}_{i=1}^{n}\)</span>, the one-feature model predicts</p>
+<p><span class="math display">\[
+\widehat y_i = w x_i+b.
+\]</span></p>
+<p>The input <span class="math inline">\(x_i\)</span> is a <em>feature</em>, <span class="math inline">\(y_i\)</span> is the observed <em>target</em>, and <span class="math inline">\(\widehat y_i\)</span> is the model’s prediction. The two learned coefficients play different roles.</p>
+<div class="table-responsive">
+<div id="tbl-linear-terms" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-linear-terms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The components of a one-feature linear model.
+</figcaption>
+<div aria-describedby="tbl-linear-terms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Effect on the prediction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(w\)</span></td>
+<td style="text-align: left;">Weight or slope</td>
+<td style="text-align: left;">Changes how much <span class="math inline">\(\widehat y\)</span> moves when <span class="math inline">\(x\)</span> increases by one unit.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(b\)</span></td>
+<td style="text-align: left;">Bias or intercept</td>
+<td style="text-align: left;">Shifts every prediction by the same amount.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\widehat y_i\)</span></td>
+<td style="text-align: left;">Predicted target</td>
+<td style="text-align: left;">Gives the model’s estimate for example <span class="math inline">\(i\)</span>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>With several features, the model becomes <span class="math inline">\(\widehat y_i=\mathbf w^{\top}\mathbf x_i+b\)</span>. It assumes that the chosen features contain useful information about the target and that the same coefficients apply across examples. Training chooses the coefficients that make the predictions close to the observed targets.</p>
 </section>
-<section id="software-tools" class="level2">
-<h2 class="anchored" data-anchor-id="software-tools">Software &amp; Tools</h2>
-<ul>
-<li><a href="https://www.python.org/">Python Installation</a></li>
-<li><a href="https://colab.research.google.com/">Google Colab</a></li>
-<li><a href="https://education.github.com/pack">GitHub Student Pack</a></li>
-</ul>
+<section id="define-what-counts-as-error" class="level2">
+<h2 class="anchored" data-anchor-id="define-what-counts-as-error">Define what counts as error</h2>
+<p>A model needs a numerical definition of a good prediction. For example <span class="math inline">\(i\)</span>, define the residual as</p>
+<p><span class="math display">\[
+e_i=y_i-\widehat y_i.
+\]</span></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Why signed error fails
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A common first reaction is to use the signed difference <span class="math inline">\(\ell_i=y_i-\widehat y_i\)</span> as the loss. When these signed errors are averaged over the dataset, positive and negative values can cancel. More importantly, minimizing this loss rewards arbitrarily large predictions: increasing <span class="math inline">\(\widehat y_i\)</span> drives <span class="math inline">\(\ell_i\)</span> toward <span class="math inline">\(-\infty\)</span> even as the prediction gets worse. This is a simple form of reward hacking: the model improves the score without improving the prediction. Absolute and squared loss close the loophole by assigning every error a nonnegative penalty.</p>
+</div>
+</div>
+<p>Two common ways to turn a residual into a per-example loss <span class="math inline">\(\ell(y_i,\widehat y_i)\)</span> are:</p>
+<div class="table-responsive">
+<div id="tbl-point-losses" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-point-losses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Two ways to score the error on one example. This lecture uses squared loss.
+</figcaption>
+<div aria-describedby="tbl-point-losses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Loss</th>
+<th style="text-align: left;">Definition</th>
+<th style="text-align: left;">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Absolute loss</td>
+<td style="text-align: left;"><span class="math inline">\(|y_i-\widehat y_i|\)</span></td>
+<td style="text-align: left;">The penalty grows in direct proportion to the size of the error.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Squared loss</td>
+<td style="text-align: left;"><span class="math inline">\((y_i-\widehat y_i)^2\)</span></td>
+<td style="text-align: left;">The penalty grows quadratically, so larger errors receive more weight.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>For squared loss, the training loss is the average squared error across the dataset:</p>
+<p><span class="math display">\[
+L(w,b)
+=\frac{1}{n}\sum_{i=1}^{n}\bigl(y_i-\widehat y_i\bigr)^2
+=\frac{1}{n}\sum_{i=1}^{n}\bigl(y_i-(wx_i+b)\bigr)^2.
+\]</span></p>
+<p>This quantity is the <em>mean squared error</em> (MSE).</p>
+<div class="table-responsive">
+<div id="tbl-mse-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mse-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: A three-example calculation gives <span class="math inline">\(\operatorname{MSE}=(9+0+4)/3=13/3\)</span>.
+</figcaption>
+<div aria-describedby="tbl-mse-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Example</th>
+<th style="text-align: left;">Target <span class="math inline">\(y_i\)</span></th>
+<th style="text-align: left;">Prediction <span class="math inline">\(\widehat y_i\)</span></th>
+<th style="text-align: left;">Squared error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;"><span class="math inline">\((7-10)^2=9\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><span class="math inline">\((5-5)^2=0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><span class="math inline">\((7-5)^2=4\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>A lower MSE means that the squared errors are smaller on average for this dataset.</p>
 </section>
-<section id="documentation" class="level2">
-<h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
-<ul>
-<li><a href="https://numpy.org/doc/">NumPy Documentation</a></li>
-<li><a href="https://pytorch.org/tutorials/">PyTorch Tutorials</a></li>
-<li><a href="https://www.fast.ai/">fast.ai</a> — inspiration for our practical, project-first teaching approach</li>
-<li><a href="https://scikit-learn.org/stable/user_guide.html">Scikit-learn User Guide</a></li>
-</ul>
+<section id="representation-sets-what-the-model-can-express" class="level2">
+<h2 class="anchored" data-anchor-id="representation-sets-what-the-model-can-express">Representation sets what the model can express</h2>
+<p>To model a curved relationship, we can transform the original input <span class="math inline">\(x\)</span> into polynomial features before fitting the model. For degree <span class="math inline">\(d\)</span>, define</p>
+<p><span class="math display">\[
+\boldsymbol\phi(x)=
+\begin{bmatrix}
+1 &amp; x &amp; x^2 &amp; \cdots &amp; x^d
+\end{bmatrix}^{\!\top},
+\qquad
+\widehat y=\boldsymbol\theta^{\top}\boldsymbol\phi(x).
+\]</span></p>
+<p>The prediction can now curve with <span class="math inline">\(x\)</span>. The parameters still enter linearly: in <span class="math inline">\(\theta_0+\theta_1x+\theta_2x^2\)</span>, each learned coefficient appears only to the first power.</p>
+<div id="fig-feature-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A pipeline maps a raw measurement through a feature map and a linear model to a prediction. A separate annotation shows that measurements can be transformed or improved before fitting." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-feature-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-03/feature-pipeline.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="A pipeline maps a raw measurement through a feature map and a linear model to a prediction. A separate annotation shows that measurements can be transformed or improved before fitting.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-feature-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A model can use only the features it receives. Transforming measurements or collecting more informative data can expose relationships that a linear predictor can learn.
+</figcaption>
+</figure>
+</div>
+<p>Residuals can show when the current features are inadequate. A systematic curve in the residuals means that the current features leave predictable structure unexplained. Adjusting the coefficients alone cannot fit a pattern the representation cannot express. Change the feature map or collect better measurements.</p>
+<hr>
+<p><strong>Lecture summary.</strong> Linear regression predicts a number from a weighted combination of features. The loss defines a good fit, and the feature representation determines which relationships the model can learn.</p>
+<div class="small text-muted">
+<p><strong>Acknowledgment.</strong> These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.</p>
+</div>
+<hr>
+<p><a href="../notes/02-k-nearest-neighbors.html">Previous lecture: k-Nearest Neighbors</a> · <a href="../notes/04-gradient-descent-and-optimization.html">Next lecture: Gradient Descent and Optimization</a> · <a href="../lectures/03-linear.html">Lecture 3 course materials</a></p>
 
 
 </section>

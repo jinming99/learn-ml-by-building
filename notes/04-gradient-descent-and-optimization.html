@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="How optimization makes a training problem explicit and how zeroth-, first-, and second-order methods turn information into parameter updates.">
 
-<title>Resources – ECE 4424/CS 4824: Machine Learning</title>
+<title>Lecture 4: Gradient Descent and Optimization – ECE 4424/CS 4824: Machine Learning</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +30,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3c61efc53a6f7557640ad3d31a35a94e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3c61efc53a6f7557640ad3d31a35a94e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,8 +75,38 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="site-legibility-v2.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../site-legibility-v2.css">
+<link rel="stylesheet" href="../lecture-notes.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -85,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">ECE 4424/CS 4824: Machine Learning</span>
     </a>
   </div>
@@ -96,11 +127,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./schedule.html" aria-current="page"> 
+    <a class="nav-link active" href="../schedule.html" aria-current="page"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -109,29 +140,29 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="./projects/index.html">
+    <a class="dropdown-item" href="../projects/index.html">
  <span class="dropdown-text">Projects Overview</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/project1.html">
+    <a class="dropdown-item" href="../projects/project1.html">
  <span class="dropdown-text">Project 1: KNN Music Recommender</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/project2.html">
+    <a class="dropdown-item" href="../projects/project2.html">
  <span class="dropdown-text">Project 2: Neural Archaeology</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/thought_cascade.html">
+    <a class="dropdown-item" href="../projects/thought_cascade.html">
  <span class="dropdown-text">Project 3: Thought Cascade</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./projects/capstone.html">
+    <a class="dropdown-item" href="../projects/capstone.html">
  <span class="dropdown-text">Capstone Project</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./resources.html"> 
+    <a class="nav-link" href="../resources.html"> 
 <span class="menu-text">Resources</span></a>
   </li>  
 </ul>
@@ -156,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Resources</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 4: Gradient Descent and Optimization</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,13 +210,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syllabus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
@@ -202,37 +233,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/00-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/00-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L0: Environment Setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/01-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L1: Welcome to ML</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/02-knn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/02-knn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L2: k-NN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/03-linear.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/03-linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L3: Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L4: Gradient Descent and Optimization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L5: Probabilistic Classification</span></a>
   </div>
 </li>
@@ -249,31 +280,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L6: Model Evaluation and Data Deception</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L7: Overfitting and Regularization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L8: Modern Decision Trees</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/09-ensemble.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/09-ensemble.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L9: Ensemble Methods</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/10-kernel-gp.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/10-kernel-gp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L10: Kernel Methods &amp; Gaussian Processes</span></a>
   </div>
 </li>
@@ -290,25 +321,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L11: K-Means Clustering</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/12-pca.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/12-pca.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L12: PCA and Dimensionality Reduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L13: Neural Network Architecture</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/14-transformers.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/14-transformers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L14: Understanding Transformers</span></a>
   </div>
 </li>
@@ -325,31 +356,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/15-cnn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/15-cnn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L15: Convolutional Neural Networks</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/16-rnn.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/16-rnn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L16: Recurrent Neural Networks</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L17: LLM Agents &amp; Tool Use</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/18-vlms.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/18-vlms.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L18: Vision-Language Models</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L19-20: Coming Soon</span></a>
   </div>
 </li>
@@ -366,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./#" class="sidebar-item-text sidebar-link">
+  <a href="../#" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L19-20: Coming Soon</span></a>
   </div>
 </li>
@@ -383,31 +414,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projects Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/project1.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/project1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 1: KNN Music Recommender</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/project2.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/project2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 2: Neural Archaeology</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/thought_cascade.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/thought_cascade.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project 3: Thought Cascade</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects/capstone.html" class="sidebar-item-text sidebar-link">
+  <a href="../projects/capstone.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Capstone Project</span></a>
   </div>
 </li>
@@ -423,9 +454,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#lecture-notes-template" id="toc-lecture-notes-template" class="nav-link active" data-scroll-target="#lecture-notes-template">Lecture Notes &amp; Template</a></li>
-  <li><a href="#software-tools" id="toc-software-tools" class="nav-link" data-scroll-target="#software-tools">Software &amp; Tools</a></li>
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  <li><a href="#start-from-the-training-problem" id="toc-start-from-the-training-problem" class="nav-link active" data-scroll-target="#start-from-the-training-problem">Start from the training problem</a></li>
+  <li><a href="#specify-the-optimization-problem" id="toc-specify-the-optimization-problem" class="nav-link" data-scroll-target="#specify-the-optimization-problem">Specify the optimization problem</a></li>
+  <li><a href="#gradient-descent-turns-loss-into-updates" id="toc-gradient-descent-turns-loss-into-updates" class="nav-link" data-scroll-target="#gradient-descent-turns-loss-into-updates">Gradient descent turns loss into updates</a></li>
+  <li><a href="#optimization-methods-by-order" id="toc-optimization-methods-by-order" class="nav-link" data-scroll-target="#optimization-methods-by-order">Optimization methods by order</a></li>
   </ul>
 </nav>
     </div>
@@ -434,9 +466,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Resources</h1>
+<h1 class="title">Lecture 4: Gradient Descent and Optimization</h1>
+<p class="subtitle lead">From objective functions to parameter updates</p>
 </div>
 
+<div>
+  <div class="description">
+    How optimization makes a training problem explicit and how zeroth-, first-, and second-order methods turn information into parameter updates.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -451,33 +489,247 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="lecture-notes-template" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-notes-template">Lecture Notes &amp; Template</h2>
-<ul>
-<li><span class="lecture-note-resource"><a href="notes/01-what-is-machine-learning.html">Lecture 1: What Is Machine Learning?</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-01-what-is-machine-learning.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 1 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 1 PDF</span></a></span></li>
-<li><span class="lecture-note-resource"><a href="notes/02-k-nearest-neighbors.html">Lecture 2: k-Nearest Neighbors</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-02-k-nearest-neighbors.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 2 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 2 PDF</span></a></span></li>
-<li><span class="lecture-note-resource"><a href="notes/03-linear-regression.html">Lecture 3: Linear Regression</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-03-linear-regression.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 3 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 3 PDF</span></a></span></li>
-<li><span class="lecture-note-resource"><a href="notes/04-gradient-descent-and-optimization.html">Lecture 4: Gradient Descent and Optimization</a><a class="pdf-icon-link" href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-04-gradient-descent-and-optimization.pdf" target="_blank" rel="noopener" aria-label="Download Lecture 4 PDF" title="Download PDF"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span class="visually-hidden">Download Lecture 4 PDF</span></a></span></li>
-<li><a href="https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%20Notes">All lecture-note PDFs on GitHub</a></li>
-<li><a href="https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%20Notes/Template%20-%20Learn%20ML%20by%20Building">Learn ML by Building LaTeX template</a> — reusable source, figure and table conventions, and a compiled preview.</li>
-</ul>
+<p>Training searches for parameter values that reduce a loss. Optimization methods differ in the information they use: function values, gradients, or curvature.</p>
+<div class="lecture-note-actions" role="navigation" aria-label="Lecture note navigation">
+<p><a href="../lectures/04-optimization.html" class="btn btn-primary btn-sm">Course materials</a> <a href="../notes/03-linear-regression.html" class="btn btn-outline-secondary btn-sm">Previous lecture</a></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Learning goals
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By the end of this lecture, you should be able to:</p>
+<ol type="1">
+<li>formulate a learning task using variables, an objective, and constraints;</li>
+<li>distinguish local and global minima and explain convexity;</li>
+<li>derive gradient descent and explain the roles of the learning rate and data per update; and</li>
+<li>compare zeroth-, first-, and second-order methods by information, use, and scale.</li>
+</ol>
+</div>
+</div>
+<section id="start-from-the-training-problem" class="level2">
+<h2 class="anchored" data-anchor-id="start-from-the-training-problem">Start from the training problem</h2>
+<p>Lecture 3 specified a linear predictor and its mean squared error:</p>
+<p><span class="math display">\[
+\widehat y_i=wx_i+b,
+\qquad
+L(w,b)=\frac{1}{n}\sum_{i=1}^{n}\bigl(y_i-(wx_i+b)\bigr)^2.
+\]</span></p>
+<p>Training finds values of <span class="math inline">\(w\)</span> and <span class="math inline">\(b\)</span> that make this objective small. Trying a few values by hand can build intuition. A learning procedure needs a systematic way to update them.</p>
+<p>The model defines the predictions available for a given input. The loss scores how well those predictions match the data. Optimization searches for parameter values that reduce that score.</p>
+<div id="fig-fit-and-loss" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A current regression fit and gold residuals appear beside an MSE contour map. Matching teal marks identify the current fitted line and parameter point, and a coral arrow shows one update toward the purple optimum.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fit-and-loss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-04/fit-and-loss.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="A current regression fit and gold residuals appear beside an MSE contour map. Matching teal marks identify the current fitted line and parameter point, and a coral arrow shows one update toward the purple optimum.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fit-and-loss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The figure shows the current fit and one gradient-descent update in data space and parameter space.
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="software-tools" class="level2">
-<h2 class="anchored" data-anchor-id="software-tools">Software &amp; Tools</h2>
-<ul>
-<li><a href="https://www.python.org/">Python Installation</a></li>
-<li><a href="https://colab.research.google.com/">Google Colab</a></li>
-<li><a href="https://education.github.com/pack">GitHub Student Pack</a></li>
-</ul>
+<section id="specify-the-optimization-problem" class="level2">
+<h2 class="anchored" data-anchor-id="specify-the-optimization-problem">Specify the optimization problem</h2>
+<p>In general, an optimization problem takes the form</p>
+<p><span class="math display">\[
+\boldsymbol\theta^{\star}\in
+\operatorname*{arg\,min}_{\boldsymbol\theta}\; f(\boldsymbol\theta)
+\qquad
+\text{subject to}\qquad
+g_j(\boldsymbol\theta)\le 0,
+\quad j=1,\ldots,m.
+\]</span></p>
+<p>For one-feature linear regression, <span class="math inline">\(\boldsymbol\theta=(w,b)^{\top}\)</span> and the objective <span class="math inline">\(f\)</span> is the MSE above. Many introductory problems have no explicit constraints.</p>
+<div class="table-responsive">
+<div id="tbl-optimization-parts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-optimization-parts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: An optimization problem is defined by its variables, objective, and any constraints.
+</figcaption>
+<div aria-describedby="tbl-optimization-parts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Part</th>
+<th style="text-align: left;">Linear regression</th>
+<th style="text-align: left;">Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Variables</td>
+<td style="text-align: left;"><span class="math inline">\(\boldsymbol\theta=(w,b)^{\top}\)</span></td>
+<td style="text-align: left;">Which values may the optimizer change?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Objective</td>
+<td style="text-align: left;"><span class="math inline">\(L(w,b)\)</span></td>
+<td style="text-align: left;">How does the system score a candidate model?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Constraints</td>
+<td style="text-align: left;">Feasible values of <span class="math inline">\(\boldsymbol\theta\)</span></td>
+<td style="text-align: left;">Which candidate models are allowed?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>Specifying an optimization problem creates a contract with the ML model: the variables define what may change, the constraints define what is allowed, and the loss or reward defines what counts as success. This parallels contract design in economics, where incentives are chosen to shape an agent’s behavior when every action cannot be prescribed directly. Designing losses and rewards remains an active area of research because a learned system follows the objective we provide, including any gaps between that objective and the outcome we intended.</p>
+<p>The shape of the objective determines what a search method can guarantee. A <em>global minimum</em> has the lowest objective value over the full feasible set. At a <em>local minimum</em>, no nearby point has a lower value.</p>
+<div id="fig-loss-landscapes" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Two conceptual loss landscapes compare a convex bowl with a nonconvex curve containing a global minimum and a higher local minimum.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loss-landscapes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-04/loss-landscapes.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Two conceptual loss landscapes compare a convex bowl with a nonconvex curve containing a global minimum and a higher local minimum.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loss-landscapes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: For a convex objective, every local minimum is global. A nonconvex objective can have several valleys with different depths. Linear regression with MSE has a convex quadratic objective in its parameters.
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="documentation" class="level2">
-<h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
-<ul>
-<li><a href="https://numpy.org/doc/">NumPy Documentation</a></li>
-<li><a href="https://pytorch.org/tutorials/">PyTorch Tutorials</a></li>
-<li><a href="https://www.fast.ai/">fast.ai</a> — inspiration for our practical, project-first teaching approach</li>
-<li><a href="https://scikit-learn.org/stable/user_guide.html">Scikit-learn User Guide</a></li>
-</ul>
+<section id="gradient-descent-turns-loss-into-updates" class="level2">
+<h2 class="anchored" data-anchor-id="gradient-descent-turns-loss-into-updates">Gradient descent turns loss into updates</h2>
+<p>For the model and loss above, differentiating the MSE gives</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\partial L}{\partial w}
+&amp;=-\frac{2}{n}\sum_{i=1}^{n}x_i\bigl(y_i-\widehat y_i\bigr),\\
+\frac{\partial L}{\partial b}
+&amp;=-\frac{2}{n}\sum_{i=1}^{n}\bigl(y_i-\widehat y_i\bigr).
+\end{aligned}
+\]</span></p>
+<p>Near the current parameters, the gradient <span class="math inline">\(\nabla L(\boldsymbol\theta)\)</span> points in the direction in which the loss increases fastest. Gradient descent takes a step in the opposite direction:</p>
+<p><span class="math display">\[
+\boldsymbol\theta_{t+1}
+=\boldsymbol\theta_t-\alpha\nabla L(\boldsymbol\theta_t),
+\]</span></p>
+<p>where <span class="math inline">\(\alpha&gt;0\)</span> is the learning rate. It controls how far the parameters move at each update.</p>
+<div id="fig-learning-rate" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Three conceptual loss curves compare learning rates that are very small, useful, and overly large.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-learning-rate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/lecture-notes/lecture-04/learning-rate.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Three conceptual loss curves compare learning rates that are very small, useful, and overly large.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-learning-rate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: The learning rate sets the size of each update. A very small value makes slow progress. A useful value reduces the loss steadily. An overly large value can overshoot and diverge. The curves are conceptual.
+</figcaption>
+</figure>
+</div>
+<p>The same update can use different amounts of data to estimate the gradient:</p>
+<div class="table-responsive">
+<div id="tbl-batch-choices" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-batch-choices-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Examples per update change the computation and variability of the gradient estimate.
+</figcaption>
+<div aria-describedby="tbl-batch-choices-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Examples per update</th>
+<th style="text-align: left;">Practical behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Batch gradient descent</td>
+<td style="text-align: left;">All <span class="math inline">\(n\)</span> examples</td>
+<td style="text-align: left;">Exact gradient of the empirical loss; each update can be expensive.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stochastic gradient descent</td>
+<td style="text-align: left;">One sampled example</td>
+<td style="text-align: left;">Inexpensive, frequent, and noisy updates.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mini-batch gradient descent</td>
+<td style="text-align: left;">A small sampled group</td>
+<td style="text-align: left;">Balances computation with a less noisy gradient estimate; common in practice.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>When examples are sampled appropriately, all three methods target the same training objective. They differ in the cost and variability of each update. A fair comparison should track both passes through the data and the total number of parameter updates.</p>
+</section>
+<section id="optimization-methods-by-order" class="level2">
+<h2 class="anchored" data-anchor-id="optimization-methods-by-order">Optimization methods by order</h2>
+<p>The <em>order</em> of an optimization method describes the derivative information available to it. Additional information can improve the search direction; it also raises the cost of computation and storage.</p>
+<div class="table-responsive">
+<div id="tbl-method-orders" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-method-orders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: The useful method depends on which information can be obtained at a reasonable cost.
+</figcaption>
+<div aria-describedby="tbl-method-orders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Order</th>
+<th style="text-align: left;">Information used</th>
+<th style="text-align: left;">Representative methods</th>
+<th style="text-align: left;">Applications and tradeoff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Zeroth</td>
+<td style="text-align: left;">Values of <span class="math inline">\(f(\boldsymbol\theta)\)</span></td>
+<td style="text-align: left;">Finite differences, random directions, SPSA</td>
+<td style="text-align: left;">Simulators, physical experiments, and black-box systems; function queries and dimension can make estimates costly or noisy.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">First</td>
+<td style="text-align: left;">Gradients or stochastic gradients</td>
+<td style="text-align: left;">GD, SGD, momentum, Nesterov acceleration, AdaGrad, Adam</td>
+<td style="text-align: left;">Large datasets and high-dimensional models; inexpensive vector updates often require many iterations.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Second</td>
+<td style="text-align: left;">Gradients and curvature</td>
+<td style="text-align: left;">Newton, Gauss-Newton, Levenberg-Marquardt</td>
+<td style="text-align: left;">Smooth, moderate-size problems; strong directions and fast local convergence come with expensive curvature calculations.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>Zeroth-order methods observe only objective values, which makes them useful for black-box systems, simulators, and experiments where gradients are unavailable. A random-direction method can use one sampled perturbation to estimate first-order information in expectation for a smoothed objective, though individual estimates can be noisy. First-order methods use gradients and include SGD, momentum, Nesterov acceleration, adaptive methods such as AdaGrad and Adam, and proximal methods. Their modest cost per update makes them the standard choice for large-scale ML. Second-order methods such as Newton’s method also use curvature and can converge in far fewer iterations near a solution. Computing and storing curvature may be too expensive for large datasets and models, so quasi-Newton and Hessian-free methods provide practical compromises.</p>
+<hr>
+<p><strong>Lecture summary.</strong> An optimization problem specifies the parameters, objective, and constraints; function values, gradients, and curvature determine which algorithms are practical and how per-step cost trades against convergence speed.</p>
+<div class="small text-muted">
+<p><strong>Acknowledgment.</strong> These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.</p>
+</div>
+<hr>
+<p><a href="../notes/03-linear-regression.html">Previous lecture: Linear Regression</a> · <a href="../lectures/04-optimization.html">Lecture 4 course materials</a></p>
 
 
 </section>
