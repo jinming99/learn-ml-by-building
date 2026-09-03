@@ -22,6 +22,8 @@ By the end of this lecture, you will:
 
 :::{.callout-tip}
 ## Quick Access
+**[Read the Lecture Notes](../notes/04-gradient-descent-and-optimization.qmd)**
+
 **[Optimization Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%204%20Optimization/04-Optimization-GD.ipynb)**
 :::
 
