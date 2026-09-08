@@ -2,6 +2,7 @@ project:
   type: website
   resources:
     - demos/p1-music/**
+    - quizzes/files/**
 
 website:
   title: "ECE 4424/CS 4824: Machine Learning"
@@ -18,6 +19,8 @@ website:
         href: index.qmd
       - text: "Schedule"
         href: schedule.qmd
+      - text: "Quizzes"
+        href: quizzes/index.qmd
       - text: "Projects"
         menu:
           - text: "Projects Overview"
@@ -49,6 +52,8 @@ website:
             href: syllabus.qmd
           - text: "Schedule"
             href: schedule.qmd
+          - text: "AI Fluency Quizzes"
+            href: quizzes/index.qmd
       
       - section: "Module 1: Let's Predict"
         contents:

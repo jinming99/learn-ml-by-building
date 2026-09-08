@@ -1,0 +1,3 @@
+**AI Fluency quiz pilot**
+
+We are piloting AI Fluency in ECE 4424/CS 4824 through a new and novel two-pass quiz design. You will inspect a short AI answer, connect its claims to foundational machine-learning concepts, decide what the evidence does and does not support, and revise your judgment after instruction. Open-ended items will emphasize the quality of your reasoning and evidence; questions with a clear right or wrong answer will still be graded for correctness. The goal is to strengthen critical thinking and deepen your understanding of course fundamentals - not simply to "catch" the AI. Please review the posted sample quiz and student guide before class; the pilot is informed by [Anthropic's AI Fluency Framework](https://www.anthropic.com/ai-fluency/overview).

@@ -25,6 +25,16 @@ By the end of this lecture, you will:
 **[Probabilistic Classification Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%205%20Probabilistic%20Classification/05-ProbClass.ipynb)**
 :::
 
+:::{.callout-note}
+## AI Fluency Quiz Sample
+
+- [Sample quiz (PDF)](../quizzes/files/quiz-05-ai-fluency-sample.pdf)
+- [How to answer: student guide (PDF)](../quizzes/files/ai-fluency-quiz-student-guide.pdf)
+- [All AI Fluency quizzes](../quizzes/index.qmd)
+
+The sample is not for credit. It shows the two-pass format we may use in future classes.
+:::
+
 :::{.callout-important collapse=false}
 ## Pre-Class Requirements
 - Python environment with scikit-learn, pandas, matplotlib, and seaborn

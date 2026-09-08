@@ -1,0 +1,185 @@
+% TA-ready source for the two-pass AI Fluency quiz.
+% Compile with: latexmk -pdf quiz-05-ai-fluency-sample.tex
+\documentclass[10pt]{article}
+
+\usepackage[letterpaper,left=0.70in,right=0.70in,top=0.58in,bottom=0.58in,headheight=13pt,footskip=22pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{array,booktabs,tabularx}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+% -----------------------------------------------------------------------------
+% EDIT THESE FIELDS FOR A NEW QUIZ
+% -----------------------------------------------------------------------------
+\newcommand{\CourseCodes}{ECE 4424 / CS 4824}
+\newcommand{\CourseName}{Machine Learning: Learn by Building}
+\newcommand{\CourseTerm}{Fall 2026}
+\newcommand{\InstructorName}{Ming Jin}
+\newcommand{\InstitutionName}{Virginia Tech}
+\newcommand{\QuizNumber}{Sample Quiz}
+\newcommand{\QuizTitle}{The EAT Button}
+\newcommand{\QuizTopic}{Probabilistic Classification}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.12}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcommand{\checkbox}{\(\square\)}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\scriptsize \CourseCodes\quad |\quad \QuizNumber\quad |\quad Classroom simulation - never use this sheet to identify mushrooms}
+\fancyfoot[R]{\scriptsize \thepage}
+
+\newcommand{\QuizHeader}[1]{%
+  \begin{tabularx}{\linewidth}{@{}Lr@{}}
+    {\Large\bfseries \QuizNumber: \QuizTitle} & {\bfseries #1} \\
+    \CourseCodes: \CourseName & \CourseTerm \\
+    Instructor: \InstructorName & \InstitutionName
+  \end{tabularx}
+  \vspace{0.35em}\hrule\vspace{0.55em}
+}
+
+\newcommand{\Subhead}[1]{%
+  \par\vspace{0.55em}{\bfseries #1}\par\vspace{0.18em}
+}
+
+% The first argument is the visible claim number. Keep it large and short.
+\newcommand{\AIClaim}[2]{%
+  \begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}p{0.42in}@{\hspace{0.06in}}L@{}}
+    {\fontsize{15}{17}\selectfont\bfseries #1} & #2
+  \end{tabularx}
+  \vspace{0.22em}
+}
+
+\newcommand{\AnswerBox}[1]{%
+  \par\vspace{0.2em}
+  \noindent\begin{tabular}{|p{\dimexpr\linewidth-2\tabcolsep-2\arrayrulewidth\relax}|}
+    \hline
+    \rule{0pt}{#1} \\
+    \hline
+  \end{tabular}
+  \par
+}
+
+\begin{document}
+
+\QuizHeader{Pass 1 of 2}
+
+ {\small\textbf{Sample only - not for credit.} This shows the format that future in-class quizzes may use. For open-ended judgments, we grade your reasoning and use of evidence, not whether you match one preferred answer. When there is a clear right or wrong answer, such as a calculation or definition, correctness matters.}
+
+\vspace{0.65em}
+\begin{tabularx}{\linewidth}{@{}L@{\hspace{0.9em}}l@{\hspace{0.9em}}l@{}}
+  \textbf{Name:} \rule{2.35in}{0.4pt} &
+  \textbf{Course:} \checkbox\ ECE 4424 \quad \checkbox\ CS 4824 &
+  \textbf{Section:} \rule{0.58in}{0.4pt}
+\end{tabularx}
+
+\vspace{0.45em}
+\textbf{TA name:} \rule{2.10in}{0.4pt}
+
+\Subhead{Situation}
+ForestFork is fictional. Users enter mushroom traits, no human reviews the result, and the app displays \textbf{EAT} whenever the estimated \(P(\text{poisonous})\) is below its threshold. A false negative means a poisonous mushroom is shown as EAT.
+
+\Subhead{Prompt sent to the AI}
+``Choose one model today. Give us a clear go/no-go decision. Use normal defaults unless the evidence strongly requires otherwise.''
+
+\Subhead{AI response (abridged into five claims)}
+\hrule\vspace{0.45em}
+
+\AIClaim{1}{Choose logistic regression. At threshold 0.50, it has 42 false negatives, compared with 81 for categorical Naive Bayes.}
+
+\AIClaim{2}{Accuracy is not the main issue: in this app, a false negative means a poisonous mushroom is shown as EAT.}
+
+\AIClaim{3}{Naive Bayes has slightly better log loss, but scores around 0.16 to 0.25 are badly miscalibrated; these apparently low-risk cases are usually poisonous.}
+
+\AIClaim{4}{The supplied priors imply \(P(\text{poisonous}\mid\text{foul odor})\approx 88\%\), so a foul odor should strongly favor DO NOT EAT.}
+
+\AIClaim{5}{Use logistic regression with a 0.20 threshold and launch. This lower threshold is conservative enough to make the public EAT action safe.}
+
+\vspace{0.15em}\hrule
+
+\Subhead{Pass 1: Cold audit (3 minutes)}
+On the response, \textbf{underline} the strongest claim, add \textbf{?} to one claim you would verify, and add \textbf{!} to the most dangerous leap.
+
+\vspace{0.55em}
+\begin{tabularx}{\linewidth}{@{}L@{}}
+  \textbf{Initial disposition:}\quad \checkbox\ SHIP \qquad \checkbox\ HOLD \qquad \checkbox\ CANNOT YET TELL \\
+  \addlinespace[0.55em]
+  \textbf{One-line reason:}\quad \hrulefill
+\end{tabularx}
+
+\newpage
+\QuizHeader{Pass 2 of 2}
+
+{\small Use a different ink if available; otherwise box every new mark. The AI saw only the 0.50 results before answering. The 0.20 results and data-scope note are revealed now.}
+
+\Subhead{Evidence packet}
+\begin{tabularx}{\linewidth}{@{}L*{5}{C}@{}}
+  \toprule
+  \textbf{Model / threshold} & \textbf{TN} & \textbf{FP} & \textbf{FN} & \textbf{TP} & \textbf{Accuracy} \\
+  \midrule
+  Logistic / 0.50    & 811 & 31 & 42 & 741 & 95.5\% \\
+  Logistic / 0.20    & 764 & 78 & 11 & 772 & 94.5\% \\
+  Naive Bayes / 0.50 & 835 &  7 & 81 & 702 & 94.6\% \\
+  Naive Bayes / 0.20 & 830 & 12 & 52 & 731 & 96.1\% \\
+  \bottomrule
+\end{tabularx}
+
+\vspace{0.35em}
+{\small
+\textbf{Denominators.} The test set contains 842 edible and 783 poisonous examples. \(\mathrm{FNR}=\mathrm{FN}/(\mathrm{FN}+\mathrm{TP})\); \(\mathrm{FPR}=\mathrm{FP}/(\mathrm{FP}+\mathrm{TN})\).
+
+\vspace{0.35em}
+\begin{minipage}[t]{0.485\linewidth}
+\textbf{Calibration.} For Naive Bayes, score 0.156 corresponds to 87.0\% actually poisonous; score 0.253 corresponds to 91.7\%. Some bins are small.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\linewidth}
+\textbf{Data and pipeline.} There are 8,124 hypothetical descriptions but only 23 species. Nominal features were integer-coded, and the split was random rather than species-held-out.
+\end{minipage}
+
+\vspace{0.35em}
+\textbf{Bayes inputs.} \(P(\text{poisonous})=0.482\), \(P(\text{foul}\mid\text{poisonous})=0.80\), and \(P(\text{foul}\mid\text{edible})=0.10\).
+}
+
+\Subhead{1. Claim audit}
+Choose the claim most needing correction and connect your verdict to evidence.
+
+\vspace{0.3em}
+\textbf{Claim number:} \rule{0.42in}{0.4pt}\qquad
+\textbf{Verdict:} \checkbox\ supported \quad \checkbox\ unsupported \quad \checkbox\ contradicted
+
+\AnswerBox{0.72in}
+
+\Subhead{2. Make the risk legible}
+\begin{tabularx}{\linewidth}{@{}p{2.1in}L@{}}
+  \textbf{A. Logistic threshold 0.20:} & \(\mathrm{FNR}=11/\rule{0.55in}{0.4pt}=\rule{0.55in}{0.4pt}\%\) \\
+  \addlinespace[0.45em]
+  \textbf{B. Reverse the conditional:} & \(P(\text{poisonous}\mid\text{foul})=\dfrac{0.80(0.482)}{0.80(0.482)+0.10(0.518)}=\rule{0.55in}{0.4pt}\%\)
+\end{tabularx}
+
+\vspace{0.45em}
+\textbf{C. One sentence:} Why does a model score below 0.20 not guarantee field safety above 80\%?
+\vspace{0.45em}\hrule
+
+\Subhead{3. Make the AI-fluent next move}
+Write one follow-up request that names \textbf{a test or artifact} and \textbf{a stop condition}.
+\AnswerBox{0.54in}
+
+\Subhead{Final disposition}
+\checkbox\ LAUNCH EAT \qquad \checkbox\ PILOT WITHOUT EAT \qquad \checkbox\ STOP / REDESIGN
+
+\vspace{0.45em}
+\textbf{Revision trace:}\quad \checkbox\ I changed my mind \qquad \checkbox\ Same verdict, stronger reason
+
+\vspace{0.45em}
+\textbf{Decisive reason:}\quad \hrulefill
+
+\end{document}

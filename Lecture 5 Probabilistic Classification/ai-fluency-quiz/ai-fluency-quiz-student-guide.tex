@@ -1,0 +1,131 @@
+% Student-facing guide to the two-pass AI Fluency quiz format.
+% Compile with: latexmk -pdf ai-fluency-quiz-student-guide.tex
+\documentclass[10pt]{article}
+
+\usepackage[letterpaper,left=0.82in,right=0.82in,top=0.72in,bottom=0.72in,headheight=13pt,footskip=22pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{array,booktabs,tabularx}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\CourseCodes}{ECE 4424 / CS 4824}
+\newcommand{\CourseName}{Machine Learning: Learn by Building}
+\newcommand{\CourseTerm}{Fall 2026}
+\newcommand{\InstructorName}{Ming Jin}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=1.35em,itemsep=0.2em,topsep=0.25em}
+\setlist[enumerate]{leftmargin=1.55em,itemsep=0.35em,topsep=0.25em}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+% Keep section labels plain and compact so the guide remains easy to scan.
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {0.9em}% space before
+  {0.25em}% space after
+  {\normalfont\large\bfseries}}
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\scriptsize \CourseCodes\quad |\quad AI Fluency quiz guide}
+\fancyfoot[R]{\scriptsize \thepage}
+
+\newcommand{\GuideHeader}{%
+  {\LARGE\bfseries AI Fluency Quizzes: Student Guide}\par
+  \vspace{0.25em}
+  \CourseCodes: \CourseName\hfill\CourseTerm\par
+  Instructor: \InstructorName\hfill Virginia Tech
+  \vspace{0.4em}\hrule\vspace{0.55em}
+}
+
+\begin{document}
+\GuideHeader
+
+\section*{What this quiz format is}
+An AI Fluency quiz asks you to evaluate a short AI-generated answer about the technical material in the course. The answer will usually mix good observations with a claim that is incomplete, unsupported, or too confident. Your job is not to declare that ``AI is bad.'' Your job is to decide exactly what the evidence supports and what it does not.
+
+The posted sample quiz is \textbf{not for credit}. It shows the structure we may use on future in-class quizzes.
+
+\section*{How the two-pass quiz works}
+\begin{enumerate}
+  \item \textbf{Cold audit.} Read only the front. Mark one strong claim, one claim you would verify, and the most consequential leap. Record an initial disposition.
+  \item \textbf{Course instruction.} During the lecture, learn the relevant technical ideas. Keep your original marks visible.
+  \item \textbf{Evidence audit.} Turn the sheet over when instructed. Use the new evidence to audit one claim, complete a short technical check, and request a useful verification artifact.
+  \item \textbf{Revision.} Give a final disposition. You may change your mind, or keep the same verdict for a better reason. Either can demonstrate learning.
+\end{enumerate}
+
+\section*{A useful answer structure}
+For the main audit, move through four questions:
+
+\begin{tabularx}{\linewidth}{@{}p{0.95in}L@{}}
+  \toprule
+  \textbf{Claim} & What, exactly, is the AI asserting? Restate it in your own words. \\
+  \textbf{Evidence} & Which number, assumption, definition, or missing test bears on that claim? \\
+  \textbf{Action} & Does the evidence justify only a comparison, a threshold choice, a pilot, or a real deployment? \\
+  \textbf{Next step} & What concrete artifact would reduce uncertainty, and what result would make you stop? \\
+  \bottomrule
+\end{tabularx}
+
+\section*{What the quiz assesses}
+\begin{itemize}
+  \item \textbf{Foundational machine learning:} definitions, assumptions, confusion-matrix rates, threshold tradeoffs, calibration, conditional probability, validation, and data scope.
+  \item \textbf{Technical judgment:} choosing the right denominator, separating a model score from a real-world guarantee, and recognizing when evidence is too narrow for the proposed action.
+  \item \textbf{AI fluency:} tracing claims to evidence, noticing confident but unsupported transitions, asking for falsifiable checks, and retaining responsibility for the final decision.
+\end{itemize}
+
+\section*{Practical expectations}
+\begin{itemize}
+  \item Bring something to write with; a second ink color is helpful but optional. Turn the page only when instructed.
+  \item AI tools may not be used during an in-class quiz unless the instructor explicitly authorizes them or an approved accommodation applies.
+  \item Treat the scenario as a technical decision exercise. The mushroom example is fictional and must never be used for real identification.
+\end{itemize}
+
+\newpage
+\GuideHeader
+
+\section*{What strong work looks like}
+A strong response is specific and economical. It usually does four things:
+
+\begin{itemize}
+  \item names a particular claim rather than criticizing the entire answer;
+  \item cites packet evidence or completes the relevant calculation correctly;
+  \item explains why that evidence changes the proposed action; and
+  \item asks for a test or artifact with a clear stop condition.
+\end{itemize}
+
+You do \textbf{not} need to diagnose every sentence. Prioritize the flaw that could cause the most consequential decision error.
+
+\section*{Mini-example}
+Suppose an AI writes: ``The classifier is 95\% accurate, so it is ready to deploy.'' A useful audit would not merely say ``unsupported.'' It would explain that overall accuracy hides which class was harmed, request confusion counts at the proposed operating threshold, and state what high-cost error would block deployment.
+
+That response connects a foundational concept to an action. It also makes the next AI interaction more productive because the follow-up request is concrete and testable.
+
+\section*{How we grade}
+The main focus is your \textbf{thinking process}: whether you identify a consequential claim, connect it to evidence, explain what that evidence authorizes, and make a defensible decision. Open-ended judgment questions may have more than one strong answer. You do not need to match a preferred conclusion if your reasoning is technically sound and well supported.
+
+When a question has a clear right or wrong answer---for example, a calculation, conditional probability, or definition---the answer and supporting work are graded for correctness.
+
+The quiz follows the course's short in-class 2 / 1 / 0 policy:
+
+\begin{itemize}
+  \item \textbf{2 points:} clear, evidence-linked reasoning and correct work when a question has a single answer;
+  \item \textbf{1 point:} relevant progress with a missing reasoning link or a technical error; and
+  \item \textbf{0 points:} absent or materially blank.
+\end{itemize}
+
+Your initial cold judgment is not graded for being ``right.'' What matters is making your reasoning visible and improving it when the evidence warrants revision.
+
+\section*{Why the quiz is designed this way}
+AI answers can be fluent even when the evidence-to-conclusion step is weak. The two-pass design captures your first reaction, then lets you use the lecture's technical ideas to reassess it. This checks understanding more directly than recognizing an option in a multiple-choice list, and it treats revision as evidence of learning rather than as a mistake.
+
+The paper format also matters: your original marks, later evidence, and final decision remain visible together. That creates a small record of how your reasoning changed.
+
+\textbf{Best preparation:} understand the lecture's core concepts well enough to ask, ``What evidence would have to be true before I could rely on this conclusion?''
+
+\end{document}

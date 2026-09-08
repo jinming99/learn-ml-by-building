@@ -1,0 +1,27 @@
+---
+title: "AI Fluency Quizzes"
+subtitle: "Audit claims, check the evidence, and revise with purpose"
+---
+
+These short in-class quizzes connect AI fluency with the foundational technical ideas in each lecture. You will examine an AI-generated answer, identify the claim that matters most, test it against course evidence, and make a defensible decision.
+
+:::{.callout-tip}
+## Start with the sample
+
+- [Sample quiz: The EAT Button (PDF)](files/quiz-05-ai-fluency-sample.pdf)
+- [Student guide: How to answer an AI Fluency quiz (PDF)](files/ai-fluency-quiz-student-guide.pdf)
+
+These materials are not for credit. Read the guide once, then use the sample quiz to become familiar with the format.
+:::
+
+## Quizzes by lecture
+
+| Lecture | Topic | Quiz |
+|---|---|---|
+| 5 | Probabilistic Classification | [Sample quiz (PDF)](files/quiz-05-ai-fluency-sample.pdf) |
+
+Future quiz links will appear here and on the corresponding lecture page.
+
+## What is graded
+
+For open-ended judgments, grading emphasizes your reasoning process: the claim you select, the evidence you use, and how well your conclusion follows. When a question has a clear right or wrong answer, such as a calculation or definition, correctness matters.
