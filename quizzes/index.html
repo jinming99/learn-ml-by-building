@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 11: K-Means Clustering – ECE 4424/CS 4824: Machine Learning</title>
+<title>AI Fluency Quizzes – ECE 4424/CS 4824: Machine Learning</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -160,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">L11: K-Means Clustering</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../syllabus.html">Course Info</a></li><li class="breadcrumb-item"><a href="../quizzes/index.html">AI Fluency Quizzes</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -195,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../quizzes/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../quizzes/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">AI Fluency Quizzes</span></a>
   </div>
 </li>
@@ -300,7 +300,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L11: K-Means Clustering</span></a>
   </div>
 </li>
@@ -433,20 +433,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
-  <li><a href="#datasets-acknowledgments" id="toc-datasets-acknowledgments" class="nav-link" data-scroll-target="#datasets-acknowledgments">Datasets &amp; Acknowledgments</a></li>
+  <li><a href="#quizzes-by-lecture" id="toc-quizzes-by-lecture" class="nav-link active" data-scroll-target="#quizzes-by-lecture">Quizzes by lecture</a></li>
+  <li><a href="#what-is-graded" id="toc-what-is-graded" class="nav-link" data-scroll-target="#what-is-graded">What is graded</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">L11: K-Means Clustering</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../syllabus.html">Course Info</a></li><li class="breadcrumb-item"><a href="../quizzes/index.html">AI Fluency Quizzes</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Lecture 11: K-Means Clustering</h1>
-<p class="subtitle lead">Finding Groups in Unsupervised Learning</p>
+<h1 class="title">AI Fluency Quizzes</h1>
+<p class="subtitle lead">Audit claims, check the evidence, and revise with purpose</p>
 </div>
 
 
@@ -463,48 +461,47 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.</p>
-</section>
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>By the end of this lecture, you will:</p>
-<ul>
-<li>Understand the fundamental concepts of clustering and unsupervised learning</li>
-<li>Master the K-Means algorithm, including its objective function (WCSS) and iterative optimization</li>
-<li>Implement K-Means from scratch to understand the assignment and update steps</li>
-<li>Apply K-Means to text data using TF-IDF transformation</li>
-<li>Evaluate clustering quality using silhouette score, Davies-Bouldin index, and Calinski-Harabasz score</li>
-<li>Choose optimal K using the elbow method and silhouette analysis</li>
-<li>Use K-Means variants (MiniBatch K-Means, K-Means++) for improved performance</li>
-<li>Recognize K-Means limitations (spherical clusters, fixed K) and when to use alternative methods</li>
-</ul>
-</section>
-<section id="materials" class="level2">
-<h2 class="anchored" data-anchor-id="materials">Materials</h2>
+<p>These short in-class quizzes connect AI fluency with the foundational technical ideas in each lecture. You will examine an AI-generated answer, identify the claim that matters most, test it against course evidence, and make a defensible decision.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Quick Access
+<span class="screen-reader-only">Tip</span>Start with the sample
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2011%20K-Means/11-KMeans.ipynb">K-Means Clustering Notebook</a></strong></p>
-</div>
-</div>
-</section>
-<section id="datasets-acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
 <ul>
-<li><strong>20 Newsgroups</strong> (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering</li>
-<li><strong>Libraries</strong>: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)</li>
+<li><a href="files/quiz-05-ai-fluency-sample.pdf">Sample quiz: The EAT Button (PDF)</a></li>
+<li><a href="files/ai-fluency-quiz-student-guide.pdf">Student guide: How to answer an AI Fluency quiz (PDF)</a></li>
 </ul>
-<hr>
-<p><strong>Previous</strong>: <a href="../lectures/10-kernel-gp.html">← Lecture 10: Kernel Methods &amp; Gaussian Processes</a> | <strong>Next</strong>: <a href="../lectures/12-pca.html">Lecture 12: PCA and Dimensionality Reduction →</a></p>
+<p>These materials are not for credit. Read the guide once, then use the sample quiz to become familiar with the format.</p>
+</div>
+</div>
+<section id="quizzes-by-lecture" class="level2">
+<h2 class="anchored" data-anchor-id="quizzes-by-lecture">Quizzes by lecture</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Lecture</th>
+<th>Topic</th>
+<th>Quiz</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5</td>
+<td>Probabilistic Classification</td>
+<td><a href="files/quiz-05-ai-fluency-sample.pdf">Sample quiz (PDF)</a></td>
+</tr>
+</tbody>
+</table>
+<p>Future quiz links will appear here and on the corresponding lecture page.</p>
+</section>
+<section id="what-is-graded" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-graded">What is graded</h2>
+<p>For open-ended judgments, grading emphasizes your reasoning process: the claim you select, the evidence you use, and how well your conclusion follows. When a question has a clear right or wrong answer, such as a calculation or definition, correctness matters.</p>
 
 
 </section>
