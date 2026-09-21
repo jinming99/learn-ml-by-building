@@ -235,6 +235,9 @@ Project 3 Thought Cascade (Instructor)/
 Lecture*/creditcard.csv
 Lecture*/*.xlsx
 Lecture*/*.csv
+# Small, bundled datasets for the Lecture 6 visual vocabulary walkthrough.
+!Lecture 6 Evaluation Pitfalls and Data Visualization/tips.csv
+!Lecture 6 Evaluation Pitfalls and Data Visualization/penguins.csv
 Lecture*/*.md
 !Lecture*/README.md
 
