@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-22d7345d07a0dd5856aea9efdc4375f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3e69996ecc1dc3affbcc1659d62e9ef6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -447,7 +447,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">L6: Model Evaluation and Data Deception</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Lecture 6: Model Evaluation and Data Deception</h1>
-<p class="subtitle lead">When Data Lies - Real-World Deception in Data Science</p>
+<p class="subtitle lead">What Did That Number Leave Out?</p>
 </div>
 
 
@@ -466,18 +466,18 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you’ll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.</p>
+<p>A summary or a high score can hide the part we care about most. We start with the data and the choice of visualization, follow a fraud detector from accuracy to financial consequences, and finish by asking whether each input could have been known at prediction time.</p>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
 <p>By the end of this lecture, you will:</p>
 <ul>
 <li>Detect when summary statistics hide critical patterns using visualization techniques</li>
-<li>Recognize and resolve Simpson’s Paradox in aggregated data</li>
+<li>Explain how group composition can reverse an aggregate comparison</li>
 <li>Choose appropriate metrics beyond accuracy for imbalanced problems</li>
-<li>Identify and prevent data leakage in time series and customer data</li>
+<li>Identify future information leaking into a customer-prediction task</li>
 <li>Interpret ML visualizations (ROC curves, confusion matrices) correctly</li>
-<li>Build a systematic evaluation framework for production models</li>
+<li>State what a classroom test does and does not establish about deployment</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -493,6 +493,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container callout-body">
 <p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%206%20Evaluation%20Pitfalls%20and%20Data%20Visualization/06-ModelEval.ipynb">Model Evaluation and Data Deception Notebook</a></strong></p>
+<p><a href="../notes/06-evaluation-pitfalls-and-data-visualization.html">Lecture notes</a></p>
 </div>
 </div>
 </section>
@@ -501,10 +502,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="real-datasets-used" class="level3">
 <h3 class="anchored" data-anchor-id="real-datasets-used">Real Datasets Used</h3>
 <ul>
-<li><a href="https://jumpingrivers.github.io/datasauRus/">Datasaurus Dozen</a>: Created by Autodesk Research — 13 datasets with identical statistics but widely differing spatial patterns</li>
+<li><a href="https://www.openintro.org/data/index.php?data=datasaurus">Datasaurus Dozen</a>: 13 datasets with nearly identical summary statistics but very different spatial patterns</li>
 <li><a href="https://discovery.cs.illinois.edu/dataset/berkeley/">UC Berkeley Admissions (1973)</a>: Historical admissions data illustrating Simpson’s Paradox</li>
 <li><a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud">Credit Card Fraud (Kaggle)</a>: Transactions from European cardholders over two days; 492 frauds out of 284,807 transactions (0.172%), resulting in a highly imbalanced dataset</li>
-<li><a href="https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset">Telco Customer Churn (IBM, Kaggle)</a>: Customer account data used to demonstrate evaluation pitfalls and potential data leakage</li>
+<li><a href="https://public.dhe.ibm.com/software/data/sw-library/cognos/mobile/C11/data/">Telco Customer Churn (IBM)</a>: The 33-column workbook includes <code>Churn Reason</code>; it describes a fictional company and supports the prediction-time leakage example</li>
 </ul>
 </section>
 </section>
@@ -521,10 +522,10 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Always visualize your data — Summary statistics alone can hide dinosaurs (literally!)</li>
-<li>Accuracy lies for imbalanced data — A 99.8% accurate model can be completely useless</li>
-<li>Data leakage is subtle and devastating — Always ask: “Would I have this information at prediction time?”</li>
-<li>Context matters — What looks like discrimination at one level may be the opposite at another (Simpson’s Paradox)</li>
+<li>Inspect the observations and relevant groups before trusting a summary.</li>
+<li>Connect each metric to the errors and consequences it counts.</li>
+<li>Ask: “Would I have this information at prediction time?”</li>
+<li>Keep the limits visible: group comparisons alone do not establish causes, and a random split alone does not establish deployment performance.</li>
 </ol>
 </div>
 </div>

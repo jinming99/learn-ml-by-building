@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Bayes’ rule, generative and discriminative learning, logistic regression, cross-entropy, confusion matrices, and calibration.">
+
+<title>Lecture 5: Probabilistic Classification – ECE 4424/CS 4824: Machine Learning</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3e69996ecc1dc3affbcc1659d62e9ef6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../site-legibility-v2.css">
+<link rel="stylesheet" href="../lecture-notes.css">
+<link rel="stylesheet" href="../assets/lecture-notes/lecture-05/notes.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">ECE 4424/CS 4824: Machine Learning</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../schedule.html" aria-current="page"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../quizzes/index.html"> 
+<span class="menu-text">Quizzes</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../projects/index.html">
+ <span class="dropdown-text">Projects Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/project1.html">
+ <span class="dropdown-text">Project 1: KNN Music Recommender</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/project2.html">
+ <span class="dropdown-text">Project 2: Neural Archaeology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/thought_cascade.html">
+ <span class="dropdown-text">Project 3: Thought Cascade</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/capstone.html">
+ <span class="dropdown-text">Capstone Project</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jinming99/learn-ml-by-building"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://canvas.vt.edu/"> 
+<span class="menu-text">Canvas</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 5: Probabilistic Classification</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Info</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../quizzes/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AI Fluency Quizzes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 1: Let’s Predict</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/00-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L0: Environment Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/01-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L1: Welcome to ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/02-knn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L2: k-NN</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/03-linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L3: Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L4: Gradient Descent and Optimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/05-probclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L5: Probabilistic Classification</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 2: Let’s Understand</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/06-model-eval.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L6: Model Evaluation and Data Deception</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/07-regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L7: Overfitting and Regularization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/08-decision-trees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L8: Modern Decision Trees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/09-ensemble.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L9: Ensemble Methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/10-kernel-gp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L10: Kernel Methods &amp; Gaussian Processes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 3: Let’s Discover</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L11: K-Means Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/12-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L12: PCA and Dimensionality Reduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/13-nn-architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L13: Neural Network Architecture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/14-transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L14: Understanding Transformers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 4: Let’s See &amp; Chat</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/15-cnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L15: Convolutional Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/16-rnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L16: Recurrent Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/17-llm-agents.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L17: LLM Agents &amp; Tool Use</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/18-vlms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L18: Vision-Language Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../#" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L19-20: Coming Soon</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 5: Let’s Act &amp; Impact</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../#" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">L19-20: Coming Soon</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projects Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/project1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project 1: KNN Music Recommender</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/project2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project 2: Neural Archaeology</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/thought_cascade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project 3: Thought Cascade</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/capstone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Capstone Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#from-observations-to-class-probabilities" id="toc-from-observations-to-class-probabilities" class="nav-link active" data-scroll-target="#from-observations-to-class-probabilities">From observations to class probabilities</a></li>
+  <li><a href="#two-ways-to-learn-a-classifier" id="toc-two-ways-to-learn-a-classifier" class="nav-link" data-scroll-target="#two-ways-to-learn-a-classifier">Two ways to learn a classifier</a></li>
+  <li><a href="#logistic-regression-and-cross-entropy" id="toc-logistic-regression-and-cross-entropy" class="nav-link" data-scroll-target="#logistic-regression-and-cross-entropy">Logistic regression and cross-entropy</a></li>
+  <li><a href="#count-the-errors-that-the-decision-creates" id="toc-count-the-errors-that-the-decision-creates" class="nav-link" data-scroll-target="#count-the-errors-that-the-decision-creates">Count the errors that the decision creates</a></li>
+  <li><a href="#check-probability-calibration" id="toc-check-probability-calibration" class="nav-link" data-scroll-target="#check-probability-calibration">Check probability calibration</a></li>
+  <li><a href="#lecture-summary" id="toc-lecture-summary" class="nav-link" data-scroll-target="#lecture-summary">Lecture summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lecture 5: Probabilistic Classification</h1>
+<p class="subtitle lead">From evidence to decisions</p>
+</div>
+
+<div>
+  <div class="description">
+    Bayes’ rule, generative and discriminative learning, logistic regression, cross-entropy, confusion matrices, and calibration.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>A classifier turns evidence into class probabilities. Its assumptions, probability estimates, and decision rule each need to be evaluated.</p>
+<div class="lecture-note-actions" role="navigation" aria-label="Lecture note navigation">
+<p><a href="../lectures/05-probclass.html" class="btn btn-primary btn-sm">Course materials</a> <a href="../notes/04-gradient-descent-and-optimization.html" class="btn btn-outline-secondary btn-sm">Previous lecture</a></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Learning goals
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By the end of this lecture, you should be able to:</p>
+<ol type="1">
+<li>use Bayes’ rule and distinguish generative from discriminative classification;</li>
+<li>explain the sigmoid and cross-entropy in logistic regression; and</li>
+<li>interpret confusion matrices, decision thresholds, and probability calibration.</li>
+</ol>
+</div>
+</div>
+<section id="from-observations-to-class-probabilities" class="level2">
+<h2 class="anchored" data-anchor-id="from-observations-to-class-probabilities">From observations to class probabilities</h2>
+<p>A mushroom classifier uses attributes such as odor, cap color, and habitat to estimate whether a record belongs to the poisonous class. Let <span class="math inline">\(Y=1\)</span> mean poisonous, <span class="math inline">\(Y=0\)</span> mean edible, and <span class="math inline">\(\boldsymbol X\)</span> denote the observed features. The quantity we want is <span class="math inline">\(P(Y=1\mid\boldsymbol X=\boldsymbol x)\)</span>. The two errors have different consequences: discarding an edible mushroom and accepting a poisonous one.</p>
+<p><strong>Bayes’ rule</strong> relates the desired class probability to the distribution of observations within each class. Suppressing <span class="math inline">\(\boldsymbol X=\boldsymbol x\)</span> for readability,</p>
+<p><span class="math display">\[
+P(Y=c\mid\boldsymbol x)
+=\frac{P(\boldsymbol x\mid Y=c)\,P(Y=c)}{P(\boldsymbol x)}.
+\]</span></p>
+<p>The <em>prior</em> <span class="math inline">\(P(Y=c)\)</span> describes the class before seeing these features; the <em>likelihood</em> <span class="math inline">\(P(\boldsymbol x\mid Y=c)\)</span> describes the features within that class. The <em>posterior</em> <span class="math inline">\(P(Y=c\mid\boldsymbol x)\)</span> updates the class probability after observing them. The <em>evidence</em> <span class="math inline">\(P(\boldsymbol x)\)</span> normalizes the posteriors so they sum to one over classes.</p>
+<p>For the most probable class,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat y
+&amp;=\operatorname*{arg\,max}_{c\in\{0,1\}} P(Y=c\mid\boldsymbol x)\\
+&amp;=\operatorname*{arg\,max}_{c\in\{0,1\}} P(\boldsymbol x\mid Y=c)P(Y=c).
+\end{aligned}
+\]</span></p>
+<p>The evidence is shared across classes, so it can be dropped for comparison, but is needed to normalize probabilities. Here <span class="math inline">\(\operatorname*{arg\,max}\)</span> returns the class; <span class="math inline">\(\max\)</span> returns its probability. Choosing the most probable class treats the two errors as equally costly.</p>
+</section>
+<section id="two-ways-to-learn-a-classifier" class="level2">
+<h2 class="anchored" data-anchor-id="two-ways-to-learn-a-classifier">Two ways to learn a classifier</h2>
+<p><strong>Generative learning</strong> estimates the class prior <span class="math inline">\(P(Y)\)</span> and the feature distribution <span class="math inline">\(P(\boldsymbol X\mid Y)\)</span> for each class. Together they specify <span class="math inline">\(P(\boldsymbol X,Y)\)</span>, which Bayes’ rule converts to a posterior. Fitting these distributions is the learning, or estimation, step.</p>
+<p><strong>Discriminative learning</strong> learns a relation from features to classes directly. Logistic regression models <span class="math inline">\(P(Y\mid\boldsymbol X)\)</span> without fitting a separate feature distribution for each class. Support vector machines are also discriminative, but need not directly produce probabilities.</p>
+<figure class="lecture-05-figure figure" id="fig-two-routes">
+<picture> <source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-05/two-routes-mobile.svg"> <img src="../assets/lecture-notes/lecture-05/two-routes.svg" alt="Generative learning estimates class priors and feature distributions and uses Bayes’ rule to obtain class posteriors. Logistic regression fits a sigmoid of a weighted score to model the class posterior directly." loading="lazy" class="figure-img"> </picture>
+<figcaption>
+Figure 1. Generative and discriminative learning reach class probabilities through different modeling choices. Both still need a decision rule.
+</figcaption>
+</figure>
+<p><strong>Naive Bayes</strong> makes the generative approach manageable by assuming that features are <em>conditionally independent given the class</em>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(\boldsymbol x\mid Y=c)&amp;=\prod_{j=1}^{d}P(x_j\mid Y=c),\\
+P(Y=c\mid\boldsymbol x)&amp;\propto P(Y=c)\prod_{j=1}^{d}P(x_j\mid Y=c).
+\end{aligned}
+\]</span></p>
+<p>Categorical Naive Bayes estimates these terms from category counts within each class. Smoothing adds a small amount to the counts so an unseen feature-class combination does not force the whole product to zero. The current notebook uses additive smoothing with <span class="math inline">\(\alpha=1\)</span>.</p>
+<p>The assumption concerns dependence <em>within</em> a class. Even after learning that a mushroom is poisonous, knowing one feature may still help predict another. Multiplying likelihoods as though such clues were independent can count related evidence repeatedly and push probabilities toward extremes. Useful class predictions can therefore coexist with poor probability estimates.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Reversing a conditional with the mushroom data.</strong> The full dataset contains 3,916 poisonous and 4,208 edible records. Of these, 1,008 poisonous and 136 edible records have habitat recorded as “paths.” Thus</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;P(\text{poisonous}\mid\text{paths})\\
+&amp;=\frac{(1008/3916)(3916/8124)}{1144/8124}\\
+&amp;=\frac{1008}{1144}\approx 88.1\%.
+\end{aligned}
+\]</span></p>
+<p>This differs from</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;P(\text{paths}\mid\text{poisonous})\\
+&amp;=1008/3916\approx25.7\%.
+\end{aligned}
+\]</span></p>
+<p>These are descriptive frequencies in this dataset, not estimates of risk for a mushroom found outdoors.</p>
+</div>
+</div>
+</div>
+<p>The 8,124 hypothetical records have 22 categorical attributes and 2,480 unknown stalk-root entries, retained as a category. Logistic regression uses one-hot indicators to avoid inventing an order among colors or habitats; Naive Bayes uses category IDs to index frequency tables.</p>
+</section>
+<section id="logistic-regression-and-cross-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-and-cross-entropy">Logistic regression and cross-entropy</h2>
+<p>An ordinary linear predictor can produce values below zero or above one. Logistic regression retains the linear score <span class="math inline">\(z=\boldsymbol w^{\top}\boldsymbol x+b\)</span> and passes it through the <em>sigmoid</em>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat p&amp;=P(Y=1\mid\boldsymbol x;\boldsymbol w,b)\\
+&amp;=\sigma(z)=\frac{1}{1+e^{-z}}.
+\end{aligned}
+\]</span></p>
+<p>For finite <span class="math inline">\(z\)</span>, the output lies strictly between zero and one. At <span class="math inline">\(z=0\)</span>, it is <span class="math inline">\(0.5\)</span>; as <span class="math inline">\(z\)</span> becomes very positive or very negative, it approaches one or zero. A valid output range alone does not establish that the probabilities are accurate.</p>
+<div class="lecture-05-aside">
+<p><strong>Slope and bias.</strong></p>
+<p>In one dimension, <span class="math inline">\(|w|\)</span> controls steepness and the <span class="math inline">\(0.5\)</span> boundary is <span class="math inline">\(x=-b/w\)</span> for <span class="math inline">\(w\ne0\)</span>. Increasing <span class="math inline">\(b\)</span> raises the poisonous probability at each input; for <span class="math inline">\(w&gt;0\)</span>, the curve shifts left.</p>
+</div>
+<p>The model assumes that the log-odds are linear in the chosen features:</p>
+<p><span class="math display">\[
+\log\frac{\widehat p}{1-\widehat p}=\boldsymbol w^{\top}\boldsymbol x+b.
+\]</span></p>
+<p>At threshold <span class="math inline">\(0.5\)</span>, the decision boundary is <span class="math inline">\(\boldsymbol w^{\top}\boldsymbol x+b=0\)</span>. Feature interactions must be represented explicitly if they are needed.</p>
+<figure class="lecture-05-figure figure" id="fig-sigmoid-loss">
+<picture> <source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-05/sigmoid-and-loss-mobile.svg"> <img src="../assets/lecture-notes/lecture-05/sigmoid-and-loss.svg" alt="The sigmoid increases from near zero to near one and passes through score zero at probability 0.5. Negative log loss decreases from large values near zero true-class probability to zero at probability one." loading="lazy" class="figure-img"> </picture>
+<figcaption>
+Figure 2. The sigmoid maps a score to a probability. Cross-entropy scores the probability assigned to the observed class: a confident mistake receives a large loss. These curves show the functions, not fitted mushroom data.
+</figcaption>
+</figure>
+<p>For an observed label <span class="math inline">\(y\in\{0,1\}\)</span> and predicted poisonous probability <span class="math inline">\(\widehat p\)</span>, <strong>binary cross-entropy</strong> is</p>
+<p><span class="math display">\[
+\ell(y,\widehat p)
+=-y\log\widehat p-(1-y)\log(1-\widehat p).
+\]</span></p>
+<p>When <span class="math inline">\(y=1\)</span>, only <span class="math inline">\(-\log\widehat p\)</span> remains; when <span class="math inline">\(y=0\)</span>, only <span class="math inline">\(-\log(1-\widehat p)\)</span> remains. Equivalently, <span class="math inline">\(\ell=-\log p_{\mathrm{true}}\)</span>, where <span class="math inline">\(p_{\mathrm{true}}\)</span> is the probability assigned to the observed class. The label <span class="math inline">\(y\)</span> selects the term; it is not the model’s predicted class.</p>
+<p>If a poisonous record receives <span class="math inline">\(\widehat p=0.99\)</span>, its loss is about <span class="math inline">\(0.010\)</span>. If it receives <span class="math inline">\(\widehat p=0.01\)</span>, its loss is about <span class="math inline">\(4.605\)</span>. The penalty grows logarithmically without bound as the assigned probability of the truth approaches zero. Ordinary cross-entropy treats both classes symmetrically; it does not by itself encode the greater cost of missing poison.</p>
+<p>Training minimizes the mean loss over observations. For one record, <span class="math inline">\(\partial\ell/\partial z=\widehat p-y\)</span>, which gives the weight gradient <span class="math inline">\((\widehat p-y)\boldsymbol x\)</span> and bias gradient <span class="math inline">\(\widehat p-y\)</span>. Averaging these gradients supplies the updates from Lecture 4.</p>
+</section>
+<section id="count-the-errors-that-the-decision-creates" class="level2">
+<h2 class="anchored" data-anchor-id="count-the-errors-that-the-decision-creates">Count the errors that the decision creates</h2>
+<p>A probability becomes a binary prediction through a threshold <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+\widehat y=\begin{cases}
+1 &amp; \text{if }\widehat p\ge t,\\
+0 &amp; \text{if }\widehat p&lt;t.
+\end{cases}
+\]</span></p>
+<p>Throughout these notes, the positive class is poisonous. A confusion matrix records what happened after applying the threshold.</p>
+<div class="table-responsive">
+<div id="tbl-confusion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Rows are actual classes; columns are predictions. A false negative is the dangerous direction of error in the mushroom example.
+</figcaption>
+<div aria-describedby="tbl-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Actual class</th>
+<th style="text-align: left;">Predicted edible (<span class="math inline">\(0\)</span>)</th>
+<th style="text-align: left;">Predicted poisonous (<span class="math inline">\(1\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Edible (<span class="math inline">\(0\)</span>)</td>
+<td style="text-align: left;">True negative (TN): retained correctly</td>
+<td style="text-align: left;">False positive (FP): edible record rejected</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Poisonous (<span class="math inline">\(1\)</span>)</td>
+<td style="text-align: left;">False negative (FN): poisonous record accepted</td>
+<td style="text-align: left;">True positive (TP): rejected correctly</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>Accuracy, <span class="math inline">\((TP+TN)/n\)</span>, combines correct decisions and hides the distinction between the two mistakes. The false-negative rate is <span class="math inline">\(FN/(TP+FN)\)</span>: among all poisonous records, how many were missed? The fraction poisonous <em>among records predicted edible</em> is instead <span class="math inline">\(FN/(TN+FN)\)</span>. The denominators answer different questions.</p>
+<div class="table-responsive">
+<div id="tbl-results" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Saved results in the current notebook: 1,625 test records, a stratified 80/20 split with random seed 42, and threshold <span class="math inline">\(t=0.5\)</span>. The models use the category encodings described earlier.
+</figcaption>
+<div aria-describedby="tbl-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Notebook model</th>
+<th style="text-align: left;">Accuracy</th>
+<th style="text-align: left;">False negatives</th>
+<th style="text-align: left;">False positives</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Logistic regression</td>
+<td style="text-align: left;">99.9%</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Naive Bayes</td>
+<td style="text-align: left;">94.6%</td>
+<td style="text-align: left;">81</td>
+<td style="text-align: left;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<p>Lowering <span class="math inline">\(t\)</span> flags more records as poisonous. For fixed predictions and test data, false negatives cannot increase, while false positives cannot decrease. The change may leave counts unchanged if no scores lie between the thresholds. Threshold selection therefore reflects the relative consequences of the two mistakes.</p>
+<p>If correct decisions have zero cost, let <span class="math inline">\(C_{\mathrm{FN}}\)</span> be the cost of accepting poison and <span class="math inline">\(C_{\mathrm{FP}}\)</span> the cost of rejecting an edible record. With a trustworthy probability <span class="math inline">\(p\)</span>, the expected costs are <span class="math inline">\(C_{\mathrm{FN}}p\)</span> for accepting and <span class="math inline">\(C_{\mathrm{FP}}(1-p)\)</span> for rejecting. Reject when the latter is smaller, giving the cost-based threshold</p>
+<p><span class="math display">\[
+t^{\star}=\frac{C_{\mathrm{FP}}}{C_{\mathrm{FP}}+C_{\mathrm{FN}}}.
+\]</span></p>
+<p>A larger false-negative cost leads to a lower threshold. This calculation assumes the probabilities and costs describe the setting where the decision will be used.</p>
+</section>
+<section id="check-probability-calibration" class="level2">
+<h2 class="anchored" data-anchor-id="check-probability-calibration">Check probability calibration</h2>
+<p>Suppose a weather model predicts a 40% chance of rain on each of five days. The outcomes are rain, sun, rain, sun, sun. Rain occurred on two of five days, so the observed frequency is <span class="math inline">\(2/5=40\%\)</span>.</p>
+<figure class="lecture-05-figure figure" id="fig-calibration">
+<picture> <source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-05/calibration-mobile.svg"> <img src="../assets/lecture-notes/lecture-05/calibration.svg" alt="Five daily rain forecasts are each 40 percent. Rain occurs on days one and three; days two, four, and five are sunny. The observed two-of-five rain rate puts the group at (0.4, 0.4) on the reliability diagonal." loading="lazy" class="figure-img"> </picture>
+<figcaption>
+Figure 3. The five-day group lies on the diagonal because its 40% forecast matches the observed rain frequency. Five observations illustrate the idea; they do not establish calibration in general.
+</figcaption>
+</figure>
+<div class="lecture-05-aside lecture-05-calibration-aside">
+<p><strong>What the curve leaves out.</strong></p>
+<p>Inspect bin counts. Most current logistic-regression predictions are near zero or one, leaving little evidence about intermediate probabilities. Extreme probabilities alone do not demonstrate overconfidence.</p>
+<p>Calibration also differs from separation: assigning every record the overall poisonous fraction can be calibrated on that population while separating no individuals.</p>
+</div>
+<p>A single dry day does not refute a 40% rain forecast. <strong>Calibration</strong> means that, among cases assigned probability near <span class="math inline">\(p\)</span>, the positive outcome occurs about a fraction <span class="math inline">\(p\)</span> of the time:</p>
+<p><span class="math display">\[
+P(Y=1\mid\widehat p=p)=p.
+\]</span></p>
+<p>For mushrooms, about 70% of records receiving a calibrated 70% poisonous prediction are actually poisonous. This describes positive-class frequency, not overall classification accuracy.</p>
+<p>A <em>reliability diagram</em> groups predictions into bins. Its horizontal coordinate is the mean predicted poisonous probability in a bin; its vertical coordinate is the observed poisonous fraction. Points on the diagonal agree. Above the diagonal, the model underestimates the poisonous probability; below it, the model overestimates that probability. This interpretation remains valid on both sides of <span class="math inline">\(0.5\)</span>.</p>
+<p>Cross-entropy scores probabilities, confusion matrices assess thresholded decisions, and calibration checks agreement with observed frequencies. Each answers a distinct question.</p>
+</section>
+<section id="lecture-summary" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-summary">Lecture summary</h2>
+<p>Probabilistic classification connects evidence to class probabilities through explicit modeling assumptions, then uses loss, calibration, and error costs to assess those probabilities and the decisions they support.</p>
+<div class="small text-muted">
+<p><strong>Acknowledgment.</strong> These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.</p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/jinming\.tech\/learn-ml-by-building\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

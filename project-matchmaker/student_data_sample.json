@@ -1,0 +1,393 @@
+{
+  "dimensions": [
+    "theory_implementation",
+    "research_industry",
+    "structured_exploratory",
+    "solo_collaborative",
+    "depth_breadth",
+    "plan_iterate",
+    "data_model",
+    "foundational_applied"
+  ],
+  "dimension_descriptions": {
+    "theory_implementation": "Theory/Math ← → Implementation/Engineering",
+    "research_industry": "Research/Academic ← → Industry/Product",
+    "structured_exploratory": "Structured Problems ← → Exploratory/Open-ended",
+    "solo_collaborative": "Solo Work ← → Team Collaboration",
+    "depth_breadth": "Deep Focus ← → Broad Interests",
+    "plan_iterate": "Plan First ← → Iterate Quickly",
+    "data_model": "Data/Analysis First ← → Model/Algorithm First",
+    "foundational_applied": "Build Foundations ← → Applied Solutions"
+  },
+  "categorical_features": {
+    "team_status": {
+      "name": "Team Formation Status",
+      "values": [
+        "solo",
+        "seeking_small",
+        "seeking_medium",
+        "seeking_large"
+      ],
+      "colors": [
+        "#8b5cf6",
+        "#3b82f6",
+        "#10b981",
+        "#f59e0b"
+      ]
+    },
+    "main_interest": {
+      "name": "Primary Interest Area",
+      "values": [
+        "nlp",
+        "computer_vision",
+        "healthcare",
+        "robotics",
+        "energy",
+        "cybersecurity",
+        "general"
+      ],
+      "colors": [
+        "#ef4444",
+        "#3b82f6",
+        "#10b981",
+        "#a855f7",
+        "#f59e0b",
+        "#6366f1",
+        "#6b7280"
+      ]
+    },
+    "experience_level": {
+      "name": "Experience Level",
+      "values": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "colors": [
+        "#34d399",
+        "#3b82f6",
+        "#a855f7"
+      ]
+    },
+    "problem_preference": {
+      "name": "Problem Type Preference",
+      "values": [
+        "structured",
+        "exploratory",
+        "both"
+      ],
+      "colors": [
+        "#3b82f6",
+        "#f59e0b",
+        "#10b981"
+      ]
+    },
+    "collaboration_style": {
+      "name": "Collaboration Style",
+      "values": [
+        "meetings",
+        "divided",
+        "flexible"
+      ],
+      "colors": [
+        "#ef4444",
+        "#3b82f6",
+        "#10b981"
+      ]
+    },
+    "has_project_idea": {
+      "name": "Has Specific Project Idea",
+      "values": [
+        true,
+        false
+      ],
+      "colors": [
+        "#10b981",
+        "#6b7280"
+      ]
+    }
+  },
+  "students": [
+    {
+      "name": "Demo 01",
+      "email": "demo01@example.invalid",
+      "contact": "demo01@example.invalid",
+      "theory_implementation": -0.65,
+      "research_industry": -0.45,
+      "structured_exploratory": 0.15,
+      "solo_collaborative": 0.75,
+      "depth_breadth": -0.35,
+      "plan_iterate": -0.55,
+      "data_model": 0.25,
+      "foundational_applied": -0.15,
+      "team_status": "seeking_small",
+      "main_interest": "nlp",
+      "experience_level": "beginner",
+      "problem_preference": "structured",
+      "collaboration_style": "meetings",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: nlp.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Start with a written plan and test a small baseline.",
+        "experience": "Assigned experience level: beginner.",
+        "problem_type": "Structured toy problems.",
+        "project_ideas": "Sort made-up story titles by topic.",
+        "collaboration_style": "Discuss progress at regular meetings."
+      }
+    },
+    {
+      "name": "Demo 02",
+      "email": "demo02@example.invalid",
+      "contact": "demo02@example.invalid",
+      "theory_implementation": 0.65,
+      "research_industry": 0.45,
+      "structured_exploratory": -0.55,
+      "solo_collaborative": 0.35,
+      "depth_breadth": 0.15,
+      "plan_iterate": 0.65,
+      "data_model": -0.25,
+      "foundational_applied": 0.55,
+      "team_status": "seeking_medium",
+      "main_interest": "computer_vision",
+      "experience_level": "intermediate",
+      "problem_preference": "exploratory",
+      "collaboration_style": "divided",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: computer vision.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Build a small prototype, then revise it after testing.",
+        "experience": "Assigned experience level: intermediate.",
+        "problem_type": "Exploratory toy problems.",
+        "project_ideas": "Recognize geometric shapes in generated images.",
+        "collaboration_style": "Divide tasks and compare results."
+      }
+    },
+    {
+      "name": "Demo 03",
+      "email": "demo03@example.invalid",
+      "contact": "demo03@example.invalid",
+      "theory_implementation": 0.15,
+      "research_industry": -0.75,
+      "structured_exploratory": 0.65,
+      "solo_collaborative": -0.65,
+      "depth_breadth": 0.75,
+      "plan_iterate": -0.15,
+      "data_model": 0.55,
+      "foundational_applied": -0.75,
+      "team_status": "solo",
+      "main_interest": "robotics",
+      "experience_level": "advanced",
+      "problem_preference": "both",
+      "collaboration_style": "flexible",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: robotics.",
+        "team_needed": "Working alone in this example.",
+        "project_approach": "Start with a written plan and test a small baseline.",
+        "experience": "Assigned experience level: advanced.",
+        "problem_type": "Both toy problems.",
+        "project_ideas": "Navigate a tiny simulated grid.",
+        "collaboration_style": "Adapt the workflow to the task."
+      }
+    },
+    {
+      "name": "Demo 04",
+      "email": "demo04@example.invalid",
+      "contact": "demo04@example.invalid",
+      "theory_implementation": -0.25,
+      "research_industry": -0.55,
+      "structured_exploratory": -0.35,
+      "solo_collaborative": 0.55,
+      "depth_breadth": 0.45,
+      "plan_iterate": 0.15,
+      "data_model": -0.65,
+      "foundational_applied": 0.25,
+      "team_status": "seeking_small",
+      "main_interest": "healthcare",
+      "experience_level": "beginner",
+      "problem_preference": "structured",
+      "collaboration_style": "meetings",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: healthcare.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Build a small prototype, then revise it after testing.",
+        "experience": "Assigned experience level: beginner.",
+        "problem_type": "Structured toy problems.",
+        "project_ideas": "Compare classifiers on artificial sensor readings.",
+        "collaboration_style": "Discuss progress at regular meetings."
+      }
+    },
+    {
+      "name": "Demo 05",
+      "email": "demo05@example.invalid",
+      "contact": "demo05@example.invalid",
+      "theory_implementation": 0.55,
+      "research_industry": 0.65,
+      "structured_exploratory": -0.45,
+      "solo_collaborative": 0.25,
+      "depth_breadth": 0.35,
+      "plan_iterate": 0.55,
+      "data_model": -0.15,
+      "foundational_applied": 0.75,
+      "team_status": "seeking_medium",
+      "main_interest": "cybersecurity",
+      "experience_level": "intermediate",
+      "problem_preference": "exploratory",
+      "collaboration_style": "divided",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: cybersecurity.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Build a small prototype, then revise it after testing.",
+        "experience": "Assigned experience level: intermediate.",
+        "problem_type": "Exploratory toy problems.",
+        "project_ideas": "Detect deliberately inserted anomalies in toy logs.",
+        "collaboration_style": "Divide tasks and compare results."
+      }
+    },
+    {
+      "name": "Demo 06",
+      "email": "demo06@example.invalid",
+      "contact": "demo06@example.invalid",
+      "theory_implementation": -0.55,
+      "research_industry": -0.35,
+      "structured_exploratory": 0.25,
+      "solo_collaborative": 0.65,
+      "depth_breadth": -0.45,
+      "plan_iterate": -0.65,
+      "data_model": 0.15,
+      "foundational_applied": -0.25,
+      "team_status": "seeking_large",
+      "main_interest": "nlp",
+      "experience_level": "advanced",
+      "problem_preference": "both",
+      "collaboration_style": "flexible",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: nlp.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Start with a written plan and test a small baseline.",
+        "experience": "Assigned experience level: advanced.",
+        "problem_type": "Both toy problems.",
+        "project_ideas": "Match short invented descriptions.",
+        "collaboration_style": "Adapt the workflow to the task."
+      }
+    },
+    {
+      "name": "Demo 07",
+      "email": "demo07@example.invalid",
+      "contact": "demo07@example.invalid",
+      "theory_implementation": -0.15,
+      "research_industry": -0.45,
+      "structured_exploratory": -0.25,
+      "solo_collaborative": 0.45,
+      "depth_breadth": 0.55,
+      "plan_iterate": 0.25,
+      "data_model": -0.55,
+      "foundational_applied": 0.35,
+      "team_status": "seeking_small",
+      "main_interest": "energy",
+      "experience_level": "beginner",
+      "problem_preference": "structured",
+      "collaboration_style": "meetings",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: energy.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Build a small prototype, then revise it after testing.",
+        "experience": "Assigned experience level: beginner.",
+        "problem_type": "Structured toy problems.",
+        "project_ideas": "Forecast a simulated daily energy curve.",
+        "collaboration_style": "Discuss progress at regular meetings."
+      }
+    },
+    {
+      "name": "Demo 08",
+      "email": "demo08@example.invalid",
+      "contact": "demo08@example.invalid",
+      "theory_implementation": 0.75,
+      "research_industry": -0.15,
+      "structured_exploratory": 0.45,
+      "solo_collaborative": -0.35,
+      "depth_breadth": -0.65,
+      "plan_iterate": 0.75,
+      "data_model": 0.65,
+      "foundational_applied": -0.45,
+      "team_status": "solo",
+      "main_interest": "robotics",
+      "experience_level": "intermediate",
+      "problem_preference": "exploratory",
+      "collaboration_style": "divided",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: robotics.",
+        "team_needed": "Working alone in this example.",
+        "project_approach": "Build a small prototype, then revise it after testing.",
+        "experience": "Assigned experience level: intermediate.",
+        "problem_type": "Exploratory toy problems.",
+        "project_ideas": "Compare paths in a virtual maze.",
+        "collaboration_style": "Divide tasks and compare results."
+      }
+    },
+    {
+      "name": "Demo 09",
+      "email": "demo09@example.invalid",
+      "contact": "demo09@example.invalid",
+      "theory_implementation": 0.35,
+      "research_industry": 0.75,
+      "structured_exploratory": -0.65,
+      "solo_collaborative": 0.15,
+      "depth_breadth": -0.55,
+      "plan_iterate": -0.25,
+      "data_model": -0.45,
+      "foundational_applied": 0.65,
+      "team_status": "seeking_large",
+      "main_interest": "general",
+      "experience_level": "advanced",
+      "problem_preference": "both",
+      "collaboration_style": "flexible",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: general.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Start with a written plan and test a small baseline.",
+        "experience": "Assigned experience level: advanced.",
+        "problem_type": "Both toy problems.",
+        "project_ideas": "Cluster randomly generated color palettes.",
+        "collaboration_style": "Adapt the workflow to the task."
+      }
+    },
+    {
+      "name": "Demo 10",
+      "email": "demo10@example.invalid",
+      "contact": "demo10@example.invalid",
+      "theory_implementation": -0.75,
+      "research_industry": 0.25,
+      "structured_exploratory": 0.55,
+      "solo_collaborative": 0.85,
+      "depth_breadth": 0.25,
+      "plan_iterate": 0.45,
+      "data_model": -0.75,
+      "foundational_applied": -0.55,
+      "team_status": "seeking_small",
+      "main_interest": "computer_vision",
+      "experience_level": "beginner",
+      "problem_preference": "structured",
+      "collaboration_style": "meetings",
+      "has_project_idea": true,
+      "original_responses": {
+        "application_area": "Fictional interest: computer vision.",
+        "team_needed": "Looking for collaborators in this example.",
+        "project_approach": "Build a small prototype, then revise it after testing.",
+        "experience": "Assigned experience level: beginner.",
+        "problem_type": "Structured toy problems.",
+        "project_ideas": "Group drawings of imaginary objects.",
+        "collaboration_style": "Discuss progress at regular meetings."
+      }
+    }
+  ],
+  "dataset_note": "Entirely fictional teaching profiles. Names, contacts, responses and feature values were authored for this example; no class roster was used."
+}

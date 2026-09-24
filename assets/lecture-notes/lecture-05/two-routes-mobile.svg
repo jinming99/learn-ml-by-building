@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 450" role="img">
+<defs><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#0f766e"/></marker><marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#2563eb"/></marker></defs>
+<g font-family="Arial, sans-serif" fill="#172033" text-anchor="middle">
+<text x="88" y="24" font-size="16" font-weight="700" fill="#0f766e">Generative</text><text x="88" y="45" font-size="13">Model each class</text>
+<text x="272" y="24" font-size="16" font-weight="700" fill="#174a8b">Discriminative</text><text x="272" y="45" font-size="13">Direct class probability</text>
+<rect x="12" y="69" width="152" height="52" rx="6" fill="white" stroke="#d9e1ea"/><rect x="196" y="69" width="152" height="52" rx="6" fill="white" stroke="#d9e1ea"/>
+<text x="88" y="100" font-size="16">Labeled data</text><text x="272" y="100" font-size="16">Labeled data</text>
+<path d="M88 123V184" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow-teal)"/><path d="M272 123V184" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<text x="109" y="157" font-size="14">fit</text><text x="293" y="157" font-size="14">fit</text>
+<rect x="12" y="192" width="152" height="98" rx="6" fill="#ddf2ef" stroke="#0f766e"/><rect x="196" y="192" width="152" height="98" rx="6" fill="#e8f0ff" stroke="#2563eb"/>
+<text x="88" y="221" font-size="16">Estimate</text><text x="88" y="249" font-size="16">P(Y) and P(X | Y)</text>
+<text x="272" y="220" font-size="16">Fit w, b in</text><text x="272" y="250" font-size="16">σ(wᵀx + b)</text>
+<path d="M88 292V365" stroke="#0f766e" stroke-width="2" marker-end="url(#arrow-teal)"/><path d="M272 292V365" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<rect x="36" y="320" width="104" height="23" fill="white"/><rect x="225" y="320" width="94" height="23" fill="white"/>
+<text x="88" y="337" font-size="14">Bayes’ rule</text><text x="272" y="337" font-size="14">evaluate</text>
+<rect x="12" y="376" width="152" height="64" rx="6" fill="white" stroke="#d9e1ea"/><rect x="196" y="376" width="152" height="64" rx="6" fill="white" stroke="#d9e1ea"/>
+<text x="88" y="402" font-size="16">Posterior</text><text x="88" y="425" font-size="16">P(Y | X)</text><text x="272" y="402" font-size="16">Posterior</text><text x="272" y="425" font-size="16">P(Y | X)</text>
+</g></svg>
