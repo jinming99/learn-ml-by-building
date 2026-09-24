@@ -5,29 +5,29 @@
 - 5GB free disk space  
 - Internet connection
 
-## Step 1: Install Python 3.9.6
+## Step 1: Install Python 3.14 (or the latest version)
 
 ### Windows
-1. Download Python 3.9.6 from: https://www.python.org/downloads/release/python-396/
+1. Download Python 3.14 from: https://www.python.org/downloads/release/python-396/
    - Choose "Windows installer (64-bit)"
 2. Run installer
-   - **CHECK** "Add Python 3.9 to PATH" 
+   - **CHECK** "Add Python 3.14 to PATH" 
    - Click "Install Now"
 3. Verify in Command Prompt:
    ```cmd
    python --version
    ```
-   Should show: `Python 3.9.6`
+   Should show: `Python 3.14`
 
 ### macOS
-1. Download Python 3.9.6 from: https://www.python.org/downloads/release/python-396/
+1. Download Python 3.14 from: https://www.python.org/downloads/release/python-396/
    - Choose "macOS 64-bit universal2 installer"
 2. Run the .pkg installer
 3. Verify in Terminal:
    ```bash
    python3 --version
    ```
-   Should show: `Python 3.9.6`
+   Should show: `Python 3.14`
 
 ### Linux
 ```bash
@@ -41,7 +41,14 @@ python3.9 --version
 
 ## Step 2: Create Virtual Environment
 
-Open Terminal (Mac/Linux) or Command Prompt (Windows) and navigate to the project folder:
+Open Terminal (Mac/Linux) or Command Prompt (Windows) and navigate to where you would like to put materials for this class. 
+
+Run: 
+```bash
+git clone https://github.com/jinming99/learn-ml-by-building.git
+```
+
+ Then navigate to the project folder:
 
 ```bash
 cd path/to/learn-ml-by-building
@@ -49,13 +56,18 @@ cd path/to/learn-ml-by-building
 
 ### Windows
 ```cmd
-py -3.9 -m venv ml_lectures_env
+py -3.14 -m venv ml_lectures_env
 ml_lectures_env\Scripts\activate
 ```
+In case you get an error like "running scripts is not authorized on this system", run: 
+```bash
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 
 ### macOS/Linux
 ```bash
-python3.9 -m venv ml_lectures_env    # or: python3 -m venv ml_lectures_env
+python3.14 -m venv ml_lectures_env    # or: python3 -m venv ml_lectures_env
 source ml_lectures_env/bin/activate
 ```
 
@@ -76,6 +88,8 @@ python -m pip install -r requirements.txt
   Note: On macOS/Linux you may prefer `python3 -m pip ...`; both are fine when the environment is activated.
   
   This will take 5-15 minutes and download several hundred MB of packages. The requirements include deep learning dependencies `torch==2.2.2` and `torchvision==0.17.2`.
+
+In case you get errors for torch or torchvision versions, please check the error for the versions that are available. Then go to requirements.txt and change the version and run the last step again. 
 
 ## Step 4: Launch Jupyter Notebook
 
