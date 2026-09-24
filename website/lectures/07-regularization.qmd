@@ -22,14 +22,15 @@ By the end of this lecture, you will:
 ### Quick Access
 
 - [Overfitting & Regularization Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%207%20Regularization%20and%20Generalization/07-Overfitting-Regularization.ipynb)
+- [Lecture notes](../notes/07-regularization-and-generalization.qmd)
 :::
 
 ::: {.callout-note}
-### Three Fundamental Curves You'll Generate
+### Questions to investigate
 
-- Model Complexity Curve: The classic U-shaped validation error showing underfitting → optimal → overfitting zones
-- Data Quantity Curve: Diminishing returns as training samples increase
-- Data Diversity Effect: Diverse samples can outperform larger homogeneous sets for out-of-distribution generalization
+- Model size: must validation error rise when the model has many parameters?
+- Data coverage: which training variations help under a specified lighting change?
+- Regularization: did accuracy, probability quality, or resistance to incorrect labels improve?
 :::
 
 ## Datasets & Acknowledgments

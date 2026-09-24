@@ -3,6 +3,7 @@ project:
   resources:
     - demos/p1-music/**
     - quizzes/files/**
+    - assets/lecture-notes/lecture-07/**
 
 website:
   title: "ECE 4424/CS 4824: Machine Learning"
