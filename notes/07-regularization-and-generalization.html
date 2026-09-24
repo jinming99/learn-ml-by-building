@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Validation, early stopping, model size, data coverage, regularization, mixup with incorrect labels, and controlled ablation studies.">
 
-<title>Lecture 11: K-Means Clustering – ECE 4424/CS 4824: Machine Learning</title>
+<title>Lecture 7: Regularization and Generalization – ECE 4424/CS 4824: Machine Learning</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,8 +75,39 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../site-legibility-v2.css">
+<link rel="stylesheet" href="../lecture-notes.css">
+<link rel="stylesheet" href="../assets/lecture-notes/lecture-07/notes.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -160,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">L11: K-Means Clustering</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 7: Regularization and Generalization</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -300,7 +332,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/11-kmeans.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L11: K-Means Clustering</span></a>
   </div>
 </li>
@@ -433,22 +465,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
-  <li><a href="#datasets-acknowledgments" id="toc-datasets-acknowledgments" class="nav-link" data-scroll-target="#datasets-acknowledgments">Datasets &amp; Acknowledgments</a></li>
+  <li><a href="#which-error-are-we-trying-to-reduce" id="toc-which-error-are-we-trying-to-reduce" class="nav-link active" data-scroll-target="#which-error-are-we-trying-to-reduce">Which error are we trying to reduce?</a></li>
+  <li><a href="#validation-and-early-stopping" id="toc-validation-and-early-stopping" class="nav-link" data-scroll-target="#validation-and-early-stopping">Validation and early stopping</a></li>
+  <li><a href="#model-size-and-data-coverage" id="toc-model-size-and-data-coverage" class="nav-link" data-scroll-target="#model-size-and-data-coverage">Model size and data coverage</a></li>
+  <li><a href="#change-the-price-of-large-weights" id="toc-change-the-price-of-large-weights" class="nav-link" data-scroll-target="#change-the-price-of-large-weights">Change the price of large weights</a></li>
+  <li><a href="#change-what-the-model-is-asked-to-predict" id="toc-change-what-the-model-is-asked-to-predict" class="nav-link" data-scroll-target="#change-what-the-model-is-asked-to-predict">Change what the model is asked to predict</a></li>
+  <li><a href="#mixup-with-incorrect-training-labels" id="toc-mixup-with-incorrect-training-labels" class="nav-link" data-scroll-target="#mixup-with-incorrect-training-labels">Mixup with incorrect training labels</a></li>
+  <li><a href="#isolate-the-effect-of-a-component" id="toc-isolate-the-effect-of-a-component" class="nav-link" data-scroll-target="#isolate-the-effect-of-a-component">Isolate the effect of a component</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">Module 3: Let’s Discover</a></li><li class="breadcrumb-item"><a href="../lectures/11-kmeans.html">L11: K-Means Clustering</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 11: K-Means Clustering</h1>
-<p class="subtitle lead">Finding Groups in Unsupervised Learning</p>
+<h1 class="title">Lecture 7: Regularization and Generalization</h1>
+<p class="subtitle lead">Evidence beyond the training score</p>
 </div>
 
+<div>
+  <div class="description">
+    Validation, early stopping, model size, data coverage, regularization, mixup with incorrect labels, and controlled ablation studies.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -463,48 +503,299 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We’ll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.</p>
-</section>
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>By the end of this lecture, you will:</p>
-<ul>
-<li>Understand the fundamental concepts of clustering and unsupervised learning</li>
-<li>Master the K-Means algorithm, including its objective function (WCSS) and iterative optimization</li>
-<li>Implement K-Means from scratch to understand the assignment and update steps</li>
-<li>Apply K-Means to text data using TF-IDF transformation</li>
-<li>Evaluate clustering quality using silhouette score, Davies-Bouldin index, and Calinski-Harabasz score</li>
-<li>Choose optimal K using the elbow method and silhouette analysis</li>
-<li>Use K-Means variants (MiniBatch K-Means, K-Means++) for improved performance</li>
-<li>Recognize K-Means limitations (spherical clusters, fixed K) and when to use alternative methods</li>
-</ul>
-</section>
-<section id="materials" class="level2">
-<h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<p>A clothing classifier can answer every training example correctly and still struggle with new images. Generalization requires a separate evaluation, controlled comparisons, and evidence that the improvement survives the conditions we care about.</p>
+<div class="lecture-note-actions" role="navigation" aria-label="Lecture note navigation">
+<p><a href="../lectures/07-regularization.html" class="btn btn-primary btn-sm">Course materials</a></p>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Quick Access
+<div class="callout-body-container">
+<p><strong>Learning goals.</strong> Distinguish fitting from generalizing; use validation to diagnose overfitting and select a checkpoint; explain how data, weight penalties, and mixed targets change learning; isolate a component’s contribution with a controlled comparison.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2011%20K-Means/11-KMeans.ipynb">K-Means Clustering Notebook</a></strong></p>
 </div>
-</div>
+<section id="which-error-are-we-trying-to-reduce" class="level2">
+<h2 class="anchored" data-anchor-id="which-error-are-we-trying-to-reduce">Which error are we trying to reduce?</h2>
+<p>The running example is <a href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a>: 28-by-28 grayscale images in ten clothing categories. A fitted model <span class="math inline">\(h\)</span> maps an image <span class="math inline">\(x\)</span> to a prediction. Let <span class="math inline">\(\ell(h(x),y)\)</span> measure its discrepancy from the true label <span class="math inline">\(y\)</span>. Classification error counts wrong decisions; cross-entropy also scores the probability assigned to the correct class.</p>
+<p>For training data <span class="math inline">\(D=\{(x_i,y_i)\}_{i=1}^n\)</span>, empirical risk is</p>
+<p><span class="math display">\[
+\widehat L_{\mathrm{train}}(h)=\frac{1}{n}\sum_{i=1}^{n}\ell(h(x_i),y_i).
+\]</span></p>
+<p>Learning chooses <span class="math inline">\(h\)</span> using these observations, so its training score is generally an optimistic estimate of performance on fresh examples.</p>
+<p>The goal is small <em>population risk</em>, or generalization error, under the distribution <span class="math inline">\(P\)</span> of future examples:</p>
+<p><span class="math display">\[
+L_P(h)=\mathbb E_{(X,Y)\sim P}\bigl[\ell(h(X),Y)\bigr].
+\]</span></p>
+<p>We cannot compute this expectation exactly because <span class="math inline">\(P\)</span> is unknown. An independent test sample <span class="math inline">\(D_{\mathrm{test}}=\{(x'_i,y'_i)\}_{i=1}^{m}\)</span> estimates it:</p>
+<p><span class="math display">\[
+\widehat L_{\mathrm{test}}(h)=\frac{1}{m}\sum_{i=1}^{m}\ell(h(x'_i),y'_i).
+\]</span></p>
+<p>Test error estimates risk for the population the test sample represents. Sampling uncertainty and distribution shift remain even when the arithmetic is correct.</p>
 </section>
-<section id="datasets-acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
-<ul>
-<li><strong>20 Newsgroups</strong> (Ken Lang): Text documents from 20 different newsgroups used to demonstrate document clustering</li>
-<li><strong>Libraries</strong>: scikit-learn (K-Means implementation, metrics), NumPy (numerical operations), Matplotlib/Seaborn (visualization)</li>
-</ul>
-<hr>
-<p><strong>Previous</strong>: <a href="../lectures/10-kernel-gp.html">← Lecture 10: Kernel Methods &amp; Gaussian Processes</a> | <strong>Next</strong>: <a href="../lectures/12-pca.html">Lecture 12: PCA and Dimensionality Reduction →</a></p>
+<section id="validation-and-early-stopping" class="level2">
+<h2 class="anchored" data-anchor-id="validation-and-early-stopping">Validation and early stopping</h2>
+<p>Training data fit the parameters. <em>Validation</em> data guide choices such as model width, penalty strength, and stopping time. The final test evaluates the chosen procedure after those choices are fixed. All three roles must remain distinct; repeatedly tuning to a test result turns that set into another validation set.</p>
+<p>The notebook first reserves 5,000 validation images from the official training collection. Its opening experiment uses a stratified subset of 300 remaining images. The official 10,000-image test collection stays separate. Later experiments state their own training-set sizes.</p>
+<figure class="lecture-07-figure figure">
+<img src="../assets/lecture-notes/lecture-07/learning.svg" alt="Training cross-entropy decreases toward zero while validation loss bottoms out and then rises. Early stopping restores epoch 14 after stopping at epoch 22." loading="lazy" class="figure-img">
+<figcaption>
+Figure 1. Measured cross-entropy from the notebook’s 300-image experiment. Continued fitting lowers training loss while validation loss eventually rises. The dashed marker identifies the checkpoint restored by early stopping; the dotted marker identifies when training actually stops.
+</figcaption>
+</figure>
+<p><em>Overfitting</em> appears when improved fit to training observations fails to improve, or worsens, held-out performance. A gap between the two scores is useful evidence, but its size has no universal “severe” threshold. A growing validation loss can matter even while accuracy barely moves: the winning label can stay the same while a wrong prediction becomes more confident.</p>
+<p>Early stopping monitors a validation score and waits a specified <em>patience</em> period without improvement. Stopping training and restoring the best weights are separate operations. Here, patience is eight epochs: training stops at epoch 22 and restores epoch 14.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Checkpoint</th>
+<th>Validation accuracy</th>
+<th>Log loss <span class="math inline">\(\downarrow\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Last, epoch 80</td>
+<td>78.3%</td>
+<td>1.059</td>
+</tr>
+<tr class="even">
+<td>Restored, epoch 14</td>
+<td>78.6%</td>
+<td>0.637</td>
+</tr>
+</tbody>
+</table>
+<p>Table 1. Restoring the earlier checkpoint mainly improves the probabilities, rather than the number of correct decisions.</p>
+<p>With limited data, <span class="math inline">\(k\)</span>-fold cross-validation repeats fitting with different held-out folds and aggregates the scores. It reveals sensitivity to the split at extra computational cost. Fold-to-fold variation alone does not establish overfitting, and preprocessing must be fitted inside each training fold.</p>
+</section>
+<section id="model-size-and-data-coverage" class="level2">
+<h2 class="anchored" data-anchor-id="model-size-and-data-coverage">Model size and data coverage</h2>
+<p>Increasing training time follows one model through optimization. Increasing model size compares different models. These axes should not be confused. In the width experiment, each network sees the same 200 training images, the same validation collection, and the same number of epochs; only one hidden layer’s width changes.</p>
+<figure class="lecture-07-figure figure">
+<img src="../assets/lecture-notes/lecture-07/model-size.svg" alt="As parameter count increases, training error reaches zero while validation error levels off near a quarter of predictions, instead of rising sharply." loading="lazy" class="figure-img">
+<figcaption>
+Figure 2. Observed error versus parameter count, averaged over two initializations. Training error approaches zero, while validation error levels off instead of rising sharply. This is a small controlled experiment, not a universal scaling law or a demonstration of a full double-descent curve.
+</figcaption>
+</figure>
+<p>The classical U-shaped validation-error sketch is one possible outcome, not an inevitable consequence of adding parameters. A larger network can represent more functions, but the fitted function also depends on optimization, data, and regularization. Under a fixed training budget, even achieving a lower training error is not guaranteed.</p>
+<p>More distinct training examples can help. The notebook’s nested-sample experiment holds architecture fixed while increasing the training collection from 100 to 20,000 images. Validation accuracy improves in that run, but equal epochs give larger datasets more gradient updates; the comparison does not hold computation fixed.</p>
+<p>Coverage of the expected conditions matters too. In the lighting experiment, both methods receive the same 1,000 source images and all ten classes. One training collection uses the original images; the other applies simulated brightness and contrast changes.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Training collection</th>
+<th>Original lighting</th>
+<th>Changed lighting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Original images only</td>
+<td>81.5%</td>
+<td>29.2%</td>
+</tr>
+<tr class="even">
+<td>Varied lighting</td>
+<td>79.0%</td>
+<td>76.2%</td>
+</tr>
+</tbody>
+</table>
+<p>Table 2. Validation accuracy, averaged over two initializations. Relevant variation greatly helps under the specified lighting shift, with a small cost on the original images. These are simulated changes, not new photographs or arbitrary unseen shifts.</p>
+</section>
+<section id="change-the-price-of-large-weights" class="level2">
+<h2 class="anchored" data-anchor-id="change-the-price-of-large-weights">Change the price of large weights</h2>
+<p>When collecting more data is difficult, we can change the training objective. For parameters <span class="math inline">\(w\)</span> and strength <span class="math inline">\(\lambda\geq0\)</span>, regularized learning minimizes</p>
+<p><span class="math display">\[
+J(w)=\widehat L_{\mathrm{train}}(w)+\lambda\Omega(w),
+\qquad
+\Omega_{L_1}(w)=\sum_j|w_j|,\quad
+\Omega_{L_2}(w)=\sum_j w_j^2.
+\]</span></p>
+<p>The penalty expresses a preference over solutions. A <em>hard constraint</em>, such as <span class="math inline">\(\lVert w\rVert_2\leq c\)</span>, forbids parameter values outside a feasible set. A soft penalty makes them costly; it does not forbid them or guarantee generalization.</p>
+<figure class="lecture-07-figure figure">
+<picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-07/penalties-mobile.svg"><img src="../assets/lecture-notes/lecture-07/penalties.svg" alt="The absolute-value L1 penalty has a V shape with constant slope magnitude away from zero; the squared L2 penalty is a parabola with a steeper slope at larger weights." loading="lazy" class="figure-img"></picture>
+<figcaption>
+Figure 3. Conceptual per-weight penalties with unit strength. Away from zero, <span class="math inline"><em>L</em><sub>1</sub></span> exerts a constant-magnitude pull, while the <span class="math inline"><em>L</em><sub>2</sub></span> pull increases with weight size. These shapes describe the penalty, not the full training objective.
+</figcaption>
+</figure>
+<p>For ordinary gradient descent with learning rate <span class="math inline">\(\eta\)</span>, the <span class="math inline">\(L_2\)</span> update is</p>
+<p><span class="math display">\[
+w_j\leftarrow(1-2\eta\lambda)w_j
+-\eta\frac{\partial\widehat L_{\mathrm{train}}}{\partial w_j}.
+\]</span></p>
+<p>For <span class="math inline">\(L_1\)</span>, the penalty contributes <span class="math inline">\(\lambda\operatorname{sign}(w_j)\)</span> when <span class="math inline">\(w_j\neq0\)</span>; at zero, it has a subgradient rather than a unique derivative. <span class="math inline">\(L_1\)</span> can produce sparse solutions, but ordinary neural-network optimization need not land exactly at zero. A near-zero connection also does not necessarily remove an entire input feature.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Penalty</th>
+<th>Accuracy</th>
+<th>Log loss <span class="math inline">\(\downarrow\)</span></th>
+<th>Near-zero weights</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td>78.0%</td>
+<td>1.063</td>
+<td>0.1%</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(L_1\)</span>, <span class="math inline">\(\lambda=0.0005\)</span></td>
+<td>77.5%</td>
+<td>0.724</td>
+<td>43.7%</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(L_2\)</span>, <span class="math inline">\(\lambda=0.005\)</span></td>
+<td>78.0%</td>
+<td>0.712</td>
+<td>15.4%</td>
+</tr>
+</tbody>
+</table>
+<p>Table 3. Notebook results with the same 300 images and 80 epochs, averaged over two initializations. Near zero means <span class="math inline">\(|w|&lt;10^{-4}\)</span> in hidden-layer kernels. Evaluation uses ordinary cross-entropy without adding the penalty.</p>
+<p>Here, penalties change weight magnitudes and improve log loss without a substantial accuracy gain. Excessive regularization can underfit. The strengths were explored on validation data, not established as general defaults. The notebook uses Adam with an <span class="math inline">\(L_2\)</span> loss penalty; the simple gradient-descent shrinkage formula should not be identified with decoupled AdamW weight decay.</p>
+</section>
+<section id="change-what-the-model-is-asked-to-predict" class="level2">
+<h2 class="anchored" data-anchor-id="change-what-the-model-is-asked-to-predict">Change what the model is asked to predict</h2>
+<p>Weight penalties modify the cost of a parameter choice. Label smoothing and mixup modify the training targets. Neither method changes the labels used to score clean validation predictions.</p>
+<section id="label-smoothing-and-probability-quality" class="level3">
+<h3 class="anchored" data-anchor-id="label-smoothing-and-probability-quality">Label smoothing and probability quality</h3>
+<p>Let <span class="math inline">\(y\)</span> be a one-hot vector over <span class="math inline">\(K\)</span> classes and <span class="math inline">\(\mathbf 1\)</span> the all-ones vector. Label smoothing with strength <span class="math inline">\(\alpha\)</span> uses</p>
+<p><span class="math display">\[
+\widetilde y=(1-\alpha)y+\frac{\alpha}{K}\mathbf 1.
+\]</span></p>
+<p>For ten classes and <span class="math inline">\(\alpha=0.1\)</span>, the labeled class receives <span class="math inline">\(0.9+0.01=0.91\)</span> and each other class receives <span class="math inline">\(0.01\)</span>. This is a training preference, not an assertion that the true label has exactly 9% uncertainty.</p>
+<p>A smaller confidence value is not automatically more trustworthy. Calibration asks whether predictions made with a given confidence are correct about that often. In a reliability diagram, points below the confidence-equals-accuracy diagonal are overconfident; points above it are underconfident. Binning also hides within-bin differences, so the notebook reports full-validation scores alongside the diagram.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Training targets</th>
+<th>Accuracy</th>
+<th>Log loss <span class="math inline">\(\downarrow\)</span></th>
+<th>Brier <span class="math inline">\(\downarrow\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hard labels</td>
+<td>83.0%</td>
+<td>0.772</td>
+<td>0.271</td>
+</tr>
+<tr class="even">
+<td>Smoothed labels</td>
+<td>81.8%</td>
+<td>0.661</td>
+<td>0.279</td>
+</tr>
+</tbody>
+</table>
+<p>Table 4. Same 1,000 training images and 60 epochs. Smoothing improves log loss, but accuracy and Brier score become slightly worse. The evidence does not support an unqualified improvement in every aspect of probability quality.</p>
+<p>For prediction vector <span class="math inline">\(p_i\)</span> and true class index <span class="math inline">\(c_i\)</span>, log loss is <span class="math inline">\(-\log p_{i,c_i}\)</span> and the multiclass Brier score is <span class="math inline">\(\sum_{k=1}^{K}(p_{ik}-y_{ik})^2\)</span>, averaged over examples. Log loss is especially sensitive to assigning tiny probability to the true class.</p>
+</section>
+<section id="mixup-pairs-an-input-blend-with-a-target-blend" class="level3">
+<h3 class="anchored" data-anchor-id="mixup-pairs-an-input-blend-with-a-target-blend">Mixup pairs an input blend with a target blend</h3>
+<p><a href="https://arxiv.org/abs/1710.09412">Mixup</a> creates training pairs between two observed examples:</p>
+<p><span class="math display">\[
+\widetilde x=\lambda x_i+(1-\lambda)x_j,\qquad
+\widetilde y=\lambda y_i+(1-\lambda)y_j,
+\quad\lambda\sim\operatorname{Beta}(\alpha,\alpha).
+\]</span></p>
+<p>A blend that is 70% sneaker and 30% bag receives that same mixture as its target. It need not depict a plausible physical object. The assumption is that encouraging approximately linear predictions between examples is a useful inductive preference for this task.</p>
+<p>The clean-label notebook comparison lowers log loss from 0.772 to 0.597, while accuracy changes from 83.0% to 81.9%. This motivates a sharper experiment: whether mixup can resist learning deliberately incorrect training labels.</p>
+</section>
+</section>
+<section id="mixup-with-incorrect-training-labels" class="level2">
+<h2 class="anchored" data-anchor-id="mixup-with-incorrect-training-labels">Mixup with incorrect training labels</h2>
+<p>Imagine a clothing catalog with incorrect tags. The experiment takes 5,000 training images and deliberately replaces 20% of their labels with different classes. This is simulated annotation noise, not a claim that Fashion-MNIST naturally contains that error rate. All validation labels remain unchanged.</p>
+<p>Within each paired run, standard training and mixup share the images, corrupted labels, starting weights, batch order, optimizer, and 80-epoch budget. Mixup uses <span class="math inline">\(\alpha=4\)</span>, which favors substantial blends. Three seeds vary initialization, ordering, and the corrupted-label realization. These settings were explored on validation data; the validation collection itself is shared across runs.</p>
+<figure class="lecture-07-figure figure">
+<picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-07/mixup-mobile.svg"><img src="../assets/lecture-notes/lecture-07/mixup.svg" alt="Across three runs with deliberately wrong training labels, standard training learns almost all the wrong labels and falls to 74.2 percent clean-validation accuracy. Mixup learns far fewer wrong labels and retains 81 percent accuracy." loading="lazy" class="figure-img"></picture>
+<figcaption>
+Figure 4. Measured means over three paired runs. First panel: agreement with the deliberately wrong training labels; increasing agreement means learning those mistakes. Second panel: accuracy on the same clean validation images. Standard training increasingly repeats the bad labels as its clean-validation accuracy declines. Mixup resists this behavior over the same budget.
+</figcaption>
+</figure>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Checkpoint rule</th>
+<th>Method</th>
+<th>Accuracy</th>
+<th>Log loss <span class="math inline">\(\downarrow\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Epoch 80</td>
+<td>Standard</td>
+<td>74.2%</td>
+<td>1.368</td>
+</tr>
+<tr class="even">
+<td>Epoch 80</td>
+<td>Mixup</td>
+<td>81.0%</td>
+<td>0.722</td>
+</tr>
+<tr class="odd">
+<td>Best logged validation loss</td>
+<td>Standard</td>
+<td>83.4%</td>
+<td>0.630</td>
+</tr>
+<tr class="even">
+<td>Best logged validation loss</td>
+<td>Mixup</td>
+<td>83.7%</td>
+<td>0.634</td>
+</tr>
+</tbody>
+</table>
+<p>Table 5. The final-checkpoint gain is 6.8 percentage points and occurs in all three paired runs. Choosing each run’s best logged checkpoint, evaluated every five epochs, substantially narrows the accuracy difference.</p>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>What this establishes.</strong> Mixup limits memorization of wrong labels under the stated budget. An earlier standard-training checkpoint is also competitive. Checkpoints are selected and scored on the same validation set, so this is exploratory evidence, not an independent test estimate or proof that mixup always wins.</p>
+</div>
+</div>
+</div>
+<p>The final test comparison returns to the original 1,000-image, clean-label experiment; the noisy-label models are excluded. Selection by validation log loss chooses mixup. Test log loss improves from 0.927 to 0.672, while accuracy changes from 80.5% to 79.6%. The conclusion must remain tied to the metric used for selection.</p>
+</section>
+<section id="isolate-the-effect-of-a-component" class="level2">
+<h2 class="anchored" data-anchor-id="isolate-the-effect-of-a-component">Isolate the effect of a component</h2>
+<p>Suppose a proposed system adds components <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> to a baseline. Comparing only the baseline with the complete system measures their combined effect. It does not identify which component helped. An <em>ablation study</em> removes a component while holding the rest of the system fixed.</p>
+<p>Establish a baseline, evaluate the full system, and then run drop-one-out variants. The resulting design is:</p>
+<figure class="lecture-07-figure figure">
+<img src="../assets/lecture-notes/lecture-07/ablation.svg" alt="The baseline is present in every experiment. The full system includes A, B, and C. Each of three ablations removes exactly one of A, B, or C while retaining the other two." loading="lazy" class="figure-img">
+<figcaption>
+Figure 5. Conceptual ablation design. A filled circle means the component is present. The baseline is retained in every row. No numerical outcomes are assumed; the matrix specifies the comparisons to run.
+</figcaption>
+</figure>
+<p>If <span class="math inline">\(S\)</span> is a score for which larger is better, define</p>
+<p><span class="math display">\[
+\Delta_A=S(\mathrm{full})-S(\mathrm{full}\setminus A).
+\]</span></p>
+<p>A positive <span class="math inline">\(\Delta_A\)</span> means that including <span class="math inline">\(A\)</span> helps <em>in the presence of <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span></em>, under this evaluation. For a loss, reverse the subtraction so a positive change still denotes a benefit. Keep the data split, metric, tuning policy, and training budget comparable; paired seeds help separate the component’s effect from training randomness.</p>
+<p>Interactions matter. Two components may be substitutes or work well only together, so the drop-one-out effects need not sum to the full system’s gain over baseline. A small ablation effect does not establish that a component is useless in every configuration. If removing a component triggers retuning, state that explicitly: it answers a different question from a fixed-settings ablation.</p>
+<p>The notebook’s separate L1, L2, smoothing, and mixup comparisons isolate individual changes relative to their stated references; they are not a completed full-system ablation. The noisy-label example also shows why a strong baseline matters: comparing mixup only with a late, overfitted checkpoint would omit the competitive earlier checkpoint.</p>
+<p><strong>Further reading and evidence.</strong> The <a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%207%20Regularization%20and%20Generalization/07-Overfitting-Regularization.ipynb">Lecture 7 notebook</a> contains the code and full experiment outputs. Numerical results here correspond to the locally verified September 23–24 run; seeds and finite validation samples do not establish universal effects. Data: <a href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a>. Method: Zhang et al., <a href="https://arxiv.org/abs/1710.09412"><em>mixup: Beyond Empirical Risk Minimization</em></a>. Cybersecurity connection: <a href="https://ieeexplore.ieee.org/document/10738025/"><em>Zero-day Attack Detection in Digital Substations using In-Context Learning</em></a>. The clothing experiment does not establish that paper’s application-specific claims.</p>
+<p><strong>Acknowledgment.</strong> Prepared for instructor review from the instructor’s handwritten notes, lecture discussion transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.</p>
+<p><strong>In one sentence:</strong> use held-out evidence to distinguish fitting from generalizing, and use controlled comparisons to establish what each intervention actually improves.</p>
 
 
 </section>
