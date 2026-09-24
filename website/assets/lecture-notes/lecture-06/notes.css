@@ -1,0 +1,18 @@
+.lecture-06-figure { margin: 1.5rem 0 1.8rem; }
+.lecture-06-figure img { display: block; width: 100%; height: auto; background: white; border-radius: .5rem; }
+.lecture-06-figure figcaption { color: #33415f; font-size: .92rem; line-height: 1.55; margin-top: .65rem; }
+.lecture-06-fraud { display: grid; grid-template-columns: 1fr 1.2fr; align-items: center; gap: 1rem; }
+.lecture-06-fraud table { font-size: .88rem; }
+.lecture-06-fraud caption { caption-side: top; color: #25324a; font-weight: 600; }
+body { color: #25324a; }
+#quarto-content a:not(.btn) { color: #174a8b; }
+#quarto-content a.btn-primary { color: #fff; }
+table { font-variant-numeric: tabular-nums; }
+.lecture-06-table { max-width: 100%; overflow-x: auto; margin-block: 1rem; }
+.lecture-06-table table { min-width: 36rem; }
+.lecture-06-table:focus-visible { outline: 2px solid #174a8b; outline-offset: 3px; }
+@media (max-width: 600px) {
+  .lecture-06-fraud { grid-template-columns: 1fr; }
+  .lecture-06-fraud table { width: 100%; }
+  .lecture-06-figure picture { display: block; }
+}

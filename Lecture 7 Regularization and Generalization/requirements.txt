@@ -1,0 +1,10 @@
+# Lecture 7 CPU runtime: tested with Python 3.11.13 on macOS.
+tensorflow==2.16.2
+keras==3.15.1
+numpy==1.26.4
+pandas==3.0.1
+matplotlib==3.10.8
+scikit-learn==1.8.0
+ipython==9.17.1
+ipykernel==7.3.0
+Jinja2==3.1.6

@@ -7,7 +7,7 @@
     <title>Project Matchmaker - ML Team Formation</title>
 
     <!-- Plotly.js -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-1.58.5.min.js"></script>
 
     <style>
         * {
@@ -245,25 +245,11 @@
 </head>
 
 <body>
-    <script>
-        // Simple password protection (client-side only - not secure for sensitive data)
-        const allowedHash = "c8332b7b1873902c8cc92836d20181503cac1fd19d427809f2b99e3b7ce49713";
-        async function sha256(s) {
-            const enc = new TextEncoder().encode(s);
-            const buf = await crypto.subtle.digest("SHA-256", enc);
-            return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
-        }
-        (async () => {
-            const pwd = prompt("Enter password:");
-            if (pwd === null) { document.body.innerHTML = ""; return; }
-            const hash = await sha256(pwd);
-            if (hash !== allowedHash) { document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>Access denied</h2>"; }
-        })();
-    </script>
     <div class="container">
         <div class="section">
             <h1>Project Matchmaker</h1>
             <p>ECE4424/CS4824: Machine Learning</p>
+            <p><strong>Fictional teaching profiles:</strong> all names, contacts, responses and feature values are invented. No class roster is used.</p>
             <p>Find ML project partners using k-nearest neighbors. This tool matches students with similar interests and
                 complementary skills while demonstrating practical applications of k-NN algorithms.</p>
             <p>Select any two dimensions to explore different aspects of compatibility. Adjust k to see more or fewer
@@ -271,8 +257,8 @@
         </div>
 
         <div class="section">
-            <label for="userEmail">Your VT Email ID (to highlight your position):</label>
-            <input type="email" id="userEmail" placeholder="alice123@vt.edu">
+            <label for="userEmail">Fictional profile email (optional):</label>
+            <input type="email" id="userEmail" placeholder="demo01@example.invalid">
         </div>
 
         <div class="section">
@@ -331,8 +317,8 @@
         <div class="section footnote">
             <p>Developed by <a href="https://jinming99.github.io">Prof. Ming Jin</a> for ECE4424/CS4824: Machine
                 Learning.</p>
-            <p>Student responses processed using OpenAI to extract multi-dimensional preferences. Privacy note: Names
-                and responses are visible to facilitate team formation.</p>
+            <p>All profiles, responses and numerical features are fictional teaching examples.
+                No personal records are included.</p>
         </div>
     </div>
 
@@ -347,7 +333,7 @@
         // Load student data
         async function loadData() {
             try {
-                const dataUrl = new URL('./student_data.json', window.location.href);
+                const dataUrl = new URL('./student_data_sample.json', window.location.href);
                 // Cache-bust to avoid stale cached 404s and ensure fresh fetch
                 const fetchUrl = `${dataUrl.toString()}?ts=${Date.now()}`;
                 const response = await fetch(fetchUrl, { cache: 'no-store' });
@@ -358,9 +344,9 @@
                 initializeControls();
                 updateVisualization();
             } catch (error) {
-                console.error('Error loading student_data.json:', error);
-                const hint = `Tried URL: ${window.location.href}\nFetch: ./student_data.json (no-cache)`;
-                alert(`Error loading student_data.json.\n\nDetails: ${error}\n\n${hint}`);
+                console.error('Error loading student_data_sample.json:', error);
+                const hint = `Tried URL: ${window.location.href}\nFetch: ./student_data_sample.json (no-cache)`;
+                alert(`Error loading student_data_sample.json.\n\nDetails: ${error}\n\n${hint}`);
             }
         }
 
@@ -569,6 +555,8 @@
                 margin: { t: 20, r: 20, b: 60, l: 60 }
             };
 
+            // newPlot removes all old traces, including the previous neighbor lines.
+            knnLines = [];
             Plotly.newPlot('plotDiv', plotData, layout).then(() => {
                 const plotDiv = document.getElementById('plotDiv');
                 // Avoid duplicate handlers across redraws
@@ -582,16 +570,15 @@
                     });
                     plotListenersBound = true;
                 }
+                if (currentStudent) {
+                    updateKNN();
+                }
             });
 
 
             // Update legend
             updateLegend(feature, colorMap);
 
-            // Update KNN if a student is selected
-            if (currentStudent) {
-                updateKNN();
-            }
         }
 
         // Update legend
@@ -631,7 +618,6 @@
                     <p><strong>Collaboration:</strong> ${student.collaboration_style}</p>
                     <p><strong>Has Project Idea:</strong> ${student.has_project_idea ? 'Yes' : 'No'}</p>
                 </div>
-                
                 <details>
                     <summary>View Survey Responses</summary>
                     <div class="response-text">

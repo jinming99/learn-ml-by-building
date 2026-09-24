@@ -14,14 +14,9 @@ from rank_bm25 import BM25Okapi
 from flask import render_template_string
 from rich import print
 
-# Try to import pyserini, fall back to BM25 if not available
-try:
-    from pyserini.search.lucene import LuceneSearcher
-    PYSERINI_AVAILABLE = True
-    print("✅ Using Pyserini/Lucene search engine")
-except ImportError:
-    PYSERINI_AVAILABLE = False
-    print("📚 Using BM25 search engine (pyserini not available)")
+# Pyserini is optional. Import it lazily only when a prebuilt Lucene index is
+# actually present; importing Pyserini without Java can trigger a macOS system
+# dialog even if the exception is caught. The bundled BM25 engine needs no Java.
 
 from catshop.utils import (
     BASE_DIR,
@@ -264,39 +259,33 @@ class BM25SearchEngine:
 
 
 def init_search_engine(num_products=None):
-    if PYSERINI_AVAILABLE:
-        # Original pyserini implementation
-        if num_products == 100:
-            indexes = 'indexes_100'
-        elif num_products == 1000:
-            indexes = 'indexes_1k'
-        elif num_products == 100000:
-            indexes = 'indexes_100k'
-        elif num_products is None:
-            indexes = 'indexes'
-        else:
-            raise NotImplementedError(f'num_products being {num_products} is not supported yet.')
-        
-        index_path = os.path.join(BASE_DIR, f'../search_engine/{indexes}')
-        if os.path.exists(index_path):
-            search_engine = LuceneSearcher(index_path)
-        else:
-            print(f"⚠️ Pyserini index not found at {index_path}, falling back to BM25")
-            # Load products and create BM25 engine
-            with open(DEFAULT_FILE_PATH) as f:
-                products = json.load(f)
-            if num_products:
-                products = products[:num_products]
-            search_engine = BM25SearchEngine(products)
+    if num_products == 100:
+        indexes = 'indexes_100'
+    elif num_products == 1000:
+        indexes = 'indexes_1k'
+    elif num_products == 100000:
+        indexes = 'indexes_100k'
+    elif num_products is None:
+        indexes = 'indexes'
     else:
-        # Fallback: Create a BM25-based search engine
-        with open(DEFAULT_FILE_PATH) as f:
-            products = json.load(f)
-        if num_products:
-            products = products[:num_products]
-        search_engine = BM25SearchEngine(products)
-    
-    return search_engine
+        raise NotImplementedError(f'num_products being {num_products} is not supported yet.')
+
+    index_path = os.path.join(BASE_DIR, f'../search_engine/{indexes}')
+    if os.path.exists(index_path):
+        try:
+            from pyserini.search.lucene import LuceneSearcher
+            print("✅ Using Pyserini/Lucene search engine")
+            return LuceneSearcher(index_path)
+        except Exception:
+            print("⚠️ Pyserini/Java unavailable; falling back to BM25")
+    else:
+        print("📚 Using bundled BM25 search engine")
+
+    with open(DEFAULT_FILE_PATH) as f:
+        products = json.load(f)
+    if num_products:
+        products = products[:num_products]
+    return BM25SearchEngine(products)
 
 
 def clean_product_keys(products):

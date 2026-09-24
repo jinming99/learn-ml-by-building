@@ -1,47 +1,49 @@
 ---
 title: "Lecture 6: Model Evaluation and Data Deception"
-subtitle: "When Data Lies - Real-World Deception in Data Science"
+subtitle: "What Did That Number Leave Out?"
 ---
 
 ## Overview
 
-In this eye-opening lecture, we expose the hidden traps that cause even experienced data scientists to draw wrong conclusions. Through real datasets including the Datasaurus Dozen, UC Berkeley admissions paradox, and credit card fraud detection, you'll learn how identical statistics can hide wildly different patterns, why 99.8% accuracy can be completely useless, and how data leakage creates models that fail catastrophically in production. This lecture will fundamentally change how you evaluate models and interpret data.
+A summary or a high score can hide the part we care about most. We start with the data and the choice of visualization, follow a fraud detector from accuracy to financial consequences, and finish by asking whether each input could have been known at prediction time.
 
 ## Learning Objectives
 
 By the end of this lecture, you will:
 
 - Detect when summary statistics hide critical patterns using visualization techniques
-- Recognize and resolve Simpson's Paradox in aggregated data
+- Explain how group composition can reverse an aggregate comparison
 - Choose appropriate metrics beyond accuracy for imbalanced problems
-- Identify and prevent data leakage in time series and customer data
+- Identify future information leaking into a customer-prediction task
 - Interpret ML visualizations (ROC curves, confusion matrices) correctly
-- Build a systematic evaluation framework for production models
+- State what a classroom test does and does not establish about deployment
 
 ## Materials
 
 ::: {.callout-tip}
 ## Quick Access
 **[Model Evaluation and Data Deception Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%206%20Evaluation%20Pitfalls%20and%20Data%20Visualization/06-ModelEval.ipynb)**
+
+[Lecture notes](../notes/06-evaluation-pitfalls-and-data-visualization.qmd)
 :::
 
 
 ## Datasets & Acknowledgments
 
 ### Real Datasets Used
-- [Datasaurus Dozen](https://jumpingrivers.github.io/datasauRus/): Created by Autodesk Research — 13 datasets with identical statistics but widely differing spatial patterns
+- [Datasaurus Dozen](https://www.openintro.org/data/index.php?data=datasaurus): 13 datasets with nearly identical summary statistics but very different spatial patterns
 - [UC Berkeley Admissions (1973)](https://discovery.cs.illinois.edu/dataset/berkeley/): Historical admissions data illustrating Simpson's Paradox
 - [Credit Card Fraud (Kaggle)](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud): Transactions from European cardholders over two days; 492 frauds out of 284,807 transactions (0.172%), resulting in a highly imbalanced dataset
-- [Telco Customer Churn (IBM, Kaggle)](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset): Customer account data used to demonstrate evaluation pitfalls and potential data leakage
+- [Telco Customer Churn (IBM)](https://public.dhe.ibm.com/software/data/sw-library/cognos/mobile/C11/data/): The 33-column workbook includes `Churn Reason`; it describes a fictional company and supports the prediction-time leakage example
 
 ## Key Takeaways
 
 ::: {.callout-warning}
 ## Critical Evaluation Principles
-1. Always visualize your data — Summary statistics alone can hide dinosaurs (literally!)
-2. Accuracy lies for imbalanced data — A 99.8% accurate model can be completely useless
-3. Data leakage is subtle and devastating — Always ask: "Would I have this information at prediction time?"
-4. Context matters — What looks like discrimination at one level may be the opposite at another (Simpson's Paradox)
+1. Inspect the observations and relevant groups before trusting a summary.
+2. Connect each metric to the errors and consequences it counts.
+3. Ask: "Would I have this information at prediction time?"
+4. Keep the limits visible: group comparisons alone do not establish causes, and a random split alone does not establish deployment performance.
 :::
 
 

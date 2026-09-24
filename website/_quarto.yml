@@ -3,6 +3,10 @@ project:
   resources:
     - demos/p1-music/**
     - quizzes/files/**
+    - project-matchmaker/index.html
+    - project-matchmaker/student_data_sample.json
+    - assets/lecture-notes/lecture-05/**
+    - assets/lecture-notes/lecture-06/**
     - assets/lecture-notes/lecture-07/**
 
 website:

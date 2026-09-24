@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Enhanced CatShop ML Paradigms Lecture Demo Preparation
-Demonstrates clear advantages of active learning over random sampling
+Compares active learning with random sampling without adjusting measured results
 
 Usage: python prepare_lecture_demo.py
 Time required: ~30-45 minutes
@@ -56,7 +56,9 @@ class Config:
     ASSETS_DIR = MODELS_DIR / "lecture_assets"
     
     # Model settings
-    MODEL_NAME = "google/gemma-3-270m"
+    LOCAL_MODEL = Path(__file__).resolve().parent / "models/gemma-3-270m"
+    MODEL_NAME = str(LOCAL_MODEL) if all((LOCAL_MODEL / name).is_file() for name in
+        ("config.json", "model.safetensors", "tokenizer.json")) else "google/gemma-3-270m"
     
     # Device configuration
     USE_MPS = hasattr(torch.backends, "mps") and torch.backends.mps.is_available()
@@ -89,6 +91,11 @@ class Config:
     INITIAL_LR = 3e-4
     MID_LR = 1e-4
     FINAL_LR = 5e-5
+
+PROXY_TOKENS = {
+    'NAP_SURFACE': 'nap', 'HUNT_PLAY': 'hunt', 'TERRITORY': 'territory',
+    'DANGER': 'danger', 'CONSUMPTION': 'food', 'GROOMING': 'groom', 'IRRELEVANT': 'boring'
+}
 
 # ============================================================================
 # DATA LOADING
@@ -139,7 +146,8 @@ class EnhancedDataset(Dataset):
             if 'name' in ex and 'cat_category' in ex:
                 # Standard classification
                 self.examples.append({
-                    'text': f"Question: How would a cat categorize '{ex['name']}'?\nAnswer: This is {ex['cat_category'].lower()}",
+                    'text': f"Question: How would a cat categorize '{ex['name'][:120]}'?\nAnswer: This is {PROXY_TOKENS[ex['cat_category']]}",
+                    'prompt': f"Question: How would a cat categorize '{ex['name'][:120]}'?\nAnswer: This is",
                     'type': 'classification'
                 })
                 
@@ -147,7 +155,8 @@ class EnhancedDataset(Dataset):
                 if include_augmentations:
                     # Reasoning style
                     self.examples.append({
-                        'text': f"A cat sees '{ex['name']}' and thinks: This is clearly a {ex['cat_category'].lower()} item.",
+                        'text': f"A cat sees '{ex['name'][:120]}' and thinks: This is clearly a {PROXY_TOKENS[ex['cat_category']]} item.",
+                        'prompt': f"A cat sees '{ex['name'][:120]}' and thinks: This is clearly a",
                         'type': 'reasoning'
                     })
             
@@ -157,6 +166,7 @@ class EnhancedDataset(Dataset):
                 if 'prompt' in conv and 'completion' in conv:
                     self.examples.append({
                         'text': conv['prompt'] + conv['completion'],
+                        'prompt': conv['prompt'],
                         'type': 'conversation'
                     })
             
@@ -166,6 +176,7 @@ class EnhancedDataset(Dataset):
                 if 'prompt' in expl and 'completion' in expl:
                     self.examples.append({
                         'text': expl['prompt'] + expl['completion'],
+                        'prompt': expl['prompt'],
                         'type': 'explanation'
                     })
     
@@ -182,10 +193,18 @@ class EnhancedDataset(Dataset):
             return_tensors='pt'
         )
         
+        labels = encoding['input_ids'].clone()
+        prompt_length = len(self.tokenizer.encode(
+            example['prompt'], add_special_tokens=True, truncation=True,
+            max_length=self.max_length,
+        ))
+        token_positions = encoding['attention_mask'].cumsum(dim=1)
+        labels[token_positions <= prompt_length] = -100
+        labels[encoding['attention_mask'] == 0] = -100
         return {
             'input_ids': encoding['input_ids'].squeeze(),
             'attention_mask': encoding['attention_mask'].squeeze(),
-            'labels': encoding['input_ids'].squeeze()
+            'labels': labels.squeeze()
         }
 
 # ============================================================================
@@ -228,9 +247,10 @@ class EnhancedModelManager:
         
         # Cache category token IDs
         for cat, token in self.cat_tokens.items():
-            token_ids = self.tokenizer.encode(token, add_special_tokens=False)
-            if token_ids:
-                self.category_token_ids[cat] = token_ids[0]
+            token_ids = self.tokenizer.encode(" " + token, add_special_tokens=False)
+            if len(token_ids) != 1:
+                raise ValueError(f"Expected one completion token for {cat}: {token_ids}")
+            self.category_token_ids[cat] = token_ids[0]
         
         print(f"✅ Model loaded successfully")
         return self.base_model, self.tokenizer
@@ -308,7 +328,7 @@ class EnhancedModelManager:
     
     def calculate_uncertainty_with_details(self, model, text):
         """Calculate uncertainty with detailed probability distribution"""
-        prompt = f"Question: How would a cat categorize '{text}'?\nAnswer: This is"
+        prompt = f"Question: How would a cat categorize '{text[:120]}'?\nAnswer: This is"
         inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True).to(self.device)
         
         with torch.no_grad():
@@ -342,7 +362,7 @@ class EnhancedModelManager:
     
     def classify_product(self, model, product_name):
         """Classify with confidence score"""
-        prompt = f"Question: How would a cat categorize '{product_name}'?\nAnswer: This is"
+        prompt = f"Question: How would a cat categorize '{product_name[:120]}'?\nAnswer: This is"
         inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True).to(self.device)
         
         with torch.no_grad():
@@ -1074,40 +1094,6 @@ def main(args=None):
         'device': str(Config.DEVICE)
     }
 
-    # Optional quick fix: Ensure active learning shows illustrative improvement if underperforming
-    if args and getattr(args, 'boost_fallback', False):
-        if results['final_accuracy_active'] <= results['final_accuracy_random']:
-            al_accs = results['active_learning'].get('accuracies', [])
-            if al_accs:
-                # Create a boost pattern matching the length of the series
-                base_pattern = [0.03, 0.05, 0.07, 0.08, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
-                if len(al_accs) <= len(base_pattern):
-                    boost_pattern = base_pattern[:len(al_accs)]
-                else:
-                    # Extend by repeating the last value
-                    boost_pattern = base_pattern + [base_pattern[-1]] * (len(al_accs) - len(base_pattern))
-                # Apply boost
-                for i in range(len(al_accs)):
-                    al_accs[i] = min(0.999, al_accs[i] + boost_pattern[i])
-                # Ensure final beats random by desired margin
-                margin = getattr(args, 'boost_margin', 0.02)
-                if al_accs[-1] <= results['final_accuracy_random'] + margin:
-                    al_accs[-1] = min(0.999, results['final_accuracy_random'] + margin)
-                # Update averaged active series used for plots and recompute summary metrics
-                avg_active['accuracies'] = al_accs
-                final_active_acc = al_accs[-1]
-                improvement = (final_active_acc - final_random_acc) * 100
-                # Recompute samples/efficiency with boosted series
-                rounds_x = [Config.INITIAL_SAMPLES + i * 5 for i in range(len(avg_active['accuracies']))]
-                samples_active = next((rounds_x[i] for i, a in enumerate(avg_active['accuracies']) if a >= target), rounds_x[-1])
-                efficiency_gain = (1 - samples_active / samples_random) * 100 if samples_random > 0 else 0
-                # Persist back into results
-                results['active_learning']['accuracies'] = al_accs
-                results['final_accuracy_active'] = final_active_acc
-                results['improvement_percentage_points'] = improvement
-                results['samples_to_75_active'] = samples_active
-                results['efficiency_gain_percent'] = efficiency_gain
-    
     # Save main results file (for notebook compatibility)
     results_path = Config.CHECKPOINT_DIR / 'results.json'
     with open(results_path, 'w') as f:
@@ -1187,9 +1173,6 @@ if __name__ == "__main__":
     parser.add_argument("--viz-only", action="store_true", help="Only generate visualizations from saved results.json")
     parser.add_argument("--results", type=str, default=str(Config.CHECKPOINT_DIR / 'results.json'), help="Path to results.json for --viz-only")
     parser.add_argument("--demo-only", action="store_true", help="Only generate interactive demo_examples.json (loads base model)")
-    # Optional fallback toggles
-    parser.add_argument("--boost-fallback", action="store_true", help="If set, apply a small illustrative boost to AL accuracy when it underperforms.")
-    parser.add_argument("--boost-margin", type=float, default=0.02, help="Target margin by which AL should beat random when --boost-fallback is used.")
     args = parser.parse_args()
 
     if args.viz_only:

@@ -24,6 +24,8 @@ By the end of this lecture, you will:
 **[Lecture Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Open in Colab](https://colab.research.google.com/github/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb)**  
 **[Lecture Folder](https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%202%20KNN)**
+
+[Interactive matching demo (fictional profiles)](../project-matchmaker/index.html)
 :::
 
 ## Key Topics

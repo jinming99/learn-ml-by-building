@@ -1,85 +1,61 @@
-# Regularization & Generalization Lecture - Environment Setup (Isolated)
+# Lecture 7 environment setup
 
-This guide sets up a dedicated virtual environment for the Regularization & Generalization lecture only. It won’t affect your shared `ml_lectures_env`.
+Use Python 3.11 and a dedicated environment. Run these commands from the
+`Lecture 7 Regularization and Generalization` directory.
 
-## Version Policy
-- **Lectures (existing)**: use Python 3.9 for maximum compatibility with older notebooks and packages.
-- **New projects**: use Python 3.11 for better performance and long-term support.
+## macOS / Linux
 
-This page focuses on the lecture's 3.9 environment. See the end for notes.
-
-## Location
-- Lecture folder: `Lecture 7 Regularization and Generalization/`
-- Env path: `Lecture 7 Regularization and Generalization/regularization_env/`
-- Jupyter kernel name: `Python (Regularization Py39)`
-
-## Prerequisites
-- macOS
-- Python 3.9 (this lecture venv uses a Python 3.9 interpreter)
-
-## Create and Activate the Environment
 ```bash
-# From the repo root (or cd into the lecture folder)
-# Recommended: create the venv using your Python 3.9 interpreter
-"/Users/ming/Dropbox/learn-ml-by-building/ml_lectures_env/bin/python" -m venv "Lecture 7 Regularization and Generalization/regularization_env"
-
-# Activate (macOS)
-source "Lecture 7 Regularization and Generalization/regularization_env/bin/activate"
-
-# Upgrade build tools
-python -m pip install --upgrade pip setuptools wheel
+python3.11 -m venv regularization_env
+source regularization_env/bin/activate
 ```
 
-## Install Core Packages
-```bash
-# Pin NumPy < 2 for compatibility across scientific stack
-python -m pip install \
-  "numpy<2" \
-  "pandas>=1.5,<2.2" \
-  "scikit-learn>=1.3,<1.5" \
-  "matplotlib>=3.7,<3.9" \
-  "seaborn>=0.12.2,<0.14" \
-  "ipywidgets>=8.1,<8.2"
+## Windows PowerShell
+
+```powershell
+py -3.11 -m venv regularization_env
+.\regularization_env\Scripts\Activate.ps1
 ```
 
-## Install TensorFlow (Required for this lecture)
+## Install and register the kernel
+
+With the environment activated, on any platform:
+
 ```bash
-# Apple Silicon (M1/M2/M3)
-python -m pip install "tensorflow-macos>=2.16,<2.18" "tensorflow-metal>=1.1"
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m ipykernel install --user --name lecture7-regularization --display-name "Python (Lecture 7 Regularization)"
 ```
 
-On Intel mac/Windows/Linux:
+Open the notebook in your existing Jupyter interface or notebook editor and
+select **Python (Lecture 7 Regularization)**. If you need a browser interface,
+install and launch Jupyter Notebook in this environment:
+
 ```bash
-python -m pip install "tensorflow>=2.16,<2.18"
+python -m pip install notebook
+jupyter notebook
 ```
 
-### Optional (extras used in some demos)
-```bash
-# Finance data helper (only if you need it)
-python -m pip install yfinance
-```
+## Tested runtime
 
-## Jupyter and Kernel Registration
-```bash
-python -m pip install jupyter ipykernel
-python -m ipykernel install --user --name regularization-py39 --display-name "Python (Regularization Py39)"
-```
+The lecture-specific requirements record the installed versions used for the
+complete CPU execution on macOS with Python **3.11.13**:
 
-## Start Jupyter in the Lecture Folder
-```bash
-# From repo root
-"Lecture 7 Regularization and Generalization/regularization_env/bin/jupyter" notebook --no-browser --ip=127.0.0.1
-```
-Open the printed URL (e.g., http://127.0.0.1:8890/tree) and select the kernel: `Python (Regularization Py39)`.
+| Package | Version |
+| --- | --- |
+| TensorFlow | 2.16.2 |
+| Keras | 3.15.1 |
+| NumPy | 1.26.4 |
+| pandas | 3.0.1 |
+| Matplotlib | 3.10.8 |
+| scikit-learn | 1.8.0 |
+| IPython | 9.17.1 |
+| ipykernel | 7.3.0 |
+| Jinja2 | 3.1.6 |
 
-## RISE (Slide Show) in this Environment
-RISE works with the classic Notebook interface (Notebook 6).
-```bash
-python -m pip install "notebook==6.5.7" "rise>=5.7"
-python -m jupyter nbextension install rise --py --sys-prefix
-python -m jupyter nbextension enable rise --py --sys-prefix
-```
-
-## Notes
-- Your shared env `ml_lectures_env` remains untouched.
-- If you encounter errors mentioning `np.complex_` or other NumPy-2.0 removals, ensure you have `numpy<2` in this environment.
+The notebook downloads Fashion-MNIST through Keras on first use. It needs no
+private files or separate figure assets. Other operating systems and accelerator
+backends may produce different numerical results; they were not part of this
+CPU verification. Jupyter Notebook is an optional interface, not part of the recorded
+execution environment. Colab uses the notebook's existing setup cell and was
+not part of this local verification.

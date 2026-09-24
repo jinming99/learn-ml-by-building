@@ -20,6 +20,9 @@ By the end of this lecture, you will:
 
 ## Materials
 
+- [Lecture notes](../notes/05-probabilistic-classification.qmd)
+- [PDF version](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-05-probabilistic-classification.pdf)
+
 :::{.callout-tip}
 ## Quick Access
 **[Probabilistic Classification Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%205%20Probabilistic%20Classification/05-ProbClass.ipynb)**

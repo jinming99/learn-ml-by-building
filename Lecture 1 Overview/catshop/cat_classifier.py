@@ -57,9 +57,9 @@ class CatClassifier:
         self.category_token_ids = {}
         try:
             for cat, token_str in PROXY_TOKENS.items():
-                token_ids = self.tokenizer.encode(token_str, add_special_tokens=False)
-                if len(token_ids) == 0:
-                    continue
+                token_ids = self.tokenizer.encode(" " + token_str, add_special_tokens=False)
+                if len(token_ids) != 1:
+                    raise ValueError(f"Expected one completion token for {cat}: {token_ids}")
                 self.category_token_ids[cat] = token_ids[0]
         except Exception:
             self.category_token_ids = {}
@@ -76,8 +76,16 @@ class CatClassifier:
             except Exception:
                 PeftModel = None
 
-            # Load base model and tokenizer
-            base_model = "google/gemma-3-270m"  # Use Gemma-3 270m
+            # Prefer the lecture-local base model so the demo works without
+            # network access or a Hugging Face login. Fall back to the Hub only
+            # when the local model has not been downloaded yet.
+            local_base_model = self.model_path.parent / "gemma-3-270m"
+            base_model = (
+                str(local_base_model)
+                if all((local_base_model / name).is_file() for name in
+                       ("config.json", "model.safetensors", "tokenizer.json"))
+                else "google/gemma-3-270m"
+            )
             self.tokenizer = AutoTokenizer.from_pretrained(base_model)
             
             # Check if LoRA weights exist
@@ -93,7 +101,7 @@ class CatClassifier:
                 else:
                     # If peft missing, fall back to base model
                     self.model = base_model_obj
-                self.using_lora = True
+                self.using_lora = PeftModel is not None
                 print(f"Loaded base model {base_model} with LoRA from {self.model_path}")
             else:
                 # Load base without LoRA
@@ -129,8 +137,8 @@ class CatClassifier:
             return out
         
         try:
-            # Notebook-style prompt: predict next token after Category:
-            prompt = f"Product: {product_name[:120]}\nCategory:"
+            # Match the notebook's training prefix and space-prefixed category tokens.
+            prompt = f"Question: How would a cat categorize '{product_name[:120]}'?\nAnswer: This is"
 
             # Tokenize inputs
             inputs = self.tokenizer(prompt, return_tensors="pt", padding=False, truncation=True, max_length=256)

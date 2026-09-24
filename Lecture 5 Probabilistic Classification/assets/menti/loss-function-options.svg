@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="1500" viewBox="0 0 700 1500">
+<rect width="700" height="1500" fill="#f5f8fc"/>
+<text x="350" y="105" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#18212f" text-anchor="middle">Which could be used</text>
+<text x="350" y="148" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#18212f" text-anchor="middle">as a training loss?</text>
+<text x="350" y="193" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#2b7ed9" text-anchor="middle">Select all that apply. Explain your reasoning.</text>
+<rect x="42" y="225" width="616" height="104" rx="18" fill="#edf4fc" stroke="#c7d9ee" stroke-width="2"/>
+<text x="350" y="266" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#617087" text-anchor="middle">y ∈ {0,1}   ·   p = predicted P(y=1)</text>
+<text x="350" y="302" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#617087" text-anchor="middle">z = raw score   ·   signed label = 2y−1</text>
+<rect x="42" y="360" width="616" height="212" rx="24" fill="#ffffff" stroke="#d9e3ef" stroke-width="2"/>
+<rect x="42" y="360" width="11" height="212" rx="5" fill="#2b7ed9"/>
+<circle cx="109" cy="427" r="36" fill="#f7faff" stroke="#2b7ed9" stroke-width="3"/>
+<text x="109" y="438" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#2b7ed9" text-anchor="middle">A</text>
+<text x="164" y="438" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#2b7ed9" text-anchor="start">Cross-entropy</text>
+<text x="76" y="518" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#18212f" text-anchor="start">−[ y log(p) + (1−y) log(1−p) ]</text>
+<rect x="42" y="605" width="616" height="212" rx="24" fill="#ffffff" stroke="#d9e3ef" stroke-width="2"/>
+<rect x="42" y="605" width="11" height="212" rx="5" fill="#00a39a"/>
+<circle cx="109" cy="672" r="36" fill="#f7faff" stroke="#00a39a" stroke-width="3"/>
+<text x="109" y="683" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#00a39a" text-anchor="middle">B</text>
+<text x="164" y="683" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#00a39a" text-anchor="start">Brier score</text>
+<text x="76" y="763" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#18212f" text-anchor="start">(y − p)²</text>
+<rect x="42" y="850" width="616" height="212" rx="24" fill="#ffffff" stroke="#d9e3ef" stroke-width="2"/>
+<rect x="42" y="850" width="11" height="212" rx="5" fill="#7857c8"/>
+<circle cx="109" cy="917" r="36" fill="#f7faff" stroke="#7857c8" stroke-width="3"/>
+<text x="109" y="928" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#7857c8" text-anchor="middle">C</text>
+<text x="164" y="928" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#7857c8" text-anchor="start">Hinge loss</text>
+<text x="76" y="1008" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#18212f" text-anchor="start">max(0, 1 − (2y−1)z)</text>
+<rect x="42" y="1095" width="616" height="212" rx="24" fill="#ffffff" stroke="#d9e3ef" stroke-width="2"/>
+<rect x="42" y="1095" width="11" height="212" rx="5" fill="#d84a4a"/>
+<circle cx="109" cy="1162" r="36" fill="#f7faff" stroke="#d84a4a" stroke-width="3"/>
+<text x="109" y="1173" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#d84a4a" text-anchor="middle">D</text>
+<text x="164" y="1173" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#d84a4a" text-anchor="start">Signed error</text>
+<text x="76" y="1253" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#18212f" text-anchor="start">y − p</text>
+</svg>

@@ -268,3 +268,13 @@ Lecture 16 RNN and Recurrent Language Models/data/
 !/Lecture Notes/*.pdf
 !/Lecture Notes/Template - Learn ML by Building/
 !/Lecture Notes/Template - Learn ML by Building/**
+
+# Private review artifacts and classroom working copies are not release files.
+/tmp/
+/output/
+**/*-original-backup.ipynb
+**/*-Copy[0-9]*.ipynb
+/Lecture 2 KNN/project-matchmaker/student_data.json
+/Lecture 2 KNN/project-matchmaker/student_data_*.json
+!/Lecture 2 KNN/project-matchmaker/student_data_sample.json
+/Lecture 2 KNN/project-matchmaker/response.csv
