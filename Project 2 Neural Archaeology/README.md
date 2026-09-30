@@ -20,7 +20,14 @@ You can run this project either on **Google Colab** (recommended for beginners) 
 
 ### Step 2: Upload Data Files
 
-The project includes a `data/` folder with required datasets. Upload it to Colab:
+The project includes a `data/` folder with required datasets. The notebook uses
+`joy.json` for the joy category; it contains the same scenarios as the original
+`happiness.json`, which is retained for compatibility. If an older project package
+is missing `joy.json`, copy `data/emotions/happiness.json` to
+`data/emotions/joy.json` in your working data folder and rerun the emotion-loading
+cell.
+
+Upload the data folder to Colab:
 
 ```python
 # Run this cell to upload the data folder
@@ -300,4 +307,3 @@ File > Print > Save as PDF
 - **Representation Engineering** - [Zou et al., 2023](https://arxiv.org/abs/2310.01405)
 - **Circuit Breaker** - [Zou et al., 2024](https://www.circuit-breaker.ai/)
 - **Backtracking for Safety** - [Zhang et al., 2024](https://arxiv.org/abs/2409.14586), [Sel et al., 2025](https://arxiv.org/abs/2503.08919)
-
