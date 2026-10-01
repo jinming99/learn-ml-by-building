@@ -26,6 +26,8 @@ By the end of this lecture, you will:
 
 ::: {.callout-tip}
 ## Quick Access
+**[Lecture notes: From useful questions to learnable routing](../notes/08-modern-decision-trees.qmd)**
+
 **[Modern Decision Trees Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%208%20Modern%20Decision%20Trees/08-DecisionTrees-ModernView.ipynb)**
 :::
 

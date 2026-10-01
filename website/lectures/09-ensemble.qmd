@@ -27,6 +27,8 @@ By the end of this lecture, you will:
 
 ::: {.callout-tip}
 ## Quick Access
+**[Lecture notes: Different mistakes, stronger predictions](../notes/09-ensemble-methods.qmd)**
+
 **[Ensemble Methods Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%209%20Ensemble%20Methods/09-Ensemble-Methods.ipynb)**
 :::
 
