@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="How a linear model, a loss, and feature representation work together in numerical prediction.">
+<meta name="description" content="Several imperfect predictors can make a better decision together when their mistakes differ. Their individual opinions also reveal what an average hides: shared hesitation, disagreement, and confident mistakes.">
 
-<title>Lecture 3: Linear Regression – ECE 4424/CS 4824: Machine Learning</title>
+<title>Lecture 9: Ensemble Methods – ECE 4424/CS 4824: Machine Learning</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -107,6 +107,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../site-legibility-v2.css">
 <link rel="stylesheet" href="../lecture-notes.css">
+<link rel="stylesheet" href="../assets/lecture-notes/lecture-09/notes.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -191,7 +192,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 3: Linear Regression</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 9: Ensemble Methods</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -464,9 +465,12 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#begin-with-the-prediction-problem" id="toc-begin-with-the-prediction-problem" class="nav-link active" data-scroll-target="#begin-with-the-prediction-problem">Begin with the prediction problem</a></li>
-  <li><a href="#define-what-counts-as-error" id="toc-define-what-counts-as-error" class="nav-link" data-scroll-target="#define-what-counts-as-error">Define what counts as error</a></li>
-  <li><a href="#representation-sets-what-the-model-can-express" id="toc-representation-sets-what-the-model-can-express" class="nav-link" data-scroll-target="#representation-sets-what-the-model-can-express">Representation sets what the model can express</a></li>
+  <li><a href="#where-the-mistakes-occur-matters" id="toc-where-the-mistakes-occur-matters" class="nav-link active" data-scroll-target="#where-the-mistakes-occur-matters">Where the mistakes occur matters</a></li>
+  <li><a href="#build-different-trees-from-the-same-data" id="toc-build-different-trees-from-the-same-data" class="nav-link" data-scroll-target="#build-different-trees-from-the-same-data">Build different trees from the same data</a></li>
+  <li><a href="#randomize-the-candidate-features-too" id="toc-randomize-the-candidate-features-too" class="nav-link" data-scroll-target="#randomize-the-candidate-features-too">Randomize the candidate features too</a></li>
+  <li><a href="#a-committee-beyond-its-best-member" id="toc-a-committee-beyond-its-best-member" class="nav-link" data-scroll-target="#a-committee-beyond-its-best-member">A committee beyond its best member</a></li>
+  <li><a href="#an-average-can-overrule-the-vote" id="toc-an-average-can-overrule-the-vote" class="nav-link" data-scroll-target="#an-average-can-overrule-the-vote">An average can overrule the vote</a></li>
+  <li><a href="#similar-confidence-different-reasons" id="toc-similar-confidence-different-reasons" class="nav-link" data-scroll-target="#similar-confidence-different-reasons">Similar confidence, different reasons</a></li>
   </ul>
 </nav>
     </div>
@@ -475,13 +479,13 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 3: Linear Regression</h1>
-<p class="subtitle lead">Prediction, loss, and feature representation</p>
+<h1 class="title">Lecture 9: Ensemble Methods</h1>
+<p class="subtitle lead">Different mistakes, stronger predictions</p>
 </div>
 
 <div>
   <div class="description">
-    How a linear model, a loss, and feature representation work together in numerical prediction.
+    Several imperfect predictors can make a better decision together when their mistakes differ. Their individual opinions also reveal what an average hides: shared hesitation, disagreement, and confident mistakes.
   </div>
 </div>
 
@@ -498,240 +502,127 @@ window.Quarto = {
 </header>
 
 
-<p>Linear regression predicts a number from input features. The model defines how features produce predictions, the loss defines a good fit, and the feature representation determines which relationships the model can express.</p>
 <div class="lecture-note-actions" role="navigation" aria-label="Lecture note navigation">
-<p><a href="../lectures/03-linear.html" class="btn btn-primary btn-sm">Course materials</a> <a href="../notes/02-k-nearest-neighbors.html" class="btn btn-outline-secondary btn-sm">Previous lecture</a> <a href="../notes/04-gradient-descent-and-optimization.html" class="btn btn-outline-secondary btn-sm">Next lecture</a></p>
+<p><a href="../lectures/09-ensemble.html" class="btn btn-primary btn-sm">Course materials</a></p>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Learning goals
+<div class="callout-body-container">
+<p><strong>Learning goals.</strong> Explain why different mistakes can help a committee; identify eligible OOB voters; distinguish class votes from probability averages; interpret disagreement without treating it as a guarantee of reliability.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>By the end of this lecture, you should be able to:</p>
-<ol type="1">
-<li>identify a regression problem and interpret the weight and bias in a linear model;</li>
-<li>explain why signed error is unsuitable as a loss and compute mean squared error; and</li>
-<li>explain how a feature map lets a linear model represent a curved relationship.</li>
-</ol>
 </div>
-</div>
-<section id="begin-with-the-prediction-problem" class="level2">
-<h2 class="anchored" data-anchor-id="begin-with-the-prediction-problem">Begin with the prediction problem</h2>
-<p>Consider predicting a student’s GPA from a feature such as study time. A scatterplot might show GPA increasing with study time or decreasing with gaming time. Linear regression represents either trend with a line.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Classification and regression
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Classification predicts a category, such as whether an image contains a cat. Regression predicts a number, such as a student’s GPA. The output type determines the task. Here the target is numerical, so this is a regression problem.</p>
-</div>
-</div>
-<div id="fig-linear-relationships" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Two synthetic scatterplots show GPA increasing with study time and decreasing with gaming time. Gold vertical segments connect observed data points to their predictions on the fitted lines.">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../assets/lecture-notes/lecture-03/linear-relationships.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Two synthetic scatterplots show GPA increasing with study time and decreasing with gaming time. Gold vertical segments connect observed data points to their predictions on the fitted lines.">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Two regression examples with synthetic data. For each input, the fitted line gives a prediction <span class="math inline">\(\widehat y_i\)</span>. Each vertical segment connects the observed value <span class="math inline">\(y_i\)</span> to its prediction and shows the error.
+<section id="where-the-mistakes-occur-matters" class="level2">
+<h2 class="anchored" data-anchor-id="where-the-mistakes-occur-matters">Where the mistakes occur matters</h2>
+<p>Consider three doctors answering the same ten yes/no questions. Alice and Bob each make one mistake; Carol makes two. Their mistakes fall on different patients, so the other two doctors correct each error through a majority vote.</p>
+<figure class="lecture-09-figure figure">
+<a href="../assets/lecture-notes/lecture-09/doctors.svg" target="_blank" rel="noopener" title="Open full-size figure" aria-label="Enlarge Figure 1"><img src="../assets/lecture-notes/lecture-09/doctors.svg" alt="Alice, Bob and Carol make different mistakes on ten patients. Each mistake is corrected by the other two, so the majority is correct on all ten." loading="lazy" class="figure-img"></a>
+<figcaption>
+Figure 1. The whiteboard’s conceptual example, not a clinical experiment. Coral cells mark errors. No column contains two errors, so the majority gets all ten answers right even though no individual does. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-09/doctors.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 1">Enlarge</a>
 </figcaption>
 </figure>
-</div>
-<p>For observations <span class="math inline">\(\mathcal D=\{(x_i,y_i)\}_{i=1}^{n}\)</span>, the one-feature model predicts</p>
+<p>What matters is <em>which examples</em> each predictor gets wrong. If all three miss the same patient, voting preserves that mistake. Useful diversity means complementary information from capable predictors, not arbitrary disagreement. Identical copies add neither.</p>
+<p>For <span class="math inline">\(M\)</span> classifiers with predicted labels <span class="math inline">\(h_m(x)\)</span>, class voting chooses</p>
 <p><span class="math display">\[
-\widehat y_i = w x_i+b.
+\widehat y(x)=\operatorname*{arg\,max}_c\sum_{m=1}^{M}\mathbf{1}\{h_m(x)=c\}.
 \]</span></p>
-<p>The input <span class="math inline">\(x_i\)</span> is a <em>feature</em>, <span class="math inline">\(y_i\)</span> is the observed <em>target</em>, and <span class="math inline">\(\widehat y_i\)</span> is the model’s prediction. The two learned coefficients play different roles.</p>
-<div class="table-responsive">
-<div id="tbl-linear-terms" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-linear-terms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: The components of a one-feature linear model.
-</figcaption>
-<div aria-describedby="tbl-linear-terms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Quantity</th>
-<th style="text-align: left;">Role</th>
-<th style="text-align: left;">Effect on the prediction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(w\)</span></td>
-<td style="text-align: left;">Weight or slope</td>
-<td style="text-align: left;">Changes how much <span class="math inline">\(\widehat y\)</span> moves when <span class="math inline">\(x\)</span> increases by one unit.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="math inline">\(b\)</span></td>
-<td style="text-align: left;">Bias or intercept</td>
-<td style="text-align: left;">Shifts every prediction by the same amount.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(\widehat y_i\)</span></td>
-<td style="text-align: left;">Predicted target</td>
-<td style="text-align: left;">Gives the model’s estimate for example <span class="math inline">\(i\)</span>.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-</div>
-<p>With several features, the model becomes <span class="math inline">\(\widehat y_i=\mathbf w^{\top}\mathbf x_i+b\)</span>. It assumes that the chosen features contain useful information about the target and that the same coefficients apply across examples. Training chooses the coefficients that make the predictions close to the observed targets.</p>
+<p>In a binary problem with an odd number of voters, the winner has a majority. With several classes, the largest count can win without exceeding half. A tie requires a specified rule.</p>
 </section>
-<section id="define-what-counts-as-error" class="level2">
-<h2 class="anchored" data-anchor-id="define-what-counts-as-error">Define what counts as error</h2>
-<p>A model needs a numerical definition of a good prediction. For example <span class="math inline">\(i\)</span>, define the residual as</p>
+<section id="build-different-trees-from-the-same-data" class="level2">
+<h2 class="anchored" data-anchor-id="build-different-trees-from-the-same-data">Build different trees from the same data</h2>
+<p><em>Bagging</em> combines bootstrap sampling with aggregation. For each tree, draw <span class="math inline">\(n\)</span> times with replacement from the <span class="math inline">\(n\)</span> training rows. Repeated rows influence its fit; undrawn rows are <em>out of bag</em> for that tree. Train the members separately, then combine their predictions.</p>
+<figure class="lecture-09-figure figure">
+<a href="../assets/lecture-notes/lecture-09/oob.svg" target="_blank" rel="noopener" title="Open full-size figure" aria-label="Enlarge Figure 2"><img src="../assets/lecture-notes/lecture-09/oob.svg" alt="Bootstrap draw counts for six trees and twelve training examples. Only trees four and five leave example four out." loading="lazy" class="figure-img"></a>
+<figcaption>
+Figure 2. The notebook’s fixed bootstrap example: each row contains 12 draws from 12 examples. Numbers count draws, not predicted labels. Example 4 is eligible for an OOB prediction from trees 4 and 5 only, because their entries in that column are zero. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-09/oob.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 2">Enlarge</a>
+</figcaption>
+</figure>
+<p>For a particular example, the chance of being omitted on one draw is <span class="math inline">\(1-1/n\)</span>. Across <span class="math inline">\(n\)</span> independent draws,</p>
 <p><span class="math display">\[
-e_i=y_i-\widehat y_i.
+\begin{aligned}P(\text{out of bag})&amp;=\left(1-\frac1n\right)^n\\
+&amp;\longrightarrow e^{-1}\approx0.368.\end{aligned}
 \]</span></p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
+<p>The finite example above has omission probability <span class="math inline">\((11/12)^{12}\approx35.2\%\)</span>. The familiar 36.8% is a large-<span class="math inline">\(n\)</span> limit. It is an expected omission fraction, <em>not an error rate</em> and not an exact quota for every tree.</p>
+<p>To score training row <span class="math inline">\(i\)</span>, combine only trees whose bootstrap samples excluded it; then compare that prediction with <span class="math inline">\(y_i\)</span>. Repeat across rows to obtain an OOB score. Each row has its own eligible committee. With too few trees, some rows have no eligible voter; the notebook omits an OOB score until every row has one.</p>
+</section>
+<section id="randomize-the-candidate-features-too" class="level2">
+<h2 class="anchored" data-anchor-id="randomize-the-candidate-features-too">Randomize the candidate features too</h2>
+<p>Bootstrap samples can still produce similar trees when one strong feature dominates. A random forest considers a fresh random subset of features <em>at each split</em>, then searches for a useful split among those candidates. It does not choose one permanent feature subset for an entire tree. The notebook uses the square-root feature rule with 512 image features.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Why signed error fails
+<div class="callout-body-container">
+<p>OOB predictions exclude a row from each eligible tree’s fit. They do not protect against information leaking through preprocessing or repeated tuning to the OOB score. A final independent evaluation still has a separate role.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>A common first reaction is to use the signed difference <span class="math inline">\(\ell_i=y_i-\widehat y_i\)</span> as the loss. When these signed errors are averaged over the dataset, positive and negative values can cancel. More importantly, minimizing this loss rewards arbitrarily large predictions: increasing <span class="math inline">\(\widehat y_i\)</span> drives <span class="math inline">\(\ell_i\)</span> toward <span class="math inline">\(-\infty\)</span> even as the prediction gets worse. This is a simple form of reward hacking: the model improves the score without improving the prediction. Absolute and squared loss close the loophole by assigning every error a nonnegative penalty.</p>
 </div>
-</div>
-<p>Two common ways to turn a residual into a per-example loss <span class="math inline">\(\ell(y_i,\widehat y_i)\)</span> are:</p>
-<div class="table-responsive">
-<div id="tbl-point-losses" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-point-losses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Two ways to score the error on one example. This lecture uses squared loss.
-</figcaption>
-<div aria-describedby="tbl-point-losses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Loss</th>
-<th style="text-align: left;">Definition</th>
-<th style="text-align: left;">Behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Absolute loss</td>
-<td style="text-align: left;"><span class="math inline">\(|y_i-\widehat y_i|\)</span></td>
-<td style="text-align: left;">The penalty grows in direct proportion to the size of the error.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Squared loss</td>
-<td style="text-align: left;"><span class="math inline">\((y_i-\widehat y_i)^2\)</span></td>
-<td style="text-align: left;">The penalty grows quadratically, so larger errors receive more weight.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-</div>
-<p>For squared loss, the training loss is the average squared error across the dataset:</p>
-<p><span class="math display">\[
-L(w,b)
-=\frac{1}{n}\sum_{i=1}^{n}\bigl(y_i-\widehat y_i\bigr)^2
-=\frac{1}{n}\sum_{i=1}^{n}\bigl(y_i-(wx_i+b)\bigr)^2.
-\]</span></p>
-<p>This quantity is the <em>mean squared error</em> (MSE).</p>
-<div class="table-responsive">
-<div id="tbl-mse-example" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mse-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;3: A three-example calculation gives <span class="math inline">\(\operatorname{MSE}=(9+0+4)/3=13/3\)</span>.
-</figcaption>
-<div aria-describedby="tbl-mse-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Example</th>
-<th style="text-align: left;">Target <span class="math inline">\(y_i\)</span></th>
-<th style="text-align: left;">Prediction <span class="math inline">\(\widehat y_i\)</span></th>
-<th style="text-align: left;">Squared error</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">10</td>
-<td style="text-align: left;"><span class="math inline">\((7-10)^2=9\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">5</td>
-<td style="text-align: left;"><span class="math inline">\((5-5)^2=0\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">5</td>
-<td style="text-align: left;"><span class="math inline">\((7-5)^2=4\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-</div>
-<p>A lower MSE means that the squared errors are smaller on average for this dataset.</p>
 </section>
-<section id="representation-sets-what-the-model-can-express" class="level2">
-<h2 class="anchored" data-anchor-id="representation-sets-what-the-model-can-express">Representation sets what the model can express</h2>
-<p>To model a curved relationship, we can transform the original input <span class="math inline">\(x\)</span> into polynomial features before fitting the model. For degree <span class="math inline">\(d\)</span>, define</p>
-<p><span class="math display">\[
-\boldsymbol\phi(x)=
-\begin{bmatrix}
-1 &amp; x &amp; x^2 &amp; \cdots &amp; x^d
-\end{bmatrix}^{\!\top},
-\qquad
-\widehat y=\boldsymbol\theta^{\top}\boldsymbol\phi(x).
-\]</span></p>
-<p>The prediction can now curve with <span class="math inline">\(x\)</span>. The parameters still enter linearly: in <span class="math inline">\(\theta_0+\theta_1x+\theta_2x^2\)</span>, each learned coefficient appears only to the first power.</p>
-<div id="fig-feature-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A pipeline maps a raw measurement through a feature map and a linear model to a prediction. A separate annotation shows that measurements can be transformed or improved before fitting.">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-feature-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../assets/lecture-notes/lecture-03/feature-pipeline.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="A pipeline maps a raw measurement through a feature map and a linear model to a prediction. A separate annotation shows that measurements can be transformed or improved before fitting.">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-feature-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: A model can use only the features it receives. Transforming measurements or collecting more informative data can expose relationships that a linear predictor can learn.
+<section id="a-committee-beyond-its-best-member" class="level2">
+<h2 class="anchored" data-anchor-id="a-committee-beyond-its-best-member">A committee beyond its best member</h2>
+<p>The notebook uses 4,000 training and 1,000 validation images from CIFAR-10’s official training collection, balanced across ten classes. A fixed ImageNet-pretrained ResNet-18 maps each image to 512 features. The forest learns on these features; the image encoder is not trained here. A separate 1,000-image test subset is reserved and is not used for the comparisons below.</p>
+<figure class="lecture-09-figure figure">
+<a href="../assets/lecture-notes/lecture-09/members.svg" target="_blank" rel="noopener" title="Open full-size figure" aria-label="Enlarge Figure 3"><img src="../assets/lecture-notes/lecture-09/members.svg" alt="Individual trees score between 34.8 and 44.3 percent; their class-vote ensemble is far beyond this distribution at 77.8 percent." loading="lazy" class="figure-img"></a>
+<figcaption>
+Figure 3. Observed accuracies of 200 trees and their class-vote ensemble on the same 1,000 validation images. The ensemble’s 77.8% is the accuracy of the combined decisions; it is not the average of individual accuracies. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-09/members.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 3">Enlarge</a>
 </figcaption>
 </figure>
-</div>
-<p>Residuals can show when the current features are inadequate. A systematic curve in the residuals means that the current features leave predictable structure unexplained. Adjusting the coefficients alone cannot fit a pattern the representation cannot express. Change the feature map or collect better measurements.</p>
-<hr>
-<p><strong>Lecture summary.</strong> Linear regression predicts a number from a weighted combination of features. The loss defines a good fit, and the feature representation determines which relationships the model can learn.</p>
-<div class="small text-muted">
-<p><strong>Acknowledgment.</strong> These notes are based on the instructor’s handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.</p>
-</div>
-<hr>
-<p><a href="../notes/02-k-nearest-neighbors.html">Previous lecture: k-Nearest Neighbors</a> · <a href="../notes/04-gradient-descent-and-optimization.html">Next lecture: Gradient Descent and Optimization</a> · <a href="../lectures/03-linear.html">Lecture 3 course materials</a></p>
+<p>Every tree scores between 34.8% and 44.3%, yet the committee reaches 77.8%. For one frog image, only 59 trees vote frog. Bird gets 41, airplane 21, cat 20, and the remaining 59 votes are spread among six other classes. Frog wins by <em>plurality</em>. The other classes must be considered separately, not merged into a single opponent.</p>
+<figure class="lecture-09-figure figure">
+<a href="../assets/lecture-notes/lecture-09/forest-size.svg" target="_blank" rel="noopener" title="Open full-size figure" aria-label="Enlarge Figure 4"><img src="../assets/lecture-notes/lecture-09/forest-size.svg" alt="As the forest grows, validation accuracy rises from 42.1 to 77.8 percent, with diminishing gains; OOB scores become available after every row has an eligible voter." loading="lazy" class="figure-img"></a>
+<figcaption>
+Figure 4. Measured prefixes of the same forest: earlier trees stay fixed as new ones are added. Training reaches 100% while validation still improves. OOB predictions use fewer trees per example and need not match validation exactly. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-09/forest-size.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 4">Enlarge</a>
+</figcaption>
+</figure>
+<p>The largest gains come early in this run: validation rises from 42.1% with one tree to 69.5% with 25. Increasing 100 to 200 trees adds 1.4 percentage points. This suggests diminishing returns here, not a universal best forest size. Adding trees averages more fitted predictors; it does not make each tree deeper.</p>
+<p>The explicit vote demonstration counts labels. Scikit-learn’s forest prediction averages class probabilities; the two rules happen to score the same 77.8% in this run. Shared mistakes remain: for a truck image, 133 trees vote automobile and only 55 vote truck.</p>
+</section>
+<section id="an-average-can-overrule-the-vote" class="level2">
+<h2 class="anchored" data-anchor-id="an-average-can-overrule-the-vote">An average can overrule the vote</h2>
+<p>For the neural committee, the notebook standardizes the fixed features using training data only and trains five small classifiers. They share the training images but use seeds 11, 22, 33, 44, and 55, giving different initial weights, batch orders, and dropout realizations. Each restores its lowest-validation-log-loss checkpoint.</p>
+<p>If model <span class="math inline">\(m\)</span> predicts probability vector <span class="math inline">\(p_m(x)\)</span>, equal-weight averaging gives</p>
+<p><span class="math display">\[
+\begin{aligned}\bar p_c(x)&amp;=\frac1M\sum_{m=1}^{M}p_{m,c}(x),\\
+\widehat y(x)&amp;=\operatorname*{arg\,max}_c\bar p_c(x).\end{aligned}
+\]</span></p>
+<p>All models receive the same weight. A strong probability preference has more effect than a narrow preference because we retain the full vectors instead of reducing each to one vote.</p>
+<figure class="lecture-09-figure figure">
+<a href="../assets/lecture-notes/lecture-09/ship-votes.svg" target="_blank" rel="noopener" title="Open full-size figure" aria-label="Enlarge Figure 5"><img src="../assets/lecture-notes/lecture-09/ship-votes.svg" alt="A real ship image. Three heads vote ship, but averaging the probability vectors favors automobile: 49.4 percent versus 46.8 percent for ship." loading="lazy" class="figure-img"></a>
+<figcaption>
+Figure 5. A real held-out CIFAR-10 image, validation index 175 (source training ID 3038), with dataset label ship. Three of the five heads choose ship, yet their mean assigns about 49.4% to automobile and 46.8% to ship. Bars retain all probability; other classes are grouped, not discarded. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-09/ship-votes.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 5">Enlarge</a>
+</figcaption>
+</figure>
+<p>This example reverses the decision: class voting matches the dataset label, while averaging probabilities does not. More information in the aggregation rule does not guarantee that every prediction improves. The whiteboard’s hypothetical truck/automobile calculation illustrates the same mechanism; this figure supplies an actual model example.</p>
+<p>Across validation, the average has 83.1% accuracy, below the best individual’s 83.8%, but its log loss is lower: about 0.492 versus 0.498–0.513 for the members. Accuracy asks which class wins; log loss also asks how much probability the true class receives. An improvement in one metric need not improve the other.</p>
+<p>These heads share an encoder, so they also share its limitations. They are a compact teaching version of a neural ensemble, not five independently trained end-to-end vision systems.</p>
+</section>
+<section id="similar-confidence-different-reasons" class="level2">
+<h2 class="anchored" data-anchor-id="similar-confidence-different-reasons">Similar confidence, different reasons</h2>
+<p>These two validation images have similar maximum mean probabilities, but the members reach them differently.</p>
+<figure class="lecture-09-figure figure">
+<a href="../assets/lecture-notes/lecture-09/opinions.svg" target="_blank" rel="noopener" title="Open full-size figure" aria-label="Enlarge Figure 6"><picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-09/opinions-mobile.svg"><img src="../assets/lecture-notes/lecture-09/opinions.svg" alt="Two real images have similar mean confidence near 52 percent. All five heads lean toward cat on a dog image; one favors truck while four choose automobile on the other image." loading="lazy" class="figure-img"></picture></a>
+<figcaption>
+Figure 6. Actual validation predictions. First: all five heads favor cat; the label is dog. Second: one favors truck, the others automobile, matching the label. The maximum mean probabilities are similar (52.9% and 52.0%), not the full mean distributions. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-09/opinions.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 6">Enlarge</a>
+</figcaption>
+</figure>
+<p>For a distribution <span class="math inline">\(p\)</span> over <span class="math inline">\(C\)</span> classes, entropy is <span class="math inline">\(H(p)=-\sum_{c=1}^C p_c\log p_c\)</span>. Using natural logarithms gives units of nats. The exact decomposition is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\underbrace{H(\bar p)}_{\text{total uncertainty}}
+&amp;=\underbrace{\frac1M\sum_m H(p_m)}_{\text{within members}}\\
+&amp;\quad+\underbrace{\left[H(\bar p)-\frac1M\sum_m H(p_m)\right]}_{\text{disagreement}}.
+\end{aligned}
+\]</span></p>
+<p>Identical distributions give zero disagreement; sharing a top-ranked class is not enough. Here disagreement rises from 0.008 to 0.106 nats, while within-member uncertainty remains larger in both (0.832 and 0.868 nats).</p>
+<p>Within-member uncertainty is often associated with <em>aleatoric</em> uncertainty (ambiguity or noise); disagreement with <em>epistemic</em> uncertainty (limited knowledge). These are model-based signals, not proof that an image is irreducibly ambiguous or that more data will resolve it.</p>
+<p>Agreement can also be confidently wrong. In another selected validation image, all five heads choose bird and the mean exceeds 99.9%, while the dataset label is dog. The mismatch calls for inspecting both the image and its label. Neither agreement nor probability averaging guarantees correctness or calibration.</p>
+<p><strong>Evidence and reading.</strong> <a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%209%20Ensemble%20Methods/09-Ensemble-Methods.ipynb">Lecture 9 notebook</a>; <a href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10</a>; <a href="https://proceedings.neurips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html">Lakshminarayanan et al.&nbsp;(2017), deep ensembles</a>. Selected images explain mechanisms; they do not estimate how often those situations occur.</p>
+<p><strong>Acknowledgment.</strong> Prepared for instructor review from the instructor’s handwritten notes, supporting lecture transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.</p>
+<p><strong>In one sentence:</strong> combine useful predictors with different mistakes, and inspect their individual probabilities before treating a confident average as a trustworthy answer.</p>
 
 
 </section>

@@ -1,0 +1,10 @@
+.lecture-09-figure { margin: 1.5rem 0 1.8rem; }
+.lecture-09-figure img { display: block; width: 100%; height: auto; background: white; border-radius: .5rem; }
+.lecture-09-figure figcaption { color: #33415f; font-size: .92rem; line-height: 1.55; margin-top: .65rem; }
+body { color: #25324a; }
+#quarto-content a:not(.btn) { color: #174a8b; }
+#quarto-content a.btn-primary { color: #fff; }
+table { font-variant-numeric: tabular-nums; }
+
+.lecture-09-figure > a { display: block; cursor: zoom-in; }
+.figure-enlarge { white-space: nowrap; font-size: .9em; margin-left: .3em; }
