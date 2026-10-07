@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 10: Kernel Methods &amp; Gaussian Processes – ECE 4424/CS 4824: Machine Learning</title>
+<title>Lecture 10: Gaussian Processes and Kernel Methods – ECE 4424/CS 4824: Machine Learning</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-3e69996ecc1dc3affbcc1659d62e9ef6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -445,8 +445,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/06-model-eval.html">Module 2: Let’s Understand</a></li><li class="breadcrumb-item"><a href="../lectures/10-kernel-gp.html">L10: Kernel Methods &amp; Gaussian Processes</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Lecture 10: Kernel Methods &amp; Gaussian Processes</h1>
-<p class="subtitle lead">Learning Probability Distributions Over Functions</p>
+<h1 class="title">Lecture 10: Gaussian Processes and Kernel Methods</h1>
+<p class="subtitle lead">Assumptions, evidence, and uncertainty</p>
 </div>
 
 
@@ -465,25 +465,23 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.</p>
+<p>How much can a few measurements tell us about a function? A Gaussian process uses a kernel to describe how function values vary together, then conditions that distribution on observations. The CO₂ examples show how assumptions affect both predictions and uncertainty, and how uncertainty can guide the next measurement.</p>
 <ul>
-<li>Gaussian Processes as distributions over functions: priors, posteriors, and the role of kernels</li>
-<li>Kernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge</li>
-<li>Small data advantage: why GPs outperform neural networks with sparse training data</li>
-<li>Deep kernel learning: combining neural network feature extractors with GP inference</li>
-<li>Real-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images</li>
+<li>Distributions over functions and Gaussian conditioning</li>
+<li>Kernels for smoothness, trends, and cycles</li>
+<li>Kernel composition and hyperparameter fitting</li>
+<li>Forecast error, interval coverage, and interval width</li>
+<li>GP-guided measurement selection compared with random sampling</li>
 </ul>
 </section>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
 <p>By the end of this lecture, you will:</p>
 <ul>
-<li>Understand the paradigm shift from learning single predictions to learning probability distributions over functions</li>
-<li>Design and combine kernels to encode domain knowledge about patterns in data (trends, seasonality, smoothness)</li>
-<li>Apply GPs effectively when neural networks fail due to limited training data</li>
-<li>Obtain calibrated confidence intervals and quantify prediction uncertainty</li>
-<li>Implement deep kernel learning by using neural networks as feature extractors for GPs</li>
-<li>Make informed model choices between GPs and neural networks for real-world problems</li>
+<li>Describe a GP through finite Gaussian vectors and distinguish conditioning from hyperparameter fitting.</li>
+<li>Design kernels for the relationships the problem requires.</li>
+<li>Evaluate uncertainty without assuming that a nominal 95% interval is well calibrated.</li>
+<li>Explain when uncertainty-guided sampling can improve measurement efficiency and what the comparison actually tests.</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -498,26 +496,17 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb">Kernel Methods &amp; GP Notebook</a></strong></p>
+<p><strong><a href="../notes/10-gaussian-processes-and-kernel-methods.html">Lecture notes</a></strong> · <a href="https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-10-gaussian-processes-and-kernel-methods.pdf">PDF version</a></p>
+<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb">Gaussian Processes &amp; Kernel Methods notebook</a></strong></p>
 </div>
 </div>
 </section>
 <section id="datasets-acknowledgments" class="level2">
 <h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
 <ul>
-<li><strong>Mauna Loa CO₂ Data</strong>: Monthly atmospheric CO₂ measurements from 1958-2017 used to demonstrate GP forecasting with uncertainty
-<ul>
-<li>Source: NOAA Global Monitoring Laboratory</li>
-<li>Download: Available on <a href="https://www.kaggle.com/datasets/ucsandiego/carbon-dioxide?resource=download">Kaggle</a></li>
-<li>Note: Dataset is included in the repository at <code>Lecture 10 Kernel Methods/data/archive.csv</code></li>
-</ul></li>
-<li><strong>CIFAR-10</strong> (Krizhevsky et al.): Natural images used for deep kernel learning demonstration
-<ul>
-<li>Source: https://www.cs.toronto.edu/~kriz/cifar.html</li>
-<li>Downloaded automatically by PyTorch when running the notebook</li>
-<li>Please review dataset license/terms of use before redistribution</li>
-</ul></li>
-<li><strong>Libraries</strong>: scikit-learn (GP implementation, kernels), PyTorch/torchvision (ResNet features for deep kernels)</li>
+<li><strong>Mauna Loa CO₂:</strong> the <a href="https://scrippsco2.ucsd.edu/data/primary-mauna-loa-co2-record/">Scripps CO₂ Program</a> record. The notebook uses 86 monthly observations from 2010 through February 2017 in the historical <code>data/archive.csv</code> included with Lecture 10.</li>
+<li><strong>CIFAR-10:</strong> an optional notebook extension compares pixel neighborhoods with frozen ResNet-18 feature neighborhoods; no image GP is trained in that comparison. <a href="https://www.cs.toronto.edu/~kriz/cifar.html">Dataset source</a>.</li>
+<li><strong>Libraries:</strong> scikit-learn for GPs and kernels; PyTorch/torchvision for the optional image-feature comparison.</li>
 </ul>
 <hr>
 <p><strong>Previous</strong>: <a href="../lectures/09-ensemble.html">← Lecture 9: Ensemble Methods</a> | <strong>Next</strong>: <a href="../lectures/11-kmeans.html">Lecture 11: K-Means Clustering →</a></p>

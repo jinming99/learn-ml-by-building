@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="How kernels define distributions over functions, observations update them, and uncertainty guides prediction and data collection.">
 
-<title>Lecture 4: Gradient Descent and Optimization – ECE 4424/CS 4824: Machine Learning</title>
+<title>Lecture 10: Gaussian Processes and Kernel Methods – ECE 4424/CS 4824: Machine Learning</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,8 +75,39 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../site-legibility-v2.css">
+<link rel="stylesheet" href="../lecture-notes.css">
+<link rel="stylesheet" href="../assets/lecture-notes/lecture-10/notes.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -160,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/00-setup.html">Module 1: Let’s Predict</a></li><li class="breadcrumb-item"><a href="../lectures/04-optimization.html">L4: Gradient Descent and Optimization</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lecture 10: Gaussian Processes and Kernel Methods</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -236,7 +268,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/04-optimization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">L4: Gradient Descent and Optimization</span></a>
   </div>
 </li>
@@ -433,23 +465,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
-  <li><a href="#key-concepts-highlights" id="toc-key-concepts-highlights" class="nav-link" data-scroll-target="#key-concepts-highlights">Key Concepts &amp; Highlights</a></li>
-  <li><a href="#datasets-acknowledgments" id="toc-datasets-acknowledgments" class="nav-link" data-scroll-target="#datasets-acknowledgments">Datasets &amp; Acknowledgments</a></li>
+  <li><a href="#what-can-a-few-measurements-tell-us" id="toc-what-can-a-few-measurements-tell-us" class="nav-link active" data-scroll-target="#what-can-a-few-measurements-tell-us">What can a few measurements tell us?</a></li>
+  <li><a href="#keep-the-assumption.-add-an-observation." id="toc-keep-the-assumption.-add-an-observation." class="nav-link" data-scroll-target="#keep-the-assumption.-add-an-observation.">Keep the assumption. Add an observation.</a></li>
+  <li><a href="#what-does-nearby-mean" id="toc-what-does-nearby-mean" class="nav-link" data-scroll-target="#what-does-nearby-mean">What does “nearby” mean?</a></li>
+  <li><a href="#build-the-assumptions-into-the-kernel" id="toc-build-the-assumptions-into-the-kernel" class="nav-link" data-scroll-target="#build-the-assumptions-into-the-kernel">Build the assumptions into the kernel</a></li>
+  <li><a href="#check-the-forecast-and-its-uncertainty" id="toc-check-the-forecast-and-its-uncertainty" class="nav-link" data-scroll-target="#check-the-forecast-and-its-uncertainty">Check the forecast and its uncertainty</a></li>
+  <li><a href="#choose-the-next-measurement" id="toc-choose-the-next-measurement" class="nav-link" data-scroll-target="#choose-the-next-measurement">Choose the next measurement</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/00-setup.html">Module 1: Let’s Predict</a></li><li class="breadcrumb-item"><a href="../lectures/04-optimization.html">L4: Gradient Descent and Optimization</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 4: Gradient Descent and Optimization</h1>
-<p class="subtitle lead">From Theory to Practice - The Engine That Powers Machine Learning</p>
+<h1 class="title">Lecture 10: Gaussian Processes and Kernel Methods</h1>
+<p class="subtitle lead">Assumptions, evidence, and uncertainty</p>
 </div>
 
+<div>
+  <div class="description">
+    How kernels define distributions over functions, observations update them, and uncertainty guides prediction and data collection.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -464,80 +502,175 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Gradient descent is the fundamental algorithm that makes modern machine learning possible. In this comprehensive lecture, we’ll journey from manually finding the “best line” through interactive widgets to implementing gradient descent from scratch, exploring SGD variants, and mastering debugging techniques. Using the California Housing dataset, you’ll build deep intuition about how optimization works, why data standardization is critical, and how to diagnose and fix common training failures.</p>
-</section>
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
-<p>By the end of this lecture, you will:</p>
-<ul>
-<li>Formulate optimization problems in machine learning</li>
-<li>Implement gradient descent from scratch with proper numerical stability</li>
-<li>Master the critical importance of data standardization</li>
-<li>Compare batch, stochastic, and mini-batch gradient descent variants</li>
-<li>Diagnose and fix gradient explosion/vanishing problems</li>
-<li>Apply modern optimizers (Adam, SGD with momentum) effectively</li>
-</ul>
-</section>
-<section id="materials" class="level2">
-<h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="lecture-note-actions" role="navigation" aria-label="Lecture note navigation">
+<p><a href="../lectures/10-kernel-gp.html" class="btn btn-primary btn-sm">Course materials</a></p>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Quick Access
+<div class="callout-body-container">
+<p><strong>Learning goals.</strong> Describe a distribution over functions; distinguish conditioning from hyperparameter fitting; build kernels for smoothness, trends and cycles; evaluate uncertainty and use it to guide sampling.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong><a href="../notes/04-gradient-descent-and-optimization.html">Read the Lecture Notes</a></strong></p>
-<p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%204%20Optimization/04-Optimization-GD.ipynb">Optimization Notebook</a></strong></p>
 </div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<section id="what-can-a-few-measurements-tell-us" class="level2">
+<h2 class="anchored" data-anchor-id="what-can-a-few-measurements-tell-us">What can a few measurements tell us?</h2>
+<p>The notebook begins with ten Mauna Loa CO<sub>2</sub> observations. Interpolation requires assumptions about change between measurements; forecasting requires assumptions about which patterns persist. Supplying an annual cycle is useful knowledge, but it is different from discovering one from ten measurements.</p>
+<p>A Gaussian process (GP) places a probability distribution over functions. It specifies a mean function <span class="math inline">\(m(x)\)</span> and a covariance function <span class="math inline">\(k(x,z)\)</span>, called the <em>kernel</em>. For any finite collection of inputs <span class="math inline">\(X=(x_1,\ldots,x_n)\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf f_X&amp;=(f(x_1),\ldots,f(x_n))^\top
+            \sim\mathcal N(\mathbf m_X,K),\\
+(\mathbf m_X)_i&amp;=m(x_i),\qquad K_{ij}=k(x_i,x_j).
+\end{aligned}
+\]</span></p>
+<p>This finite-dimensional rule is the definition of <span class="math inline">\(f\sim\mathcal{GP}(m,k)\)</span>. Each <span class="math inline">\(f(x_i)\)</span> is a random variable. Their <em>joint</em> distribution matters: drawing unrelated Gaussian values at each input would lose the relationships encoded by the kernel.</p>
+<figure class="lecture-10-figure figure">
+<a href="../assets/lecture-notes/lecture-10/draw-function.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 1"><picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-10/draw-function-mobile.svg" width="213.613" height="163.387"><img src="../assets/lecture-notes/lecture-10/draw-function.svg" width="424.174" height="57.708" alt="Choose a finite grid of inputs, construct its kernel covariance matrix, then draw all function values jointly from one multivariate Gaussian." loading="lazy" class="figure-img"></picture></a>
+<figcaption>
+Figure 1. Drawing one function on a grid means drawing one correlated Gaussian vector and plotting its entries. The grid is finite; the GP defines compatible distributions for any finite set of inputs. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-10/draw-function.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 1">Enlarge</a>
+</figcaption>
+</figure>
+<p>If <span class="math inline">\(K=LL^\top\)</span> and <span class="math inline">\(\mathbf z\sim\mathcal N(0,I)\)</span>, then <span class="math inline">\(\mathbf m_X+L\mathbf z\)</span> gives one such draw. The prior weights possible function values unequally. Observations update this distribution; the posterior mean summarizes it without showing every plausible curve.</p>
+</section>
+<section id="keep-the-assumption.-add-an-observation." class="level2">
+<h2 class="anchored" data-anchor-id="keep-the-assumption.-add-an-observation.">Keep the assumption. Add an observation.</h2>
+<p>Let <span class="math inline">\(\mathcal D=(X,\mathbf y)\)</span> denote the observations, with</p>
+<p><span class="math display">\[
+y_i=f(x_i)+\epsilon_i,\qquad
+\epsilon_i\overset{\mathrm{iid}}\sim\mathcal N(0,\sigma_n^2).
+\]</span></p>
+<p>Bayes’ rule updates the prior using the likelihood of the observed values:</p>
+<p><span class="math display">\[
+p(\mathbf f_X\mid X,\mathbf y)
+\propto p(\mathbf y\mid\mathbf f_X,X)\,p(\mathbf f_X\mid X).
+\]</span></p>
+<p>The inputs are known. We update beliefs about function values, not a distribution over the input dates. With nonzero observation noise, a curve that misses a dot is less plausible, not automatically impossible.</p>
+<figure class="lecture-10-figure figure">
+<a href="../assets/lecture-notes/lecture-10/conditioning.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 2"><picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-10/conditioning-mobile.svg" width="233.087" height="391.734"><img src="../assets/lecture-notes/lecture-10/conditioning.svg" width="395.709" height="138.406" alt="With a fixed RBF kernel, going from zero to one to four observations shifts the posterior mean and narrows the function interval near observations. The observations are illustrative." loading="lazy" class="figure-img"></picture></a>
+<figcaption>
+Figure 2. The notebook’s illustrative observations, not CO<sub>2</sub> data. All panels use the same RBF kernel, length scale 0.8, and noise standard deviation 0.1. Gray curves are draws; blue shows the mean and a 95% pointwise interval for <span class="math inline"><em>f</em>(<em>x</em>)</span>. New evidence reduces uncertainty where the kernel connects inputs. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-10/conditioning.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 2">Enlarge</a>
+</figcaption>
+</figure>
+<p>For one new input <span class="math inline">\(x_*\)</span>, define <span class="math inline">\(\mathbf k_*=(k(x_1,x_*),\ldots,k(x_n,x_*))^\top\)</span> and <span class="math inline">\(A=K+\sigma_n^2I\)</span>. Gaussian conditioning gives</p>
+<p><span class="math display">\[
+\begin{aligned}
+f(x_*)\mid\mathcal D&amp;\sim\mathcal N(\mu_*,s_f^2(x_*)),\\
+\mu_*&amp;=m(x_*)+\mathbf k_*^\top A^{-1}(\mathbf y-\mathbf m_X),\\
+s_f^2(x_*)&amp;=k(x_*,x_*)-\mathbf k_*^\top A^{-1}\mathbf k_*.
+\end{aligned}
+\]</span></p>
+<p>The mean adjusts the prior using the observed residuals. The variance subtracts what the observations tell us about <span class="math inline">\(x_*\)</span>. Both depend on covariance with the observed inputs. An RBF kernel transfers information locally; a periodic kernel can transfer it to a distant point in the same phase of a cycle.</p>
+<p>With the mean, kernel parameters, and noise fixed, this update requires linear algebra rather than an optimization over candidate curves. Implementations solve linear systems, usually through a Cholesky factorization, instead of explicitly forming <span class="math inline">\(A^{-1}\)</span>. Dense exact GP fitting uses roughly <span class="math inline">\(O(n^3)\)</span> computation and <span class="math inline">\(O(n^2)\)</span> storage.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Pre-Class Requirements
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ul>
-<li>Python environment with NumPy, scikit-learn, matplotlib, and PyTorch</li>
-<li>Basic calculus knowledge (derivatives, chain rule)</li>
-<li>Familiarity with linear regression concepts from Lecture 3</li>
-</ul>
+<div class="callout-body-container">
+<p>The interval <span class="math inline">\(\mu_*\pm1.96s_f(x_*)\)</span> concerns the underlying function. For a new noisy measurement, use variance <span class="math inline">\(s_y^2(x_*)=s_f^2(x_*)+\sigma_n^2\)</span>. Neither interval promises that 95% of an entire curve lies inside its band simultaneously.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="key-concepts-highlights" class="level2">
-<h2 class="anchored" data-anchor-id="key-concepts-highlights">Key Concepts &amp; Highlights</h2>
-<ul>
-<li><p>Interactive Line Fitting Game Start by manually adjusting weights and biases to minimize loss. This hands-on experience builds intuition for what gradient descent automates—finding the lowest point in the loss landscape.</p></li>
-<li><p>The #1 Pitfall: Data Standardization Learn why unstandardized data causes gradient explosion and how proper preprocessing prevents this. We’ll demonstrate why gradients scale with data magnitude and provide diagnostic tools to catch this early.</p></li>
-<li><p>Three Flavors of SGD Compare batch, stochastic, and mini-batch gradient descent side-by-side. Understand the speed vs.&nbsp;accuracy trade-offs and why mini-batch has become the industry standard.</p></li>
-<li><p>Debugging Toolkit Master systematic debugging with our gradient diagnostic dashboard that detects vanishing/exploding gradients, loss plateaus, and oscillations—complete with suggested fixes for each problem.</p></li>
-</ul>
+<section id="what-does-nearby-mean" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-nearby-mean">What does “nearby” mean?</h2>
+<p>A kernel is often introduced as a similarity function. In a GP it has a precise job:</p>
+<p><span class="math display">\[
+k(x,z)=\operatorname{Cov}(f(x),f(z)).
+\]</span></p>
+<p>It must be symmetric and make <span class="math inline">\(K\)</span> positive semidefinite for every finite input set: <span class="math inline">\(\mathbf a^\top K\mathbf a\geq0\)</span> for every vector <span class="math inline">\(\mathbf a\)</span>. An arbitrary similarity score need not satisfy this condition. One valid construction is <span class="math inline">\(k(x,z)=\phi(x)^\top\phi(z)\)</span>, since then <span class="math inline">\(\mathbf a^\top K\mathbf a=\|\sum_i a_i\phi(x_i)\|^2\geq0\)</span>.</p>
+<p>Common kernel families encode different relationships. With input vectors <span class="math inline">\(x,z\)</span>, or scalar times <span class="math inline">\(t,s\)</span> for the periodic kernel,</p>
+<p><span class="math display">\[
+\begin{aligned}
+k_{\mathrm{lin}}(x,z)&amp;=x^\top z,\\
+k_{\mathrm{poly}}(x,z)&amp;=(\gamma x^\top z+c)^d,\\
+k_{\mathrm{RBF}}(x,z)&amp;=\sigma_f^2\exp\!\left(-\frac{\|x-z\|^2}{2\ell^2}\right),\\
+k_{\mathrm{per}}(t,s)&amp;=\sigma_f^2\exp\!\left(-\frac{2\sin^2(\pi|t-s|/p)}{\ell_p^2}\right).
+\end{aligned}
+\]</span></p>
+<p>Here <span class="math inline">\(\gamma,c\geq0\)</span> and <span class="math inline">\(d\)</span> is a positive integer. The scales <span class="math inline">\(\ell,\ell_p\)</span> and period <span class="math inline">\(p\)</span> are positive. The linear kernel models linear variation; the polynomial kernel represents higher-order feature interactions without explicitly listing the expanded features. An added constant term in a linear kernel allows a random intercept.</p>
+<figure class="lecture-10-figure figure">
+<a href="../assets/lecture-notes/lecture-10/kernel-profiles.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 3"><picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-10/kernel-profiles-mobile.svg" width="230.950" height="285.889"><img src="../assets/lecture-notes/lecture-10/kernel-profiles.svg" width="381.704" height="154.146" alt="RBF covariance decreases with distance more quickly for a short length scale. Periodic covariance rises back to one every two input units." loading="lazy" class="figure-img"></picture></a>
+<figcaption>
+Figure 3. Covariance profiles computed from the formulas, with unit signal variance. A short RBF length scale limits the reach of an observation. A periodic kernel restores high covariance at every multiple of the period, however far away. These are covariance curves, not fitted predictions. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-10/kernel-profiles.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 3">Enlarge</a>
+</figcaption>
+</figure>
+<p>For the RBF kernel, a small <span class="math inline">\(\ell\)</span> allows rapid variation; a large <span class="math inline">\(\ell\)</span> favors changes over longer distances. Both produce smooth functions. “More wiggly” does not mean mathematically jagged. Input units matter: a length scale of 0.25 means three months when time is measured in years.</p>
+<p>The period <span class="math inline">\(p\)</span> controls <em>when</em> a pattern repeats; <span class="math inline">\(\ell_p\)</span> controls how quickly covariance falls within a cycle. High covariance is not always the same as high correlation: correlation also divides by the marginal standard deviations. The unit-variance curves above make the two coincide.</p>
 </section>
-<section id="datasets-acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
-<section id="california-housing-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="california-housing-dataset">California Housing Dataset</h3>
-<ul>
-<li>Source: <strong><a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html">Scikit-learn California housing dataset</a></strong>- Why This Dataset: Strong income–price correlation makes it perfect for demonstrating optimization concepts while being complex enough to show real challenges</li>
-</ul>
-<hr>
-<p><strong>Previous</strong>: <a href="../lectures/03-linear.html">← Lecture 3: Linear Regression</a> | <strong>Next</strong>: <a href="../lectures/05-probclass.html">Lecture 5: Probabilistic Classification</a></p>
+<section id="build-the-assumptions-into-the-kernel" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-assumptions-into-the-kernel">Build the assumptions into the kernel</h2>
+<p>A useful model combines a trend with a seasonal pattern that can change gradually:</p>
+<p><span class="math display">\[
+k_{\mathrm{total}}(t,s)=k_{\mathrm{trend}}(t,s)
+                 +k_{\mathrm{per}}(t,s)\,k_{\mathrm{local}}(t,s).
+\]</span></p>
+<p>Both sums and pointwise products of valid kernels are valid. They describe different structures. If independent GP components <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> add to give <span class="math inline">\(f=g+h\)</span>, then their covariances add. A trend-plus-season model can therefore express two contributions to the same observation. Addition does not mean choosing one pattern <em>or</em> the other.</p>
+<p>Multiplying the periodic kernel by a long-scale RBF kernel weakens the connection between cycles as they become more distant. Dates in the same season remain related, but the seasonal shape is allowed to drift. This is a covariance construction; it does not require claiming that the product of two GP sample functions is itself a GP.</p>
+<figure class="lecture-10-figure figure">
+<a href="../assets/lecture-notes/lecture-10/local-periodic.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 4"><picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-10/local-periodic-mobile.svg" width="230.950" height="179.333"><img src="../assets/lecture-notes/lecture-10/local-periodic.svg" width="423.706" height="179.333" alt="Multiplying a periodic covariance by an RBF envelope produces peaks that decay with separation, allowing distant cycles to differ." loading="lazy" class="figure-img"></picture></a>
+<figcaption>
+Figure 4. A locally periodic kernel, shown directly in covariance space. The periodic component alone gives equal-strength peaks forever. Multiplying it by an RBF envelope makes the peaks decay. Here the period is 2 and the envelope length scale is 2.5 in illustrative input units; this is not a fitted CO<sub>2</sub> result. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-10/local-periodic.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 4">Enlarge</a>
+</figcaption>
+</figure>
+<p><strong>Three distinct roles in learning.</strong> Choosing a kernel encodes assumptions about plausible functions. Conditioning uses observed values to update the distribution while those assumptions remain fixed. Fitting hyperparameters adjusts quantities such as length scale, amplitude, period, or noise level within the chosen model family.</p>
+<p>For hyperparameters <span class="math inline">\(\theta\)</span>, one common fitting criterion is the log marginal likelihood. With <span class="math inline">\(\mathbf r=\mathbf y-\mathbf m_X\)</span> and <span class="math inline">\(A_\theta=K_\theta+\sigma_n^2I\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}\log p(\mathbf y\mid X,\theta)
+&amp;=-\tfrac12\mathbf r^\top A_\theta^{-1}\mathbf r\\
+&amp;\quad-\tfrac12\log|A_\theta|-\tfrac n2\log(2\pi).\end{aligned}
+\]</span></p>
+<p>The residual term and covariance normalization are evaluated together. A model is rewarded for assigning substantial probability to the observed data, not simply for making the training residuals small. This optimization can have local optima, and it cannot discover a structure excluded by the chosen kernel family.</p>
+<p>In the notebook’s forecasts, the annual period is fixed at one year; the remaining permitted kernel parameters and white-noise level are fitted on the training observations. The observed annual behavior is therefore partly supplied knowledge. The plotted intervals use the fitted parameters and omit uncertainty about their estimates.</p>
+</section>
+<section id="check-the-forecast-and-its-uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-forecast-and-its-uncertainty">Check the forecast and its uncertainty</h2>
+<p>Return to the real monthly Mauna Loa CO<sub>2</sub> archive. Its 86 observations from January 2010 through February 2017 include 60 before 2015 and 26 at or after the cutoff. Fit on the first block and evaluate on the second. This chronological split tests future prediction, unlike a random split that mostly tests interpolation.</p>
+<p>Both models below receive the same observations, an annual-cycle component, and a learned white-noise term. They differ in how they represent longer-term change. “Smooth + annual” uses an RBF component; “trend + annual” uses a linear component. A local smoother can follow a rise within the observed range without sustaining it far into the future.</p>
+<figure class="lecture-10-figure figure">
+<a href="../assets/lecture-notes/lecture-10/forecasts.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 5"><picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-10/forecasts-mobile.svg" width="230.351" height="312.752"><img src="../assets/lecture-notes/lecture-10/forecasts.svg" width="381.097" height="166.247" alt="Two real CO2 forecasts use the same 60 observations before 2015. Trend plus annual cycle reduces future MSE from 9.68 to 1.09 ppm squared, yet its nominal 95 percent interval includes only 12 of 26 future measurements." loading="lazy" class="figure-img"></picture></a>
+<figcaption>
+Figure 5. Recomputed notebook forecasts with a 2015 cutoff. Black dots are training observations; coral dots are withheld measurements. Blue bands are 95% pointwise predictive intervals including fitted observation noise. Both panels share the same axes. The trend model predicts the later rise better, but its band still misses many observations. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-10/forecasts.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 5">Enlarge</a>
+</figcaption>
+</figure>
+<p>The trend-plus-annual model has future MSE of 1.09 ppm<span class="math inline">\(^2\)</span>, compared with 9.68 ppm<span class="math inline">\(^2\)</span> for smooth-plus-annual. Yet only 12 of the 26 future measurements fall within the trend model’s nominal 95% band, whose mean width is 1.58 ppm. The other model contains only 6 of 26, despite a wider mean band of 2.68 ppm.</p>
+<p>These observations distinguish three questions. Prediction error measures how far the mean is from the outcomes. Empirical coverage counts how often outcomes fall inside the intervals. Interval width tells us how precise those statements are. Making a band arbitrarily wide can improve coverage without making it useful.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>GP uncertainty is conditional on the mean, kernel, noise model, and fitted parameters. A misspecified trend or noise model can produce confident mistakes. One short, correlated future block diagnoses a problem; it does not establish a universal calibration rate.</p>
+</div>
+</div>
+</div>
+<p>Changing the cutoff changes both the available history and the forecast horizon, and the notebook’s kernel ranking changes with it. The ten-measurement opening comparison also gives different models different structural information. Neither experiment establishes a general ranking of GPs and neural networks; both show why the assumptions deserve inspection.</p>
+</section>
+<section id="choose-the-next-measurement" class="level2">
+<h2 class="anchored" data-anchor-id="choose-the-next-measurement">Choose the next measurement</h2>
+<p>When measurements are costly, a GP can choose the unmeasured input with the largest posterior standard deviation:</p>
+<p><span class="math display">\[
+x_{\mathrm{next}}=\operatorname*{arg\,max}_{x\in\mathcal U}s_f(x\mid\mathcal D),
+\]</span></p>
+<p>where <span class="math inline">\(\mathcal U\)</span> is the remaining candidate pool. The aim is to learn about the function, not to find its largest value.</p>
+<p>In this <em>retrospective</em> CO<sub>2</sub> experiment, dates are known and concentrations are revealed when queried. Reserve 26 observations for evaluation and query from the other 60. Each of 30 paired trials starts both policies with the same four random measurements and uses the same GP: a linear component plus a fixed three-month RBF kernel. Only the next query differs. Evaluation concentrations never enter fitting or selection.</p>
+<figure class="lecture-10-figure figure">
+<a href="../assets/lecture-notes/lecture-10/active-sampling.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 6"><picture><source media="(max-width: 600px)" srcset="../assets/lecture-notes/lecture-10/active-sampling-mobile.svg" width="237.290" height="422.445"><img src="../assets/lecture-notes/lecture-10/active-sampling.svg" width="401.330" height="152.111" alt="GP-guided and random sampling fit the same CO2 data at a budget of 32 readings. Across 30 paired trials their median held-out RMSE values are 0.86 and 1.79 ppm respectively. The guided queries cover gaps more evenly." loading="lazy" class="figure-img"></picture></a>
+<figcaption>
+Figure 6. Real notebook results at equal measurement budgets. The fits use the fixed first trial; diamonds mark its four shared starting observations, colored dots the additional queries, and gray dots the evaluation observations. The error curves summarize all 30 trials: lines are medians and shaded areas span the middle 50%. They are not GP uncertainty bands. <a class="figure-enlarge" href="../assets/lecture-notes/lecture-10/active-sampling.svg" target="_blank" rel="noopener" aria-label="Enlarge Figure 6">Enlarge</a>
+</figcaption>
+</figure>
+<p>At 32 measurements, median held-out RMSE is 0.86 ppm for GP-guided sampling and 1.79 ppm for random sampling, about 52% lower. GP-guided sampling wins 28 of 30 paired trials by covering informative gaps. The curves retain the actual fluctuations: more measurements need not lower realized error at every step.</p>
+<p>With covariance and noise settings fixed, the query ranking depends on measured <em>locations</em>, not their concentration values, and can be planned in advance. An unsuitable kernel can guide it badly. This experiment reconstructs an existing record; it does not test future scheduling or guarantee an advantage on every dataset.</p>
+<p><strong>Evidence and reading.</strong> <a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb">Lecture 10 notebook</a>; <a href="https://scrippsco2.ucsd.edu/data/primary-mauna-loa-co2-record/">Scripps CO<sub>2</sub> record</a>; <a href="https://gaussianprocess.org/gpml/">Rasmussen &amp; Williams (2006), chapters 2 and 4</a>; <a href="https://discovery.ucl.ac.uk/id/eprint/10050029/">Schulz, Speekenbrink &amp; Krause (2018), GP tutorial</a>.</p>
+<p><strong>Acknowledgment.</strong> Prepared for instructor review from the instructor’s handwritten notes, supporting lecture transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.</p>
+<p><strong>In one sentence:</strong> a GP turns a kernel’s assumptions into a distribution over functions, updates it with evidence, and uses the resulting uncertainty for prediction and data collection while leaving those assumptions open to evaluation.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
