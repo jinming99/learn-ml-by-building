@@ -10,6 +10,7 @@ project:
     - assets/lecture-notes/lecture-07/**
     - assets/lecture-notes/lecture-08/**
     - assets/lecture-notes/lecture-09/**
+    - assets/lecture-notes/lecture-10/**
 
 website:
   title: "ECE 4424/CS 4824: Machine Learning"

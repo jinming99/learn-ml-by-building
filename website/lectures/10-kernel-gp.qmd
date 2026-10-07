@@ -1,47 +1,41 @@
 ---
-title: "Lecture 10: Kernel Methods & Gaussian Processes"
-subtitle: "Learning Probability Distributions Over Functions"
+title: "Lecture 10: Gaussian Processes and Kernel Methods"
+subtitle: "Assumptions, evidence, and uncertainty"
 ---
 
 ## Overview
 
-In this lecture, we explore Gaussian Processes (GPs) - a fundamentally different approach to machine learning that excels when neural networks fail. Instead of learning a single prediction function, GPs learn probability distributions over entire function spaces, providing principled uncertainty quantification with limited data.
+How much can a few measurements tell us about a function? A Gaussian process uses a kernel to describe how function values vary together, then conditions that distribution on observations. The CO₂ examples show how assumptions affect both predictions and uncertainty, and how uncertainty can guide the next measurement.
 
-- Gaussian Processes as distributions over functions: priors, posteriors, and the role of kernels
-- Kernel engineering: composing simple kernels (RBF, Periodic, Linear) to encode domain knowledge
-- Small data advantage: why GPs outperform neural networks with sparse training data
-- Deep kernel learning: combining neural network feature extractors with GP inference
-- Real-world applications: CO₂ forecasting with uncertainty and semantic ambiguity prediction from images
+- Distributions over functions and Gaussian conditioning
+- Kernels for smoothness, trends, and cycles
+- Kernel composition and hyperparameter fitting
+- Forecast error, interval coverage, and interval width
+- GP-guided measurement selection compared with random sampling
 
 ## Learning Objectives
 
 By the end of this lecture, you will:
 
-- Understand the paradigm shift from learning single predictions to learning probability distributions over functions
-- Design and combine kernels to encode domain knowledge about patterns in data (trends, seasonality, smoothness)
-- Apply GPs effectively when neural networks fail due to limited training data
-- Obtain calibrated confidence intervals and quantify prediction uncertainty
-- Implement deep kernel learning by using neural networks as feature extractors for GPs
-- Make informed model choices between GPs and neural networks for real-world problems
+- Describe a GP through finite Gaussian vectors and distinguish conditioning from hyperparameter fitting.
+- Design kernels for the relationships the problem requires.
+- Evaluate uncertainty without assuming that a nominal 95% interval is well calibrated.
+- Explain when uncertainty-guided sampling can improve measurement efficiency and what the comparison actually tests.
 
 ## Materials
 
 ::: {.callout-tip}
 ## Quick Access
-**[Kernel Methods & GP Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb)**
+**[Lecture notes](../notes/10-gaussian-processes-and-kernel-methods.qmd)** · [PDF version](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-10-gaussian-processes-and-kernel-methods.pdf)
+
+**[Gaussian Processes & Kernel Methods notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb)**
 :::
 
 ## Datasets & Acknowledgments
 
-- **Mauna Loa CO₂ Data**: Monthly atmospheric CO₂ measurements from 1958-2017 used to demonstrate GP forecasting with uncertainty
-  - Source: NOAA Global Monitoring Laboratory
-  - Download: Available on [Kaggle](https://www.kaggle.com/datasets/ucsandiego/carbon-dioxide?resource=download)
-  - Note: Dataset is included in the repository at `Lecture 10 Kernel Methods/data/archive.csv`
-- **CIFAR-10** (Krizhevsky et al.): Natural images used for deep kernel learning demonstration
-  - Source: https://www.cs.toronto.edu/~kriz/cifar.html
-  - Downloaded automatically by PyTorch when running the notebook
-  - Please review dataset license/terms of use before redistribution
-- **Libraries**: scikit-learn (GP implementation, kernels), PyTorch/torchvision (ResNet features for deep kernels)
+- **Mauna Loa CO₂:** the [Scripps CO₂ Program](https://scrippsco2.ucsd.edu/data/primary-mauna-loa-co2-record/) record. The notebook uses 86 monthly observations from 2010 through February 2017 in the historical `data/archive.csv` included with Lecture 10.
+- **CIFAR-10:** an optional notebook extension compares pixel neighborhoods with frozen ResNet-18 feature neighborhoods; no image GP is trained in that comparison. [Dataset source](https://www.cs.toronto.edu/~kriz/cifar.html).
+- **Libraries:** scikit-learn for GPs and kernels; PyTorch/torchvision for the optional image-feature comparison.
 
 ---
 

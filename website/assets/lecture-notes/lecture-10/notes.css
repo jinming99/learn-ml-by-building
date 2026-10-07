@@ -1,0 +1,9 @@
+.lecture-10-figure { margin: 1.5rem 0 1.8rem; }
+.lecture-10-figure img { display: block; width: 100%; height: auto; background: white; border-radius: .5rem; }
+.lecture-10-figure figcaption { color: #33415f; font-size: .92rem; line-height: 1.55; margin-top: .65rem; }
+.lecture-10-figure > a { display: block; cursor: zoom-in; }
+.figure-enlarge { white-space: nowrap; font-size: .9em; margin-left: .3em; }
+body { color: #25324a; }
+#quarto-content a:not(.btn) { color: #174a8b; }
+#quarto-content a.btn-primary { color: #fff; }
+.math.display { overflow-x: auto; max-width: 100%; }
