@@ -472,11 +472,11 @@ ul.task-list li input[type="checkbox"] {
 <p>By the end of this lecture, you will be able to:</p>
 <ul>
 <li>Understand why non-linear activation functions are essential for neural networks</li>
-<li>Build multi-layer perceptrons (MLPs) from scratch using PyTorch</li>
+<li>Build multi-layer perceptrons (MLPs) using PyTorch layers</li>
 <li>Trace forward propagation through a network step-by-step</li>
 <li>Explain backpropagation intuitively and implement gradient checking</li>
 <li>Train neural networks on real-world datasets (CIFAR-10)</li>
-<li>Apply modern practices like proper initialization and optimization</li>
+<li>Diagnose initialization and compare generalization using both accuracy and cross-entropy</li>
 </ul>
 </section>
 <section id="materials" class="level2">
@@ -491,6 +491,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong><a href="../notes/13-fully-connected-neural-networks.html">Read the lecture notes</a></strong></p>
 <p><strong><a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2013%20NN%20Architecture/13-FCNeuralNet.ipynb">Neural Network Architecture Notebook</a></strong></p>
 </div>
 </div>
@@ -499,8 +500,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="datasets-acknowledgments">Datasets &amp; Acknowledgments</h2>
 <ul>
 <li><strong>CIFAR-10</strong> (Krizhevsky et al.): 60k 32×32 color images across 10 classes, accessed via <code>torchvision.datasets.CIFAR10</code></li>
-<li><strong>Synthetic datasets</strong>: Two moons, circles for illustrating non-linear decision boundaries (<code>sklearn.datasets.make_moons</code>, <code>make_circles</code>)</li>
-<li><strong>Libraries</strong>: PyTorch/torchvision, scikit-learn, matplotlib, seaborn, ipywidgets</li>
+<li><strong>Synthetic data</strong>: Two moons for decision boundaries and width comparisons; random inputs for initialization diagnostics</li>
+<li><strong>Libraries</strong>: PyTorch/torchvision, scikit-learn, NumPy, Matplotlib</li>
 <li><strong>Figures/visualizations</strong>: Decision boundaries, activation functions, and architecture diagrams generated programmatically in the notebook</li>
 </ul>
 <hr>

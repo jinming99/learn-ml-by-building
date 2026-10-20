@@ -532,7 +532,7 @@ L(w,b)=\frac{1}{n}\sum_{i=1}^{n}\bigl(y_i-(wx_i+b)\bigr)^2.
 \]</span></p>
 <p>Training finds values of <span class="math inline">\(w\)</span> and <span class="math inline">\(b\)</span> that make this objective small. Trying a few values by hand can build intuition. A learning procedure needs a systematic way to update them.</p>
 <p>The model defines the predictions available for a given input. The loss scores how well those predictions match the data. Optimization searches for parameter values that reduce that score.</p>
-<div id="fig-fit-and-loss" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A current regression fit and gold residuals appear beside an MSE contour map. Matching teal marks identify the current fitted line and parameter point, and a coral arrow shows one update toward the purple optimum." data-fig-align="center">
+<div id="fig-fit-and-loss" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A current regression fit and gold residuals appear beside an MSE contour map. Matching teal marks identify the current fitted line and parameter point, and a coral arrow shows one update toward the purple optimum.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fit-and-loss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-04/fit-and-loss.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="A current regression fit and gold residuals appear beside an MSE contour map. Matching teal marks identify the current fitted line and parameter point, and a coral arrow shows one update toward the purple optimum.">
@@ -599,7 +599,7 @@ Table&nbsp;1: An optimization problem is defined by its variables, objective, an
 </div>
 <p>Specifying an optimization problem creates a contract with the ML model: the variables define what may change, the constraints define what is allowed, and the loss or reward defines what counts as success. This parallels contract design in economics, where incentives are chosen to shape an agent’s behavior when every action cannot be prescribed directly. Designing losses and rewards remains an active area of research because a learned system follows the objective we provide, including any gaps between that objective and the outcome we intended.</p>
 <p>The shape of the objective determines what a search method can guarantee. A <em>global minimum</em> has the lowest objective value over the full feasible set. At a <em>local minimum</em>, no nearby point has a lower value.</p>
-<div id="fig-loss-landscapes" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two conceptual loss landscapes compare a convex bowl with a nonconvex curve containing a global minimum and a higher local minimum." data-fig-align="center">
+<div id="fig-loss-landscapes" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Two conceptual loss landscapes compare a convex bowl with a nonconvex curve containing a global minimum and a higher local minimum.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-loss-landscapes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-04/loss-landscapes.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Two conceptual loss landscapes compare a convex bowl with a nonconvex curve containing a global minimum and a higher local minimum.">
@@ -627,7 +627,7 @@ Figure&nbsp;2: For a convex objective, every local minimum is global. A nonconve
 =\boldsymbol\theta_t-\alpha\nabla L(\boldsymbol\theta_t),
 \]</span></p>
 <p>where <span class="math inline">\(\alpha&gt;0\)</span> is the learning rate. It controls how far the parameters move at each update.</p>
-<div id="fig-learning-rate" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Three conceptual loss curves compare learning rates that are very small, useful, and overly large." data-fig-align="center">
+<div id="fig-learning-rate" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Three conceptual loss curves compare learning rates that are very small, useful, and overly large.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-learning-rate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../assets/lecture-notes/lecture-04/learning-rate.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Three conceptual loss curves compare learning rates that are very small, useful, and overly large.">
