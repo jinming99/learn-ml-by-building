@@ -5,7 +5,7 @@ subtitle: "Finding Groups in Unsupervised Learning"
 
 ## Overview
 
-In this lecture, we explore K-Means clustering - one of the most fundamental unsupervised learning algorithms for discovering hidden patterns and structures in unlabeled data. Unlike supervised learning where labels guide us, clustering reveals natural groupings purely from data patterns. We'll build K-Means from scratch to understand its inner workings, apply it to real-world text data, learn how to evaluate and optimize clustering results, and understand when K-Means excels and when alternative methods are needed.
+K-means finds compact groups in a chosen representation. We trace its assignment and mean updates, compare starting points, and ask what cohesion, separation, silhouette and ARI actually measure. A real document example shows why a convincing cluster can reflect repeated wording rather than the topic we hoped to discover.
 
 ## Learning Objectives
 
@@ -15,15 +15,17 @@ By the end of this lecture, you will:
 - Master the K-Means algorithm, including its objective function (WCSS) and iterative optimization
 - Implement K-Means from scratch to understand the assignment and update steps
 - Apply K-Means to text data using TF-IDF transformation
-- Evaluate clustering quality using silhouette score, Davies-Bouldin index, and Calinski-Harabasz score
-- Choose optimal K using the elbow method and silhouette analysis
-- Use K-Means variants (MiniBatch K-Means, K-Means++) for improved performance
+- Distinguish geometric quality (silhouette) from agreement with reference labels (ARI)
+- Use cost, silhouette and inspection to evaluate choices of K without assuming a decisive elbow
+- Explain and test K-Means++ initialization
 - Recognize K-Means limitations (spherical clusters, fixed K) and when to use alternative methods
 
 ## Materials
 
 ::: {.callout-tip}
 ## Quick Access
+**[Read the lecture notes](../notes/11-k-means.qmd)**
+
 **[K-Means Clustering Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2011%20K-Means/11-KMeans.ipynb)**
 :::
 

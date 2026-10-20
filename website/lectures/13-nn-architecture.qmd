@@ -12,24 +12,26 @@ Linear models struggle with non-linear patterns, as seen in classic datasets lik
 By the end of this lecture, you will be able to:
 
 - Understand why non-linear activation functions are essential for neural networks
-- Build multi-layer perceptrons (MLPs) from scratch using PyTorch
+- Build multi-layer perceptrons (MLPs) using PyTorch layers
 - Trace forward propagation through a network step-by-step
 - Explain backpropagation intuitively and implement gradient checking
 - Train neural networks on real-world datasets (CIFAR-10)
-- Apply modern practices like proper initialization and optimization
+- Diagnose initialization and compare generalization using both accuracy and cross-entropy
 
 ## Materials
 
 ::: {.callout-tip}
 ## Quick Access
+**[Read the lecture notes](../notes/13-fully-connected-neural-networks.qmd)**
+
 **[Neural Network Architecture Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2013%20NN%20Architecture/13-FCNeuralNet.ipynb)**
 :::
 
 ## Datasets & Acknowledgments
 
 - **CIFAR-10** (Krizhevsky et al.): 60k 32×32 color images across 10 classes, accessed via `torchvision.datasets.CIFAR10`
-- **Synthetic datasets**: Two moons, circles for illustrating non-linear decision boundaries (`sklearn.datasets.make_moons`, `make_circles`)
-- **Libraries**: PyTorch/torchvision, scikit-learn, matplotlib, seaborn, ipywidgets
+- **Synthetic data**: Two moons for decision boundaries and width comparisons; random inputs for initialization diagnostics
+- **Libraries**: PyTorch/torchvision, scikit-learn, NumPy, Matplotlib
 - **Figures/visualizations**: Decision boundaries, activation functions, and architecture diagrams generated programmatically in the notebook
 
 ---

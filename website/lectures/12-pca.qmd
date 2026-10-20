@@ -5,23 +5,25 @@ subtitle: "Dimensionality Reduction for Visualization and Understanding"
 
 ## Overview
 
-High-dimensional data is everywhere in machine learning: text embeddings with hundreds of dimensions, images with thousands of pixels, genomic data with tens of thousands of features. But humans can only visualize 2D or 3D spaces. This lecture introduces dimensionality reduction (DR) techniques that compress high-dimensional data while preserving important relationships. We start with Principal Component Analysis (PCA), the foundational linear method that finds directions of maximum variance. Then we explore advanced nonlinear visualization tools like t-SNE and UMAP that excel at revealing local clusters and patterns. Finally, we apply these methods to a real challenge: distinguishing AI-generated text from human writing using embeddings from the DAIGT dataset.
+PCA compresses data by retaining variance and minimizing squared reconstruction error. We connect the geometry to centered SVD, then test what changes when useful class information has low variance. Nonlinear maps and real essay embeddings show why visible islands, word associations and authorship predictions need careful interpretation.
 
 ## Learning Objectives
 
 By the end of this lecture, you will:
 
 - Explain PCA geometrically and understand how it finds directions of maximum variance for data compression
-- Recognize PCA's limitations and know when it works well (linear structure, global relationships) versus when it fails (nonlinear manifolds, local clusters)
-- Choose appropriate DR methods by selecting between PCA and advanced nonlinear tools (t-SNE, UMAP) based on whether you need global structure or local cluster visualization
+- Implement centered PCA with SVD and distinguish retained variance from predictive information
+- Explain how t-SNE and UMAP emphasize neighborhoods, and inspect the effects of their settings
 - Interpret DR visualizations critically, understanding what relationships are preserved and what might be artifacts
-- Apply DR to real data using the full pipeline (embedding → PCA → nonlinear DR → clustering) on text data while avoiding common pitfalls like text length leakage
+- Analyze real essay embeddings while checking prompt, length and recorded-origin associations
 - Optimize DR workflows by using PCA preprocessing to speed up nonlinear methods and choosing appropriate hyperparameters
 
 ## Materials
 
 ::: {.callout-tip}
 ## Quick Access
+**[Read the lecture notes](../notes/12-pca-and-dimensionality-reduction.qmd)**
+
 **[PCA and Dimensionality Reduction Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2012%20PCA/12-PCA.ipynb)**
 :::
 
@@ -29,7 +31,7 @@ By the end of this lecture, you will:
 
 - **DAIGT V3** (thedrcat, Kaggle): Detecting AI Generated Text dataset with 130k texts, used to demonstrate real-world DR applications for distinguishing AI vs. human writing
 - **Mammoth 3D** (PaCMAP repository): 10k-point digitization of mammoth skeleton for testing global structure preservation
-- **Synthetic datasets**: Circles, moons, and swiss roll for demonstrating nonlinear structure
+- **Synthetic datasets**: Projection clouds, class-signal examples and a Swiss roll
 - **Libraries**: scikit-learn (PCA, t-SNE), UMAP-learn, sentence-transformers (text embeddings)
 - **Methodology inspiration**: Yang Lu (uwyang), ["Visualizing AI v.s. Human writing embeddings using TSNE for AI detection (Part 1/n)"](https://medium.com/@uwyang/visualizing-ai-v-s-human-writing-embeddings-using-tsne-for-ai-detection-part-1-n-5df14ef9e6ef) — our analysis follows similar preprocessing and visualization techniques
 - **Key papers**: [van der Maaten & Hinton (2008)](https://jmlr.org/papers/v9/vandermaaten08a.html) for t-SNE, [McInnes et al. (2018)](https://arxiv.org/abs/1802.03426) for UMAP
