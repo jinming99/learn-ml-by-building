@@ -24,7 +24,7 @@ By the end of this lecture, you will:
 ## Quick Access
 **[Read the lecture notes](../notes/12-pca-and-dimensionality-reduction.qmd)**
 
-**[PCA and Dimensionality Reduction Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2012%20PCA/12-PCA.ipynb)**
+**[PCA and Dimensionality Reduction Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2012%20PCA/12-PCA.ipynb)**
 :::
 
 ## Datasets & Acknowledgments

@@ -26,7 +26,7 @@ By the end of this lecture, you will:
 ## Quick Access
 **[Read the lecture notes](../notes/11-k-means.qmd)**
 
-**[K-Means Clustering Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2011%20K-Means/11-KMeans.ipynb)**
+**[K-Means Clustering Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2011%20K-Means/11-KMeans.ipynb)**
 :::
 
 ## Datasets & Acknowledgments

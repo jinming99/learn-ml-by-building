@@ -21,7 +21,7 @@ By the end of this lecture, you will:
 ::: {.callout-tip}
 ### Quick Access
 
-- [Overfitting & Regularization Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%207%20Regularization%20and%20Generalization/07-Overfitting-Regularization.ipynb)
+- [Overfitting & Regularization Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%207%20Regularization%20and%20Generalization/07-Overfitting-Regularization.ipynb)
 - [Lecture notes](../notes/07-regularization-and-generalization.qmd)
 :::
 

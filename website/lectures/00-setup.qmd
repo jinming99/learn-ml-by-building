@@ -14,15 +14,15 @@ subtitle: "Getting Your ML Development Environment Ready"
 
 :::{.callout-tip}
 ## Quick Access
-**[Setup Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%200%20Environment%20Setup/00-Environment-Setup.ipynb)**  
-**[Open in Colab](https://colab.research.google.com/github/jinming99/learn-ml-by-building/blob/main/Lecture%200%20Environment%20Setup/00-Environment-Setup.ipynb)**  
-**[Lecture Folder](https://github.com/jinming99/learn-ml-by-building/tree/main/Lecture%200%20Environment%20Setup)**
+**[Setup Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%200%20Environment%20Setup/00-Environment-Setup.ipynb)**  
+**[Open in Colab](https://colab.research.google.com/github/sage-ai-group/learn-ml-by-building/blob/main/Lecture%200%20Environment%20Setup/00-Environment-Setup.ipynb)**  
+**[Lecture Folder](https://github.com/sage-ai-group/learn-ml-by-building/tree/main/Lecture%200%20Environment%20Setup)**
 :::
 
 
 ## Pre-Class Preparation
 
-1. Complete environment setup: [Setup Guide (SETUP.md)](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%200%20Environment%20Setup/SETUP.md)
+1. Complete environment setup: [Setup Guide (SETUP.md)](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%200%20Environment%20Setup/SETUP.md)
 2. Run through the setup notebook
 3. Contact the course team if you encounter setup issues
 

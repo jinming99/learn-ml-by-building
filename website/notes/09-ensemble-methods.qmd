@@ -134,7 +134,7 @@ Within-member uncertainty is often associated with *aleatoric* uncertainty (ambi
 
 Agreement can also be confidently wrong. In another selected validation image, all five heads choose bird and the mean exceeds 99.9%, while the dataset label is dog. The mismatch calls for inspecting both the image and its label. Neither agreement nor probability averaging guarantees correctness or calibration.
 
-**Evidence and reading.** [Lecture 9 notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%209%20Ensemble%20Methods/09-Ensemble-Methods.ipynb); [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html); [Lakshminarayanan et al. (2017), deep ensembles](https://proceedings.neurips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html). Selected images explain mechanisms; they do not estimate how often those situations occur.
+**Evidence and reading.** [Lecture 9 notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%209%20Ensemble%20Methods/09-Ensemble-Methods.ipynb); [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html); [Lakshminarayanan et al. (2017), deep ensembles](https://proceedings.neurips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html). Selected images explain mechanisms; they do not estimate how often those situations occur.
 
 **Acknowledgment.** Prepared for instructor review from the instructor's handwritten notes, supporting lecture transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.
 

@@ -23,7 +23,7 @@ By the end of this lecture, you will be able to:
 
 ::: {.callout-tip}
 ## Quick Access
-**[Transformers Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2014%20Transformers/14-Transformers.ipynb)**
+**[Transformers Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2014%20Transformers/14-Transformers.ipynb)**
 :::
 
 ## Connection to Project 2

@@ -21,7 +21,7 @@ By the end of this lecture, you will be able to:
 
 ::: {.callout-tip}
 ## Quick Access
-**[LLM Agents & Tool Use Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2017%20LLM%20Agents/17_llm_agents.ipynb)**
+**[LLM Agents & Tool Use Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2017%20LLM%20Agents/17_llm_agents.ipynb)**
 :::
 
 ## Resources

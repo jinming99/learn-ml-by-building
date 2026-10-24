@@ -28,11 +28,11 @@ By completing this project, you will:
 
 :::{.callout-tip}
 ## Quick Access
-**[Project Notebook (GitHub)](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%201%20KNN%20Music%20Recommender/p01-Music-Recommender.ipynb)** — Complete implementation guide and assignment
+**[Project Notebook (GitHub)](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Project%201%20KNN%20Music%20Recommender/p01-Music-Recommender.ipynb)** — Complete implementation guide and assignment
 
-**[Project Folder](https://github.com/jinming99/learn-ml-by-building/tree/main/Project%201%20KNN%20Music%20Recommender)** — Full codebase with web application
+**[Project Folder](https://github.com/sage-ai-group/learn-ml-by-building/tree/main/Project%201%20KNN%20Music%20Recommender)** — Full codebase with web application
 
-**[Live Demo (Static UI)](https://jinming.tech/learn-ml-by-building/demos/p1-music/)** — UI preview only (no backend)
+**[Live Demo (Static UI)](https://sage-ai-group.github.io/learn-ml-by-building/demos/p1-music/)** — UI preview only (no backend)
 :::
 
 :::{.callout-important collapse=false}

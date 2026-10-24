@@ -22,7 +22,7 @@ By the end of this lecture, you will:
 
 ::: {.callout-tip}
 ## Quick Access
-**[Model Evaluation and Data Deception Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%206%20Evaluation%20Pitfalls%20and%20Data%20Visualization/06-ModelEval.ipynb)**
+**[Model Evaluation and Data Deception Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%206%20Evaluation%20Pitfalls%20and%20Data%20Visualization/06-ModelEval.ipynb)**
 
 [Lecture notes](../notes/06-evaluation-pitfalls-and-data-visualization.qmd)
 :::

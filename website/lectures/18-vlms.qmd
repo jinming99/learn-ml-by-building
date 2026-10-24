@@ -22,7 +22,7 @@ By the end of this lecture, you will be able to:
 
 ::: {.callout-tip}
 ## Quick Access
-**[Vision-Language Models Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2018%20VLMs/18_vlms.ipynb)**
+**[Vision-Language Models Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2018%20VLMs/18_vlms.ipynb)**
 :::
 
 ## Resources & Acknowledgements

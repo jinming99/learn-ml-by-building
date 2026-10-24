@@ -26,9 +26,9 @@ By the end of this lecture, you will:
 
 ::: {.callout-tip}
 ## Quick Access
-**[Lecture notes](../notes/10-gaussian-processes-and-kernel-methods.qmd)** · [PDF version](https://github.com/jinming99/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-10-gaussian-processes-and-kernel-methods.pdf)
+**[Lecture notes](../notes/10-gaussian-processes-and-kernel-methods.qmd)** · [PDF version](https://github.com/sage-ai-group/learn-ml-by-building/raw/main/Lecture%20Notes/lecture-10-gaussian-processes-and-kernel-methods.pdf)
 
-**[Gaussian Processes & Kernel Methods notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb)**
+**[Gaussian Processes & Kernel Methods notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb)**
 :::
 
 ## Datasets & Acknowledgments

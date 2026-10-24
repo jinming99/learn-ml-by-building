@@ -418,7 +418,7 @@ Start with a simple eligible-candidate baseline, then compare unweighted Euclide
 
 - T. Cover and P. Hart, ["Nearest Neighbor Pattern Classification"](https://doi.org/10.1109/TIT.1967.1053964), 1967.
 - [scikit-learn: Nearest Neighbors User Guide](https://scikit-learn.org/stable/modules/neighbors.html).
-- Course notebook: [`02-KNN.ipynb`](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb).
+- Course notebook: [`02-KNN.ipynb`](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%202%20KNN/02-KNN.ipynb).
 
 ::: {.small .text-muted}
 **Acknowledgment.** These notes are based on the instructor's handwritten notes and transcripts of lecture discussions and were editorially polished and typeset with assistance from OpenAI Codex and Anthropic Claude. The instructor reviewed and is responsible for the final content.

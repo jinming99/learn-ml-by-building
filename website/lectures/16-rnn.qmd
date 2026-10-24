@@ -22,7 +22,7 @@ By the end of this lecture, you will be able to:
 
 ::: {.callout-tip}
 ## Quick Access
-**[RNN & Language Models Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2016%20RNN%20and%20Recurrent%20Language%20Models/16_RNN.ipynb)**
+**[RNN & Language Models Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2016%20RNN%20and%20Recurrent%20Language%20Models/16_RNN.ipynb)**
 :::
 
 ## Resources

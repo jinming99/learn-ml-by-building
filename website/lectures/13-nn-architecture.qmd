@@ -24,7 +24,7 @@ By the end of this lecture, you will be able to:
 ## Quick Access
 **[Read the lecture notes](../notes/13-fully-connected-neural-networks.qmd)**
 
-**[Neural Network Architecture Notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2013%20NN%20Architecture/13-FCNeuralNet.ipynb)**
+**[Neural Network Architecture Notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2013%20NN%20Architecture/13-FCNeuralNet.ipynb)**
 :::
 
 ## Datasets & Acknowledgments

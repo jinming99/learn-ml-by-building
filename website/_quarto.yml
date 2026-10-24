@@ -18,8 +18,8 @@ project:
 website:
   title: "ECE 4424/CS 4824: Machine Learning"
   description: "Learn ML by Building · Fall 2026"
-  site-url: https://jinming.tech/learn-ml-by-building/
-  repo-url: https://github.com/jinming99/learn-ml-by-building
+  site-url: https://sage-ai-group.github.io/learn-ml-by-building/
+  repo-url: https://github.com/sage-ai-group/learn-ml-by-building
   repo-actions: []
   
   navbar:
@@ -48,7 +48,7 @@ website:
         href: resources.qmd
     right:
       - icon: github
-        href: https://github.com/jinming99/learn-ml-by-building
+        href: https://github.com/sage-ai-group/learn-ml-by-building
 
       - text: "Canvas"
         href: https://canvas.vt.edu/

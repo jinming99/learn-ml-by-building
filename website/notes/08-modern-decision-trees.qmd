@@ -112,6 +112,6 @@ The soft tree improves these scores, but this does not isolate softness or estab
 
 A differentiable feature extractor can feed the soft tree, letting prediction-loss gradients update both. This input--features--tree--prediction chain is trainable end to end, but learned features and oblique questions can reduce interpretability.
 
-**Evidence and reading.** [Lecture 8 notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%208%20Modern%20Decision%20Trees/08-DecisionTrees-ModernView.ipynb); [Home Credit data](https://www.kaggle.com/competitions/home-credit-default-risk/data); [Frosst & Hinton (2017), soft decision trees](https://arxiv.org/abs/1711.09784). These historical data are classroom examples, not a lending policy.
+**Evidence and reading.** [Lecture 8 notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%208%20Modern%20Decision%20Trees/08-DecisionTrees-ModernView.ipynb); [Home Credit data](https://www.kaggle.com/competitions/home-credit-default-risk/data); [Frosst & Hinton (2017), soft decision trees](https://arxiv.org/abs/1711.09784). These historical data are classroom examples, not a lending policy.
 
 **Acknowledgment.** Prepared for instructor review from the instructor's handwritten notes, supporting lecture transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.

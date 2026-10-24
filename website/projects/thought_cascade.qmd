@@ -27,8 +27,8 @@ By completing this project, you will:
 
 :::{.callout-tip}
 ## Quick Access
-**[Project Notebook (GitHub)](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%203%20Thought%20Cascade/p03_Thought_Cascade.ipynb)** — Complete implementation guide and assignment  
-**[Setup Guide](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%203%20Thought%20Cascade/README.md)** — Local setup instructions
+**[Project Notebook (GitHub)](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Project%203%20Thought%20Cascade/p03_Thought_Cascade.ipynb)** — Complete implementation guide and assignment  
+**[Setup Guide](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Project%203%20Thought%20Cascade/README.md)** — Local setup instructions
 :::
 
 :::{.callout-important collapse=false}

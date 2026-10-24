@@ -190,7 +190,7 @@ At 32 measurements, median held-out RMSE is 0.86 ppm for GP-guided sampling an
 
 With covariance and noise settings fixed, the query ranking depends on measured *locations*, not their concentration values, and can be planned in advance. An unsuitable kernel can guide it badly. This experiment reconstructs an existing record; it does not test future scheduling or guarantee an advantage on every dataset.
 
-**Evidence and reading.** [Lecture 10 notebook](https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb); [Scripps CO~2~ record](https://scrippsco2.ucsd.edu/data/primary-mauna-loa-co2-record/); [Rasmussen & Williams (2006), chapters 2 and 4](https://gaussianprocess.org/gpml/); [Schulz, Speekenbrink & Krause (2018), GP tutorial](https://discovery.ucl.ac.uk/id/eprint/10050029/).
+**Evidence and reading.** [Lecture 10 notebook](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb); [Scripps CO~2~ record](https://scrippsco2.ucsd.edu/data/primary-mauna-loa-co2-record/); [Rasmussen & Williams (2006), chapters 2 and 4](https://gaussianprocess.org/gpml/); [Schulz, Speekenbrink & Krause (2018), GP tutorial](https://discovery.ucl.ac.uk/id/eprint/10050029/).
 
 **Acknowledgment.** Prepared for instructor review from the instructor's handwritten notes, supporting lecture transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.
 

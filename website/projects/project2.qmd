@@ -29,9 +29,9 @@ By completing this project, you will:
 
 :::{.callout-tip}
 ## Quick Access
-**[Project Notebook (GitHub)](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology/Neural_Archaeology_Student.ipynb)** — Complete implementation guide and assignment
+**[Project Notebook (GitHub)](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology/Neural_Archaeology_Student.ipynb)** — Complete implementation guide and assignment
 
-**[Setup Guide](https://github.com/jinming99/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology/README.md)** — Colab and local setup instructions
+**[Setup Guide](https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Project%202%20Neural%20Archaeology/README.md)** — Colab and local setup instructions
 :::
 
 :::{.callout-important collapse=false}
