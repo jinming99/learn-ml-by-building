@@ -173,7 +173,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/jinming99/learn-ml-by-building"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/sage-ai-group/learn-ml-by-building"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -639,7 +639,7 @@ Figure 5. Numerical illustration, not a fitted applicant. Multiply along each pa
 <p><strong>Table 2.</strong> Verified test results. Average precision (AP) measures ranking; log loss and Brier score evaluate probabilities. Equal leaf counts do not mean equal capacity: soft gates combine all ten features.</p>
 <p>The soft tree improves these scores, but this does not isolate softness or establish a universal winner. The notebook’s hard-routing switch isolates routing more directly by fixing the learned gates and leaves.</p>
 <p>A differentiable feature extractor can feed the soft tree, letting prediction-loss gradients update both. This input–features–tree–prediction chain is trainable end to end, but learned features and oblique questions can reduce interpretability.</p>
-<p><strong>Evidence and reading.</strong> <a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%208%20Modern%20Decision%20Trees/08-DecisionTrees-ModernView.ipynb">Lecture 8 notebook</a>; <a href="https://www.kaggle.com/competitions/home-credit-default-risk/data">Home Credit data</a>; <a href="https://arxiv.org/abs/1711.09784">Frosst &amp; Hinton (2017), soft decision trees</a>. These historical data are classroom examples, not a lending policy.</p>
+<p><strong>Evidence and reading.</strong> <a href="https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%208%20Modern%20Decision%20Trees/08-DecisionTrees-ModernView.ipynb">Lecture 8 notebook</a>; <a href="https://www.kaggle.com/competitions/home-credit-default-risk/data">Home Credit data</a>; <a href="https://arxiv.org/abs/1711.09784">Frosst &amp; Hinton (2017), soft decision trees</a>. These historical data are classroom examples, not a lending policy.</p>
 <p><strong>Acknowledgment.</strong> Prepared for instructor review from the instructor’s handwritten notes, supporting lecture transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.</p>
 
 
@@ -719,7 +719,7 @@ Figure 5. Numerical illustration, not a fitted applicant. Multiply along each pa
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/jinming\.tech\/learn-ml-by-building\/");
+        var filterRegex = new RegExp("https:\/\/sage-ai-group\.github\.io\/learn-ml-by-building\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

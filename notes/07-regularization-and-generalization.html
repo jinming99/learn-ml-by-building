@@ -173,7 +173,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/jinming99/learn-ml-by-building"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/sage-ai-group/learn-ml-by-building"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -793,7 +793,7 @@ Figure 5. Conceptual ablation design. A filled circle means the component is pre
 <p>A positive <span class="math inline">\(\Delta_A\)</span> means that including <span class="math inline">\(A\)</span> helps <em>in the presence of <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span></em>, under this evaluation. For a loss, reverse the subtraction so a positive change still denotes a benefit. Keep the data split, metric, tuning policy, and training budget comparable; paired seeds help separate the component’s effect from training randomness.</p>
 <p>Interactions matter. Two components may be substitutes or work well only together, so the drop-one-out effects need not sum to the full system’s gain over baseline. A small ablation effect does not establish that a component is useless in every configuration. If removing a component triggers retuning, state that explicitly: it answers a different question from a fixed-settings ablation.</p>
 <p>The notebook’s separate L1, L2, smoothing, and mixup comparisons isolate individual changes relative to their stated references; they are not a completed full-system ablation. The noisy-label example also shows why a strong baseline matters: comparing mixup only with a late, overfitted checkpoint would omit the competitive earlier checkpoint.</p>
-<p><strong>Further reading and evidence.</strong> The <a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%207%20Regularization%20and%20Generalization/07-Overfitting-Regularization.ipynb">Lecture 7 notebook</a> contains the code and full experiment outputs. Numerical results here correspond to the locally verified September 23–24 run; seeds and finite validation samples do not establish universal effects. Data: <a href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a>. Method: Zhang et al., <a href="https://arxiv.org/abs/1710.09412"><em>mixup: Beyond Empirical Risk Minimization</em></a>. Cybersecurity connection: <a href="https://ieeexplore.ieee.org/document/10738025/"><em>Zero-day Attack Detection in Digital Substations using In-Context Learning</em></a>. The clothing experiment does not establish that paper’s application-specific claims.</p>
+<p><strong>Further reading and evidence.</strong> The <a href="https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%207%20Regularization%20and%20Generalization/07-Overfitting-Regularization.ipynb">Lecture 7 notebook</a> contains the code and full experiment outputs. Numerical results here correspond to the locally verified September 23–24 run; seeds and finite validation samples do not establish universal effects. Data: <a href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a>. Method: Zhang et al., <a href="https://arxiv.org/abs/1710.09412"><em>mixup: Beyond Empirical Risk Minimization</em></a>. Cybersecurity connection: <a href="https://ieeexplore.ieee.org/document/10738025/"><em>Zero-day Attack Detection in Digital Substations using In-Context Learning</em></a>. The clothing experiment does not establish that paper’s application-specific claims.</p>
 <p><strong>Acknowledgment.</strong> Prepared for instructor review from the instructor’s handwritten notes, lecture discussion transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.</p>
 <p><strong>In one sentence:</strong> use held-out evidence to distinguish fitting from generalizing, and use controlled comparisons to establish what each intervention actually improves.</p>
 
@@ -874,7 +874,7 @@ Figure 5. Conceptual ablation design. A filled circle means the component is pre
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/jinming\.tech\/learn-ml-by-building\/");
+        var filterRegex = new RegExp("https:\/\/sage-ai-group\.github\.io\/learn-ml-by-building\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

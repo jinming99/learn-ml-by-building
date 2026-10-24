@@ -173,7 +173,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/jinming99/learn-ml-by-building"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/sage-ai-group/learn-ml-by-building"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -666,7 +666,7 @@ Figure 6. Real notebook results at equal measurement budgets. The fits use the f
 </figure>
 <p>At 32 measurements, median held-out RMSE is 0.86 ppm for GP-guided sampling and 1.79 ppm for random sampling, about 52% lower. GP-guided sampling wins 28 of 30 paired trials by covering informative gaps. The curves retain the actual fluctuations: more measurements need not lower realized error at every step.</p>
 <p>With covariance and noise settings fixed, the query ranking depends on measured <em>locations</em>, not their concentration values, and can be planned in advance. An unsuitable kernel can guide it badly. This experiment reconstructs an existing record; it does not test future scheduling or guarantee an advantage on every dataset.</p>
-<p><strong>Evidence and reading.</strong> <a href="https://github.com/jinming99/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb">Lecture 10 notebook</a>; <a href="https://scrippsco2.ucsd.edu/data/primary-mauna-loa-co2-record/">Scripps CO<sub>2</sub> record</a>; <a href="https://gaussianprocess.org/gpml/">Rasmussen &amp; Williams (2006), chapters 2 and 4</a>; <a href="https://discovery.ucl.ac.uk/id/eprint/10050029/">Schulz, Speekenbrink &amp; Krause (2018), GP tutorial</a>.</p>
+<p><strong>Evidence and reading.</strong> <a href="https://github.com/sage-ai-group/learn-ml-by-building/blob/main/Lecture%2010%20Kernel%20Methods/10-GP-Kernel-Methods.ipynb">Lecture 10 notebook</a>; <a href="https://scrippsco2.ucsd.edu/data/primary-mauna-loa-co2-record/">Scripps CO<sub>2</sub> record</a>; <a href="https://gaussianprocess.org/gpml/">Rasmussen &amp; Williams (2006), chapters 2 and 4</a>; <a href="https://discovery.ucl.ac.uk/id/eprint/10050029/">Schulz, Speekenbrink &amp; Krause (2018), GP tutorial</a>.</p>
 <p><strong>Acknowledgment.</strong> Prepared for instructor review from the instructor’s handwritten notes, supporting lecture transcript, and current notebook, with editorial and typesetting assistance from OpenAI Codex.</p>
 <p><strong>In one sentence:</strong> a GP turns a kernel’s assumptions into a distribution over functions, updates it with evidence, and uses the resulting uncertainty for prediction and data collection while leaving those assumptions open to evaluation.</p>
 
@@ -747,7 +747,7 @@ Figure 6. Real notebook results at equal measurement budgets. The fits use the f
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/jinming\.tech\/learn-ml-by-building\/");
+        var filterRegex = new RegExp("https:\/\/sage-ai-group\.github\.io\/learn-ml-by-building\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
